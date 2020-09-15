@@ -26,13 +26,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Transactional(readOnly = true)
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 		Usuario user = service.buscaPeloLogin(login);
-		System.out.println(user);
+//		System.out.println(user);
 		if (user == null) throw new UsernameNotFoundException(login); {
 			Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 			for (Permissao role : user.getGrupo().getPermissoes()) {
 				grantedAuthorities.add(new SimpleGrantedAuthority(role.getNome()));
 			}
-			System.out.println("Permissões: " + grantedAuthorities);
+//			System.out.println("Permissões: " + grantedAuthorities);
 			return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getSenha(), grantedAuthorities);
 		}
 	}

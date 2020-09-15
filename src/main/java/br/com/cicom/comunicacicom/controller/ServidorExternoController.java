@@ -217,7 +217,7 @@ public class ServidorExternoController {
 			int i = 0;
 			for (ServidorExterno servExt : servicoServidorExterno.listarTodos()) {
 				
-				System.out.println("Esta em -> "+i);
+//				System.out.println("Esta em -> "+i);
 				i++;
 				if (!listaServidor.contains(servExt)) {
 					servExt.setAtivo(false);

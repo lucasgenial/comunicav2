@@ -142,8 +142,8 @@ public interface Importacao {
 					return (Cecoco) serviceCicom23.buscaPorIdeEstabelecimento(id, estabelecimento.longValue()).get(0);
 			}		
 		} catch (Exception e) {
-			System.out.println("Importação - Erro: " + e.getMessage());
-			System.out.println(e);
+//			System.out.println("Importação - Erro: " + e.getMessage());
+//			System.out.println(e);
 			return retorno;
 		}
 		return retorno;
@@ -156,7 +156,7 @@ public interface Importacao {
 
 		try {
 			Integer idCidade = 0, idLocalidade = 0, idBairro = 0;
-			System.out.print("Convertendo: " + importa.getId());
+//			System.out.print("Convertendo: " + importa.getId());
 			ocorrencia.setSic(Long.toString(importa.getId()));
 			ocorrencia.setTipificacao(serviceTipificacao.buscaPorNome(importa.getTipo()));
 			ocorrencia.setDataOcorrencia(LocalDateTime.of(importa.getDatainicio(), importa.getHorainicio()));
@@ -165,23 +165,23 @@ public interface Importacao {
 			ocorrencia.setEstadoOcorrencia(serviceEstadoOcorrencia.buscaPorId(importa.getEstado() + 1).get());
 			if (!importa.getDescricao().isEmpty()) {
 				ocorrencia.setDescricao(importa.getDescricao());
-				System.out.print(" -->Descrição ");
+//				System.out.print(" -->Descrição ");
 			}
 			if (!importa.getHistorico().isEmpty()) {
 				ocorrencia.setHistorico(importa.getHistorico());
-				System.out.print(" -->Histórico ");
+//				System.out.print(" -->Histórico ");
 			}
 			Endereco endereco = new Endereco();
 			if (!importa.getEndereco().isEmpty()) {
 				endereco.setRua(importa.getEndereco());
-				System.out.print(" -->Logradouro ");
+//				System.out.print(" -->Logradouro ");
 			}
 			if (!importa.getPontoreferencia().isEmpty()) {
 				endereco.setReferencia(importa.getPontoreferencia());
-				System.out.print(" -->Referencia ");
+//				System.out.print(" -->Referencia ");
 			}
 			if (!importa.getCidade().isEmpty()) {
-				System.out.println("Verificando a Cidade");
+//				System.out.println("Verificando a Cidade");
 				String cidadeStr = limpaFrase(importa.getCidade());
 				List<Cidade> cidades = new ArrayList<>();
 				cidades = serviceEstabelecimento.listaDeCidades(importa.getEstabelecimento());
@@ -190,7 +190,7 @@ public interface Importacao {
 					if (cidades.get(c).getNome().equals(cidadeStr)) {
 						//endereco.setCidade(cidades.get(c));
 						idCidade = cidades.get(c).getId().intValue();
-						System.out.println(" -->Cidade " + idCidade + "/" + cidades.get(c).getNome());
+//						System.out.println(" -->Cidade " + idCidade + "/" + cidades.get(c).getNome());
 						break;
 					}
 					c++;
@@ -212,31 +212,31 @@ public interface Importacao {
 //						b++;
 //					}
 					if ( !localidadeStr.isEmpty() && !idBairro.equals(0) ) {
-						System.out.println("Verificando a localidade");
+//						System.out.println("Verificando a localidade");
 						List<Localidade> localidades = new ArrayList<>( serviceCidade.buscaPorId(idCidade.longValue()).get().getLocalidades() );
-						System.out.println(localidades.size());
+//						System.out.println(localidades.size());
 						int l = 0;
 						while (l <= localidades.size() - 1) {
 							if ( localidades.get(l).getNome().equals(localidadeStr) && localidades.get(l).getBairros().get(idBairro).getNome().equals(bairroStr) ) {
 								idLocalidade = localidades.get(l).getId().intValue();
 								endereco.setBairro(localidades.get(l).getBairros().get(idBairro));
 								endereco.setCidade(endereco.getBairro().getLocalidade().getCidade());
-								System.out.println(endereco);
+//								System.out.println(endereco);
 								break;
 							}
 							l++;
 						}
 					} else
 						if (localidadeStr.isEmpty()) {
-							System.out.println("Sem localidade");
+//							System.out.println("Sem localidade");
 							List<Localidade> localidades = new ArrayList<>(  serviceCidade.buscaPorId(idCidade.longValue()).get().getLocalidades()  );
-							System.out.println(localidades.size());
+//							System.out.println(localidades.size());
 							int l = 0;
 							while (l <= localidades.size() - 1) {
 								if (localidades.get(l).getNome().equals("SEDE") ) {
 									//endereco.getBairro().setLocalidade(localidades.get(l));
 									idLocalidade = localidades.get(l).getId().intValue();
-									System.out.println(" -->Localidade " + idLocalidade + "/" + localidades.get(l).getNome());
+//									System.out.println(" -->Localidade " + idLocalidade + "/" + localidades.get(l).getNome());
 									List<Bairro> bairros = new ArrayList<>( localidades.get(l).getBairros() );
 									bairros = localidades.get(l).getBairros();
 									int b = 0;
@@ -245,7 +245,7 @@ public interface Importacao {
 											endereco.setBairro( bairros.get(b));
 											endereco.setCidade(endereco.getBairro().getLocalidade().getCidade());
 											idBairro = bairros.get(b).getId().intValue();
-											System.out.println(endereco);
+//											System.out.println(endereco);
 											break;
 										}
 										b++;
@@ -258,11 +258,11 @@ public interface Importacao {
 				}
 			}
 			ocorrencia.setEndereco(endereco);
-			System.out.println("Converção concluida: " + ocorrencia);
+//			System.out.println("Converção concluida: " + ocorrencia);
 			return ocorrencia;
 		} catch (Exception e) {
-			System.out.println("Converção Erro: " + e.getMessage());
-			System.out.println(e);
+//			System.out.println("Converção Erro: " + e.getMessage());
+//			System.out.println(e);
 			return ocorrencia;
 		}
 	}
@@ -340,7 +340,7 @@ public interface Importacao {
 				return (List<CecocoLog>) serviceCicom23Log.buscaTodosPorNumeroocorrencia(numeroocorrencia);
 			}
 		} catch (Exception e) {
-			System.out.println("Importa Log - Erro: " + e);
+//			System.out.println("Importa Log - Erro: " + e);
 		}
 		return cecocoLog;	
 		}
@@ -357,7 +357,7 @@ public interface Importacao {
 				listaocorrenciaLog.add(log);
 			}
 		} catch (Exception e) {
-			System.out.println("Converte Log - Erro: " + e.getMessage());
+//			System.out.println("Converte Log - Erro: " + e.getMessage());
 		}
 		return listaocorrenciaLog;
 	}

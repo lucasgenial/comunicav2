@@ -28,6 +28,4 @@ public class ComunicaCicomApplication extends SpringBootServletInitializer {
 	public LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
-	
-
 }

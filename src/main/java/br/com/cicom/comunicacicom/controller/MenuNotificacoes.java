@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import br.com.cicom.comunicacicom.DSPrimary.model.notificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
@@ -40,6 +41,7 @@ public class MenuNotificacoes {
 		}
 
 		model.addObject("usuario", user);
+		model.addObject("listaNotificacao", null);
 
 		if (!model.getModel().containsKey("estabelecimento")) {
 			model.addObject("estabelecimento", new Estabelecimento());
@@ -70,6 +72,8 @@ public class MenuNotificacoes {
 		}
 
 		model.addObject("usuario", user);
+		//Adiciona uma nova notificação na view
+		model.addObject("notificacao", new Notificacao());
 
 		if (!model.getModel().containsKey("estabelecimento")) {
 			model.addObject("estabelecimento", new Estabelecimento());

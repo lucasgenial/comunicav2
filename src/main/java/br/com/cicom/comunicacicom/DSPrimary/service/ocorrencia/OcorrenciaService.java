@@ -280,7 +280,7 @@ public class OcorrenciaService {
 
 						@Override
 						public Map<String, Object> apply(Ocorrencia ocorrencia) {
-							System.out.println("A letra " + a);
+//							System.out.println("A letra " + a);
 
 							Map<String, Object> mapa = new HashMap<>();
 							mapa.put("sic", ocorrencia.getSic());
@@ -306,7 +306,7 @@ public class OcorrenciaService {
 
 					@Override
 					public Map<String, Object> apply(Ocorrencia ocorrencia) {
-						System.out.println("A letra " + a);
+//						System.out.println("A letra " + a);
 						Map<String, Object> mapa = new HashMap<>();
 						mapa.put("sic", ocorrencia.getSic());
 						mapa.put("dataOcorrencia", ocorrencia.getDataOcorrencia());

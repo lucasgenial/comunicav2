@@ -231,11 +231,11 @@ public class PoliciamentoService {
 
 //	public List<DadosPoliciamentoDTO> buscarDadosParaGrafico(Estabelecimento estabelecimento) {
 //	 
-//		//List<Policiamento> listaDePoliciamento = repositorio.findAll(PoliciamentoEspecification.porEstabelecimento(estabelecimento).and(PoliciamentoEspecification.quandoAtivo()));
+//		List<Policiamento> listaDePoliciamento = repositorio.findAll(PoliciamentoEspecification.porEstabelecimento(estabelecimento).and(PoliciamentoEspecification.quandoAtivo()));
 //		List<Policiamento> listaDePoliciamento = repositorio.findAll(PoliciamentoEspecification.porEstabelecimento(estabelecimento));
 //		List<DadosPoliciamentoDTO> lista = new ArrayList<>();
 //		
-//		//System.out.println(listaDePoliciamento);
+//		System.out.println(listaDePoliciamento);
 //		
 //		for(Policiamento policiamento : listaDePoliciamento) {
 //			lista.add(new DadosPoliciamentoDTO(policiamento));
@@ -251,7 +251,7 @@ public class PoliciamentoService {
 	/*
 	 * public List<EfetivoPOJO>
 	 * buscaPoliciamentoAtivoPorEstabelecimento(Estabelecimento estabelecimentos) {
-	 * // TODO Auto-generated method stub
+	 * TODO Auto-generated method stub
 	 * 
 	 * return
 	 * repositorio.buscarPoliciamentoAtivoPorEstabelecimento(estabelecimentos); }

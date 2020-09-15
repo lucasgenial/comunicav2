@@ -29,7 +29,7 @@ public class EmailService {
 
 	public Email alterar(Long id, Email email) {
 		Email emailBanco = repositorio.findById(id).get();
-		System.out.println(emailBanco);
+//		System.out.println(emailBanco);
 		if (emailBanco == null) {
 			throw new EmptyResultDataAccessException(1);
 		}

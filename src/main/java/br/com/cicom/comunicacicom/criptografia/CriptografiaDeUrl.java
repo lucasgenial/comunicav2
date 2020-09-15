@@ -24,7 +24,6 @@ public class CriptografiaDeUrl {
 			url = url + pagina + "/";
 		}
 		return urlSemIds.replace(sufixo, sufixoCriptografado);
-
 	}
 	
 	public static String criptografarNumerosString(String urlSemIds) {
@@ -206,7 +205,7 @@ public class CriptografiaDeUrl {
 						
 					}else{
 						Collections.shuffle(listaD3);
-						//System.out.println("teste antes "+numerosAtivos.indexOf(criptografia.charAt(i)));
+//						System.out.println("teste antes "+numerosAtivos.indexOf(criptografia.charAt(i)));
 						numeros = numeros+listaD3.get(1)+numerosAtivos.indexOf(criptografia.charAt(i));
 					}
 					
@@ -240,7 +239,7 @@ public class CriptografiaDeUrl {
 				
 					if(Integer.valueOf(criptografia.charAt(i)) % 2 != 0 || Integer.valueOf(criptografia.charAt(i)) == 6){
 						if(Integer.valueOf(""+criptografia.charAt(i)) == 3 || Integer.valueOf(""+criptografia.charAt(i)) == 6 || Integer.valueOf(""+criptografia.charAt(i)) == 9) {
-							System.out.println("ativos - > "+numerosAtivos+"   criptografiaAt --> "+criptografia.charAt(listaDeIndices.get(apontador))+" valor ->"+Integer.valueOf(""+criptografia.charAt(listaDeIndices.get(apontador))));
+//							System.out.println("ativos - > "+numerosAtivos+"   criptografiaAt --> "+criptografia.charAt(listaDeIndices.get(apontador))+" valor ->"+Integer.valueOf(""+criptografia.charAt(listaDeIndices.get(apontador))));
 							numeros = numeros + numerosAtivos.charAt(Integer.valueOf(""+criptografia.charAt(listaDeIndices.get(apontador))));
 							apontador++;
 							i++;

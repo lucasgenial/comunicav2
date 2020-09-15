@@ -162,9 +162,9 @@ public class CadastroServidorExternoAoCicom {
 
 		Usuario user = servicoUsuario.buscaPeloLogin(SecurityContextHolder.getContext().getAuthentication().getName());
 		if (result.hasErrors() ) {
-				for (FieldError error : result.getFieldErrors()) {
-				System.out.println(error.getField() + ": " + error.getDefaultMessage());
-			}
+//				for (FieldError error : result.getFieldErrors()) {
+//				System.out.println(error.getField() + ": " + error.getDefaultMessage());
+//			}
 			redirectAttributes.addFlashAttribute("erros",
 					"Existe erros no preenchimento, verifique se todos o campos estão preenchidos corretamente.");
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.email", result);
