@@ -1,0 +1,74 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO DE LOCALIDADES</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Histórico Localidades</a></li>
+				            <li class="breadcrumb-item active">Cadastro Localidades</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row col-md-auto ml-sm-auto col-lg-7 mx-auto">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<form id="formLocalidade" class="form-localidade" th:object="${localidade}" th:action="@{/admin/cadastrarLocalidade}" method="POST">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">LOCALIDADES</div>
+							<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+								<h6>Atenção, corrija os erros sinalizados abaixo:</h6>
+								<div class="alert alert-danger" role="alert">
+									<ul><li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li></ul>
+								</div>								
+							</div> <!-- Erros -->
+							
+							<div class="form-row">
+								<div class="form-group col-md-4">
+									<label for="id">ID</label>
+									<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-12">
+									<label for="nome">Nome da Localidade</label>
+									<input type="text" class="form-control text-uppercase" id="nome" name="nome" th:field="*{nome}" placeholder="Informe o nome da localidade" required/>
+								</div>
+							</div>	
+							
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label for="cidade">Cidade</label>
+									<select id="cidade" name="cidade" class="form-control" th:field="*{cidade}">
+										<option value="">Selecionar</option>
+										<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade.id}}">Selecione</option>
+									</select>
+								</div>
+							</div>
+							
+													
+							
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			                    	<div class="btn-group mr-2" role="group">			
+										<button type="button" onclick="window.location.href='/admin/historico/localidades'" class="btn btn-info">Voltar</button>
+									</div>
+									<div class="btn-group mr-2" role="group">
+										<button id="btn-editar-localidade" th:if="${edicao}" type="submit" name="atualizar" class="btn btn-success">Salvar Modificações</button>
+										<button id="btn-salvar-localidade" th:if="${!edicao}" type="submit" name="cadastrar" class="btn btn-success">Salvar</button>
+									</div>
+								</div>	
+							
+						</div><!-- Wrapper -->
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="visita" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fedc16f8-c56e-41ff-87a6-601a500255bf">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<subDataset name="listaDeVisitantes" uuid="4130d37b-a167-49e0-9803-6ad573ec1961">
+		<queryString>
+			<![CDATA[]]>
+		</queryString>
+		<field name="cpf" class="java.lang.String"/>
+		<field name="nome" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="imagem" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="empresa" class="java.lang.String"/>
+	<field name="servico.nome" class="java.lang.String"/>
+	<field name="historico" class="java.lang.String"/>
+	<field name="inicioServico" class="java.time.LocalDateTime"/>
+	<field name="fimServico" class="java.time.LocalDateTime"/>
+	<field name="usuario.servidor.nome" class="java.lang.String"/>
+	<field name="visitantes" class="java.util.List"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="136" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="41" width="555" height="90" backcolor="#FFFFFF" uuid="8dc2f235-8318-46c3-9802-d47751cdfe22">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="17" y="75" width="343" height="19" uuid="c58b33ee-ba82-4640-9b67-01f4b0bb31eb"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECRETARIA DA SEGURANÇA PÚBLICA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="56" width="343" height="19" uuid="951f8eb8-0bde-4041-8123-b36a5e23e714"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GOVERNO DO ESTADO DA BAHIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="94" width="343" height="19" uuid="8d634208-b6f5-45bd-979c-67c2bb5d418d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES]]></text>
+			</staticText>
+			<image>
+				<reportElement positionType="Float" stretchType="ElementGroupHeight" x="390" y="47" width="144" height="78" forecolor="#FFFFFF" uuid="c5ae0347-9dbb-49b7-bec8-080486a65b80"/>
+				<imageExpression><![CDATA[$P{imagem}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<detail>
+		<band height="223" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement x="0" y="90" width="555" height="46" uuid="b8d10caa-7a40-402a-a889-60acb39accec">
+					<property name="com.jaspersoft.studio.unit.spacingAfter" value="px"/>
+					<property name="com.jaspersoft.studio.unit.leftIndent" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.spacingBefore" value="px"/>
+				</reportElement>
+				<box topPadding="30">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<paragraph leftIndent="7" spacingBefore="0" spacingAfter="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{historico}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="0" y="13" width="555" height="60" backcolor="#FFFFFF" uuid="dec483f4-429f-44bc-95ce-7a3a7b085b4e">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<staticText>
+				<reportElement positionType="Float" x="8" y="20" width="56" height="20" uuid="5364dd25-ddc5-4856-929c-fb2cd53456b1"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMPRESA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="300" y="20" width="52" height="20" uuid="8653ae72-9d90-45a7-afe2-e87731bc8ab2"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SERVIÇO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="8" y="47" width="54" height="20" uuid="e0ab2386-55e2-47b7-858f-e940fb1e1250"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ENTRADA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="300" y="47" width="36" height="20" uuid="277c0a09-af09-44e3-a9b7-4e4487316e93"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SAÍDA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" mode="Transparent" x="247" y="96" width="58" height="20" backcolor="#FFFFFF" uuid="7542b83e-c2ac-4dec-8e62-f887433c4b91"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[HISTÓRICO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="64" y="20" width="100" height="20" uuid="e22e5264-3cd5-4aab-9224-5e38c5b21185"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{empresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="62" y="47" width="142" height="20" uuid="b2b83dc9-fd05-4adb-b105-b945c376f2a7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{inicioServico}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="336" y="47" width="184" height="20" uuid="ced1c717-647c-4a86-89ae-981f1b3274a7"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{fimServico}.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="352" y="20" width="172" height="20" uuid="2b55a433-830a-4728-8601-4d199d8ad120"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{servico.nome}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement stretchType="ElementGroupHeight" x="0" y="153" width="555" height="58" uuid="d664d660-570b-41a6-b2e9-a131f93b044c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+			</rectangle>
+			<componentElement>
+				<reportElement x="1" y="181" width="552" height="23" uuid="0e64b0a9-737f-41dd-a774-3f4abd6d6145">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="listaDeVisitantes" uuid="54541804-4916-45db-8a6e-cd24702f762c">
+						<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{visitantes})]]></dataSourceExpression>
+					</datasetRun>
+					<jr:listContents height="23" width="552">
+						<textField>
+							<reportElement x="35" y="2" width="98" height="18" uuid="758974fc-fad4-4f5b-8b2f-3bc80108b0d8"/>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+						</textField>
+						<textField>
+							<reportElement x="268" y="2" width="264" height="18" uuid="3afea3ab-4978-4437-ae99-46a42d5c5b99"/>
+							<textElement verticalAlignment="Middle"/>
+							<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+						</textField>
+						<staticText>
+							<reportElement x="232" y="2" width="34" height="18" uuid="d060877e-bba7-4f34-90cc-80943d1e7ed6">
+								<property name="com.jaspersoft.studio.unit.width" value="px"/>
+							</reportElement>
+							<textElement verticalAlignment="Middle">
+								<font isBold="true"/>
+							</textElement>
+							<text><![CDATA[NOME:]]></text>
+						</staticText>
+						<staticText>
+							<reportElement x="9" y="2" width="24" height="18" uuid="2d0af9a8-980a-45ed-88e9-7ac3f48945b5"/>
+							<textElement verticalAlignment="Middle">
+								<font isBold="true"/>
+							</textElement>
+							<text><![CDATA[CPF:]]></text>
+						</staticText>
+					</jr:listContents>
+				</jr:list>
+			</componentElement>
+			<staticText>
+				<reportElement x="239" y="156" width="80" height="20" uuid="63499468-3ef3-45bb-b98e-a8205d39853e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[VISITANTES]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

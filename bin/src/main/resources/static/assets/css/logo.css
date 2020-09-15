@@ -1,0 +1,8 @@
+
+.imagem-logoCicomVisualizacao{
+    background-image: url('/assets/imagens/logoCicom.png'); 
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}

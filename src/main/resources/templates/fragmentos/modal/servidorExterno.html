@@ -1,0 +1,45 @@
+<!--  ADICIONAR SERVIDOR EXTERNO -->
+<div class="modal fade" id="modal-adicionarServidorExterno" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorExterno">
+	<div id="form-adicionarServidorTabela" class="modal-adicionarServidorTabela">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="table-responsive-md"> 
+						<table id="tabela-tabelaServidor" class="table table-sm table-hover text-center" >
+							<thead>
+								<tr>
+									<th scope="col" >GH</th>
+									<th scope="col" >Nome</th>
+									<th scope="col" >Matricula</th>
+									<th scope="col" >Fun&ccedil;&atilde;o</th>		
+									<th scope="col" >Selecionar</th>						
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="_servidores : ${servidoresExternos}">
+									<td id="funces" name="servidor"  th:text="${_servidores.hierarquia.nome}"></td>								
+									<td class="text-left" th:text="${_servidores.sobreNome}">Nome</td>
+									<td id="funcoe" name="servidorFuncao.funcao"  th:text="${_servidores.matricula}"></td>
+									<td id="funcoes" name="servidorFuncao.funcao"  th:text="${_servidores.funcao.nome}"></td>
+								<td><input type="checkbox" name="listaDeServidores" th:id="${_servidores.id}" th:value="${_servidores.id}"></td>	
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+					 	<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					 	<button type="button" id="inserirServidorExterno" class="btn btn-secondary" th:name="${mesa.id}"  data-dismiss="modal">Adicionar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

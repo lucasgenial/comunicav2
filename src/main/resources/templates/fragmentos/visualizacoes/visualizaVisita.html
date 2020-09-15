@@ -1,0 +1,87 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">VISITAS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Acessos</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Visita</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+		
+			<div class="row">					
+				<div  class="card col-md-auto ml-sm-auto width-visualizarImpressaoA4 mx-auto" style="padding-top: 33px;">
+						<div class="ribbon-wrapper card"> 	
+							<div style="border:2px solid #333;" class="col-12 row align-self-center">
+								<div class="col-md-7 mt-3 mb-2 h4" >
+									<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+									<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+									<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+								</div>
+								<div class="col-md-3 offset-2 imagem-logoCicomVisualizacao"></div>				
+							</div>
+							<br>
+							<div class="collapse show" style="border:2px solid #333;">
+								<div class="form-row ml-3 mt-2">
+									<div class="col-md-6">
+										<label style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">EMPRESA:&nbsp; </font><font> [[${visita.empresa}]]</font></label>
+									</div>	
+									<div class="col-md-6">
+										<label style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">SERVIÇO:&nbsp; </font><font> [[${visita.servico.nome}]]</font></label>
+									</div>	
+								</div>
+						
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">ENTRADA:&nbsp; </font><font th:text="${#temporals.format(visita.inicioServico, 'dd/MM/yyyy HH:ss')}"></font></label>
+								</div>	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">SAÍDA:&nbsp; </font><font th:text="${#temporals.format(visita.fimServico, 'dd/MM/yyyy HH:ss')}"></font></label>
+								</div>						
+							</div>
+							</div>
+							<br>
+							<div  style="border:2px solid #333;">
+							
+							<div class="col-md-12">
+								<label class="col-12 text-center mt-1 font-weight-bold">HISTÓRICO</label>
+								<label>&nbsp;&nbsp;[[${visita.historico}]]</label>
+							</div>							
+							
+							</div>
+							<br>
+					
+							<div style="border:2px solid #333;">
+								<label class="col-12 text-center mt-1 font-weight-bold">VISITANTES</label>
+										
+							<div class="row col-12" th:each="_visitante, itemStat : ${visita.visitantes}">
+								<div  class="mt-1 col-3 mb-1"><font class="ml-2 font-weight-bold">CPF:</font><font class="ml-1" th:text="${visita.visitantes[__${itemStat.index}__].cpf}"></font></div>
+								<div class="mt-1 col-7 offset-2 mb-1"><font class="ml-1 font-weight-bold">NOME:</font><font class="ml-1" th:text="${visita.visitantes[__${itemStat.index}__].nome}"></font></div>
+		
+							 </div>
+									
+							</div>	
+							
+						 </div>
+						
+						<div class="btn-toolbar mb-4" role="toolbar" aria-label="Toolbar with button groups">
+                       		<div class="btn-group mr-2" role="group">
+                       		<a class="btn btn-info btn-sm ml-3 mt-2" th:href="@{~/admin/historico/visitas}" data-titulo="Editar Visita" th:id="${visita.id}" th:inline="text" >Voltar</a>
+                       		</div>
+                          	<div class="btn-group mr-2" role="group">
+                       			 <a class="btn btn-info btn-sm mt-2" th:href="@{~/admin/report/visita/{id}(id=${visita.id})}" target="_blank" data-titulo="Editar Visita" th:id="${visita.id}" th:inline="text" >Imprimir</a>
+                       		</div>
+                        </div>
+				</div>									
+			</div>		
+		</div>
+	</main>
+</section>

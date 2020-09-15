@@ -1,0 +1,69 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DIÁRIO DE PERMISSOES</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Histórico Permissoes</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<form th:action="@{~/admin/salva/edicao/grupoPermissao}" th:object="${grupo}" method="POST">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">Edições de grupos</div>
+							<div class="form-row">
+								<div class="form-group col-md-4 ml-3">
+								    <label for="grupo">Grupo</label>
+									<select id="grupo" class="form-control form-control-sm" required="required">
+										<option  th:value="Selecionar">Selecione um grupo</option>
+										<option th:each="_grupo : ${grupos}" th:text="${_grupo.nome}" th:value="${_grupo.id}"></option> 							        
+									</select>
+								</div>
+							</div>
+							<input name="id" hidden="" type="number" id="id"/>
+								<div class="row">
+									<div class="col-12">
+									<div class="ribbon-wrapper card pt-5">
+										<div class="table-responsive">			
+											<table id="products-table" class="table table-sm table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+												<thead>
+													<tr>
+														<th>Permitir</th>
+														<th>Nome</th>
+														<th>Descrição</th>
+														<th>Ação</th>
+													</tr>
+												</thead>
+												<tbody>
+													
+												</tbody>
+											</table>
+										</div>
+										<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" data-toggle="modal">
+											<div class="btn-group mr-2" role="group">
+												<a class="btn btn-info" href='/admin/cadastra/grupo'>Novo Grupo</a> 
+												<button type="button" class="ml-2 btn btn-info" onclick="window.location.href='/admin/cadastros/permissoes/cadastro'">Nova Permissão</button> 		
+												<button type="submit" class="ml-2 btn btn-info">Salvar alteração</button> 		
+											
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>					           
+							
+						</div>
+					</form>
+				</div>
+			</div>		
+		</div>
+	</main>
+</section>

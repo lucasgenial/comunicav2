@@ -1,0 +1,57 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">VISITAS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Acessos</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Visita</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+		
+			<div class="row">					
+				<div  class="card col-md-auto ml-sm-auto width-visualizarImpressaoA4 mx-auto" style="padding-top: 33px;">
+						<div class="ribbon-wrapper card"> 	
+							<div style="border:2px solid #333;" class="col-12 row align-self-center">
+								<div class="col-md-7 mt-3 mb-2 h4" >
+									<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+									<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+									<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+								</div>
+								<div class="col-md-3 offset-2 imagem-logoCicomVisualizacao"></div>				
+							</div>
+							<br>
+							<div class="collapse show" style="border:2px solid #333;">
+								<div class="form-row">
+									<div class="col-7">
+										<label class="col-12 ml-3 mt-2" style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">NOME:&nbsp; </font><font> [[${visitante.nome}]]</font></label>
+										<label class="col-12 ml-3" style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">CPF:&nbsp; </font><font> [[${visitante.cpf}]]</font></label>
+										<label class="col-12 ml-3" style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">EMPRESAS:&nbsp; </font><font> [[${empresasVinculado}]]</font></label>
+										<label class="col-12 ml-3" style="margin-bottom: 5px; margin-top:3px;"><font class="font-weight-bold">QUANTIDADE DE VISITAS:&nbsp; </font><font> [[${quantidadeDeVisitas}]]</font></label>
+									</div>	
+									<div class="form-row col-5 justify-content-end">
+										<img th:if="${visitante.fotografia == null}" src="/assets/imagens/pages/visita/foto3X4.png" width="300" height="300" class="img-thumbnail" alt="Imagem do visitante">
+										<img th:if="${visitante.fotografia != null}" th:src="${visitante.fotografiaUri}" width="300" height="300" class="img-thumbnail" alt="Imagem do visitante">
+									</div>
+								</div>	
+						 </div>
+						
+						<div class="btn-toolbar mb-4" role="toolbar" aria-label="Toolbar with button groups">
+                       		<div class="btn-group" role="group">
+                       		<a class="btn btn-info btn-sm mt-3" th:href="@{~/admin/pesquisa/visitantes}">Voltar</a>
+                       		</div>
+                        </div>
+					</div>									
+				</div>	
+			</div>	
+		</div>
+	</main>
+</section>

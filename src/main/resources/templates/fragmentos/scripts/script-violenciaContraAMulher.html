@@ -1,0 +1,258 @@
+<th:block th:fragment="script-violenciaContraAMulher">
+<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela de Dados Estatistico -->
+    <!-- ============================================================== -->   
+    <!-- FormValidate -->
+	<!-- <script src="/assets/formvalidation/dist/js/FormValidation.full.js"></script>
+	<script src="/assets/formvalidation/dist/js/plugins/Bootstrap.js"></script>
+	<script src="/assets/formvalidation/dist/js/locales/pt_BR.min.js"></script> -->
+	<script src="/assets/formvalidation/dist/js/plugins/StartEndDate.min.js"></script>
+   
+   <!-- <script src="/assets/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> -->
+   	
+   	<!--<script src="/assets/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    	<script src="/assets/datepicker1.9.0/js/bootstrap-datepicker.min.js"></script>
+     <script src="/assets/datepicker1.9.0/locales/bootstrap-datepicker.pt-BR.min.js"></script>		
+	-->
+	<!-- <script src="/assets/js/jquery.mask.min.js"></script> -->
+	
+	<script src="/assets/multi-select/js/bootstrap-select.js"></script>
+               
+	<script src="/assets/multiselect/dist/js/multiselect.js"></script>
+	<script>
+			$('#categoria').multiselect();
+			$('#estabelecimentos').multiselect();
+			
+			/* $('#cidadeDisponivel').multiselect({
+				moveToRight: function(Multiselect, $options, event, silent, skipStack) {
+					var $left_options = Multiselect.$left.find('> option:selected');
+		            Multiselect.$right.eq(0).append($left_options);     
+				}
+			}); */
+			
+			//$('#tipificacaoDisponivel').multiselect();
+			$('#tipificacaoDisponivel').multiselect({
+				moveToRight: function(Multiselect, $options, event, silent, skipStack) {
+			
+				var $left_options = Multiselect.$left.find('> option:selected');
+                Multiselect.$right.eq(0).append($left_options);
+				}
+			
+			});
+			
+			/*
+			$('#todosTipos').click(function() {
+			    $('#tipificacao option').prop('selected', true);
+			});
+			
+			 $('#selecionarCidades').click(function() {
+			    $('#tipificacaoDisponivel_to option').prop('selected', true);
+			}); */
+			
+		
+		/* $('#categoria').selectpicker();
+		
+		$('#estabelecimentos').selectpicker();
+		$('#cidadeDisponivel').multiselect(); */
+		
+		
+	 $('.categoriaDasTipificacoes').on("change", function(event){		 
+	  
+		 if($('#categoria').val().length==0){
+			 var options = $('#tipificacaoDisponivel');
+             options.find('option').remove();
+
+		 }else{
+	    	$.ajax({
+	          type : "GET",
+	          url : "/admin/cadastros/tipificacoes/categorias/"+$('#categoria').val(),
+	   	
+	          success: function(data) {
+	        	  console.log(data);
+	        	  var options = $('#tipificacaoDisponivel');
+	        	  var optionsJaSelecionadas = $('#tipificacaoDisponivel_to');
+	        	  optionsJaSelecionadas.find('option').remove();
+					options.find('option').remove();
+
+	              $.each(data, function (key, value) {          	  
+	            		$('<option>').val(value.id).text(value.nome).appendTo(options);
+	              	});
+	          	}
+          
+	         });
+		 }
+	 });
+  
+	 $('#estabelecimentos').on("change", function(event){		 
+		  
+		 if($('#estabelecimentos').val().length==0){
+			 var options = $('#cidadeDisponivel');
+             options.find('option').remove();
+
+		 }else{
+	    	$.ajax({
+	          type : "GET",
+	          url : "/admin/cadastros/cidades/estabelecimentos/"+$('#estabelecimentos').val(),
+	   	
+	          success: function(data) {
+	        	  console.log(data);
+	        	  var options = $('#cidadeDisponivel');
+	        	  var optionsJaSelecionadas = $('#cidadeDisponivel_to');
+	        	  optionsJaSelecionadas.find('option').remove();
+
+	              options.find('option').remove();
+	              $.each(data, function (key, value) {          	  
+	            		$('<option>').val(value.id).text(value.nome).appendTo(options);
+	              	});
+	          	}
+          
+	         });
+		 }
+	 });
+  
+	 $('#anoInicial').on("change", function(event){		 
+		 
+		if($('#anoInicial').val() == ""){
+			 var options = $('#mesInicial');
+             options.find('option').remove();
+             $('<option>').val("").text('Escolha um ano inicial').appendTo(options);
+
+             var anosFinais = $('#anoFinal');
+     	  	 anosFinais.find('option').remove();
+             $('<option>').val("").text('Selecione um ano inicial').appendTo(anosFinais);
+
+             var optionsJaSelecionadas = $('#mesFinal');
+     	  	 optionsJaSelecionadas.find('option').remove();
+             $('<option>').val("").text('Selecione um ano inicial').appendTo(optionsJaSelecionadas);
+
+		 }else{
+	    	$.ajax({
+	          type : "GET",
+	          url : "/admin/cadastros/ano/meses/"+$('#anoInicial').val(),
+	   	
+	          success: function(data) {
+	        	 
+	        	  var options = $('#mesInicial');
+	        	  options.find('option').remove();
+	              $('<option>').val("").text('Selecione um m�s inicial').appendTo(options);
+
+	        	  var optionsAnoFinal = $('#anoFinal');
+	        	  optionsAnoFinal.find('option').remove();
+	              $('<option>').val("").text('Selecione um m�s inicial').appendTo(optionsAnoFinal);
+
+	              var optionsJaSelecionadas = $('#mesFinal');
+	        	  	optionsJaSelecionadas.find('option').remove();
+	              $('<option>').val("").text('Selecione um m�s inicial').appendTo(optionsJaSelecionadas);
+
+	              $.each(data, function (key, value) {          	  
+	            		$('<option>').val(value.valorInteiro).text(value.nome).appendTo(options);
+	              	});
+	          	}
+          
+	         });
+	  
+		 }
+	 });
+	 
+	 $('#mesInicial').on("change", function(event){		 
+			//alert("/admin/cadastros/ano/meses/"+$('#anoInicial').val()+'/'+$('#mesInicial').val());
+
+		 
+			if($('#mesInicial').val() == ""){
+				 var options = $('#anoFinal');
+	             options.find('option').remove();
+	             $('<option>').val("").text('Escolha um m�s inicial').appendTo(options);
+
+	             var optionsJaSelecionadas = $('#mesFinal');
+	     	  	 optionsJaSelecionadas.find('option').remove();
+	             $('<option>').val("").text('Selecione um m�s inicial').appendTo(optionsJaSelecionadas);
+			 }else{
+				 
+		    	$.ajax({
+		          type : "GET",
+		          url : "/admin/cadastros/ano/anosValidosDeBusca/"+$('#anoInicial').val(),
+		   	
+		          success: function(data) {
+		        	  var optionsJaSelecionadas = $('#mesFinal');
+		        	  optionsJaSelecionadas.find('option').remove();
+		              $('<option>').val("").text('Selecione um ano final').appendTo(optionsJaSelecionadas);
+
+		        	  var options = $('#anoFinal');
+		        	  options.find('option').remove();
+		              $('<option>').val("").text('Selecione um ano final').appendTo(options);
+   
+		              $.each(data, function (key, value) {          	  
+		            		$('<option>').val(value).text(value).appendTo(options);
+		              	});
+		          	}
+	          
+		         });
+		   
+			 }
+		 });
+	 
+	 $('#anoFinal').on("change", function(event){		 
+	 
+			if($('#anoFinal').val() == ""){
+			     var optionsJaSelecionadas = $('#mesFinal');
+	     	  	 optionsJaSelecionadas.find('option').remove();
+	             $('<option>').val("").text('Selecione um m�s inicial').appendTo(optionsJaSelecionadas);
+
+			 }else{
+				 
+		    	$.ajax({
+		          type : "GET",
+		          url : "/admin/cadastros/ano/meses/"+$('#anoFinal').val()+'/'+$('#mesInicial').val(),
+		   	
+		          success: function(data) {
+		        	   
+		        	  var options = $('#mesFinal');
+		        	  	options.find('option').remove();
+		              $('<option>').val("").text('Selecione um m�s final').appendTo(options);
+
+		              
+		              $.each(data, function (key, value) {          	  
+		            		$('<option>').val(value.valorInteiro).text(value.nome).appendTo(options);
+		              	});
+		          	}
+	          
+		         });
+		   
+			 }
+		 });
+	 
+	 $('#cidadeDisponivel').on("change", function(e){
+			document.getElementById("localidadeDisponivel").options.length = 1;
+			if(this.value !== ""){
+		    $.ajax({
+			      type : "GET",
+			      url : "admin/cadastros/cidades/localidades/" + this.value,
+			      success: function(data) {	   
+			    	  console.log(data);
+		              var options = $('#localidadeDisponivel');
+		              //options.find('option').remove();
+		              $.each(data, function (key, value) {
+		           	   		console.log(value);
+		                        $('<option>').val(value.id).text(value.nome).appendTo(options);
+		           	         //options += '</option>';
+		             });
+			      }
+		    });
+			}
+		});
+	 
+	 $('.datetimepicker').datetimepicker({
+		    language:  'pt-BR',
+		    weekStart: 1,
+		    todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 2,
+			forceParse: 0,
+		    showMeridian: 0,
+		    minuteStep: 1,
+		    format: 'dd/mm/yyyy HH:ii:ss'
+		});
+	</script> 
+	
+</th:block>

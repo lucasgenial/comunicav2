@@ -1,0 +1,50 @@
+<!-- MODAL CADASTRA E EDITA FUNCOES -->
+<div class="modal fade" id="modal-funcao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalFuncao">
+	<form id="formFuncao"class="form-funcao" th:object="${funcao}" th:action="@{/cadastraFuncao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					
+								<div class="form-row">
+								<div class="form-group col-md-12">
+								<label for="tipo">Tipo Funcao</label> <select
+										id="tipo" name="tipo"
+										class="form-control"
+										
+										>
+										<option value="SERVIDOR_INTERNO">EFETIVO_INTERNO</option>
+										<option value="SERVIDOR_EXTERNO">EFETIVO_EXTERNO</option>
+									</select>
+									</div>
+									</div>
+					
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Cadastrar Funcao</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{/funcoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-funcao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

@@ -1,0 +1,91 @@
+<!-- MODAL ADICIONAR SERVIDOR NA MESA NOVA-->
+<div class="modal fade" id="modal-adicionarServidorTabela" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorTabela">
+	<div id="form-adicionarServidorTabela" class="modal-adicionarServidorTabela modal-lg center">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="width: 80vw;">
+				<div class="modal-header" style="width: 100%;">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="table-responsive-md">			
+						<table id="tabela-tabelaServidor" class="table table-bordered table-striped text-center">
+							<thead>
+								<tr>
+									<th scope="col">GH</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Matricula</th>
+									<th scope="col">Fun&ccedil;&atilde;o</th>
+									<th scope="col">Selecionar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="_servidores : ${servidoresMesa}" th:class="${_servidores.id} + ' table-default'" >
+									<td class="clicador" name="servidor" th:data-identificador="${_servidores.id}" th:text="${_servidores.hierarquia.nome}"></td>
+									<td class="clicador text-left" th:data-identificador="${_servidores.id}"th:text="${_servidores.sobreNome}">Nome</td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" name="servidorFuncao.funcao" th:text="${_servidores.matricula}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" name="servidorFuncao.funcao" th:text="${_servidores.funcao.nome}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}"><input type="checkbox" name="listaDeServidores"	th:data-identificador="${_servidores.id}" th:id="${_servidores.id}" class="clicador" th:value="${_servidores.id}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info"	data-dismiss="modal">Fechar</button>
+						<button type="button" id="inserirServidorNaMesa" class="btn btn-info" data-dismiss="modal">Adicionar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL ADICIONAR SERVIDOR NA MESA  EDITANDO-->
+<div class="modal fade" id="modal-adicionarServidorNaMesaEditando"	tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorNaMesaEditando">
+	<div id="form-adicionarServidorNaMesaEditando"	class="modal-adicionarServidorNaMesaEditando modal-lg center">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="width: 80vw;">
+				<div class="modal-header" style="width: 100%;">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+
+					<div class="table-responsive-md">
+						<table id="tabela-tabelaServidor" class="table table-bordered table-striped text-center">
+							<thead>
+								<tr>
+									<th scope="col">GH</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Matricula</th>
+									<th scope="col">Fun&ccedil;&atilde;o</th>
+									<th scope="col">Selecionar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="_servidores : ${servidoresMesa}" th:class="${_servidores.id} + ' table-default'">
+									<td class="clicador" th:data-identificador="${_servidores.id}" name="servidor"	th:text="${_servidores.hierarquia.nome}"></td>
+									<td class="clicador text-left" th:data-identificador="${_servidores.id}" th:text="${_servidores.sobreNome}">Nome</td>
+									<td class="clicador"  th:data-identificador="${_servidores.id}" name="servidorFuncao.funcao" th:text="${_servidores.matricula}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" name="servidorFuncao.funcao" th:text="${_servidores.funcao.nome}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" ><input type="checkbox" name="listaDeServidores"	th:id="${_servidores.id}" th:data-identificador="${_servidores.id}" class="clicador" th:value="${_servidores.id}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info"	data-dismiss="modal">Fechar</button>
+						<button type="button" id="inserirServidorNaMesaEditando" class="btn btn-info" data-dismiss="modal">Adicionar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

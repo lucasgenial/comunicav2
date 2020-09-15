@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="integrantes" pageWidth="595" pageHeight="16" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="afcedc7e-6832-4dc1-acdb-e78a73d387bc">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="servidor.nome" class="java.lang.String"/>
+	<field name="funcao.nome" class="java.lang.String"/>
+	<field name="servidor.hierarquia.nome" class="java.lang.String"/>
+	<field name="servidor.matricula" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<textField>
+				<reportElement x="259" y="0" width="211" height="16" uuid="543ddfa0-236f-49dc-bd2d-8f025bc97f39"/>
+				<textFieldExpression><![CDATA[$F{servidor.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="160" height="16" uuid="13958da7-8490-45ba-b53b-245d5cdbf0f0"/>
+				<textFieldExpression><![CDATA[$F{funcao.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="164" y="0" width="90" height="16" uuid="c0ebc206-5232-4847-83d5-6f5471ae7a6b"/>
+				<textFieldExpression><![CDATA[$F{servidor.hierarquia.nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="475" y="0" width="120" height="16" uuid="19214577-ebaa-40d7-86be-d1a83b3de012"/>
+				<textFieldExpression><![CDATA[$F{servidor.matricula}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

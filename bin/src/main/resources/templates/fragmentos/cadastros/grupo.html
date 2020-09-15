@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+        <div class="row">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+				
+						<h4 class="card-title">Permissões do Grupo</h4>
+                        <h6 class="card-subtitle"></h6>
+
+						<form id="formGrupo" class="form-grupo" th:action="@{/grupos/editar/{id}(id=${id})}" method="POST">
+							<div class="form-group" th:object="${grupo}">
+								<div class="form-row col-12">
+									<div class="form-group col-1">
+										<label for="id">Id</label>
+										<input id="id" name="id" type="text" class="form-control" th:field="*{id}" th:value="${id}" readonly="readonly">
+									</div>
+									
+									<div class="form-group col-3">
+										<label for="nome">Nome do Grupo</label>
+										<input id="nome" name="nome" type="text" class="form-control" th:field="*{nome}" autocomplete="off"  th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+									</div>
+									
+									<div class="form-group col-8">
+										<label for="cor">Descrição</label>
+										<input id="descricao" name="descricao" type="text" class="form-control" th:field="*{descricao}" autocomplete="off"  th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group" th:object="${permissao}">
+								<div class="table-responsive m-t-40">
+										<table id="tabela-grupo-permissoes" class="table table-sm table-hover">
+											<thead>
+												<tr>
+													<th scope="col" th:text="#{tabela-grupo-permissoes.titulo.id}">ID</th>
+													<th scope="col" th:text="#{tabela-grupo-permissoes.titulo.nome}">Nome</th>
+													<th scope="col" th:text="#{tabela-grupo-permissoes.titulo.acao}">Ação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="_permissao, row:${grupo.permissoes}">
+													<td scope="row" th:text="${_permissao.id}"></td>
+													<td scope="row" th:text="${_permissao.nome}"></td>
+													<td class="text-center">
+														<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+															<div class="btn-group" role="group">
+																<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-grupos.botao.acao}">
+															      Ação
+															    </button>
+															    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+															    	<a class="dropdown-item btn-excluir-permissao" href="#" th:href="@{/grupos/excluirpermissao/{id}(id=${_permissao.id})}" th:value="${_permissao.id}"><i class="far fa-trash-alt"></i> Excluir</a>
+<!-- 															     	<a class="dropdown-item btn-excluir-permissao" href="#" th:href="@{~/admin/cadastros/grupos/excluirpermissao/{id}(id=${_permissao.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-grupo-permissoes.botao.excluir}]]</a> -->
+															    </div>
+															</div>
+														</div>
+													</td>
+												</tr>
+											</tbody>
+										</table> 
+								</div>
+							</div>
+							<a type="button" class="btn btn-primary btn-novo-grupo-permissao" href="#">Adiconar</a> 
+							<button type="submit" class="btn btn-primary">Gravar</button>
+							<a type="button" class="btn btn-primary" th:href="@{~/admin/cadastros/grupos}">Fechar</a> 
+					</form>
+					</div>
+				</div>
+				<div th:replace="fragmentos/modal/grupoPermissao :: modalGrupoPermissao"></div>
+				<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+			</div>
+		</div>
+	<script src="/assets/js/validador/form-grupo.js"></script>
+</section>
+</html>

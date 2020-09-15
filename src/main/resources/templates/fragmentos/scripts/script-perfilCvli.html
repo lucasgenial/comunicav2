@@ -1,0 +1,43 @@
+<th:block th:fragment="script-perfilCvli">
+<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela de Dados Estatistico -->
+    <!-- ============================================================== -->   
+    <!-- FormValidate -->
+	<!-- <script src="/assets/formvalidation/dist/js/FormValidation.full.js"></script>
+	<script src="/assets/formvalidation/dist/js/plugins/Bootstrap.js"></script> -->
+	<script src="/assets/formvalidation/dist/js/plugins/StartEndDate.min.js"></script>
+   
+   <!--  <script src="/assets/datetimepicker/js/bootstrap-datetimepicker.min.js"></script> -->
+  	<!-- <script src="/assets/js/jquery.mask.min.js"></script> -->
+	
+	<script src="/assets/multi-select/js/bootstrap-select.js"></script>
+               
+	<script src="/assets/multiselect/dist/js/multiselect.js"></script>
+	
+		<!-- Echarts -->
+	<script src="/assets/echarts/dist/echarts.js"></script>
+	<script src="/assets/echarts/dist/echarts-en.js"></script>
+	<script src="/assets/echarts/dist/extension/dataTool.js"></script>
+	<script src="/assets/echarts/dist/extension/bmap.js"></script>
+	
+	<!-- EASY PIE CHART JS -->
+    <script src="/assets/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+	
+	<!-- Customização -->
+	<script src="/assets/js/validador/form-perfilCvli.js"></script>
+	<script>
+	    geradorDeGraficoCvli('grafico',null,null);
+	</script>
+	<script type="text/javascript" th:each="_tipificacao : ${tipificacoes}">
+		geradorDeGraficoCvli([[${_tipificacao.idTipificacao}]],[[${_tipificacao.idTipificacao}]],null)
+	</script>
+    <script type="text/javascript">
+        $('#graficosEscondidos').collapse('hide');
+    </script>
+      <script type="text/javascript">
+        $('#dadosEscondidos').collapse('hide');
+    </script>
+    <script type="text/javascript">
+        $('#dadosNumeradosEscondidos').collapse('hide');
+    </script>
+</th:block>

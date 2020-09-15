@@ -1,0 +1,71 @@
+<!-- MODAL VISUALIZAR SERVIDOR EXTERNO ATIVO-->
+<!--  <div class="modal fade" id="modal-visualizarServidorExternoAtivo"	tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-visualizaPoliciamentoAtivo">
+	<div id="form-adicionarServidorNaMesaEditando"	class="modal-adicionarServidorNaMesaEditando modal-lg center">
+		<div class="modal-dialog" role="document">
+
+		</div>
+	</div>
+</div>
+  -->
+ 
+ <div class="modal fade bd-example-modal-xl"  id="modal-visualizarServidorExternoAtivo" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" th:fragment="modal-visualizaPoliciamentoAtivo">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+    
+			<div class="row-fluid">					
+				<div class="ribbon-wrapper card  mx-auto" >
+					<div class="form-row ml-2 mr-2 justify-content-between" style="border:2px solid #333;">						
+						<div class="col-md-6 ml-3 mt-3 mb-2 h4" >
+							<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+							<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+							<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+						</div>
+						<div class="col-md-2 imagem-logoCicomVisualizacao"></div>
+					</div>
+							
+					<div class="form-row ml-2 mr-2 mt-2" style="border:2px solid #333; background-color:#0bf;">						
+						<div class="text-center col-md-12 mb-1 mt-1">
+							<label style="margin-bottom: 0px;"><font class="font-weight-bold">EFETIVOS EXTERNOS</font></label>
+						</div>	
+					</div>
+			         <div class="ml-2 mr-2 mt-2 justify-content-center pr-1 pl-1" style="border:2px solid #333;">	
+						<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+							<label class="width-60-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">UNIDADE:&nbsp; </font><font id="unidadeNome"></font></label>
+							<label class="width-40-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">MODALIDADE:&nbsp; </font><font id="modalidadeNome"></font></label>
+						</div>
+						<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+							<label class="width-27-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">PREFIXO:&nbsp; </font><font id="prefixo"></font></label>
+							<label class="width-26-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA INÍCIO:&nbsp; </font><font id="comecoPlantao"></font></label>
+							<label class="width-25-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA FIM:&nbsp; </font><font id="terminoPlantao"></font></label>
+							<label class="width-22-PorCento mb-0 pl-2"><font class="font-weight-bold">TELEFONE:&nbsp; </font><font id="telefone"></font></label>
+						</div>
+						<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+							<label class="width-30-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">ABRANGÊNCIA:&nbsp;Cidade-&nbsp;</font><font id="cidadeNome"></font></label>
+							<label class="width-35-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">Localidade-&nbsp;</font><font id="localidadeNome"></font></label>
+							<label class="width-35-PorCento mb-0"><font class="font-weight-bold pl-2">Bairro-&nbsp;</font><font id="bairroNome"></font></label>		
+						</div>
+						<div class="form-row text-center border-bottom border-dark" style="background-color:#F0F8FF">
+							<label class="width-15-PorCento border-right border-dark font-weight-bold mb-0">FUNÇÃO</label>
+							<label class="width-20-PorCento border-right border-dark font-weight-bold mb-0">GRAU HIERÁRQUICO</label>
+							<label class="width-45-PorCento border-right border-dark font-weight-bold mb-0">NOME</label>
+							<label class="width-20-PorCento font-weight-bold mb-0">MATRÍCULA</label>
+						</div>
+						
+						<div id="guarnicao" >
+						
+						</div>				
+						
+					</div>	
+					
+					<br/>
+				
+	                 
+				</div>										
+			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info"	data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		
+	</div>
+</div>

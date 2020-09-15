@@ -1,0 +1,84 @@
+<!-- MODAL PARA TROCA DE SENHA -->
+<div class="modal fade" id="modal-trocar-senha" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalSucesso">
+	<div class="card">
+		<div class="card-body">	
+			<form id="formServidor" name="form1" class="form-servidor" th:object="${servidor}" th:action="@{~/admin/servidor/alterar/{id}(id=${servidor.id})}" method="POST" >	
+				<div class="form-group">
+					<div class="form-control form-control-sm">
+						<div class="form-row">
+							<div class="form-group col-md-2">
+									<label for="login">Servidor</label>
+									<select id="usuarioNovo" name="usuario" class="form-control form-control-sm" th:field="*{usuario}" th:classappend="${#fields.hasErrors('usuario')} ? 'is-invalid'" required>										
+										<option th:each="_usuario : ${usuario}" th:value="${{_usuario.id}}" th:text="${_usuario.login}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></span>
+							</div>								
+							 <div class="form-group col-md-2">
+									<label for="senhaAntiga">Senha Antiga</label>
+									<input id="senhaAntiga" name="senha" type="password" class="form-control form-control-sm"  required>
+							</div>								
+							<div class="form-group col-md-2">
+									<label for="novaSenha" class="control-label">Nova Senha</label>
+									<input id="novaSenha" name="novaSenha" type="password" class="form-control form-control-sm" th:field="*{usuario.senha}" required>									  
+							</div>								
+							<div class="form-group col-md-2">
+									<label for="conferirSenha" class="control-label">Repetir Nova Senha</label>
+									<input id="conferirSenha" name="conferirSenha" type="password" class="form-control form-control-sm"  required>
+									<div class="help-block with-errors"></div>
+							</div> 																 
+						</div>
+					</div>
+				</div>					
+					<button type="submit" class="btn btn-success ">Salvar</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL CADASTRO REALIZADO COM SUCESSO -->
+<div class="modal fade" id="modal-sucesso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalSucesso">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">
+					Cadastro realizado com sucesso<br>
+					Procure seu coordenador para ativação do usuário.
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a href="" type="btn btn-danger" th:href="@{/logout}" class="btn btn-primary" th:name="generico"  id="delRef">Sair</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO -->
+<div class="modal fade" id="modal-excluir" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalExcluir">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Confirmação de Exclusão</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">
+					Atenção, você está preste a excluir um item do sistema.<br>
+					Essa modificação poderá refletir em uma inconsistencia dos dados no sistema!
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				<a href="" type="btn btn-danger"  class="btn btn-primary" th:name="generico"  id="delRef">Excluir</a>
+			</div>
+		</div>
+	</div>
+</div>

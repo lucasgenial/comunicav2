@@ -1,0 +1,120 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DIÁRIO DE BAIRROS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Histórico Bairros</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<div class="ribbon-wrapper card pt-5">
+						<div class="table-responsive">
+							<table id="tabela-bairro-paginada" class="table table-sm table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Bairro</th>
+										<th>Localidade</th>
+										<th>Cidade</th>
+										<th>Estabelecimento</th>
+										<th>Ação</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+								</tbody>
+							</table>
+						</div>
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" data-toggle="modal">
+							<div class="btn-group mr-2 modal-footer" role="group">
+								 <button type="button" class="btn btn-info" onclick="window.location.href='/admin/cadastros/bairros/cadastro'">Adicionar</button> 
+								
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+			<!-- <div th:replace="fragmentos/modal/bairro :: modalBairro"></div>
+			<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div> -->
+		</div>
+	</main>
+</section>	
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastros de Bairros</h5>
+				<hr/>
+				<div class="table-responsive-md">
+					<table id="tabela-bairros" class="table table-sm table-hover" >
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{tabela-bairros.titulo.id}">ID</th>
+								<th scope="col" th:text="#{tabela-bairros.titulo.bairro}">Bairro</th>
+								<th scope="col" th:text="#{tabela-bairros.titulo.localidade}">Localidade</th>
+								<th scope="col" th:text="#{tabela-bairros.titulo.cidade}">Cidade</th>
+								<th scope="col" >Estabelecimento</th>
+								<th scope="col" th:text="#{tabela-bairros.titulo.acao}">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_bairro : ${bairros}" class="" th:classappend="${_bairro.ativo} ? table-default : table-danger">
+								<th scope="row" th:text="${_bairro.id}">1</th>
+								<td th:text="${_bairro.nome}">Frei Calixto</td>
+								<td th:text="${_bairro.localidade.nome}">Sede</td>
+								<td th:text="${_bairro.localidade.cidade.nome}">Porto Seguro</td>
+								<td th:text="${_bairro.localidade.cidade.estabelecimento.id}">Porto Seguro</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-bairros.botao.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a class="dropdown-item btn-editar-bairro" th:href="@{bairros/editar/{id}(id=${_bairro.id})}" data-titulo="Editar Bairro" th:id="${_bairro.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{tabela-bairros.botao.editar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{bairros/status/{id}(id=${_bairro.id})}" th:inline="text" th:if="${_bairro.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{tabela-bairros.botao.desabilitar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{bairros/status/{id}(id=${_bairro.id})}" th:inline="text" th:if="${_bairro.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{tabela-bairros.botao.habilitar}]]</a>
+										      <a class="dropdown-item btn-excluir-bairro" href="#" th:href="@{bairros/excluir/{id}(id=${_bairro.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-bairros.botao.excluir}]]</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+						
+					</table>
+				</div>
+				
+				<button type="button" class="btn btn-primary btn-novo-bairro" data-titulo="Cadastro de Novo Bairro">Adicionar</button>
+				
+			</div>
+		</div>
+		Espaço Modal
+		<div th:replace="fragmentos/modal/bairro :: modalBairro"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+	</main>
+	<script src="/assets/js/validador/form-bairros.js"></script>
+</section>
+</html> -->

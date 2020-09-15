@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastros de Cidades</h5>
+				
+				<hr/>
+				
+				<div th:replace="fragmentos/modal/tabela :: modalPreTabela"></div> 
+				
+					<table id="tabela-cidades" class="table table-sm table-hover">
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{tabela-cidades.titulo.id}">ID</th>
+								<th scope="col" th:text="#{tabela-cidades.titulo.nome}">Cidade</th>
+								<th scope="col" th:text="#{tabela-cidades.titulo.uf}">Estado</th>
+								<th scope="col" th:text="#{tabela-cidades.titulo.acao}">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_cidade, iStat : ${bookPage.content}" th:classappend="${_cidade.ativo} ? table-default : table-danger" >
+								<th scope="row" th:text="${_cidade.id}">1</th>
+								<td th:text="${_cidade.nome}">Porto Seguro</td>
+								<td th:text="${_cidade.uf.nome}">Bahia</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-cidades.botao.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a class="dropdown-item btn-editar-cidade" th:href="@{/cidades/editar/{id}(id=${_cidade.id})}" th:id="${_cidade.id}" data-titulo="Editar Cidade" th:inline="text" ><i class="far fa-edit"></i> [[#{tabela-cidades.botao.editar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{cidades/status/{id}(id=${_cidade.id})}" th:inline="text" th:if="${_cidade.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{tabela-cidades.botao.desabilitar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{cidades/status/{id}(id=${_cidade.id})}" th:inline="text" th:if="${_cidade.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{tabela-cidades.botao.habilitar}]]</a>
+										      <a class="dropdown-item btn-excluir-cidade" href="#" th:href="@{cidades/excluir/{id}(id=${_cidade.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-cidades.botao.excluir}]]</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table> 
+					<hr>
+			    		<div th:replace="fragmentos/modal/tabela :: modalPosTabela"></div>
+					<br>
+				<button type="button" class="btn btn-primary btn-nova-cidade" data-titulo="Cadastro de Nova Cidade">Adicionar</button>
+				
+			</div>
+		</div>
+	
+		<div th:replace="fragmentos/modal/cidade :: modalCidade(${cidade})"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+		
+	</main>
+	
+	<script src="/assets/js/validador/form-cidades.js"></script>
+</section>
+</html>

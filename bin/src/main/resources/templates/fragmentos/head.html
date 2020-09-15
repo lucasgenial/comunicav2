@@ -1,0 +1,131 @@
+<<<<<<< HEAD
+<head th:fragment="head">
+
+	<link href="/assets/css/logo.css" rel="stylesheet"/> 
+	<!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
+    <!-- page css -->
+    <link href="/assets/css/pages/icon-page.css" rel="stylesheet">
+        
+	<link href="/assets/css/pages/ribbon-page.css" rel="stylesheet">
+
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Dashboard Ocorrência - Tipificação'}" th:insert="fragmentos/css/css-dash-ocorrencia :: css-ocorrencia"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Dashboard Efetivo'}" th:insert="fragmentos/css/css-dash-efetivo :: css-efetivo"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Ocorrência' || tituloPagina  == 'ComunicaCICOM - Editar Ocorrência'}" th:insert="fragmentos/css/cad-ocorrencia :: css-ocorrencia"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Ocorrências'}"  th:insert="fragmentos/css/tabela-ocorrencias :: css-tabela-ocorrencias"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Ocorrências'}"  th:insert="fragmentos/css/pesquisa-ocorrencia :: css-pesquisa-ocorrencia"></th:block>
+
+	<!-- page css servidor -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Servidores'}"  th:insert="fragmentos/css/tabela-servidores :: css-tabela-servidores"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Servidor' || tituloPagina  == 'ComunicaCICOM - Editar Servidor'}" th:insert="fragmentos/css/cad-servidor :: css-servidor"></th:block>
+
+    
+    <!-- page css usuario -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Usuários'}"  th:insert="fragmentos/css/tabela-usuarios :: css-tabela-usuarios"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Usuário' || tituloPagina  == 'ComunicaCICOM - Editar Usuário'}" th:insert="fragmentos/css/cad-usuario :: css-usuario"></th:block>
+    
+    
+    <!-- page css arquivo -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Arquivos'}"  th:insert="fragmentos/css/tabela-arquivos :: css-tabela-arquivos"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Arquivo' || tituloPagina  == 'ComunicaCICOM - Editar Arquivo'}" th:insert="fragmentos/css/cad-arquivo :: css-arquivo"></th:block>
+	
+	
+	<!-- page css visita -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Visitas'}"  th:insert="fragmentos/css/tabela-visitas :: css-tabela-visitas"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Visita' || tituloPagina  == 'ComunicaCICOM - Editar Visita'}" th:insert="fragmentos/css/cad-visita :: css-visita"></th:block>
+	
+	<!-- page css localidade -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Localidades'}"  th:insert="fragmentos/css/tabela-localidades :: css-tabela-localidades"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Localidade' || tituloPagina  == 'ComunicaCICOM - Editar Localidade'}" th:insert="fragmentos/css/cad-localidade :: css-localidade"></th:block>
+     
+   	
+   	<!-- page css Mesas -->
+   	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Mesa'}" th:insert="fragmentos/css/cad-novaMesa :: css-novaMesa"></th:block>
+   
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Edição Mesa'}" th:insert="fragmentos/css/edita-mesa :: css-editaMesa"></th:block>
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Histórico Mesa'}" th:insert="fragmentos/css/tabela-mesas :: css-tabelaMesas"></th:block>
+  
+  	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Visualiza Mesa'}" th:insert="fragmentos/css/visualiza-mesa :: css-visualizaMesa"></th:block>
+  	
+  	<!-- page css Efetivos -->
+  	
+  	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Histórico Efetivo Externo'}" th:insert="fragmentos/css/tabela-efetivoExterno :: css-tabelaEfetivoExterno"></th:block>
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Cadastro Efetivo Externo'}" th:insert="fragmentos/css/cad-efetivoExterno :: css-efetivoExterno"></th:block>
+     
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Edição Efetivo Externo'}" th:insert="fragmentos/css/edita-efetivoExterno :: css-editaEfetivoExterno"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Visualiza Efetivo Externo Ativos Por Cidade'}" th:insert="fragmentos/css/visualiza-efetivoExternoAtivoPorCidade :: css-visualizaEfetivoExternoAtivoPorCidade"></th:block>
+	
+	<!-- page css bairro -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Bairros'}"  th:insert="fragmentos/css/tabela-bairros :: css-tabela-bairros"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Bairro' || tituloPagina  == 'ComunicaCICOM - Editar Bairro'}" th:insert="fragmentos/css/cad-bairro :: css-bairro"></th:block>
+	
+	<!-- page css Unidade -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Unidades'}"  th:insert="fragmentos/css/tabela-unidades :: css-tabela-unidades"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Unidade' || tituloPagina  == 'ComunicaCICOM - Editar Unidade'}" th:insert="fragmentos/css/cad-unidade :: css-unidade"></th:block>
+	
+	<!-- page css Estabelecimento -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Estabelecimentos'}"  th:insert="fragmentos/css/tabela-estabelecimentos :: css-tabela-estabelecimentos"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Estabelecimento' || tituloPagina  == 'ComunicaCICOM - Editar Estabelecimento'}" th:insert="fragmentos/css/cad-estabelecimento :: css-estabelecimento"></th:block>
+     
+	<!-- page css Servidores Externos -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Servidores Externos'}"  th:insert="fragmentos/css/tabela-servidoresExternos :: css-tabela-servidoresExternos"></th:block>
+=======
+<head th:fragment="head">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="/assets/bootstrap4-glyphicons/css/bootstrap-glyphicons.min.css" rel="stylesheet">
+	
+	<!-- FontWesome -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+	
+	<!-- BootStrap v4.1.2 -->
+	<link rel="stylesheet" href="/assets/bootstrap4.1.2/dist/css/bootstrap.min.css">
+	
+	<!-- FormValidateJS -->
+	<link rel="stylesheet" href="/assets/formvalidation/dist/css/formValidation.min.css" >
+	
+	<!-- DataTableJS -->
+	<link rel="stylesheet" href="/assets/DataTables/css/dataTables.bootstrap4.css">
+	
+	<!-- Bootstrap-DateTimePicker -->
+	<link rel="stylesheet" href="/assets/datetimepicker/css/bootstrap-datetimepicker.css">
+	
+	<!-- PaceJS -->
+	<link rel="stylesheet" href="/assets/pace/themes/blue/pace-theme-center-radar.css">
+	
+    <!-- Customização -->
+	<link rel="stylesheet" th:href="@{~/assets/css/customizacao.css}">
+	
+	<!-- Customização Navbar -->
+	<link rel="stylesheet" th:href="@{~/assets/css/navbar.css}">
+	<link rel="stylesheet" th:href="@{~/assets/css/inicio.css}">
+	<link rel="stylesheet" th:href="@{~/assets/css/teste2.css}">
+>>>>>>> Mauricio
+</head>

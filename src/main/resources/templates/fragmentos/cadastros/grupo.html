@@ -1,0 +1,52 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO DE GRUPO</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Cadastro do Grupo</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row col-md-auto ml-sm-auto col-lg-12 mx-auto">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<form id="formGrupo" class="form-grupo" th:object="${grupo}" th:action="@{~/admin/salva/cadastro/grupo}" method="POST">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">GRUPO</div>
+							<div class="form-group col-1">
+								<label for="id">Id</label>
+								<input id="id" name="id" type="text" class="form-control" th:field="*{id}" th:value="${id}" readonly="readonly">
+							</div>
+							
+							<div class="form-group col-3">
+								<label for="nome">Nome do Grupo</label>
+								<input id="nome" name="nome" type="text" class="form-control" th:field="*{nome}" autocomplete="off"  th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+								<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+							</div>
+							
+							<div class="form-group col-8">
+								<label for="cor">Descrição</label>
+								<input id="descricao" name="descricao" type="text" class="form-control" th:field="*{descricao}" autocomplete="off"  th:classappend="${#fields.hasErrors('descricao')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+								<span class="fv-help-block" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+							</div>	
+							<div class="form-group col-8">
+								<button type="submit" class="btn btn-info">Salvar</button>
+								<button type="button" class="ml-2 btn btn-info" onclick="window.history.back()">Voltar</</button> 
+							
+							</div>		
+							</div>
+					</form>
+					</div>
+				</div>
+			</div>
+		</main>
+		
+	<script src="/assets/js/validador/form-grupo.js"></script>
+</section>

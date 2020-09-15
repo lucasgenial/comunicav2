@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Comunica CICOM - Registro Usuario</title>
+	<object th:include="fragmentos/head :: head" th:remove="tag"/>
+</head>
+<body>
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="row col-sm-12">
+				<form name="form1" th:action="@{/cadastrarUsuario}" th:object="${usuario}" method="POST" class="form-horizontal">
+					<h2>Formulário de Registro</h2>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" id="login" th:field="*{login}" placeholder="Matricula" class="form-control" name="login" />
+							<label th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="validation-message"></label>
+							<p  style="font-size: 20; color: #FF1C19; padding:5px; margin-left:10px;" th:text="${login}" ></p>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" id="senha" th:field="*{senha}" placeholder="Senha" name="senha" class="form-control" />
+							<label th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="validation-message"></label>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="password" id="confirmarSenha" placeholder="Confirmar Senha" name="confirmarSenha" class="form-control" />
+							<p  style="font-size: 20; color: #FF1C19; padding:5px; margin-left:10px; " th:text="${aviso}" ></p>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Registrar</button>
+						</div>
+					</div>					
+					<span th:utext="${successMessage}"></span>					
+				</form>
+			</div>
+		</div>
+	</main>	
+	<footer th:replace="fragmentos/footer :: footer"></footer>	
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag" />
+	<script src="/assets/js/validador/form-validaCPF.js"></script> 
+	<script src="/assets/js/jquery.mask.min.js"></script> 
+</body>
+</html>

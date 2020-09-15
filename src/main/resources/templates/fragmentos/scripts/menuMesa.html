@@ -1,0 +1,85 @@
+<th:block th:fragment="menuMesa">
+<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela de Cadastro de Novas Ocorrencia -->
+    <!-- ============================================================== -->   
+    <!-- Plugin de data -->
+	<script src="/assets/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="/assets/datetimepicker/locales/bootstrap-datetimepicker.pt-BR.js"></script>
+ 
+	<!-- Multi Select -->
+	<script src="/assets/multi-select/js/bootstrap-select.min.js"></script>
+
+
+	<script src="/assets/js/validador/form-menuMesa.js"></script>
+   <script type="text/javascript">
+
+let tempo = new Number();
+// Tempo em segundos
+tempo = [[${tempoParaDesabilitar}]];
+//tempo = tempo*-1
+
+function startCountdown(){	
+	// Se o tempo não for zerado
+	if(tempo > 0){
+
+		var hor = parseInt(tempo/3600);
+		// Pega a parte inteira dos minutos
+		var min = parseInt((tempo%3600)/60);
+		
+		// Calcula os segundos restantes
+		var seg = tempo%60;
+
+		// Formata o número menor que dez, ex: 08, 07, ...
+		if(hor < 10){
+			hor = "0"+hor;
+			hor = hor.substr(0, 2);
+		}
+		if(min < 10){
+			min = "0"+min;
+			min = min.substr(0, 2);
+		}
+		if(seg <=9){
+			seg = "0"+seg;
+		}
+		
+		
+
+		// Cria a variável para formatar no estilo hora/cronômetro
+		horaImprimivel = hor +':' + min + ':' + seg;
+		//JQuery pra setar o valor
+		$("#tempoEncerrar").html("Essa mesa encerrará em "+horaImprimivel);
+		
+		
+		// Define que a função será executada novamente em 1000ms = 1 segundo
+		setTimeout('startCountdown()',1000);
+
+		// diminui o tempo
+		tempo--;
+		
+		if(hor == 0 && min < 30){
+			$("#divNovaMesa").removeAttr('hidden');
+		}
+		  
+	} else {
+		$("#tempoEncerrar").html("Não há mesas ativas, convêm abrir uma nova");
+		$("#divEditaMesa").attr("hidden",true);
+		$("#divGerenciaInterno").attr("hidden",true);
+		$("#divGerenciaExterno").attr("hidden",true);
+		$("#divVisualiza").attr("hidden",true);
+		$("#divNovaMesa").removeAttr('hidden');
+	}
+}
+// Chama a função ao carregar a tela
+startCountdown();
+
+</script>
+
+ <script type="text/javascript">
+ setInterval('atualizaStatusDaMesa('+[[${mesa.id}]]+')',3000);
+
+</script>
+
+
+
+
+</th:block>

@@ -1,0 +1,293 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+			
+			<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+            <div class="position-fixed">
+				<div id="list-example" class="pt-5 mt-4 list-group" data-toggle="buttons">
+					<label class="text-center">Visualizar</label>
+					<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button"  id="mostraEfetivoInterno" data-target="#efetivoInterno" data-toggle="collapse">Internos</button>
+					<br/>
+					<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button"  id="mostraEfetivoExterno" data-target="#efetivoExterno" data-toggle="collapse">Externos</button>
+				</div>
+			</div>
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">EFETIVOS INTERNOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="/admin/historico/mesas">Histórico De Mesas</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Efetivo Interno</li>
+				        </ol>
+				    </div>	
+				</div>
+			</div>
+			
+			<div class="row">					
+				<div class="ribbon-wrapper card col-md-auto ml-sm-auto col-lg-10 mx-auto" style="padding-top: 33px;">
+					<div class="form-row ml-2 mr-2 justify-content-between" style="border:2px solid #333;">						
+						<div class="col-md-5 ml-3 mt-3 mb-2 h4" >
+							<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+							<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+							<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+						</div>
+						<div class="col-md-2 imagem-logoCicomVisualizacao"></div>
+					</div>						
+					
+					<div class="row ml-3 mt-2" >
+						<label><font class="font-weight-bold">MESA:&nbsp; </font><font>[[${mesa.nome}]]</font></label>
+					</div>
+					<div class="form-row ml-2 mr-2" style="border:2px solid #333;">						
+						<div class="col-md-5 mb-1 mt-1" >
+							<label style="margin-bottom: 0px;"><font class="font-weight-bold">INÍCIO PLANTÃO:&nbsp; </font><font th:text="${#temporals.format(mesa.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}"></font></label>
+						</div>
+						<div class="col-md-5 mb-1 mt-1">
+							<label style="margin-bottom: 0px;"><font class="font-weight-bold">FIM PLANTÃO:&nbsp; </font><font th:text="${#temporals.format(mesa.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}"></font></label>
+						</div>	
+					</div>
+				
+					
+						<div id="efetivoInterno" class="collapse show">
+							<div class="form-row ml-2 mr-2 mt-2" style="border:2px solid #333; background-color:#0bf;">						
+								<div class="text-center col-md-12 mb-1 mt-1">
+									<label style="margin-bottom: 0px;"><font class="font-weight-bold">EFETIVOS INTERNOS</font></label>
+								</div>	
+							</div>
+							
+							<!-- Lista de coordenadores-->
+							<div th:if="${not mesa.getServidoresCoordenadores().isEmpty()}"  th:each="_servidores : ${mesa.getServidoresCoordenadores()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">COORDENADOR</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresCoordenadores().isEmpty()}"  class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+									
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+									<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+									
+							</div>	
+							
+							<div th:if="${not mesa.getServidoresCoordenadores().isEmpty()}"  th:each="_servidores : ${mesa.getServidoresCoordenadores()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+								
+							</div>
+							
+							
+							<!-- Lista de coordenadores adjuntos da mesa-->
+							<div th:if="${not mesa.getServidoresCoordenadoresAdjuntos().isEmpty()}" th:each="_servidores : ${mesa.getServidoresCoordenadoresAdjuntos()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff ">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">COORDENADOR ADJUNTO</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresCoordenadoresAdjuntos().isEmpty()}" class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+												
+								<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+								<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+								<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+								<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+								<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+								<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+								<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+								
+							</div>	
+							<div th:if="${not mesa.getServidoresCoordenadoresAdjuntos().isEmpty()}" th:each="_servidores : ${mesa.getServidoresCoordenadoresAdjuntos()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+								
+							</div>
+										
+							<!-- Lista de operadores de Teledespacho -->							
+							<div th:if="${not mesa.getServidoresTeledespacho().isEmpty()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff ">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">OPERADORES DE TELEDESPACHO</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresTeledespacho().isEmpty()}" class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+									
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+									<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+									
+							</div>	
+							<div th:if="${not mesa.getServidoresTeledespacho().isEmpty()}" th:each="_servidores : ${mesa.getServidoresTeledespacho()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+								
+							</div>
+										
+							<!-- Lista de operadores de Vídeo Monitoramento -->							
+							<div th:if="${not mesa.getServidoresVideoMonitoramento().isEmpty()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff ">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">OPERADORES DE VÍDEO MONITORAMENTO</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresVideoMonitoramento().isEmpty()}" class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+									
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+									<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+									
+							</div>	
+							<div th:if="${not mesa.getServidoresVideoMonitoramento().isEmpty()}" th:each="_servidores : ${mesa.getServidoresVideoMonitoramento()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+								
+							</div>
+										
+																		
+							<!-- Lista de funcionários de teleatendimento -->							
+							<div th:if="${not mesa.getServidoresTeleAtendimento().isEmpty()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff ">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">OPERADORES DE TELEATENDIMENTO</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresTeleAtendimento().isEmpty()}" class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+									
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+									<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+									
+							</div>	
+							<div th:if="${not mesa.getServidoresTeleAtendimento().isEmpty()}" th:each="_servidores : ${mesa.getServidoresTeleAtendimento()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+								
+							</div>								
+										
+							<!-- Lista de funcionários de suporte operacional -->							
+							<div th:if="${not mesa.getServidoresSuporteOperacional().isEmpty()}" class="form-row ml-2 mr-2 mt-2 pt-1 pb-2 justify-content-center" style="border:2px solid #333; background-color:#f0f8ff ">	
+								<label class="mt-1 font-weight-bold text-center" style="margin-bottom: 0px;">SUPORTE OPERACIONAL</label>
+							</div>
+									
+							<div th:if="${not mesa.getServidoresSuporteOperacional().isEmpty()}" class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px; background-color:#f0f8ff">	
+									
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark" style="padding-left: 0px; padding-right: 0px">MATRÍCULA</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right font-weight-bold border-dark">PAUSA 2</div>
+									<div class="width-15-PorCento pt-2 pb-2 font-weight-bold border-dark">FIM</div>
+									
+							</div>	
+							<div th:if="${not mesa.getServidoresSuporteOperacional().isEmpty()}" th:each="_servidores : ${mesa.getServidoresSuporteOperacional()}"  th:classappend="${_servidores} ? table-default : table-danger">
+								<div class="form-row ml-2 mr-2 text-center" style="border:2px solid #333; border-top:0px;">
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.hierarquia.nome}">GH</div>
+									<div class="width-30-PorCento pt-2 pb-2 border-right border-dark" th:text="${_servidores.servidor.nome}">NOME</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" style="padding-left: 0px; padding-right: 0px" th:text="${_servidores.servidor.matricula}">MATRÍCULAo</div>
+									<div class="width-15-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}">INÍCIO</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa1,  'HH:mm:ss')}">PAUSA 1</div>
+									<div class="width-10-PorCento pt-2 pb-2 border-right border-dark" th:text="${#temporals.format(_servidores.pausa2,  'HH:mm:ss')}">PAUSA 2</div>				
+									<div class="width-15-PorCento pt-2 pb-2 border-dark" th:text="${#temporals.format(_servidores.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}">FIM</div>
+								</div>												
+							</div>
+						</div>
+						<!-- Efetivos externos -->
+						<div id="efetivoExterno" class="collapse show">
+							<div class="form-row ml-2 mr-2 mt-2" style="border:2px solid #333; background-color:#0bf;">						
+								<div class="text-center col-md-12 mb-1 mt-1">
+									<label style="margin-bottom: 0px;"><font class="font-weight-bold">EFETIVOS EXTERNOS</font></label>
+								</div>	
+							</div>
+							
+				            <div th:if="${not mesa.listaDePoliciamentos.isEmpty()}" class="ml-2 mr-2 mt-2 justify-content-center pr-1 pl-1" th:each="_policiamento : ${mesa.listaDePoliciamentos}" style="border:2px solid #333;">	
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-60-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">UNIDADE:&nbsp; </font><font>[[${_policiamento.unidade.nome}]]</font></label>
+								<label class="width-40-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">MODALIDADE:&nbsp; </font><font>[[${_policiamento.modalidade.nome}]]</font></label>
+							</div>
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-27-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA INÍCIO:&nbsp; </font><font>[[${#temporals.format(_policiamento.comecoPlantao, 'dd/MM/yyyy HH:mm:ss')}]]</font></label>
+								<label class="width-27-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA FIM:&nbsp; </font><font>[[${#temporals.format(_policiamento.terminoPlantao, 'dd/MM/yyyy HH:mm:ss')}]]</font></label>
+								<label class="width-46-PorCento mb-0 pl-2"><font class="font-weight-bold">TELEFONE:&nbsp; </font><font>[[${_policiamento.telefone}]]</font></label>
+							</div>
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-30-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">ABRANGÊNCIA:&nbsp;Cidade-&nbsp;</font>[[${_policiamento.cidade.nome}]]</label>
+								<label class="width-35-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">Localidade-&nbsp;</font>[[${_policiamento.localidade.nome}]]</label>
+								<label class="width-35-PorCento mb-0"><font class="font-weight-bold pl-2">Bairro-&nbsp;</font>[[${_policiamento.bairro.nome}]]</label>		
+							</div>
+							<div class="form-row text-center border-bottom border-dark" style="background-color:#F0F8FF">
+								<label class="width-15-PorCento border-right border-dark font-weight-bold mb-0">FUNÇÃO</label>
+								<label class="width-20-PorCento border-right border-dark font-weight-bold mb-0">GRAU HIERÁRQUICO</label>
+								<label class="width-45-PorCento border-right border-dark font-weight-bold mb-0">NOME</label>
+								<label class="width-20-PorCento font-weight-bold mb-0">MATRÍCULA</label>
+							</div>				
+							<div th:if="${not _policiamento.guarnicao.isEmpty()}"  th:each="_guarnicao : ${_policiamento.guarnicao}" class="table-default">
+								<div class="form-row text-center border-bottom border-dark">
+									<div class="width-15-PorCento border-right border-dark  pt-1 pb-1" th:text="${_guarnicao.funcao.nome}">FUNÇÃO</div>
+									<div class="width-20-PorCento border-right border-dark pt-1 pb-1" th:text="${_guarnicao.servidor.hierarquia.nome}">GH</div>
+									<div class="width-45-PorCento border-right border-dark pt-1 pb-1" th:text="${_guarnicao.servidor.nome}">NOME</div>
+									<div class="width-20-PorCento pt-1 pb-1" th:text="${_guarnicao.servidor.matricula}">MATRÍCULA</div>
+								</div>												
+							</div>
+						</div>	
+					</div>
+					<br/>
+					<!-- Botões -->
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                      		<!-- <div th:if="${mesa.ativo}" class="btn-group mr-2" role="group">
+								<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa/editarMesa/{id}(id=${mesa.id})}" th:id="${mesa.id}" th:inline="text" >Editar Mesa</a>
+                      		</div> -->
+                            <div class="btn-group mr-2" id="divBotaoDeDownload" role="group">							
+							<a class="btn btn-info btn-sm botaoDeDownload" name="botaoDeDownload" th:href="@{~/admin/cadastros/report/mesa_completa/{id}(id=${mesa.id})}" th:download="'Mesa ' +${#temporals.format(mesa.inicioPlantao, 'dd/MM/yyyy')}" target="_blank" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >Download PDF</a>
+                      		</div>
+                      		<div class="btn-group mr-2" role="group">
+							<a class="btn btn-info btn-sm" th:href="@{~/admin/menu/mesa}" data-titulo="Voltar" th:id="${mesa.id}" th:inline="text" >Voltar</a>
+                      		</div>
+                     </div>
+                     
+				</div><!-- ribbon-wrapper cabeçalho -->										
+			</div><!-- div row 1 -->			
+		</div><!-- container -->
+	</main>
+</section>

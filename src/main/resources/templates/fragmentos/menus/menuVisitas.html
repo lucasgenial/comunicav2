@@ -1,0 +1,89 @@
+<section id="pagina" onbeforeunload="return myFunction()" layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+				<!-- INICIO TITULO DA PÁGINA -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+					    <h4 class="text-themecolor">DIÁRIO DE VISITAS</h4>
+					</div>
+					<div class="col-md-7 align-self-center text-right">
+					    <div class="d-flex justify-content-end align-items-center">
+					        <ol class="breadcrumb">
+					            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+					            <li class="breadcrumb-item active">Menu mesa</li>
+					        </ol>
+					    </div>
+					</div>
+				</div>	
+				
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="ribbon-wrapper card">
+					<div class="ribbon ribbon-info">Menu</div>
+					<div class="container-fluid row justify-content-between">
+
+						<div id="divGerenciaInterno"class="card col-2 text-center" >
+							<a href="/admin/cadastra/visita">
+								<img class="img-thumbnail" src="/assets/imagens/pages/visita/novaVisita.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Cadastrar</p>
+								</div>
+							</a>
+						</div>
+						<div id="divGerenciaExterno" class="card col-2 text-center" >
+							<a href="/admin/historico/visitas">
+								<img class="img-thumbnail" src="/assets/imagens/pages/visita/historicoVisita.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Histórico</p>
+								</div>
+							</a>
+						</div>
+						<div id="divVisualiza" class="card col-2 text-center">
+							<a href="/admin/pesquisa/visitas">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconVisualizarSmall.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Pesquisar Visitas</p>
+								</div>
+							</a>
+						</div>
+						<div id="divGerenciaExterno" class="card col-2 text-center" >
+							<a href="/admin/pesquisa/visitantes">
+								<img class="img-thumbnail" src="/assets/imagens/pages/visita/buscaVisita.fw.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Pesquisar Visitantes</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+				
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="ribbon-wrapper card">
+					<div class="ribbon ribbon-info">Últimas</div>
+					<div class="table-responsive-md">  
+						<table id="ultimasVisitas" class="table table-sm table-bordered table-striped dt-responsive text-center">
+							<thead>
+								<tr >
+									<th>Empresa</th>
+									<th>Serviço</th>
+									<th>Entrada</th>
+									<th>Saída</th>
+									<th>Motivo</th>
+								</tr>
+							</thead>
+							<tbody>
+							<!-- <tr th:each="_visita : ${visitas}">
+								<td th:text="${_visita.empresa}"></td>
+								<td th:text="${_visita.servicoNome}"></td>
+								<td th:text="${#temporals.format(_visita.inicioServico, 'dd/MM/yyyy')}"></td>
+								<td th:text="${#temporals.format(_visita.fimServico, 'dd/MM/yyyy')}"></td>
+								<td th:text="${_visita.empresa}"></td>
+							</tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

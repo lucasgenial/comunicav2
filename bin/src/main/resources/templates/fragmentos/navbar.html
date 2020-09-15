@@ -1,0 +1,323 @@
+<<<<<<< HEAD
+<nav id="principal" class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar(usuario)">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">			
+			<li class="nav-item">
+				<a sec:authorize="hasAuthority('PRIMEIRO-LOGIN')" class="nav-link" th:text="#{sistema.menu.primeiroLogin}" th:href="@{~/admin/servidores/cadastro}"><b>PRIMEIRO LOGIN</b></a>
+			</li>
+			
+			<!-- MENU GRAFICOS -->
+			<li  sec:authorize="hasAuthority('MASTER')"  class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-graficos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.graficos}">GRÁFICOS</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-graficos">
+					<a class="dropdown-item" href="#" th:href="@{~/admin/home/grafico/efetivo}" name="graficoEfetivo"  th:text="#{sistema.menu.graficos.efetivos}">Efetivos</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/home/grafico/ocorrencia}" name="graficoOcorrencia"  th:text="#{sistema.menu.graficos.ocorrencias}">Ocorrências</a>
+				</div>
+			</li>
+			
+			<!-- MENU OCORRÊNCIAS -->
+			<li  sec:authorize="hasAuthority('TELEDESPACHO')"  class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.ocorrencias}">GESTÃO DE OCORRÊNCIAS</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/ocorrencias/historico}" th:text="#{sistema.menu.ocorrencias.sub.historico}">Histórico de Ocorrências</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/ocorrencias/cadastro}" th:text="#{sistema.menu.ocorrencias.sub.novaOcorrencia}">Nova Ocorrência</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/ocorrencias/pesquisar}" th:text="#{sistema.menu.ocorrencias.sub.pesquisarOcorrencia}">Pesquisar Ocorrência</a>
+				</div>
+			</li>
+			
+			<!-- MENU EFETIVO -->
+			<li sec:authorize="hasAuthority('TELEDESPACHO')" class="nav-item dropdown" >
+				<a sec:authorize="hasAuthority('TELEDESPACHO')" class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  th:text="#{sistema.menu.efetivo}">Gestão de Efetivos</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div th:if="${usuario.servidor.estabelecimento.nome == 'COSTA DO DESCOBRIMENTO'}" class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a sec:authorize="hasAuthority('TELEDESPACHO')" class="dropdown-item" th:href="@{~/admin/gestaoefetivo/cadastrar-mesa}">Nova Mesa</a>		
+					<a sec:authorize="hasAuthority('TELEDESPACHO')" class="dropdown-item" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa}">Histórico de Mesas</a>	
+					<a sec:authorize="hasAuthority('TELEDESPACHO')" class="dropdown-item" th:href="@{~/admin/gestaoefetivo/mesa/pesquisar}">Pesquisar Mesa</a>
+				</div>
+				<div th:if="${usuario.servidor.estabelecimento.nome != 'COSTA DO DESCOBRIMENTO'}" class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a class="dropdown-item" href="#">Módulo em construção</a>	
+					
+				</div>
+			</li>
+
+			<!-- MENU VISITAS -->
+			<li sec:authorize="hasAuthority('TELEDESPACHO')" class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-visita" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" sec:authorize="hasAuthority('TELEDESPACHO')" th:text="#{sistema.menu.visita}">Gestão de Acessos</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-visita">
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/visitas/historico}" th:text="#{sistema.menu.administracao.sistema.visitas}">Controle de Acesso</a>
+				</div>
+			</li>
+
+			<!-- MENU RELATÓRIOS -->
+			<li class="nav-item dropdown">
+				<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.relatorio}">Gestão de Relatórios</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+<!-- 				<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="dropdown-item" href="#" th:href="@{~/admin/relatorio/historico}" th:text="#{sistema.menu.relatorio.sub.historico}">Registros de OcorrÃªncia</a> -->
+ 					<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="dropdown-item" href="#" th:href="@{~/admin/relatorio/dadosEstatisticos}" th:text="#{sistema.menu.relatorio.sub.dadosEstatisticos}">Dados Estatisticos</a>
+					<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="dropdown-item" href="#" th:href="@{~/admin/relatorio/graficos}" th:text="#{sistema.menu.relatorio.sub.pesquisarOcorrencia}">Gerar Gráficos</a>
+				</div>
+			</li>
+			
+			<!-- MENU RECURSOS HUMANOS -->
+			<li sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="nav-item dropdown" > <!-- -SUPERVISOR -->
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-servidor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.rh}">Recursos Humanos</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" >
+					<a sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')" class="dropdown-item" href="#" th:href="@{~/admin/cadastros/usuarios/historico}" th:text="#{sistema.menu.seguranca.usuarios}">Usuários</a>
+					<a sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')" class="dropdown-item" href="#" th:href="@{~/admin/cadastros/servidores/historico}"  th:text="#{sistema.menu.rh.servidores}">Servidores</a>					
+					<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="dropdown-item" href="#" th:href="@{~/admin/cadastros/localidades}" th:text="#{sistema.menu.administracao.ocorrencias.localidade}">Localidades</a>
+					<a sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')" class="dropdown-item" href="#" th:href="@{~/admin/historico/bairros}" th:text="#{sistema.menu.administracao.ocorrencias.bairro}">Bairros</a>
+					<a sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')" class="dropdown-item" href="#" th:href="@{~/admin/cadastros/historico/unidades}" th:text="#{sistema.menu.administracao.ocorrencias.unidade}">Cadastrar Unidades / E-mail</a>
+					<a sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')" class="dropdown-item" href="#" th:href="@{~/admin/historico/estabelecimentos}" th:text="#{sistema.menu.administracao.sistema.estabelecimento}">CICOM</a>
+				</div>
+			</li>
+			
+			<li sec:authorize="hasAuthority('ADMINISTRADOR')" id="megamenu" class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.administracao}">Administração</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-3">
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.sistema}">Sistema</span>
+								<ul class="nav flex-column">
+									<li sec:authorize="hasAuthority('ADMINISTRADOR')" class="nav-item"><a class="dropdown-item" href="#" th:href="@{~/admin/configuracao/auditar}" th:text="#{sistema.menu.administracao.sistema.auditar}">Auditoria</a></li>
+								</ul>
+							</div>
+
+							<div class="col-md-3">
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.ocorrencias}">Ocorrências</span>
+								<ul class="nav flex-column">
+									<li sec:authorize="hasAuthority('ADMINISTRADOR')" class="nav-item"><a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/cidades}" th:text="#{sistema.menu.administracao.ocorrencias.cidade}">Cidades</a></li>
+									<li sec:authorize="hasAuthority('ADMINISTRADOR')" class="nav-item"><a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/tipificacoes}" th:text="#{sistema.menu.administracao.ocorrencias.tipificacao}">TipificaÃ§Ã£o</a></li>
+								</ul>
+							</div>
+							
+							<div class="col-md-3">
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.efetivo}">EFETIVO</span>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item"  href="#" th:href="@{~/admin/cadastros/servico/historico}" th:text="#{sistema.menu.administracao.efetivo.prestacaoServico}">Cadastros Prestação Serviço</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item"  href="#" th:href="@{~/admin/servidor/externo}" th:text="#{sistema.menu.administracao.efetivo.cadastros}">Cadastros de Servidor Externo</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item"  href="#" th:href="@{~/admin/instituicoes}" th:text="#{sistema.menu.administracao.efetivo.instituicao}">Cadastros de Instituições</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" th:href="@{~/admin/cadastros/historico/unidades}" th:text="#{sistema.menu.administracao.efetivo.unidade}">Cadastros de Unidade</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" href="**/modalidades" th:text="#{sistema.menu.administracao.efetivo.processoPoliciamento}">Cadastros de Processo de Policiamento</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" href="**/caracteristicas" th:text="#{sistema.menu.administracao.efetivo.caracteristica}">Cadastros de Características</a>
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.graficos}">GRÁFICOS</span>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" href="**/recursos" th:text="#{sistema.menu.administracao.graficos.recursos}">Cadastros de Recursos</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" href="**/funcoes" th:text="#{sistema.menu.administracao.graficos.funcoes}">Cadastros de Funções</a>
+								<a sec:authorize="hasAuthority('ADMINISTRADOR')" class="dropdown-item" href="**/tipoServico" th:text="#{sistema.menu.administracao.graficos.tipoServico}">Cadastros de Tipo de Serviço</a>
+							</div>							
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" id="menu-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span sec:authorize="hasAuthority('MASTER')" th:if="${usuario?.servidor?.nome == null}">GRÁFICOS DE OCORRÊNCIAS</span>
+				<span sec:authorize="hasAuthority('PRIMEIRO-LOGIN')" th:if="${usuario?.servidor?.nome == null}">PRIMEIRO LOGIN</span>
+				<span th:if="${usuario?.servidor?.nome != null}" th:text="${#strings.toUpperCase(usuario.servidor.sobreNome)}"></span>
+				<img th:if="${usuario?.servidor?.nome != null and usuario?.servidor?.sexo.toString().equals('MASCULINO')}" src="/assets/imagens/perfil.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+			    <img th:if="${usuario?.servidor?.nome != null and usuario?.servidor?.sexo.toString().equals('FEMININO')}" src="/assets/imagens/teste1.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+				
+				</a>
+				<div class="dropdown-menu" aria-labelledby="menu-login">
+					<a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+					<a th:if="${usuario.servidor != null}"  class="dropdown-item" href="#" th:href="@{~/admin/cadastros/servidores/editar}" th:text="#{sistema.menu.usuario.editar}">Editar Conta</a>
+ 					<!-- <a class="dropdown-item" onclick="myFunction()"><i class="fab fa-whatsapp"></i> Suporte</a><script>function myFunction() {alert(" (71) 99712-9541");}</script> -->
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<nav id="principal" class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar1(usuario)">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+						
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<div class="dropdown-menu" aria-labelledby="menu-login">
+					<a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/usuarios/editarConta}" th:text="#{sistema.menu.usuario.editar}">Editar Conta</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+=======
+<nav id="principal" class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar(usuario)">
+<!-- 	<a class="navbar-brand comunicacicomLink" href="#" th:href="@{/admin/home}">Comunic@</a>
+ -->	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link cor-fonte" href="#" th:text="#{sistema.menu.inicio}" th:if="${#maps.containsKey(permissoes, 'MASTER')}" th:href="@{/admin/home/}">Início</a>
+			</li>
+			
+			<li class="nav-item">
+				<a class="nav-link" th:text="#{sistema.menu.primeiroLogin}" th:if="${#maps.containsKey(permissoes, 'PRIMEIRO-LOGIN')}" th:href="@{~/admin/servidores/cadastro}"><b>PRIMEIRO LOGIN</b></a>
+			</li>
+			
+			<!-- MENU OCORRÃŠNCIAS -->
+			<li class="nav-item dropdown" th:if="${#maps.containsKey(permissoes, 'TELEDESPACHO')}">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.ocorrencias}">Gestão de Ocorrências</a>
+				
+			<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a class="dropdown-item" href="#" th:href="@{~/admin/ocorrencias/historico}" th:text="#{sistema.menu.ocorrencias.sub.historico}">Histórico de Ocorrências</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/ocorrencias/cadastro}" th:text="#{sistema.menu.ocorrencias.sub.novaOcorrencia}">Nova Ocorrência</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/ocorrencias/pesquisar}" th:text="#{sistema.menu.ocorrencias.sub.pesquisarOcorrencia}">Pesquisar Ocorrência</a>
+				</div>
+			</li>
+			
+			<!-- MENU EFETIVO -->
+			<li class="nav-item dropdown" th:if="${#maps.containsKey(permissoes, 'TELEDESPACHO')}">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#maps.containsKey(permissoes, 'TELEDESPACHO')}" th:text="#{sistema.menu.efetivo}">Gestão de Efetivos</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a class="dropdown-item" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa}">Efetivo de serviço</a>									
+				</div>
+			</li>
+
+			<!-- MENU RELATÓRIOS -->
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-ocorrencia" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:if="${#maps.containsKey(permissoes, 'COORDENADOR-ADJUNTO')}" th:text="#{sistema.menu.relatorio}">Gestão de Relatórios</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" aria-labelledby="menu-ocorrencia">
+					<a class="dropdown-item" href="#" th:href="@{~/admin/relatorio/historico}" th:text="#{sistema.menu.relatorio.sub.historico}">Registros de Ocorrência</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/relatorio/ocorrencias/cadastro}" th:text="#{sistema.menu.relatorio.sub.novaOcorrencia}">Nova Ocorrência</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/relatorio/graficos}" th:text="#{sistema.menu.relatorio.sub.pesquisarOcorrencia}">Gerar Gráficos</a>
+				</div>
+			</li>
+			
+			<!-- MENU RECURSOS HUMANOS -->
+			<li class="nav-item dropdown" th:if="${#maps.containsKey(permissoes, 'COORDENADOR-SUPERVISOR')}">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="menu-servidor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.rh}">Recursos Humanos</a>
+				
+				<!-- MENU SUSPENSO -->
+				<div class="dropdown-menu" >
+					<a class="dropdown-item" href="#"  th:href="@{~/admin/cadastros/usuarios/historico}" th:text="#{sistema.menu.seguranca.usuarios}">Usuários</a>
+					<a class="dropdown-item" href="#"  th:href="@{~/admin/cadastros/servidores/historico}"  th:text="#{sistema.menu.rh.servidores}">Servidores</a>
+				</div>
+			</li>
+			
+			<li id="megamenu" class="nav-item dropdown" th:if="${#maps.containsKey(permissoes, 'ADMINISTRADOR')}">
+				<a class="nav-link dropdown-toggle cor-fonte" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{sistema.menu.administracao}">Administração</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-3">
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.sistema}">Sistema</span>
+								<ul class="nav flex-column">
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/configuracao/estabelecimento}" th:text="#{sistema.menu.administracao.sistema.estabelecimento}">Administrar Estabelecimentos</a></li>
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/configuracao/usuarios}" th:text="#{sistema.menu.administracao.sistema.usuarios}">Administrar Usuários</a></li>
+									<li class="nav-item"><a class="nav-link" href="#" th:text="#{sistema.menu.administracao.sistema.seguranca}">Segurança</a>
+										 <ul class="sub-menu">
+			                                <li><a href="#" th:href="@{~/admin/configuracao/grupos}" th:text="#{sistema.menu.administracao.sistema.seguranca.grupos}">Gerenciar Grupos</a></li>
+			                                <li><a href="#" th:href="@{~/admin/configuracao/permissoes}" th:text="#{sistema.menu.administracao.sistema.seguranca.permissoes}">Permissões</a></li>
+			                            </ul>
+									</li>
+								</ul>
+							</div>
+
+							<div class="col-md-3">
+								<span class="text-uppercase text-white" th:text="#{sistema.menu.administracao.ocorrencias}">Ocorrências</span>
+								<ul class="nav flex-column">
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/cadastros/cidades}" th:text="#{sistema.menu.administracao.ocorrencias.cidade}">Cidades</a></li>
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/cadastros/localidades}" th:text="#{sistema.menu.administracao.ocorrencias.localidade}">Localidade</a></li>
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/cadastros/tipificacoes}" th:text="#{sistema.menu.administracao.ocorrencias.tipificacao}">Tipificação</a></li>
+									<li class="nav-item"><a class="nav-link" href="#" th:href="@{~/admin/cadastros/emails}" th:text="#{sistema.menu.administracao.ocorrencias.email}">E-mail</a></li>
+								</ul>
+							</div>
+							
+							<div class="col-md-3">
+								<span class="text-uppercase text-white">Efetivo</span>
+								<a class="dropdown-item"  href="#" th:href="@{~/admin/instituicoes}">Cadastrar Institui&#231;&#227;o</a>
+								<a class="dropdown-item" href="**/unidades">Cadastrar Unidade</a>
+								<a class="dropdown-item" href="**/modalidades">Cadastrar Processo de Policiamento</a>
+								<a class="dropdown-item" href="**/caracteristicas">Cadastrar Caracter&#237;sticas</a>
+								<a class="dropdown-item" href="**/recursos">Cadastrar Recursos</a>GR&#x00C1;FICOS
+								<a class="dropdown-item" href="**/funcoes">Cadastrar Fun&ccedil;&otilde;es</a>
+								<a class="dropdown-item" href="**/tipoServico">Cadastrar Tipo de Servico</a>
+							</div>
+							
+							<div class="col-md-3">
+								<span class="text-uppercase text-white">Relatórios</span>
+								<h5>Em construção</h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle cor-fonte" id="menu-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				
+				<span th:if="${usuario?.servidor?.nome == null} and ${#maps.containsKey(permissoes, 'MASTER')}">GRÁFICOS DE OCORRÊNCIAS</span>
+				<span th:if="${usuario?.servidor?.nome == null} and ${not #maps.containsKey(permissoes, 'MASTER')}">NOME</span>
+				<span th:if="${usuario?.servidor?.nome != null}" th:text="${#strings.toUpperCase(usuario.servidor.sobreNome)}"></span><img src="/assets/imagens/perfil.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+				
+				
+				</a>
+				<div class="dropdown-menu" aria-labelledby="menu-login">
+					<a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+					<a th:if="${usuario.servidor != null}"  class="dropdown-item" href="#" th:href="@{~/admin/cadastros/servidores/editar}" th:text="#{sistema.menu.usuario.editar}">Editar Conta</a>
+ 					<!-- <a class="dropdown-item" href="#" th:text="#{sistema.menu.usuario.historico}">Histórico</a> -->
+				</div>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+<nav id="principal" class="navbar navbar-expand-lg navbar-dark" th:fragment="navbar1(usuario)">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+						
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<!-- <a class="nav-link dropdown-toggle" id="menu-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span th:utext="${usuario.nome}"></span> <img src="/assets/imagens/perfil.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+				</a> -->
+				<div class="dropdown-menu" aria-labelledby="menu-login">
+					<a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+					<a class="dropdown-item" href="#" th:href="@{~/admin/cadastros/usuarios/editarConta}" th:text="#{sistema.menu.usuario.editar}">Editar Conta</a>
+					<!-- <a class="dropdown-item" href="#" th:text="#{sistema.menu.usuario.historico}">Histórico</a> -->
+				</div>
+			</li>
+		</ul>
+	</div>
+>>>>>>> Mauricio
+</nav>

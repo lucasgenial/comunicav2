@@ -1,0 +1,57 @@
+<section layout:fragment="content"layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+					<h4 class="text-themecolor">IMPORTAR ARQUIVO</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+					<div class="d-flex justify-content-end align-items-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+							<li class="breadcrumb-item"><a href="javascript:void(0)">Histórico Servidores Externos</a></li>
+							<li class="breadcrumb-item active">Importar Arquivo Servidor Externo</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+				<form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/admin/importar/servidor/externo}">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">SERVIDOR EXTERNO</div>
+						<div class="table-responsive-md" th:if="${finalizado}">
+							<div class="alert alert-success" role="alert">
+								<h6><strong>Sucesso!</strong></h6>
+								<div th:text="${'Foram adicionados ' + qtdAdicionados  + ' novos Registros de Servidores Externos'}"></div>
+								
+								<div th:text="${'Foram desativados ' + qtdDesativados  + ' Registros'}"></div>
+							</div>
+						</div>
+					
+						<div class="table-responsive-md" th:if="${erro}">
+							<div class="alert alert-warning" role="alert">
+								<h6><strong>Atenção</strong>, ocorreu erro ao importar os seguintes Servidores:</h6>
+								<div th:each="_texto : ${msgErro}" th:text="${_texto + ''}"></div>
+								
+							</div>
+						</div>
+						
+						<div class="input-group mb-3  col-5">
+							<div class="custom-file">
+							  	<input type="file" id="selecionarArquivo" placeholder="Upload File" name="arquivo"></input>
+							  	<label class="custom-file-label" for="selecionarArquivo">Escolher arquivo</label>
+							</div>
+							<div class="input-group-append">
+								<button class="btn btn-outline-secondary" name="enviar" type="submit">Enviar</button>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+			</div>
+		</div>
+	</main>
+</section>	

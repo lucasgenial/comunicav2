@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/imagens/pages/login/favicon.png">
+    <title>Comunica Cicom - Cadastro</title>
+    
+    <link href="assets/css/pages/login/login-register-lock.css" rel="stylesheet">
+    <link href="assets/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="preloader">
+        <div class="loader">
+            <div class="loader__figure"></div>
+            <p class="loader__label">COMUNIC@</p>
+        </div>
+    </div>
+    <section id="wrapper" class="login-register login-sidebar" style="background-image:url(assets/imagens/pages/login/login-register.jpg);">
+        <div class="login-box card">
+            <div class="card-body">
+                <form class="form-horizontal form-material" th:action="@{/cadastrarUsuario}" th:object="${usuario}" id="loginform" method="POST" >
+                    <div class="text-center">
+                        <a href="javascript:void(0)" class="db"><img src="assets/imagens/pages/login/logo-icon.png" alt="Home" /><br/><img src="assets/imagens/pages/login/logo-text.png" alt="Home" /></a>
+                    </div>
+                    <h3 class="box-title m-t-40 m-b-0">Registrar</h3><small>Crie seu acesso</small>
+                    
+                    <!-- Alteração Mauricio -->
+                    
+                    <div class="form-group m-t-10">
+                        <div class="col-12">
+                            <div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="interno" value="true" required="required">Servidor interno ao CICOM
+							  </label>
+							</div>
+							
+							<div class="form-check-inline">
+							  <label class="form-check-label">
+							    <input type="radio" class="form-check-input" name="interno" value="false" required="required">Servidor externo ao CICOM
+							  </label>
+							</div>	 							
+                        </div>
+                    </div> 
+                    
+                    <!-- ************************** --> 
+                    
+                    <div class="form-group m-t-20">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="text" name="login" th:field="*{login}" id="login" required autofocus placeholder="Matrícula">
+ 							<label th:if="${#fields.hasErrors('login')}" th:errors="*{login}" class="validation-message"></label>
+							<p  style="font-size: 20; color: #FF1C19; padding:5px; margin-left:10px;" th:text="${login}" ></p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group ">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" th:field="*{senha}" id="senha" name="senha" required autofocus  placeholder="Senha">
+ 							<label th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="validation-message"></label>
+							<p  style="font-size: 20; color: #FF1C19; padding:5px; margin-left:10px;" th:text="${senha}" ></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <input class="form-control" type="password" id="confirmarSenha" name="confirmarSenha" required autofocus  placeholder="Confirmar Senha">
+							<p  style="font-size: 20; color: #FF1C19; padding:5px; margin-left:10px; " th:text="${aviso}" ></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group text-center m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Cadastrar</button>
+                        </div>
+                    </div>
+                    <div class="form-group m-b-0">
+                        <div class="col-sm-12 text-center">
+                            <p>Ja é cadastrado? <a href="/" class="text-info m-l-5"><b>Logar</b></a></p>
+                        </div>
+                    </div>
+                    <span th:utext="${successMessage}"></span>					
+                </form>
+            </div>
+        </div>
+    </section>
+ 	<div th:replace="fragmentos/modal/login :: modalMensagem"></div>
+ </body>
+ 	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+    <script src="/assets/js/validador/form-login.js"></script>
+</html>

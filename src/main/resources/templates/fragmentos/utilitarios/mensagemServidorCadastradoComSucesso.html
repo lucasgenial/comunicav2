@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+<section layout:fragment="content">
+        <div class="row">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+				
+						<h4 class="card-title">Cadastro de Servidor</h4>
+                        <h6 class="card-subtitle"></h6>
+
+						<h5 class="card-title mb-2" th:text="${avisoLinha1}">Cadastro realizado com sucesso!</h5><br>
+						<h5 class="card-title mb-2" th:text="${avisoLinha2}">Contate o seu Coordenador CICOM ou Supervisor CICOC para ativação.</h5><br>
+						<!-- th:href="@{/logout}" -->
+						<a id="btnSair" class="btn btn-success" href="#"  th:href="@{{link}(link=${linkRespostaCadastro})}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+
+						<style>
+							h5{
+								text-align:center;
+							}
+							#btnSair{
+								float:right;
+								width:80px;
+							}
+						</style>
+					</div>					
+				</div>
+			</div>
+		</div>
+</section>
+</html>

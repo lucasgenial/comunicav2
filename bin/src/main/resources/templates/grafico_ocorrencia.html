@@ -1,0 +1,79 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor"> Dashboard</h4>
+				    <span class="alert-danger" th:if="${usuario.estabelecimento.size() > 1}"> Selecione um novo estabelecimento </span>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Dashboard - Ocorrência</li>
+				        </ol>
+				        <button type="button" class="btn btn-info d-none d-lg-block m-l-15" data-toggle="modal" data-target="#modal-escolher-estabelecimento" th:if="${usuario.estabelecimento.size() > 1}"><i class="ti-settings"></i></button>
+				    </div>
+				</div>
+				
+				<div id="modal-escolher-estabelecimento" class="modal fade" data-backdrop="static">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form id="formGraficosDashboard" th:action="@{/admin/home/grafico/ocorrencia}" method="POST">
+								<div class="modal-header">
+									<h4 class="modal-title">Configuração Dashboard</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="estabelecimento" class="col-form-label">SELECIONE O ESTABELECIMENTO:</label>
+										<select id="estabelecimento" name="estabelecimento" class="custom-select" required>
+											<option value="">SELECIONE</option>
+											<option th:each="_estabelecimento: ${usuario.estabelecimento}" th:value="${{_estabelecimento.id}}" th:if="${estabelecimento} != null" th:selected="${_estabelecimento.id == estabelecimento.id}" th:text="${_estabelecimento.nome}"></option>
+											<option th:each="_estabelecimento: ${estabelecimentos}" th:value="${{_estabelecimento.id}}" th:if="${estabelecimento} == null" th:text="${_estabelecimento.nome}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">FECHAR</button>
+									<button type="submit" name="salvar" class="btn btn-success waves-effect waves-light">SALVAR</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- FIM TITULO DA PÁGINA -->
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<div id="apresentaPorClassificacao" class="row owl-carousel owl-theme"></div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div id="painel-3" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">OCORRÊNCIAS - CIDADES</div>
+						<div id="grf_1" style="width: 100%; min-height: 400px;"></div>
+					</div>
+				</div>
+				
+				<div id="painel-2" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">OCORRÊNCIAS - STATUS</div>
+						<div id="apresentacaoPorStatus" class="owl-carousel owl-theme" style="width: 100%; min-height: 400px"></div>
+					</div>
+				</div>
+				
+				<div id="painel-1" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">
+							<h4>OCORRÊNCIAS - HORA</h4>
+						</div>
+						<div id="grf_2" style="width: 100%; min-height: 400px"></div>						
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

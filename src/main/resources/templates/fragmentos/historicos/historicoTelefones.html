@@ -1,0 +1,61 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÃ�GINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor"></h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active"></li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+									
+			<!-- ************************************************************************************************** -->			
+			
+			<div class="row">
+				<div class="col-12">
+					<div class="ribbon-wrapper card pt-5">
+					<p style="font-weight: bold" class="text-center">INSTRUÇÕES PARA EFETUAR CHAMADAS VIA RAMAL TELEFÔNICO (Sem tarifação):</p>
+					<p class="text-center" style="font-family: verdana; font-size:13px; background: #03A9F4; color: #FFF; padding-left: 10px; padding-right: 10px; margin-bottom: 10px;">
+						Discar o código da unidade + ramal  + discar tecla DIAL (display do telefone).
+						Ex: Ligação para o CICOM Alagoinhas: Código 412 + Ramal 201 + Teclar a função “DIAL”
+					</p>
+					<p class="text-center" style="font-family: verdana; font-size:14px; background: #03A9F4; color: #FFF; padding-left: 10px; padding-right: 10px; margin-bottom: 10px;">
+						Dúvidas, esclarecimentos e solicitações, por gentileza, ligar para a Coordenação de Telefonia: <strong> 59714.</strong> <br>
+						Dúvidas, esclarecimentos e solicitações, por gentileza, ligar para a Coordenação de Sistemas: <strong> 87893 / 87894 / 87895.</strong>
+					</p>
+					<!-- <p style="font-weight: bold" class="text-center">Chamada para outro ramal siga a orientação abaixo:</p>
+					<p class="text-center" style="font-weight: bold; background: #900; color: #FFF; padding-left: 10px; padding-right: 10px; margin-bottom: 10px;">Ex: Ligação para o CICOM de Feira de Santana - Código 413 + ramal 201 + tecla "DIAL"</p> -->
+						<div class="table-responsive">
+							<table  id="tabela-telefone-paginada" class="table table-sm table-bordered table-striped dt-responsive" width="100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Telefone</th>
+										<th>Ramal</th>
+										<th>Ação</th>										
+									</tr>
+								</thead>
+								<tbody class=" text-uppercase">
+								
+								</tbody>
+							</table>
+						</div>
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" data-toggle="modal">
+							<div class="btn-group mr-2" role="group">
+								 <button type="button" class="btn btn-info" onclick="window.location.href='/admin/cadastros/telefones/cadastro'">Adicionar</button> 
+							</div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</main>
+</section>	

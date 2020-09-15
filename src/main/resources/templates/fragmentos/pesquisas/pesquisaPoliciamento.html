@@ -1,0 +1,145 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">PESQUISAR</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Pesquisar</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+			
+				<form id="formPesquisaPoliciamento" class="form-mesa" th:object="${policiamento}" th:action="@{/policiamento/filtrar}" method="post">
+				
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">FILTRO</div>
+						
+							<div class="form-group">
+								<div class="form-row">
+									<div class="form-group col-md-2">
+											<label for="nome">Número mesa</label> 
+											<input id="nome" type="number" class="form-control form-control-sm" name="nome" th:field="*{mesa.nome}">
+									</div>
+									<div class="col-md-4">
+										<label for="cidade">Unidade</label>
+										<select id="unidade" name="unidade" class="form-control form-control-sm  ">
+											<option value="">Selecionar</option>
+											<option th:each="_unidade : ${unidades}" th:id="${_unidade.id}" th:text="${_unidade.nome}" th:value="${_unidade.id}">Selecione</option>
+										</select>
+									</div>
+									<div class="form-group col-md-2">
+										<label for="terminoPlantao">Modalidade</label>
+										<select id="modalidade" name="modalidade" class="form-control form-control-sm  ">
+											<option value="">Selecionar</option>
+											<option th:each="_modalidade : ${modalidades}" th:id="${_modalidade.id}" th:text="${_modalidade.nome}" th:value="${_modalidade.id}">Selecione</option>
+										</select>
+															</div>
+								    <div class="form-group col-md-2">
+										<label for="comecoPlantao">Data Inicial</label>
+										<input id="comecoPlantao" type="text" name="comecoPlantao" class="form-control form-control-sm input-group  "  placeholder="DD/MM/YYYY HH:MM:SS" autocomplete="off">
+									</div>									
+									<div class="form-group col-md-2">
+										<label for="terminoPlantao">Data Final</label>
+										<input id="terminoPlantao" type="text" name="terminoPlantao" class="form-control form-control-sm input-group  "  placeholder="DD/MM/YYYY HH:MM:SS" autocomplete="off">
+									</div>								
+								
+									<div  th:if="${usuario.estabelecimento.size() > 1}" class="form-group col-12 col-md-12 col-lg-3">
+										<label for="estabelecimento">Estabelecimento</label>
+										<select id="estabelecimento" name="mesa.estabelecimento" class="form-control form-control-sm  ">
+											<option value="">Selecionar</option>
+											<option th:each="_cicom: ${usuario.estabelecimento}" th:value="${{_cicom.id}}" th:text="${_cicom.nome}"></option>
+										</select>
+									</div>
+								</div>
+							<div class="form-row">
+								<div class="col-md-4">
+									<label for="cidade">Cidade</label>
+									<select id="cidade" name="cidade" class="form-control form-control-sm ">
+										<option value="">Selecionar</option>
+										<option th:if="${usuario.estabelecimento.size() > 1}"  th:each="_cidade : ${cidades}" th:id="${_cidade.id}" th:text="${_cidade.nome}" th:value="${cidade}">Selecione</option>
+										<option th:if="${usuario.estabelecimento.size() == 1}" th:each="_cidade : ${usuario.servidor.estabelecimento.cidades}" th:id="${_cidade.id}" th:text="${_cidade.nome}" th:value="${_cidade.id}">Selecione</option>
+									</select>
+								</div>
+							
+								<div class="col-md-3">
+									<label for="localidade">Localidade/Distrito</label>
+									<select id="localidade" name="localidade" class="form-control form-control-sm" title="teste" th:field="*{localidade}">
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+							
+								<div class="col-md-5">
+									<label for="bairro">Bairro</label>
+									<select id="bairro" name="bairro" class="form-control form-control-sm" title="teste" th:field="*{bairro}">
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-row">
+							<button type="submit" class="mr-2 btn btn-info btn-sm">Buscar</button>
+<!-- 							<button id="limpar" class="mr-2 btn btn-info btn-sm" >Limpar</button>
+ -->						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div th:if="${resultadoPoliciamentos != null}" class="ribbon-wrapper card">
+			<div class="ribbon ribbon-info">RESULTADO</div>
+				
+				<div class="table-responsive-md">
+					<table id="tabela-pesquisaPoliciamento" class="table table-sm table-bordered table-striped dt-responsive text-center">
+						<thead>
+							<tr>
+								<th th:if="${usuario.estabelecimento.size() > 1}">ID</th>
+								<th>Mesa</th>
+								<th>Unidade</th>
+								<th>Modalidade</th>
+								<th>Abrangência</th>
+								<th>Data Início</th>
+								<th>Data Fim</th>
+	 							<th>Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+										
+							<tr th:each="_policiamento : ${resultadoPoliciamentos}" >
+								<th  th:if="${usuario.estabelecimento.size() > 1}" scope="row" th:text="${_policiamento.id}"></th>
+								<td th:text="${_policiamento.mesa.nome}"></td>
+								<td th:text="${_policiamento.unidade.nome}"></td>
+								<td th:text="${_policiamento.modalidade.nome}"></td>
+								<td th:text="${{_policiamento.abrangencia}}"></td>
+								<td th:text="${{_policiamento.comecoPlantao}}"></td>
+								<td th:text="${{_policiamento.terminoPlantao}}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+											    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+													<a class="dropdown-item" th:href="${'/admin/edita/policiamento/'+_policiamento.id}"><i class="far fa-edit"></i> Editar</a>
+													<a class="dropdown-item" th:href="${'/admin/cadastros/admin/gestaoefetivo/policiamentos/visualizar/'+_policiamento.id}"><i class="fa fa-eye"></i> Visualizar</a>
+													<a class="dropdown-item" target="_blank" th:href="${'/admin/cadastros/report/efetivoExterno/'+_policiamento.id}" ><i class="fas fa-print"></i> Imprimir</a>
+										    	</div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+					
+				</div>
+				
+				</div>
+		</div>
+	</main>
+</section>

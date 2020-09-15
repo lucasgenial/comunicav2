@@ -1,0 +1,202 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DADOS ESTATÍSTICOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Dados Estatisticos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<form id="formGerarDadosEstatisticos" th:Object="${dadosDePesquisa}" class="form-ocorrencia" th:action="@{/gerarDadosEstatisticos}" method="POST">
+						<!-- <h5 class="card-title mb-2">Gerador de Dados Estatísticos</h5> -->
+						
+						<div class="ribbon-wrapper align-items-center card">
+						 <div class="ribbon ribbon-info">GERAR DADOS ESTATÍSTICOS</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="form col-2" >
+										<label for="anoInicial text-center">Ano:</label>
+										<select id="anoInicial" name="ano" th:field="*{ano}"   class="form-control " required>
+											<option th:each="_anosValidos : ${anosValidos}" th:text="${_anosValidos.value}" th:value="${_anosValidos.value}"></option>	
+										</select>
+									</div>
+									<div class="form col-2" >
+										<label>Mês Inicial:</label>
+										<select class="form-control" name="mesInicial" th:field="*{mesInicial}">
+											<option  value="">Selecionar</option>	
+											<option  value="1">Janeiro</option>	
+											<option  value="2">Fevereiro</option>
+											<option  value="3">Março</option>
+											<option  value="4">Abril</option>
+											<option  value="5">Maio</option>	
+											<option  value="6">Junho</option>	
+											<option  value="7">Julho</option>
+											<option  value="8">Agosto</option>
+											<option  value="9">Setembro</option>
+											<option  value="10">Outubro</option>	
+											<option  value="11">Novembro</option>
+											<option  value="12">Dezembro</option>	
+										</select>
+									</div>
+									<div class="form col-2" >
+										<label>Mês Final:</label>
+										<select  class="form-control" th:field="*{mesFinal}" name="mesFinal">
+											<option  value="">Selecionar</option>	
+											<option  value="1">Janeiro</option>	
+											<option  value="2">Fevereiro</option>
+											<option  value="3">Março</option>
+											<option  value="4">Abril</option>
+											<option  value="5">Maio</option>	
+											<option  value="6">Junho</option>	
+											<option  value="7">Julho</option>
+											<option  value="8">Agosto</option>
+											<option  value="9">Setembro</option>
+											<option  value="10">Outubro</option>	
+											<option  value="11">Novembro</option>
+											<option  value="12">Dezembro</option>
+										</select>
+									</div>
+							
+									<div class="form-group col-3">
+										<label for="idEstabelecimento">Estabelecimento:</label>
+										<select id="idEstabelecimento" name="idEstabelecimento" th:field="*{idEstabelecimento}" class="form-control " required="required">	
+	 										<option th:each="_estabelecimento: ${estabelecimentos}" th:text="${_estabelecimento.nome}" th:value="${_estabelecimento.id}"></option>
+	 									</select>
+									</div>
+			
+									<div class="form-group col-3">
+										<label for="idCidade">Cidade:</label>
+										<select id="idCidade" th:field="${dadosDePesquisa.idCidade}" class="form-control selectpicker" data-style="form-control"  multiple="multiple" title="Selecione uma cidade (Opcional)" data-hide-disabled="false" data-actions-box="true">
+	 										<option th:each="_cidade : ${cidades}" th:text="${{_cidade.nome}}" th:value="${_cidade.id}"></option>
+										</select>											
+									</div>
+									
+									<br>
+									<div class="form-group col-6" th:each="_categoria : ${categorias}">
+										<button class="btn btn-info form-control" type="submit" name="persquisarPor" th:text="${_categoria.nome}" th:value="${_categoria.id}"></button>
+									</div>
+									<div class="input-group form-group col-6">
+										<select id="tipificacoes" name="tipificacoesSelecionadas" data-style="form-control" class="border border-info form-control selectpicker" multiple="multiple" title="Selecione uma ou mais tipificações" data-hide-disabled="false" data-live-search="true" data-actions-box="true">
+												<option th:each="_tipificacao : ${tipificacoesASelecionar}" class="clicador" th:text="${{_tipificacao.nome}}" th:value="${_tipificacao.id}"></option>
+										</select>
+										<div class="input-group-append">
+											<button id="tipificacoesAtivar" class="btn btn-info form-control" value="0" type="submit" name="persquisarPor">Tipificações Específicas</button>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					
+					
+						<div  th:if="${resultados != null}" class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">Resultado</div>
+					<div class="form-row" >			
+					
+						<div class="form-group col-12" id="dadosGerados">
+				
+									<hr />
+									<div class="table-responsive-md"> 
+									<table id="tabela" class="table table-sm table-hover" >
+										<thead>
+											<tr>
+												<th scope="col">TIPIFICACÃO</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=1 && dadosDePesquisa.mesFinal >= 1}" name="mes">JAN</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=2 && dadosDePesquisa.mesFinal >= 2}" name="mes">FEV</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=3 && dadosDePesquisa.mesFinal >= 3}" name="mes">MAR</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=4 && dadosDePesquisa.mesFinal >= 4}" name="mes">ABR</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=5 && dadosDePesquisa.mesFinal >= 5}" name="mes">MAI</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=6 && dadosDePesquisa.mesFinal >= 6}" name="mes">JUN</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=7 && dadosDePesquisa.mesFinal >= 7}" name="mes">JUL</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=8 && dadosDePesquisa.mesFinal >= 8}" name="mes">AGO</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=9 && dadosDePesquisa.mesFinal >= 9}" name="mes">SET</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=10 && dadosDePesquisa.mesFinal >= 10}" name="mes">OUT</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=11 && dadosDePesquisa.mesFinal >= 11}" name="mes">NOV</th>
+												<th scope="col" th:if="${dadosDePesquisa.mesInicial <=11 && dadosDePesquisa.mesFinal >= 12}" name="mes">DEZ</th>
+												<th scope="col">TOTAL</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="_resultado : ${resultados}" name="valoresMensais" th:class="${_resultado.tipificacao == 'TOTAL' ? 'font-weight-bold' : '' }">
+												<td th:text="${_resultado.tipificacao}" class="nomes" name="nomes" th:data-nomes="${_resultado.tipificacao}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=1 && dadosDePesquisa.mesFinal >= 1}"  th:text="${_resultado.janeiro}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=2 && dadosDePesquisa.mesFinal >= 2}" th:text="${_resultado.fevereiro}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=3 && dadosDePesquisa.mesFinal >= 3}" th:text="${_resultado.marco}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=4 && dadosDePesquisa.mesFinal >= 4}" th:text="${_resultado.abril}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=5 && dadosDePesquisa.mesFinal >= 5}" th:text="${_resultado.maio}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=6 && dadosDePesquisa.mesFinal >= 6}" th:text="${_resultado.junho}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=7 && dadosDePesquisa.mesFinal >= 7}" th:text="${_resultado.julho}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=8 && dadosDePesquisa.mesFinal >= 8}" th:text="${_resultado.agosto}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=9 && dadosDePesquisa.mesFinal >= 9}" th:text="${_resultado.setembro}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=10 && dadosDePesquisa.mesFinal >= 10}" th:text="${_resultado.outubro}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=11 && dadosDePesquisa.mesFinal >= 11}" th:text="${_resultado.novembro}"></td>
+												<td th:if="${dadosDePesquisa.mesInicial <=12 && dadosDePesquisa.mesFinal >= 12}" th:text="${_resultado.dezembro}"></td>
+												<td th:text="${_resultado.total}" class="font-weight-bold" name="totais"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							
+							</div>
+						</div>
+					
+					</div>
+						<div  th:if="${resultados != null}"  >
+							<input hidden="hidden" id="tituloGrafico" th:value="${nomeLocalizacao + ' | BAHIA | BRASIL'}"/>
+							<input hidden="hidden" id="categoriaDaTipificacao" th:value="${categoriaDaTipificacao}"/>
+							
+							<div class="card col-12">
+								<div class="card-body">
+									<div class="form-group row col-12 align-self-center">
+										<div class=" offset-2 col-2 text-center">
+											<label for="tipoGrafico text-center">Tipo de Gráfico:</label>
+											<select id="tipoGrafico" name="tipoGrafico" class="form-control " required>
+												<option  value="barraHorizontal">Barra horizontal</option>
+												<option  value="barraHorizontalComplementar">Barra horizontal Complementar</option>
+												<option  value="barraVertical">Barra vertical</option>
+												<option  value="pizza">Pizza</option>	
+												<option  value="linha">Linha</option>
+												<option  value="dispersao">Dispersão</option>	
+												<option  value="radar">Radar</option>
+											</select>
+										</div>
+										<div class="offset-2 col-4 text-center">
+											<label >Apresentação dos dados:</label>
+											<select id="apresentacaoDosDados"  class="form-control " required>
+												<option  value="mesesPorAno" selected="selected">Relação dos meses com o ano</option>	
+												<option  value="totaisDoAno">Totais por Tipificação por ano</option>
+											</select>
+										</div>
+									</div>
+									<hr />
+									<div  class="form-group col-12 x_panel">
+										<div class="x_content">
+											<div class="x_title">
+												
+												<div class="clearfix"></div>
+											</div>
+											<div id="graficod" class="col-7" style="margin: auto;	 width: 100%; min-height: 500px"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>	
+					</form>
+				</div>			
+			</div>
+		
+		</div>
+		</main>
+
+	</section>
+	

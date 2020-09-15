@@ -1,0 +1,32 @@
+<th:block th:fragment="tabela-dadosEstatistico">
+	<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela da Tabela de Dados Estatisticos -->
+    <!-- ============================================================== -->
+
+	<!-- DataTableJS -->
+	<!-- <script src="/assets/DataTables/js/jquery.dataTables.min.js"></script> -->
+	<script src="/assets/DataTables/js/dataTables.bootstrap4.min.js"></script>
+        
+    <!-- start - This is for export functionality only -->
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    
+    <script th:inline="javascript" th:if="${categoriasDTO != null}">
+    	<!-- Categoria -->
+    	var dados = [[${categoriasDTO}]];
+	</script>
+	
+	<script th:inline="javascript" th:if="${tipificacaoDTO != null}">
+		<!-- Tipificacao-->
+		var dados = [[${tipificacaoDTO}]];
+	</script>
+	
+	<script src="/assets/js/tabelas/tab-dadosEstatisticos.js"></script>
+	
+	
+
+</th:block>
+	

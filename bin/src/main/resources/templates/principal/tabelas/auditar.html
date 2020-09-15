@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Auditoria</h4>
+                                <h6 class="card-subtitle"></h6>
+								<div th:replace="fragmentos/modal/tabela :: modalPreTabela"></div> 
+                                <div class="table-responsive m-t-40">
+                                    <table id="tabela-auditar" class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+												<th style='width: 7%;' scope="col" th:text="#{tabela-auditoria.titulo.id}">ID</th>
+												<th style='width: 13%;' scope="col" th:text="#{tabela-auditoria.titulo.datahora}">Data</th>
+												<th style='width: 18%;' scope="col" th:text="#{tabela-auditoria.titulo.usuario.login}">Usuario</th>
+												<th scope="col" th:utext="#{tabela-auditoria.titulo.historico}">Historico</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+												<tr  th:each="_auditar, iStat : ${bookPage.content}" class="" > 
+													<th scope="row" th:text="${_auditar.id}">1</th>
+													<td th:text="${#temporals.format(_auditar.datahora, 'dd/MM/yyyy HH:mm:ss')}">Data/Hora</td>
+													<td th:text="${#strings.capitalize(_auditar.usuario.login)}">Usuario</td>
+													<td th:text="${#strings.unescapeJava(#strings.abbreviate(_auditar.historico,100))}">Sede</td>
+												</tr>
+                                        </tbody>
+                                    </table>
+									<div th:replace="fragmentos/modal/tabela :: modalPosTabela"></div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                </div>
+	<script src="/assets/js/validador/form-auditoria.js"></script>
+</section>
+</html>

@@ -1,0 +1,61 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+		<div class="row page-titles">
+			<div class="col-md-5 align-self-center">
+			    <h4 class="text-themecolor">DIÁRIO DE EFETIVO EXTERNO</h4>
+			</div>
+			<div class="col-md-7 align-self-center text-right">
+			    <div class="d-flex justify-content-end align-items-center">
+			        <ol class="breadcrumb">
+			            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+			            <li class="breadcrumb-item active">Histórico mesas</li>
+			        </ol>
+			    </div>
+			</div>
+		</div>
+				
+        <div class="row idDaMesa" th:id="${idMesa}">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+                    	<h6 class="card-subtitle"></h6>
+							<div class="table-responsive-md">
+								<table id="tabela-historicoEfetivoExterno" class="table table-bordered table-striped dt-responsive" cellspacing="0" width="100%" >
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Mesa</th>
+											<th>Inicio do Plantão</th>
+											<th>Fim do Plantão</th>
+											<th>Modalidade</th>
+											<th>Prefixo</th>
+											<th>Unidade</th>	
+										    <th>Abrangência</th>								
+											<th>Ação</th>
+										</tr>
+									</thead>
+									<tbody class="table-sm">
+									
+									</tbody>	
+								</table>
+							</div>
+							 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			                    <div class="btn-group mr-2" role="group">
+				                    <a class="btn btn-info btn-sm" th:href="@{~/admin/cadastra/policiamento/{id}(id=${idMesa})}" th:inline="text" th:id="${idMesa}">Adicionar novo</a>
+								</div>
+								<div class="btn-group mr-2" role="group">
+									<a class="btn btn-info btn-sm" href="" th:href="@{~/admin/cadastros/report/mesa_efetivoExterno/{id}(id=${idMesa})}" download="Efetivo externo" target="_blank" th:inline="text" th:id="${idMesa}"> Imprimir todos</a>
+								</div>
+								<div class="btn-group mr-2" role="group">
+									<a class="btn btn-info btn-sm" th:href="@{~/admin/menu/mesa}">Voltar</a>				
+								</div>
+				             </div>
+						</div>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

@@ -1,0 +1,36 @@
+<!-- MODAL EDITA GRUPO USUARIO -->
+<div class="modal fade" id="modal-usuario-grupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalRegistroGrupo">
+<style>
+	 #selectGrupo{
+		margin-left:17px;
+	}
+</style>
+	<form id="formUsuarioGrupo" th:object="${usuarioEditar}" th:action="@{/admin/historico/usuarios}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<h6 id="selectGrupo">Selecione o Grupo</h6>
+				<div class="modal-body">					
+					<div class="form-row">
+						<div class="form-group col-md-6">									
+							<select id="grupo" name="usuarioEditar.grupo" th:field="*{grupo}" class="form-control form-control-sm" required>
+								<option value="Selecionar">Selecionar</option>
+								<option th:each="_grupo : ${grupos}"  th:text="${_grupo.nome}" th:value="${{_grupo.id}}"></option>
+							</select>
+						</div>							
+					</div>					
+				</div>
+				
+				<div class="modal-footer">
+					<!-- <button type="submit"  class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+					<button type="submit" class="btn btn-primary"  name="usuario" id="btn-usuarioEditar">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

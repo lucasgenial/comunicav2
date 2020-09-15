@@ -1,0 +1,29 @@
+
+.imagem-logoCicomVisualizacao{
+    background-image: url('/assets/imagens/logoCicom.png'); 
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+}
+
+/*Imagem do logo para vizualizacao*/
+
+.imagem-logoCicom{
+    background-image: url('/assets/imagens/logoCicom.png'); 
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+}  
+.imagem-logoSsp{
+    background-image: url('/assets/imagens/ssp.png'); 
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+}  
+.imagem-logoErro404{
+    background-image: url('/assets/imagens/404.png'); 
+    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
+} 

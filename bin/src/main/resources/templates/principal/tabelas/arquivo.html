@@ -1,0 +1,152 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+				<!-- INICIO TITULO DA PÁGINA -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+					    <h4 class="text-themecolor">DIÁRIO DE ARQUIVOS</h4>
+					</div>
+					<div class="col-md-7 align-self-center text-right">
+					    <div class="d-flex justify-content-end align-items-center">
+					        <ol class="breadcrumb">
+					            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+					            <li class="breadcrumb-item active">Histórico Arquivos</li>
+					        </ol>
+					    </div>
+					</div>
+				</div>
+				
+			<div class="row">
+				<div class="col-12">
+					<div class="ribbon-wrapper card">
+                           <div class="table-responsive m-t-40">
+                            <table id="tabela-arquivo-paginada" class="table table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Tipo</th>
+										<th>Descrição</th>
+										<th>Data de Envio</th>
+									 	<th>Download</th> 
+										<!-- <th>Ação</th> -->
+									</tr>
+								</thead>
+								<tbody>
+								
+								</tbody>
+							</table>
+						</div>								
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                         	<div class="btn-group mr-2" role="group">
+								<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/servidores/solicitacao/{id}(id=${id})}">Adicionar Novo</a>
+							</div>
+						<div class="btn-group mr-2" role="group">
+							<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/servidores/historico}">Voltar</a> 					
+						</div>
+					</div>
+				</div>					
+			</div><!-- row -->
+				
+		</div><!-- container-fluid -->
+	</main>
+</section>
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+					<h5 class="card-title mb-2">Histórico Funcional</h5>
+				<hr/>
+				<div class="table-responsive-md">
+					<table id="tabela-arquivo" class="table">
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Nome</th>
+								<th scope="col">Tipo</th>
+								<th scope="col">Descrição</th>
+								<th scope="col">Data de Envio</th>
+							 	<th scope="col">Download</th> 
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="file : ${files}">
+								<td th:text="${file.id}">1</td>
+								<td th:text="${file.nome}">Nome</td>
+								<td th:text="${file.tipo}">Tipo</td> 
+								<td th:text="${file.descricao}">Descrição</td>	
+								<td th:text="${#temporals.format(file.dataEnvio,'dd/MM/yyyy')}">Data</td>							
+						        <td><button th:id="${file.id}" th:name="${file.nome}"  class="downloadArquivo btn btn-primary btn-sm" >Baixar</button></td><a th:href="${file.arquivo}">Link</a></td>
+						        <td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a id="" th:if="${usuario.servidor.id != _servidor.id and _servidor.usuario == null}" class="dropdown-item" href="" th:href="@{editar/{id}(id=${_servidor.id})}" data-titulo="Editar Servidor" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{servidores/solicitacao/{id}(id=${_servidor.id})}" data-titulo="Adcionar Solicitacao" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Adicionar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{visualizar/{id}(id=${_servidor.id})}" th:inline="text" th:id="${_servidor.id}"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/report/servidor/{id}(id=${_servidor.id})}" target="_blank" data-titulo="Imprimir Servidor" th:id="${_servidor.id}" th:inline="text" ><i class="fa fa-print"></i> Imprimir</a>
+										      <a class="dropdown-item" href="#" th:href="@{servidores/status/{id}(id=${_servidor.id})}" th:inline="text" th:if="${_servidor.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i>Desabilitar </a>
+										      <a class="dropdown-item" href="#" th:href="@{servidores/status/{id}(id=${_servidor.id})}" th:inline="text" th:if="${_servidor.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i>Habilitar </a>
+										          <a id="" class="dropdown-item" href="" ><i class="far fa-trash-alt"></i> Excluir</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>table-response-md	
+				
+				<a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/servidores/solicitacao/{id}(id=${id})}">Adicionar Novo</a>
+				<a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/servidores/historico}">Voltar</a> 
+			</div>
+		</div>	
+	</main>	
+	<script src="/assets/js/validador/form-arquivo.js"></script>
+</section>
+</html> -->

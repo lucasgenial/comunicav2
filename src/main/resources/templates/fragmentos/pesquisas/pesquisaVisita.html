@@ -1,0 +1,112 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">PESQUISAR</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Pesquisar</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-12">
+						<form id="formPesquisaPoliciamento" th:object="${visita}" th:action="@{/visita/filtrar}" method="post">
+							<div class="ribbon-wrapper card">
+								<div class="ribbon ribbon-info">FILTRO</div>
+								<div class="form-group">
+									<div class="form-row">
+										<div class="form-group col-md-2">
+											<label for="nome">Nome da Empresa</label> 
+											<input type="text" class="form-control form-control" th:field="*{empresa}">
+										</div>
+										<div class="col-md-2">
+											<label for="servico">Serviço</label>
+											<select id="servico" class="form-control form-control" th:field="*{servico}">
+												<option value="">Selecionar</option>
+												<option th:each="_servico : ${servicos}" th:id="${_servico.id}" th:text="${_servico.nome}" th:value="${_servico.id}">Selecione</option>
+											</select>
+										</div>
+										<div class="form-group col-md-2">
+											<label for="inicioServico">Entrada</label>
+											<input id="inicioServico" type="text" class="form-control form-control input-group inicioServico"  th:field="*{inicioServico}" placeholder="DD/MM/YYYY HH:MM:SS" autocomplete="off">
+										</div>
+									    <div class="form-group col-md-2">
+											<label for="fimServico">Saída</label>
+											<input id="fimServico" type="text" class="form-control form-control input-group fimServico" th:field="*{fimServico}" placeholder="DD/MM/YYYY HH:MM:SS" autocomplete="off">
+										</div>	
+																
+										<div class="form-group col-md-2">
+											<label for="motivo">Motivo (Utilizar Palavras chave)</label>
+											<input id="motivo" type="text" class="form-control form-control" th:field="*{historico}">
+										</div>								
+										<div class="form-group col-md-2">
+											<label for="cpf">CPF do visitante</label>  
+											<input id="cpf" type="text" class="form-control form-control cpf" th:field="*{visitantes[__0__].cpf}">
+										</div>
+									<!--<div class="form-group col-md-2">
+											<label for="visitanteNome">Nome do visitante</label> 
+											<input id="visitanteNome" type="text" class="form-control form-control" name="nome" th:field="*{visitantes[__0__].nome}">
+										</div>-->
+									</div>
+									<div class="form-row">
+										<button type="submit" class="mr-2 btn btn-info">Buscar</button>
+										<a href="/admin/menu/visitas" class="mr-2 btn btn-info">Voltar</a>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="row"  th:if="${visitasResultado != null}">
+					<div class="col-12">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">Resultado da busca</div>
+							<div class="table-responsive-md">  
+								<table  class="table table-sm table-bordered table-striped dt-responsive text-center">
+									<thead>
+										<tr >
+											<th>Empresa</th>
+											<th>Serviço</th>
+											<th>Entrada</th>
+											<th>Saída</th>
+											<th>Motivo</th>
+											<th>Ação</th>
+										</tr>
+									</thead>
+									<tbody>
+									 <tr th:each="_visita : ${visitasResultado}">
+										<td th:text="${_visita.empresa}"></td>
+										<td th:text="${_visita.servico.nome}"></td>
+										<td th:text="${#temporals.format(_visita.inicioServico, 'dd/MM/yyyy HH:mm')}"></td>
+										<td th:text="${#temporals.format(_visita.fimServico, 'dd/MM/yyyy HH:mm')}"></td>
+										<td th:text="${_visita.historico}"></td>
+										<td>
+										<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+									   	<div class="btn-group" role="group">
+									   		<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+									   			Ação
+									   			</button>
+									   			<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+									   				<a class="dropdown-item" th:href="${'/admin/visualiza/visita/'+ _visita.id}" ><i class="fa fa-eye"></i> Visualizar</a>
+									   				<a class="dropdown-item" th:href="${'/admin/edita/visita/'+ _visita.id}"   ><i class="far fa-edit"></i> Editar</a>
+									   				<a class="dropdown-item" th:href="${'/admin/report/visita/'+ _visita.id}" target="_blank"><i class="fa fa-print"></i> Imprimir</a>
+									   			</div>
+									   		</div>
+									   	</div>
+									   </td>
+									</tr> 
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+		</div>
+	</main>
+</section>

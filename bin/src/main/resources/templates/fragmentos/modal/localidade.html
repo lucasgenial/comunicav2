@@ -1,0 +1,44 @@
+<!-- MODAL CADASTRA E EDITA LOCALIDADE -->
+
+<div  class="modal fade" id="modal-localidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalLocalidade">
+	<form id="formLocalidade" class="form-localidade" th:object="${localidade}" th:action="@{/admin/cadastrarLocalidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="nome">Nome da Localidade</label>
+							<input type="text" class="form-control text-uppercase" id="nome" name="nome" th:field="*{nome}" placeholder="Informe o nome da localidade" required/>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cidade">Cidade</label>
+							<select id="cidade" name="cidade" class="form-control" th:field="*{cidade}">
+								<option value="">Selecionar</option>
+								<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade.id}}">Selecione</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" th:href="@{/localidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-localidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

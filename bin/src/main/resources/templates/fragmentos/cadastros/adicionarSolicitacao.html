@@ -1,0 +1,151 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO DE ARQUIVOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Histórico Arquivoss</a></li>
+				            <li class="breadcrumb-item active">Cadastro Arquivos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row col-md-auto ml-sm-auto col-lg-7 mx-auto">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/admin/cadastros/arquivo/enviar/{id}(id=${id})}">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">ENVIO DE ARQUIVO</div>
+								<div class="form-row">
+									<div class="form-group col-md-4">
+										<select id="tipo" name="tipo" class="form-control form-control-sm" required>
+											<option value="">Selecionar</option>
+											<option value="ATESTADO MÉDICO">ATESTADO MÉDICO</option>
+											<option value="COMUNICAÇÃO">COMUNICAÇÃO</option>
+											<option value="INFORMAÇÃO">INFORMAÇÃO</option>
+											<option value="SOLICITAÇÃO">SOLICITAÇÃO</option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-md-12">
+										<textarea rows="4" cols="50" class="form-control" id="descricao" placeholder="Descrição do documento" name="descricao"></textarea>
+									</div>
+									<div class="form-group col-12 col-sm-6 col-md-4 col-lg-3 col-xl-3">
+										<label for="dataEnvio">Data</label>
+ 										<input id="dataEnvio" type="date" name="dataEnvio" class="form-control form-control-sm input-group" th:value="${#dates.format(dataEnvio, 'dd/MM/yyyy')}" placeholder="DD/MM/YYYY" autocomplete="off" required>
+<!--  										<span class="fv-help-block" th:if="${#fields.hasErrors('dataEnvio')}" th:errors="*{dataEnvio}"></span> -->
+									</div>
+									</br>
+									<div class="form-group col-md-12" >
+										<input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="uploadfile"></input>
+									</div>
+									
+									<div class="form-group col-md-12" >
+										<button type="submit" class="btn btn-success" id="btnSubmit">Enviar</button>								
+										<a class="btn btn-success" th:href="@{~/admin/cadastros/arquivos/{id}(id=${id})}">Voltar</a>
+									</div> 																		
+								</div>								
+						</div><!-- ribbon-wrapper -->
+					</form>
+					<div th:if="${mensagem}" class="alert alert-danger"><span th:text="${mensagem}"/></div>
+				</div><!-- fim class col -->
+			</div><!-- fim da row -->
+		</div><!-- fim do container -->
+	</main>
+	<script src="/assets/js/validador/form-arquivo.js"></script>
+</section>
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+<main role="main" class="col-md-auto ml-sm-auto col-lg-7 mx-auto">	
+		<div class="card-body">			
+			<div class="form-group mt-3">				
+				<div class="form-control form-control-sm">					 															
+					<h5 class="card-title text-center mt-2">Adicionar Solicitação</h5>
+				</div>  
+			</div>
+			<div class="form-group">
+				<div class="form-control form-control-sm">					 															
+						<form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/admin/cadastros/arquivo/enviar/{id}(id=${id})}">								
+							<div class="form-group">
+							</br>
+								<h5 class="card-title mb-2">&ensp; Envio de Arquivo</h5> </br>
+								<div class="form-group col-md-4">
+									<label for="tipo"><b>Tipo de Arquivo</b></label>
+									<select id="tipo" name="tipo" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option value="ATESTADO MÉDICO">ATESTADO MÉDICO</option>
+										<option value="COMUNICAÇÃO">COMUNICAÇÃO</option>
+										<option value="INFORMAÇÃO">INFORMAÇÃO</option>
+										<option value="SOLICITAÇÃO">SOLICITAÇÃO</option>
+									</select>
+								</div>
+								<div class="col-md-12" >	
+								<input class="form-control" id="descricao" placeholder="Descrição do documento" name="descricao"></input>
+								</div>	
+								<div class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+										<label for="dataEnvio">Data</label>
+										<input id="dataEnvio" type="text" name="dataEnvio" class="form-control form-control-sm input-group" th:value="${#dates.format(dataEnvio, 'dd/MM/yyyy')}"  placeholder="DD/MM/YYYY" autocomplete="off"  required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('dataEnvio')}" th:errors="*{dataEnvio}"></span>
+									</div>
+								</br>	
+								<div class="col-md-12" >
+								<input type="file" class="form-control" id="uploadfile" placeholder="Upload File"  name="uploadfile"></input>
+								</div>
+							</div>
+							<div class="col-md-12" >
+								<button type="submit" class="btn btn-success" id="btnSubmit">Enviar</button>								
+								<a class="btn btn-success" th:href="@{~/admin/cadastros/arquivos/{id}(id=${id})}">Voltar</a>
+							</div> 
+						</form>
+						<div th:if="${mensagem}" class="alert alert-danger"><span th:text="${mensagem}"/></div>						
+     				</div>									 
+				</div>
+			</div>					
+		</div>		
+	
+</main>
+
+	<script src="/assets/js/validador/form-arquivo.js"></script>
+</section>
+</html> -->

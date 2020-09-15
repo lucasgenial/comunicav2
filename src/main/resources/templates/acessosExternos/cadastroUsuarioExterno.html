@@ -1,0 +1,237 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO DE SERVIDORES</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				        </ol>
+				    </div>
+				</div>
+			</div><!-- row page-titles -->
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<form id="formServidor" name="form1" class="form-servidor" th:object="${servidor}" th:action="@{{link}(link=${linkCadastro})}" method="POST" >
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">CICOM</div>
+							<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+								<h6>Atenção, corrija os erros sinalizados abaixo:</h6>
+								<div class="alert alert-danger" role="alert">
+									<ul>
+										<li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li> 
+									</ul>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="estabelecimento"></label>
+									<select id="estabelecimento" name="estabelecimento" class="form-control" th:field="*{estabelecimento}" th:classappend="${#fields.hasErrors('estabelecimento')} ? 'is-invalid'" required>
+										 <option value="">Selecionar</option>
+										 <option th:each="_estabelecimento : ${estabelecimentos}" th:value="${{_estabelecimento.id}}" th:text="${_estabelecimento.nome}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('estabelecimento')}" th:errors="*{estabelecimento}"></span>
+								</div>
+							</div>
+						</div><!-- ribbon-wrapper card -->
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">DADOS PESSOAIS</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="instituicao">Instituição</label>
+									<select id="instituicao" name="instituicao" class="form-control form-control-sm" th:field="*{instituicao}" th:classappend="${#fields.hasErrors('instituicao')} ? 'is-invalid'" required>
+										<option value="">Selecionar</option>
+										<option th:each="_instituicao : ${instituicoes}" th:value="${{_instituicao.id}}" th:text="${_instituicao.nome}"></option>
+									</select>
+								</div>								
+								<span class="fv-help-block" th:if="${#fields.hasErrors('instituicao')}" th:errors="*{instituicao}"></span>
+																
+								<div class="form-group col-md-2">
+									<label for="hierarquia">GH</label>
+									<select id="hierarquia" name="hierarquia"  class="form-control form-control-sm" th:field="*{hierarquia}" th:classappend="${#fields.hasErrors('hierarquia')} ? 'is-invalid'" required>
+										<!-- <option value="Selecionar">Selecionar</option> -->
+										<option  th:each="_hierarquia : ${hierarquias}" th:value="${{_hierarquia.id}}" th:text="${_hierarquia.nome}"></option>
+									</select>
+									 <span class="fv-help-block" th:if="${#fields.hasErrors('hierarquia')}" th:errors="*{hierarquia}"></span>
+								</div>				
+																
+								<div class="form-group col-md-2">
+									<label for="funcao">Função</label>
+									<select id="funcao" name="funcao" class="form-control form-control-sm" th:field="*{funcao}" th:classappend="${#fields.hasErrors('funcao')} ? 'is-invalid'" required>
+										<option value="">Selecionar</option>
+										<option th:each="_funcao : ${funcoes}" th:value="${{_funcao.id}}" th:text="${_funcao.nome}" ></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('funcao')}" th:errors="*{funcao}"></span>
+								</div> 
+								
+								<div class="form-group col-md-6">
+									<label for="nome">Nome Completo</label>
+									<input id="nome" name="nome" type="text"  class="form-control form-control-sm text-uppercase" th:field="*{nome}" autocomplete="off" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+								</div>
+								
+								<div class="form-group col-md-2" th:if="${servidorTerceirizado == null}">
+									<label for="matricula">Matricula</label>
+									<input id="matricula" name="matricula" type="text" class="form-control form-control-sm" readonly="readonly" th:value="${servidor.matricula}"  required>
+								</div>
+								
+								<div class="form-group col-md-2" th:if="${servidorTerceirizado != null}">
+									<label for="matricula">Matricula</label>
+									<input id="matricula" name="matricula"  type="text" class="form-control form-control-sm"  th:value="${servidor.matricula}">
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="sexo">Sexo</label>
+									<select id="sexo" name="sexo" class="form-control form-control-sm" th:field="*{sexo}" required>
+										<option value="">Selecionar</option>
+										<option value="FEMININO">FEMININO</option>
+										<option value="MASCULINO">MASCULINO</option>										
+									</select>									
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="cpf">CPF</label>
+									<input id="cpf" name="cpf" type="text" class="form-control form-control-sm" th:field="*{cpf}" autocomplete="off" th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'" placeholder="Digite apenas números" required />
+									<span class="fv-help-block" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="rg">RG</label>
+									<input id="rg" name="rg" type="text" maxlength="13" class="form-control form-control-sm" th:field="*{rg}" autocomplete="off" th:classappend="${#fields.hasErrors('rg')} ? 'is-invalid'" placeholder="Digite apenas números"  required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}"></span>
+								</div>
+								<div class="form-group col-md-2">
+									<label for="emissor">Orgão Emissor</label>
+									<input id="orgaoEmissor" name="orgaoEmissor" type="text" class="form-control form-control-sm text-uppercase" th:field="*{orgaoEmissor}" autocomplete="off" th:classappend="${#fields.hasErrors('orgaoEmissor')} ? 'is-invalid'" placeholder="SSP" onkeyup="maiuscula(this);" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('orgaoEmissor')}" th:errors="*{orgaoEmissor}"></span>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="dataNascimento">Data de Nascimento</label>
+								    <input id="dataNascimento" type="text" name="dataNascimento.nome"  class="form-control form-control-sm input-group data-picker" th:value="${#dates.format(dataNascimento, 'dd/MM/yyyy')}" th:field="*{{dataNascimento}}" placeholder="DD/MM/YYYY" autocomplete="off" th:classappend="${#fields.hasErrors('dataNascimento')} ? 'is-invalid'" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('dataNascimento')}" data-date-format="dd/mm/yyyy" th:errors="*{dataNascimento}"></span>
+								</div>
+								
+							</div><!-- DADOS PESSOAIS -->							
+						</div><!-- ribbon-wrapper card dados pessoais -->	
+						
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">CONTATO</div>
+							
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="tel">Celular 1</label>
+									<input id="celular1" name="tel" type="text" class="form-control form-control-sm" th:field="*{celular1}" th:classappend="${#fields.hasErrors('celular1')} ? 'is-invalid'" placeholder="Digite apenas números" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('celular1')}" th:errors="*{celular1}"></span>
+								</div>
+								
+								<div class="form-group col-md-3">
+									<label for="tel2">Celular 2</label>
+									<input id="celular2" name="tel2"   type="text" class="form-control form-control-sm" th:field="*{celular2}" th:classappend="${#fields.hasErrors('celular2')} ? 'is-invalid'" placeholder="Digite apenas números" >
+									<span class="fv-help-block" th:if="${#fields.hasErrors('celular2')}" th:errors="*{celular2}"></span>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="emailContato">E-mail</label>
+									<input id="emailContato" name="email.enderecoDeEmail" th:type="email" class="form-control form-control-sm" th:field="*{email.enderecoDeEmail}" th:classappend="${#fields.hasErrors('email.enderecoDeEmail')} ? 'is-invalid'" placeholder="exemplo@email.com" required>
+                                    <span class="fv-help-block" th:if="${not #strings.isEmpty(EmailDuplicado)}" th:text="${EmailDuplicado}"></span>								
+									<span class="fv-help-block" th:if="${#fields.hasErrors('email')}" th:text="${EmailDuplicado}"></span>
+                                </div>
+							</div>
+						</div><!-- ribbon-wrapper card contatos -->	
+						
+								<div class="form-group col-md-2">
+									<select id="usuarioNovo" name="usuario" class="form-control form-control-sm" th:field="*{usuario}" th:classappend="${#fields.hasErrors('usuario')} ? 'is-invalid'" hidden="" required>										
+										<option th:each="_usuario : ${usuario}" th:value="${{_usuario.id}}" th:text="${_usuario.login}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('usuario')}" th:errors="*{usuario}"></span>
+								</div>
+										
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">TERMO DE COMPROMISSO</div>																	
+								<div class="card-body offset-2 col-8">
+									<div class="form-group">
+										<div class="form-group">											
+											<div class="form-row">
+												<div class="col-md-3 imagem-logoSsp"></div>
+												<div class="col-md-7 text-center">													
+													<label><font class="font-weight-bold" style="font-size:18px">GOVERNO DO ESTADO DA BAHIA</font></label> <br>
+													<label><font class="font-weight-bold" style="font-size:18px">SECRETARIA DA SEGURANÇA PÚBLICA</font></label> <br>
+													<label><font class="font-weight-bold" style="font-size:18px">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</font></label>
+												</div>			
+													<div class="col-md-2 imagem-logoCicom"></div>
+											</div>
+											
+											<br><br>
+											<!-- <hr /> -->
+											<div class="form-row">
+			
+												<h6 class="font-weight-bold text-center col-12">TERMO DE CONFIDÊNCIALIDADE DE SENHA</h6>
+												<br><br>
+												<p class="text-justify">
+													O Sistema <font class="font-weight-bold">COMUNICA</font>
+													é uma ferramenta disponibilizada pela
+													Superintendência de Telecomunicações da Secretaria da Segurança Pública, ao gerenciamento de
+													recursos via web.
+												</p>
+												<p class="text-justify">O acesso à ferramenta é destinado somente aos servidores das instituições do Sistema Estadual
+													de Segurança Pública, que estão nas 23 (vinte e três) regiões que integram os CICOM's.</p>
+													<p>O acesso será realizado somente quando o
+													 servidor estiver no cumprimento de suas atividades relacionadas à operacionalidade.</p>
+												<p class="text-justify">Visando zelar pela segurança das informações e restringir o acesso de pessoas não autorizadas,
+													o servidor receberá um usuário individual, identificado por login e senha, os quais serão para uso
+													pessoal e intransferível, sob pena de bloqueio do acesso e responsabilidade penal. Os usuários devem
+													se comprometer a garantir o sigilo das informações, mantendo sob segurança o seu usuário e senha,
+													assinando o presente termo de confidencialidade:
+													</p>
+												<div class="bg-secondary pt-3 pr-3 pl-3 mb-4">
+													<div class="text-justify">
+														<p>Eu,											
+														<font class="nomeNoTerno font-weight-bold"></font>
+														<font>Matrícula:</font>
+														<font class="font-weight-bold" th:text="${servidor.matricula}"></font>,													
+														<font> GH:</font>
+														<font class="hierarquiaNoTerno font-weight-bold"></font>,
+														<font> Instituição:</font>
+														<font class="instituicaoNoTerno font-weight-bold"></font>,	
+														<font> CICOM:</font>
+														<font class="estabelecimentoNoTerno font-weight-bold"></font>,
+														 declaro que me comprometo a utilizar
+															adequadamente o sistema Comunica-CICOM, dispondo dos dados de acordo com as presentes
+															diretrizes e normas legais, e zelando pelo absoluto sigilo das informações nele veiculadas.
+															Comprometo-me também quanto ao sigilo do meu usuário e senha individuais, solicitando o
+															cancelamento do acesso caso ocorra qualquer alteração na função a qual desempenho.
+														
+														</p>
+													</div>
+												</div>
+											</div>
+											<div class="row offset-1">
+												<div class="form-check form-check-inline">
+													<input  class="form-check-input aceitaTermo" type="radio" id="aceitaTermo" name="naoAceitaTermo">
+													<label class="form-check-label" for="customRadioInline1">Li e aceito os termos de condições</label>
+												</div>
+												<div class="form-check form-check-inline">
+													<input  class="form-check-input aceitaTermo" type="radio" id="naoAceitaTermo" name="naoAceitaTermo">
+													<label class="form-check-label" for="customRadioInline2">Li e não aceito os termos de condições</label>
+												</div>
+											</div>
+										
+									</div>
+								</div>
+								<button type="submit" class="btn btn-success collapse multi-collapse" id="botaoSalvar">Salvar</button>
+							</div>													
+						</div><!-- ribbon-wrapper card termo compromisso -->
+						
+					</form>
+				</div><!-- col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12  -->			
+		</div><!-- container-fluid -->			
+	</main>
+</section>
+ 	<script src="/assets/js/validador/form-uf.js"></script>
+    <script src="/assets/js/jquery.mask.min.js"></script> 
+	<script src="/assets/js/validador/form-servidoresComAcessoExterno.js"></script>
+	<script src="/assets/js/validador/form-validaCPF.js"></script>
+ 

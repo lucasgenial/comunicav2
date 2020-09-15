@@ -1,0 +1,67 @@
+<section layout:fragment="content"
+	layout:decorate="~{/fragmentos/layout}">
+
+	<main>
+	<div class="container-fluid">
+		<!-- INICIO TITULO DA PÁGINA -->
+		<div class="row page-titles">
+			<div class="col-md-5 align-self-center">
+				<h4 class="text-themecolor">Cadastros de Servidores Externos</h4>
+			</div>
+			<div class="col-md-7 align-self-center text-right">
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+						<li class="breadcrumb-item active">Cadastros de Servidores
+							Externos</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="ribbon-wrapper card">
+
+					<div class="table-responsive">
+						<table id="tabela-servidorExterno"
+							class="table table-sm table-hover table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th scope="col" th:text="#{tabela-servidorExterno.titulo.id}">ID</th>
+									<th scope="col"
+										th:text="#{tabela-servidorExterno.titulo.matricula}">Matricula</th>
+									<th scope="col"
+										th:text="#{tabela-servidorExterno.titulo.grauHierarquico}">Grau
+										Hierarquico</th>
+									<th scope="col" th:text="#{tabela-servidorExterno.titulo.nome}">Nome</th>
+									<th scope="col"
+										th:text="#{tabela-servidorExterno.titulo.instituicao}">Instituição</th>
+									<th scope="col" th:text="#{tabela-servidorExterno.titulo.acao}">Ações</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							</tbody>
+						</table>
+					</div>
+					<div class="btn-toolbar" role="toolbar"
+						aria-label="Toolbar with button groups">
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info"
+								th:href="@{/admin/cadastra/servidorExterno}">Adicionar</a>
+						</div>
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info"
+								th:href="@{/admin/importar/servidor/externo}">Adicionar por
+								Arquivo</a>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</main>
+</section>

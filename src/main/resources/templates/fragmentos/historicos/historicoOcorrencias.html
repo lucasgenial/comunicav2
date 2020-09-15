@@ -1,0 +1,109 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+	<div class="container-fluid">
+		<!-- INICIO TITULO DA PÁGINA -->
+		<div class="row page-titles">
+			<div class="col-md-5 align-self-center">
+				<h4 class="text-themecolor">DIÁRIO DE OCORRÊNCIAS</h4>
+			</div>
+			<div class="col-md-7 align-self-center text-right">
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+						<li class="breadcrumb-item active">Histórico Ocorrências</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-12">
+				<div class="ribbon-wrapper card">
+					<div class="table-responsive">
+						<table id="tabela-ocorrencia-paginada"	class="table table-sm table-bordered table-striped dt-responsive text-center" cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>SIC</th>
+									<th>Data Ocorrência</th>
+									<th>Tipificação</th>
+									<th>Descrição</th>
+									<th>Cidade</th>
+									<th>Localidade</th>
+									<th>Bairro</th>
+									<th>Enviada</th>
+									<th>Estabelecimento</th>
+									<th>Ação</th>
+								</tr>
+							</thead>
+							<tbody>
+							<tr th:each="_ocorrencia, iStat : ${ocorrenciasLista}">
+								<th scope="row" th:text="${_ocorrencia.sic}"></th>
+								<td th:text="${_ocorrencia.dataOcorrencia}"></td>   <!--  +' '+ #temporals.format(_ocorrencia.horaOcorrencia,'HH:mm')  -->
+								<td th:text="${#strings.capitalize(_ocorrencia.tipificacao)}"></td>
+								<td th:utext="${#strings.unescapeJava(#strings.abbreviate(_ocorrencia.descricao,45))}"></td>
+								<td th:text="${_ocorrencia.cidade}"></td>
+								<td th:text="${_ocorrencia.localidade}"></td>
+								<td th:text="${_ocorrencia.bairro}"></td>								
+								<td th:text="${#strings.capitalize(_ocorrencia.enviada ? 'Sim':'Não')}"></td>
+								<td th:text="${_ocorrencia.estabelecimento}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										     Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										    
+										    
+										      <a class="dropdown-item" target="_blank" th:href="@{~/admin/visualiza/ocorrencias/{id}(id=${_ocorrencia.id})}" th:id="${_ocorrencia.id}"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>
+						   					  <a class="dropdown-item" th:href="@{~/admin/editar/ocorrencias/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+						   					  <a class="dropdown-item" th:href="@{~/admin/report/ocorrencia/{id}(id=${_ocorrencia.id})}" target="_blank" data-titulo="Imprimir Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="fa fa-print"></i> Imprimir</a>
+						   					  <a class="dropdown-item" th:href="@{javascript:enviarWhatsappOcorrenciaViaLink({id})(id=${_ocorrencia.id})}"><i class="fab fa-whatsapp"></i> Via Link</a>
+						   					  <a class="dropdown-item" th:href="@{javascript:enviarWhatsappocorrencia({id})(id=${_ocorrencia.id})}"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+						   					  <a class="dropdown-item" th:href="@{javascript:enviarEmailocorrencia({id})(id=${_ocorrencia.id})}" data-titulo="Enviar Ocorrência"><i class="far fa-envelope"></i> Email</a>
+					<!-- 
+										      <a id="" class="dropdown-item" href="" th:href="@{ocorrencias/visualizar/{id}(id=${_ocorrencia.id})}" th:inline="text" th:id="${_ocorrencia.id}"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/editar/ocorrencias/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+											  <a id="" class="dropdown-item" href="" th:href="@{~/admin/report/ocorrencia/{id}(id=${_ocorrencia.id})}" target="_blank" data-titulo="Imprimir Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="fa fa-print"></i> Imprimir</a>
+										      <a id="" class="dropdown-item btn-whatsapp" href="" th:id="${_ocorrencia.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+										      <a id="" class="dropdown-item btn-enviarEmail-ocorrencia" href="" data-titulo="Enviar Ocorrência" th:id="${_ocorrencia.id}"><i class="far fa-envelope"></i> Email</a>
+										 --></div>
+										</div>
+									</div>
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div class="btn-toolbar" role="toolbar"
+						aria-label="Toolbar with button groups">
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{/admin/cadastra/ocorrencia}">Adicionar</a>
+						</div>
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{/admin/cadastro/ocorrencias/enviarVarias/email}">Enviar várias E-mail</a>
+						</div>
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{/admin/cadastro/ocorrencias/enviarVarias/whatsapp}">Enviar várias Whatsapp</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaEmail :: modalEnviarEmail"></div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaWhatsapp :: modalWhatsapp"></div>
+			<div th:replace="fragmentos/modal :: modalMensagem"></div>
+
+		</div>
+		<div id="verificador" th:data-verificador="${verificador}"></div>
+		<div th:if="${emailEnviado == 'ok'}">
+			<script type="text/javascript">
+				window.onload = function() {
+					$("#modal-mensagem").modal("show");
+				}
+			</script>
+		</div>
+
+	</div>
+	</main>
+</section>

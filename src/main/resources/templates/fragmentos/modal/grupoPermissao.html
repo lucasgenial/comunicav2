@@ -1,0 +1,37 @@
+<!-- MODAL EDITA GRUPO PERMISSAO -->
+<div class="modal fade" id="modal-grupo-permissao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" 
+						th:fragment="modalGrupoPermissao">
+<style>
+	 #selectGrupoPermissoes{
+		margin-left:17px;
+	}
+</style>
+	<form id="formGrupoPermissao" th:object="${permissao}" th:action="@{/admin/cadastros/grupos/adicionarPermissao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<h6 id="selectGrupoPermissoes">Selecione a Permissão</h6>
+				<div class="modal-body">					
+					<div class="form-row">
+						<div class="form-group col-md-6">									
+							<select id="grupoPermissoes" name="grupoPermissoes" th:field="*{id}" class="form-control form-control-sm" required>
+								<option value="">Selecionar</option>
+								<option th:each="_permissao : ${listapermissoes}"  th:text="${_permissao.nome}" th:value="${_permissao.id}"></option>
+							</select>
+						</div>							
+					</div>					
+				</div>
+				
+				<div class="modal-footer">
+					<!-- <button type="submit"  class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+					<button type="submit" class="btn btn-primary"  name="usuario" id="btn-grupopermissaoEditar">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

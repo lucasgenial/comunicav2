@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+	<section layout:fragment="content">
+		<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+			<div class="card">
+				<div class="card-body">
+					<form id="formGeraGraficos" class="form-ocorrencia" th:action="@{/gerarGrafico}" method="POST" th:object="${dadosGrafico}">
+						<h5 class="card-title mb-2">Gerador de Gráficos</h5>
+						
+						<br>
+						
+						<div class="form-group">
+							<h6>PERÍODO</h6>
+		
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-md-2">
+										<label for="dataInicio">Data Inicial</label>
+										<input id="dataInicio" type="datetime" name="dataInicio" class="form-control form-control-sm input-group" th:value="${#dates.format(dataInicial, 'dd/MM/yyyy')}" 
+										th:field="*{{dataInicial}}" placeholder="DD/MM/YYYY" autocomplete="off" th:classappend="${#fields.hasErrors('dataInicial')} ? 'is-invalid'" required>
+									</div>
+		
+									<div class="form-group col-md-2">
+										<label for="horaInicio">Hora Inicial</label>
+										<input id="horaInicio" name="horaInicio" type="time"class="form-control form-control-sm input-group"
+											placeholder="DD/MM/YYYY" autocomplete="off">
+									</div>
+									
+									<div class="form-group col-md-2">
+										<label for="dataFim">Data Final</label>
+										<input id="dataFim" type="date" name="dataFim" class="form-control form-control-sm input-group" placeholder="DD/MM/YYYY" required>
+									</div>
+		
+									<div class="form-group col-md-2">
+										<label for="horaFim">Hora Final</label>
+										<input id="horaFim" name="horaFim" type="time" class="form-control form-control-sm input-group"
+											placeholder="DD/MM/YYYY" autocomplete="off">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<h6>TIPIFICAÇÕES</h6>
+		
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" th:object="${categoria}">
+										<label for="categoria">Categoria</label>
+										<select id="categoria" name="categorias" class="form-control form-control-sm" required>
+											<option value="">SELECIONE</option>
+											<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria != null}"th:selected="${_categoria.id == categoria.id}"  th:value="${{_categoria}}"></option>
+											<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria == null}" th:value="${{_categoria}}"></option>
+										</select>
+									</div>
+									
+									<div class="form-group col-md-6">
+										<label for="tipificacao">Tipificação - Selecione 1 ou mais</label>
+										<select id="tipificacao" name="listaTipificacao" class="form-control form-control-sm" multiple size="10">
+											<option th:each="_tipificacao : ${tipificacoes}" th:text="${_tipificacao.nome}" th:value="${{_tipificacao}}"></option>
+										</select>
+										<br>
+										<input type="button" id="todosTipos" name="todosTipos" value="Todas" class="btn btn-primary btn-sm">
+									</div>
+								</div>
+							</div>
+						</div>
+		
+						<div class="form-group">
+							<h6>ÁREA DE ABRANGÊNCIA</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-12 col-md-12 col-lg-3">
+										<label for="estabelecimentos">Estabelecimento</label>
+										<select id="estabelecimentos" name="estabelecimentos" class="form-control form-control-sm" required>
+											<option value="">SELECIONE</option>
+											<option th:each="_estabelecimento: ${estabelecimentos}" th:text="${_estabelecimento.nome}" th:value="${{_estabelecimento}}"></option>
+										</select>
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-12 col-md-12 col-lg-4">
+										<label for="listaCidades">Cidade</label>
+											<select id="listaCidades" name="listaCidades" th:value="${listaCidades}" class="form-control form-control-sm" multiple size="10">
+											</select>
+										<br>
+										<input type="button" id="todasCidades" name="todasCidades" value="Todas" class="btn btn-primary btn-sm">
+									</div>
+		
+									<div class="form-group col-12 col-md-6 col-lg-4 listaLocalidades" hidden="true">
+										<label for="listaLocalidades">Localidade/Distrito</label>
+											<select id="listaLocalidades" name="listaLocalidades" class="form-control form-control-sm" multiple size="10">
+											</select>
+										<br>
+										<input type="button" id="todasLocalidades" name="todasLocalidades" value="Todas" class="btn btn-primary btn-sm">
+									</div>
+		
+									<div class="form-group col-12 col-md-6 col-lg-4 listaBairros" hidden="true">
+										<label for="listaBairros">Bairro</label>
+											<select id="listaBairros" name="listaBairros" class="form-control form-control-sm" multiple size="10">
+											</select>
+										<br>
+										<input type="button" id="todosBairros" name="todosBairros" value="Todas" class="btn btn-primary btn-sm">
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+							<h6>DADOS DO GRÁFICOS</h6>
+						
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+								
+									<div class="form-group col-12 col-md-12 col-lg-3">
+										<label for="tipoGrafico">Tipo De Grafico</label>
+										<select id="tipoGrafico" name="tipoGrafico" class="form-control form-control-sm" required>
+											<option value="">Selecionar</option>
+											<option value="BARRAS">BARRAS</option>
+											<option value="LINHAS">LINHA</option>
+											<option value="PIZZA">PIZZA</option>
+										</select>
+									</div>
+									
+									<div class="form-group col-6 col-md-6">
+										<label for="titulo">Título do Gráfico</label>
+										<input id="titulo" name="titulo" type="text" class="form-control form-control-sm" autocomplete="off">
+									</div>
+																	
+								</div>
+							</div>
+						</div>
+						
+						<br/>
+						<button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+						<button id="limpar" type="reset" class="btn btn-primary btn-sm">Limpar</button>
+						<br/>
+						<hr/>
+					</form>
+				</div>
+				
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title mb-2">Gráfico Gerado</h5>
+						<hr />
+						<div class="x_panel">
+							<div class="x_content">
+								<div class="x_title">
+									<h4 th:text="${tituloGrafico}"></h4>
+									<div class="clearfix"></div>
+								</div>
+								<div id="grafico" style="width: 100%; min-height: 400px"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<script src="/assets/js/validador/form-GerarGraficos.js"  type="text/javascript"></script>
+		<script>
+		$('#todosTipos').click(function() {
+		    $('#tipificacao option').prop('selected', true);
+		});
+		
+		$('#todasCidades').click(function() {
+		    $('#listaCidades option').prop('selected', true);
+		    $('.listaBairros').prop('hidden', true);	    
+		    $('.listaLocalidades').prop('hidden', true);	    
+		});
+			
+		$('#todasLocalidades').click(function(){
+			$('#listaLocalidades option').prop('selected', true);
+			$('.listaBairros').prop('hidden', true);
+		});
+		
+		$('#todosBairros').click(function() {
+		    $('#listaBairros option').prop('selected', true);
+		});
+		
+		/*
+		 * Inicio Configuração do Gráfico
+		 */
+		var myChart = echarts.init(document.getElementById('grafico'));
+		 
+		dados = [[${dados}]]
+		
+		myChart.setOption({
+			legend : {
+				data : dados
+			},
+			toolbox : {
+				show : true,
+				feature : {
+					restore : {
+						title : 'Reset'
+					},
+					saveAsImage : {
+						title : 'Salvar'
+					}
+				}
+			},
+			xAxis : {
+				data :dados.nome
+			},
+			series : [{
+				name : "QUANTIDADE",
+				data : dados.quantidade
+			}]
+		});
+		</script>
+	</section>
+</html>

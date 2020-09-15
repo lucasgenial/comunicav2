@@ -1,0 +1,71 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+			<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">EFETIVOS EXTERNOS ATIVOS</h4>
+				</div>
+				<div class="col-md-12 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="/admin/historico/mesas">Histórico De Mesas</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Efetivo Externos Ativos</li>
+				        </ol>
+				    </div>	
+				</div>
+			</div>
+	
+		<div th:id="${mesa.id}" class="row">	
+			<div th:if="${mesa.id != 0}" class="btn-group col text-center" role="group">
+				<a th:data-nomeCidade="${_cidades.nome}" th:text="${_cidades.nome}" th:href="@{~/admin/historico/policiamentos/ativos/{id}/{idCidade}(id=${mesa.id},idCidade=${_cidades.id})}" th:each="_cidades : ${usuario.servidor.estabelecimento.cidades}" class="border-left btn btn-info mudaBotaoDePDF" type="button">Porto Seguro</a>
+		 	
+		 	</div>
+			<div class="col">
+				<div class="card">
+                    <div class="card-body">				
+						 <h6 class="card-subtitle"></h6>
+							<div class="table-responsive">
+								<h1 th:if="${cidade.id != 0}" class="text-center" >[[${cidade.nome}]]</h1>
+								<h1 th:if="${cidade.id == 0 and mesa.id != 0}" class="text-center" >EFETIVOS ATIVOS</h1>
+								<h1 th:if="${mesa.id == 0}" class="text-center" >NÃO HÁ EFETIVOS ATIVOS</h1>
+									<table id="tabela-historicoEfetivoExterno" class="table table-bordered table-striped dt-responsive text-center" cellspacing="0" width="100%" >
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Mesa</th>
+												<th>Inicio do Plantão</th>
+												<th>Fim do Plantão</th>
+												<th>Modalidade</th>
+												<th>Prefixo</th>
+												<th>Unidade</th>	
+											    <th>Abrangência</th>								
+												<!-- <th>Ação</th> -->
+											</tr>
+										</thead>
+										<tbody class="table-sm">
+											<tr>
+											<td>
+											</td>
+											</tr>
+										</tbody>	
+									</table>
+								</div>	
+				
+					<!-- Botões -->
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  		<div class="btn-group mr-2" role="group">
+							<a class="btn btn-info btn-sm" th:href="@{~/admin/historico/policiamentos/ativos}" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >De todas cidades</a>
+                    	</div>
+                     </div>	
+              
+				</div>
+				</div>
+				<div th:replace="fragmentos/modal/visualizaPoliciamentoAtivo :: modal-visualizaPoliciamentoAtivo"></div>	
+									
+			</div>
+			</div>
+		</div>
+	</main>
+</section>

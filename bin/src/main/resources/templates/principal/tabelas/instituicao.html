@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastros de Instituições</h5>
+				<hr/>
+				<div class="table-responsive-md"> 
+					<table id="tabela-instituicoes" class="table table-sm table-hover text-center" >
+						<thead>
+							<tr>
+								<th scope="col" >ID</th>
+								<th scope="col" >Nome da Instituição</th>
+								<th scope="col" >Status</th>
+								<th scope="col" >Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_instituicoes : ${instituicoesLista}" th:classappend="${_instituicoes.ativo} ? table-default : table-danger">
+								<th scope="row" th:text="${_instituicoes.id}">1</th>
+								<td th:text="${_instituicoes.nome}">Cadastrar</td>
+								<td th:if="${_instituicoes.ativo==true}">Ativo</td>
+								<td th:if="${_instituicoes.ativo==false}">Inativo</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-permissoes.titulo.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a class="dropdown-item btn-editar-instituicao" th:href="@{instituicoes/editar/{id}(id=${_instituicoes.id})}" data-titulo="Editar Instituição" th:id="${_instituicoes.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{instituicao.tabela.editar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{instituicoes/status/{id}(id=${_instituicoes.id})}" th:inline="text" th:if="${_instituicoes.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{instituicao.tabela.desabilitar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{instituicoes/status/{id}(id=${_instituicoes.id})}" th:inline="text" th:if="${_instituicoes.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{instituicao.tabela.habilitar}]]</a>
+										      <!-- <a class="dropdown-item btn-excluir-instituicao" href="#" th:href="@{instituicoes/excluir/{id}(id=${_instituicoes.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{instituicao.tabela.excluir}]]</a> -->
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<button type="button" class="btn btn-primary btn-nova-instituicao" data-titulo="Cadastro de Nova Instituição">Adicionar</button>
+				
+			</div>
+		</div>
+		<div th:replace="fragmentos/modal/instituicao :: modalInstituicao"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+		
+	</main>
+	
+	<script src="/assets/js/validador/form-instituicao.js"></script>
+</section>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Pesquisar Ocorrências</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<form id="formGeraGraficos" class="form-ocorrencia" th:action="@{/gerarGrafico}" method="POST">
+					<h5 class="card-title mb-2">Gerador de Gráficos</h5>
+					
+					<div class="form-group">
+						<h6>REFERÊNCIAS</h6>
+	
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6" th:object="${categoria}">
+									<label for="categoria">Categoria</label>
+									<select id="categoria" name="categoria" class="form-control form-control-sm" required>
+										<option value="">Selecione</option>
+										<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria != null}"th:selected="${_categoria.id == categoria.id}"  th:value="${{_categoria}}"></option>
+										<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria == null}" th:value="${{_categoria}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="tipificacao">Tipificação</label>
+									<select id="tipificacao" name="tipificacao" class="form-control form-control-sm">
+										<option hidden="Selecionar" value="">Selecionar</option>
+										<option th:each="_tipificacao : ${tipificacoes}" th:text="${_tipificacao.nome}" th:value="${{_tipificacao}}"></option>
+									</select>
+								</div>
+	
+								<div class="form-group col-md-2">
+									<label for="dataInicio">Data e Hora Início</label>
+									<input id="dataInicio" type="text" name="dataInicio" readonly class="form-control form-control-sm input-group"
+										placeholder="DD/MM/YYYY" autocomplete="off">
+								</div>
+	
+								<div class="form-group col-md-2">
+									<label for="dataFim">Data e Hora Fim</label>
+									<input id="dataFim" type="text" name="dataFim" readonly class="form-control form-control-sm input-group"
+										placeholder="DD/MM/YYYY" autocomplete="off">
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div class="form-group">
+						<h6>LOCALIZAÇÃO</h6>
+						<div class="form-control form-control-sm"th:object="${endereco}">
+							<div class="form-row">
+								<div class="form-group col-12 col-md-12 col-lg-3">
+									<label for="estabelecimento">Estabelecimento</label>
+									<select id="estabelecimento" name="estabelecimento" class="form-control form-control-sm" required>
+										<option th:each="_estabelecimento: ${estabelecimentos}" th:value="${{_estabelecimento.id}}"
+											th:text="${_estabelecimento.nome}"></option>
+									</select>
+								</div>
+							</div>
+							
+							<div class="form-row">
+								<div class="form-group col-12 col-md-12 col-lg-4">
+									<label for="cidade">Cidade</label>
+									<select id="cidade" name="cidade" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('cidade')} ? 'is-invalid'"
+										th:field="*{cidade}" required>
+										<option value="">Selecionar</option>
+										<option th:each="_cidade : ${cidades}" th:value="${{_cidade.id}}" th:text="${_cidade.nome}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}"></span>
+								</div>
+	
+								<div class="form-group col-12 col-md-6 col-lg-4">
+									<label for="localidade">Localidade/Distrito</label>
+									<select id="localidade" name="localidade" class="form-control form-control-sm"
+										th:field="*{bairro.localidade}" required="required">
+										<option value="">Selecionar</option>
+										<option th:each="localidade : ${localidades}" th:value="${{localidade.id}}" th:text="${localidade.nome}"></option>
+									</select>
+								</div>
+	
+								<div class="form-group col-12 col-md-6 col-lg-4">
+									<label for="bairro">Bairro</label>
+									<select id="bairro" name="bairro" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('bairro')} ? 'is-invalid'"
+										th:field="*{bairro}" required="required">
+										<option value="">Selecionar</option>
+										<option th:each="bairro : ${bairros}" th:value="${{bairro.id}}" th:text="${bairro.nome}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('bairro')}" th:errors="*{bairro}"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="form-group">
+						<h6>DADOS DO GRÁFICOS</h6>
+					
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+							
+								<div class="form-group col-12 col-md-12 col-lg-3">
+									<label for="cidade">Tipo De Grafico</label>
+									<select id="cidade" name="cidade" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option value="">BARRAS</option>
+										<option value="">LINHA</option>
+										<option value="">PIZZA</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-6 col-md-6">
+									<label for="tituloGrafico">Título do Gráfico</label>
+									<input id="tituloGrafico" name="tituloGrafico" type="text" class="form-control form-control-sm" autocomplete="off">
+								</div>
+																
+							</div>
+						</div>
+					</div>
+					
+					<br/>
+					<button type="submit" class="btn btn-primary btn-sm">Buscar</button>
+					<button id="limpar" type="reset" class="btn btn-primary btn-sm">Limpar</button>
+					<br/>
+					<hr/>
+				</form>
+			</div>
+			
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title mb-2">Gráfico Gerado</h5>
+					<hr />
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	<script src="/assets/js/validador/form-GerarGraficos.js"></script>
+
+</body>
+</html>

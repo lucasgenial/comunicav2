@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{/fragmentos/layout}">
+<section layout:fragment="content">
+	<main>
+	  <div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+	  	<div class="card">
+	  		<div class="card-body">			
+				<h5 class="card-title mb-2">Edicao de Servidor</h5><br>
+				<form id="formServidor" name="form1" class="form-servidor" th:object="${servidor}" th:action="@{{link}(link=${linkCadastro})}" method="POST" >					
+					
+					<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+					 <h6>AtenÃ§Ã£o, corrija os erros sinalizados abaixo</h6>
+					<div class="alert alert-danger" role="alert">
+						<ul>
+						 <li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li> 
+						</ul>
+					</div>
+				</div>						
+					<div class="form-group">
+						<div class="form-group">
+						<h6>CICOM</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-md-3">
+										<label for="estabelecimento"></label>
+										<select id="estabelecimento" name="estabelecimento" class="form-control form-control-sm" th:field="*{estabelecimento}" th:classappend="${#fields.hasErrors('estabelecimento')} ? 'is-invalid'" required>
+											 <option value="">Selecionar</option>
+											 <option th:each="_estabelecimento : ${estabelecimentos}" th:value="${{_estabelecimento.id}}" th:text="${_estabelecimento.nome}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('estabelecimento')}" th:errors="*{estabelecimento}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+													
+						<h6>DADOS PESSOAIS</h6>
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+							
+							<div class="form-group col-md-2">
+									<label for="instituicao">Instituição</label>
+									<select id="instituicao" name="instituicao" class="form-control form-control-sm" th:field="*{instituicao}" th:classappend="${#fields.hasErrors('instituicao')} ? 'is-invalid'" required>
+										<option value="">Selecionar</option>
+										<option th:each="_instituicao : ${instituicoes}" th:value="${{_instituicao.id}}" th:text="${_instituicao.nome}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('instituicao')}" th:errors="*{instituicao}"></span>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="hierarquia">GH</label>
+									<select id="hierarquia" name="hierarquia"  class="form-control form-control-sm" th:field="*{hierarquia}" th:classappend="${#fields.hasErrors('hierarquia')} ? 'is-invalid'" required>
+										<option value="">Selecionar</option>
+										<option th:value="${{_hierarquia.id}}" th:each="_hierarquia : ${hierarquias}"  th:text="${_hierarquia.nome}"></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('hierarquia')}" th:errors="*{hierarquia}"></span>
+								</div>
+							
+								<div class="form-group col-md-2">
+									<label for="funcao">Função</label>
+									<select id="funcao" name="funcao" class="form-control form-control-sm" th:field="*{funcao}" th:classappend="${#fields.hasErrors('funcao')} ? 'is-invalid'" required>
+										<option value="">Selecionar</option>
+										<option th:each="_funcao : ${funcoes}" th:value="${{_funcao.id}}" th:text="${_funcao.nome}" ></option>
+									</select>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('funcao')}" th:errors="*{funcao}"></span>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="nome">Nome Completo</label>
+									<input id="nome" name="nome" type="text"  class="form-control form-control-sm" th:field="*{nome}" autocomplete="off" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+								</div>
+								<div class="form-group col-md-2" th:if="${servidorTerceirizado == null}">
+									<label for="matricula">Matricula</label>
+									<input id="matricula" name="matricula" type="text" class="form-control form-control-sm" readonly="readonly" th:value="${servidor.matricula}"  required>
+								</div>
+																
+								<div class="form-group col-md-2">
+									<label for="sexo">Sexo</label>
+									<select id="sexo" name="sexo" class="form-control form-control-sm" th:field="*{sexo}" required>
+										<option value="">Selecionar</option>
+										<option value="FEMININO">FEMININO</option>
+										<option value="MASCULINO">MASCULINO</option>										
+									</select>
+									
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="cpf">CPF</label>
+									<input id="cpf" name="cpf" type="text" class="form-control form-control-sm" th:field="*{cpf}" autocomplete="off" th:classappend="${#fields.hasErrors('cpf')} ? 'is-invalid'" placeholder="Digite apenas números" required />
+									<span class="fv-help-block" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="rg">RG</label>
+									<input id="rg" name="rg" type="text" maxlength="13" class="form-control form-control-sm" th:field="*{rg}" autocomplete="off" th:classappend="${#fields.hasErrors('rg')} ? 'is-invalid'" placeholder="Digite apenas números"  required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('rg')}" th:errors="*{rg}"></span>
+								</div>
+								<div class="form-group col-md-2">
+									<label for="emissor">Orgão Emissor</label>
+									<input id="orgaoEmissor" name="orgaoEmissor" type="text" class="form-control form-control-sm" th:field="*{orgaoEmissor}" autocomplete="off" th:classappend="${#fields.hasErrors('orgaoEmissor')} ? 'is-invalid'" placeholder="SSP" onkeyup="maiuscula(this);" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('orgaoEmissor')}" th:errors="*{orgaoEmissor}"></span>
+								</div>
+								
+								 <div class="form-group col-md-2">
+									<label for="dataNascimento">Data de Nascimento</label>
+								    <input id="dataNascimento" type="text" name="dataNascimento.nome"  class="form-control form-control-sm input-group" th:value="${#dates.format(dataNascimento, 'dd/MM/yyyy')}" th:field="*{{dataNascimento}}" placeholder="DD/MM/YYYY" autocomplete="off" th:classappend="${#fields.hasErrors('dataNascimento')} ? 'is-invalid'" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
+								</div> 
+								
+		
+							</div>
+						</div>
+					</div>
+					
+					<h6>CONTATOS</h6>
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="tel">Celular 1</label>
+									<input id="celular1" name="tel" type="text" class="form-control form-control-sm" th:field="*{celular1}" th:classappend="${#fields.hasErrors('celular1')} ? 'is-invalid'" placeholder="Digite apenas números" required>
+									<span class="fv-help-block" th:if="${#fields.hasErrors('celular1')}" th:errors="*{celular1}"></span>
+								</div>
+								
+								<div class="form-group col-md-3">
+									<label for="tel2">Celular 2</label>
+									<input id="celular2" name="tel2"   type="text" class="form-control form-control-sm" th:field="*{celular2}" th:classappend="${#fields.hasErrors('celular2')} ? 'is-invalid'" placeholder="Digite apenas números" >
+									<span class="fv-help-block" th:if="${#fields.hasErrors('celular2')}" th:errors="*{celular2}"></span>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="emailContato">E-mail</label>
+									<input id="emailContato" name="email.enderecoDeEmail" th:type="email" class="form-control form-control-sm" th:field="*{email.enderecoDeEmail}" th:classappend="${#fields.hasErrors('email.enderecoDeEmail')} ? 'is-invalid'" readonly placeholder="exemplo@email.com" required>
+                                    <span class="fv-help-block" th:if="${not #strings.isEmpty(EmailDuplicado)}" th:text="${EmailDuplicado}"></span>								
+									<span class="fv-help-block" th:if="${#fields.hasErrors('email')}" th:text="${EmailDuplicado}"></span>
+                                </div>
+
+							</div>
+						</div>
+					</div>	
+					<button type="submit" class="btn btn-success " id="botaoSalvar">Salvar</button>
+				</form>
+				
+			</div>
+			</div>
+		</div>
+
+	</main>
+	<div th:replace="fragmentos/modal/sistema :: modalSucesso"></div>
+    <script src="/assets/js/validador/form-uf.js"></script>
+    <script src="/assets/js/jquery.mask.min.js"></script> 
+	<script src="/assets/js/validador/form-servidoresComAcessoExterno.js"></script>
+	<script src="/assets/js/validador/form-validaCPF.js"></script>
+	
+</section>
+</html>

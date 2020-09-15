@@ -1,0 +1,83 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DADOS ESTATISTICOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Dados Estatisticos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<form id="formGerarDadosEstatisticos" th:action="@{mostrarDados}" method="POST">
+						
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">SELEÇÃO</div>
+							
+							<div class="form-group">
+								<div class="form-row">
+									<div class="form-group col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+										<label for="categoria">TIPOS</label>
+										<select id="categoria" name="categoria" class="form-control" multiple data-actions-box="true" required>
+											<option th:each="_categoria: ${categorias}" th:text="${_categoria.nome}" th:value="${{_categoria}}"></option>
+										</select>
+									</div>
+									
+									<div class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+										<label for="dataInicial">Data Início</label>
+										<input id="dataInicial" type="text" name="dataInicial" class="form-control input-group data-picker" autocomplete="off" required>
+									</div>
+									
+									<div class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+										<label for="dataFinal">Data Fim</label>
+										<input id="dataFinal" type="text" name="dataFinal" class="form-control input-group data-picker" autocomplete="off" required>
+									</div>
+								</div>
+								
+								<div class="form-row">
+									<div class="form-group col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+										<label for="estabelecimento">ESTABELECIMENTO</label>
+										<select id="estabelecimento" name="estabelecimento" class="form-control" required>
+											<option value="">SELECIONE</option>
+											<option th:each="_estabelecimento: ${estabelecimentos}" th:text="${_estabelecimento.nome}" th:value="${{_estabelecimento}}"></option>
+										</select>
+									</div>
+									
+									<div class="form-group col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+										<label for="cidadeDisponivel">CIDADES DISPONÃ�VEIS</label>
+										<b>* Duplo clique para selecionar</b>
+										<select id="cidadeDisponivel" name="cidadeDisponivel" class="form-control" multiple size="10">
+											<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade}}"></option>
+										</select>
+										<hr>
+										<input type="button" id="cidadeDisponivel_rightAll" name="todasCidades" value="Selecionar Todas" class="btn btn-primary">
+									</div>
+									
+									<div class="form-group col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+										<label for="listaCidades">CIDADES SELECIONADAS</label>
+										<select id="cidadeDisponivel_to" name="listaCidades" class="form-control" multiple size="10" required>
+											<option th:each="_cidade : ${listaCidades}" th:text="${_cidade.nome}" th:value="${{_cidade}}"></option>
+										</select>
+										<hr>
+										<input type="button" id="cidadeDisponivel_leftAll" name="RemoveTodasCidades" value="Remover Todas" class="btn btn-primary">
+									</div>
+								</div>
+								
+								<button type="submit" class="btn btn-info">BUSCAR</button>
+								
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

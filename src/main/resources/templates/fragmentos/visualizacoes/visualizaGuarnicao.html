@@ -1,0 +1,99 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+		<!-- INICIO TITULO DA PÁGINA -->
+		<div class="row page-titles">
+			<div class="col-md-5 align-self-center">
+			    <h4 class="text-themecolor">IMPRIMIR</h4>
+			</div>
+			<div class="col-md-7 align-self-center text-right">
+			    <div class="d-flex justify-content-end align-items-center">
+			        <ol class="breadcrumb">
+			        </ol>
+			    </div>
+			</div>
+		</div>
+			<div class="row-fluid">					
+				<div class="ribbon-wrapper card col-md-auto ml-sm-auto width-visualizarImpressaoA4Paisagem mx-auto" style="padding-top: 33px;">
+					<div class="form-row ml-2 mr-2 justify-content-between" style="border:2px solid #333;">						
+						<div class="col-md-5 ml-3 mt-3 mb-2 h4" >
+							<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+							<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+							<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+						</div>
+						<div class="col-md-2 imagem-logoCicomVisualizacao"></div>
+					</div>
+							<div class="form-row ml-2 mr-2 mt-2" style="border:2px solid #333; background-color:#0bf;">						
+								<div class="text-center col-md-12 mb-1 mt-1">
+									<label style="margin-bottom: 0px;"><font class="font-weight-bold">INFORMAÇÕES DA MESA</font></label>
+								</div>	
+							</div>
+						<div class="form-row ml-2 mr-2 mt-2 text-center " style="border:2px solid #333; background-color:#F0F8FF;">
+							<div class="col-md-6 pt-1 pb-0 border-right border-dark">
+								<label ><b>NÚMERO: </b>[[${policiamento.mesa.nome.replace(policiamento.mesa.estabelecimento.nome,"")}]]</label>						
+							</div>
+							<div class="col-md-6  pb-0 pt-1" >
+								<label><b>ESTABELECIMENTO: </b> [[${policiamento.mesa.estabelecimento.nome}]]</label>
+							</div>
+	                        <div class="col-md-6 pt-1 border-top border-right border-dark">
+								<label><b>INÍCIO PLANTÃO: </b>[[${#temporals.format(policiamento.mesa.inicioPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+							</div>
+							<div class="col-md-6 pt-1 border-top border-dark" th:if="${policiamento.prefixo != null}">
+								<label><b>FIM PLANTÃO: </b> [[${#temporals.format(policiamento.mesa.fimPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+							</div>			
+						</div>
+									
+						
+							<div class="form-row ml-2 mr-2 mt-2" style="border:2px solid #333; background-color:#0bf;">						
+								<div class="text-center col-md-12 mb-1 mt-1">
+									<label style="margin-bottom: 0px;"><font class="font-weight-bold">EFETIVOS EXTERNOS</font></label>
+								</div>	
+							</div>
+				            <div class="ml-2 mr-2 mt-2 justify-content-center pr-1 pl-1" style="border:2px solid #333;">	
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-60-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">UNIDADE:&nbsp; </font><font>[[${policiamento.unidade.nome}]]</font></label>
+								<label class="width-40-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">MODALIDADE:&nbsp; </font><font>[[${policiamento.modalidade.nome}]]</font></label>
+							</div>
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-27-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">PREFIXO:&nbsp; </font><font>[[${policiamento.prefixo}]]</font></label>
+								<label class="width-26-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA INÍCIO:&nbsp; </font><font>[[${#temporals.format(policiamento.comecoPlantao, 'dd/MM/yyyy HH:mm:ss')}]]</font></label>
+								<label class="width-25-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">HORA FIM:&nbsp; </font><font>[[${#temporals.format(policiamento.terminoPlantao, 'dd/MM/yyyy HH:mm:ss')}]]</font></label>
+								<label class="width-22-PorCento mb-0 pl-2"><font class="font-weight-bold">TELEFONE:&nbsp; </font><font>[[${policiamento.telefone}]]</font></label>
+							</div>
+							<div class="form-row border-bottom border-dark pl-0" style="background-color:#F0F8FF">
+								<label class="width-30-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">ABRANGÊNCIA:&nbsp;Cidade-&nbsp;</font>[[${policiamento.cidade.nome}]]</label>
+								<label class="width-35-PorCento border-right border-dark mb-0 pl-2 pt-1 pb-1"><font class="font-weight-bold">Localidade-&nbsp;</font>[[${policiamento.localidade.nome}]]</label>
+								<label class="width-35-PorCento mb-0"><font class="font-weight-bold pl-2">Bairro-&nbsp;</font>[[${policiamento.bairro.nome}]]</label>		
+							</div>
+							<div class="form-row text-center border-bottom border-dark" style="background-color:#F0F8FF">
+								<label class="width-15-PorCento border-right border-dark font-weight-bold mb-0">FUNÇÃO</label>
+								<label class="width-20-PorCento border-right border-dark font-weight-bold mb-0">GRAU HIERÁRQUICO</label>
+								<label class="width-45-PorCento border-right border-dark font-weight-bold mb-0">NOME</label>
+								<label class="width-20-PorCento font-weight-bold mb-0">MATRÍCULA</label>
+							</div>				
+							<div th:each="_guarnicao : ${policiamento.guarnicao}" class="table-default">
+								<div class="form-row text-center border-bottom border-dark">
+									<div class="width-15-PorCento border-right border-dark  pt-1 pb-1" th:text="${_guarnicao.funcao.nome}">FUNÇÃO</div>
+									<div class="width-20-PorCento border-right border-dark pt-1 pb-1" th:text="${_guarnicao.servidor.hierarquia.nome}">GH</div>
+									<div class="width-45-PorCento border-right border-dark pt-1 pb-1" th:text="${_guarnicao.servidor.nome}">NOME</div>
+									<div class="width-20-PorCento pt-1 pb-1" th:text="${_guarnicao.servidor.matricula}">MATRÍCULA</div>
+								</div>												
+							</div>
+						</div>	
+					
+					<br/>
+					<!-- Botões -->
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                      		<div class="btn-group mr-2" role="group">							
+                      		     <a class="btn btn-info btn-sm" th:href="@{~/admin/historico/policiamentos/{id}(id=${policiamento.mesa.id})}" th:inline="text" >Voltar</a>
+                      		</div>
+                      		<div class="btn-group mr-2" role="group">
+			 					<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/report/efetivoExterno/{id}(id=${policiamento.id})}" target="_blank"  th:id="${policiamento.id}" th:inline="text" >Download PDF</a>
+                      		</div>
+                     </div>
+                     
+				</div><!-- ribbon-wrapper cabeçalho -->										
+			</div><!-- div row 1 -->			
+		</div><!-- container -->
+	</main>
+</section>

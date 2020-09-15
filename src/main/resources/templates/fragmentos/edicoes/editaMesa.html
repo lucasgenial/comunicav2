@@ -1,0 +1,71 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">Edição de Mesa</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Edita De Mesa</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+		        <div class="col-12">
+					<div class="card">
+	                    <div class="card-body">
+							<form id="formEditaMesa"  method="post" th:object="${mesa}" th:action="@{/admin/salva/edicao/mesa/{id}(id=${mesa.id})}">
+								<h5 class="card-title mb-2" style="margin-top: 10px;"></h5>
+								<div class="form-row form-group col-12 alert alert-danger" th:if="${#fields.hasErrors('*')}">
+									<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+									<ul>
+										<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+									</ul>
+								</div> 
+								<div class="form-row col-12">
+									<div class="form-group col-5">
+										<label>NOME DA MESA</label> 
+										<input id="nomeMesaEditando" type="text" th:field="*{nome}" readonly="readonly" class="form-control input-group" required >
+									</div>
+									<div class="form-group col-3">
+									<label for="instituicao" >Instituições Internas e Externas</label>	
+										<select class="form-control selectpicker" data-hide-disabled="true" id="instituicoes" name="instituicoes" th:field="*{instituicoes}" multiple="multiple" data-actions-box="true" required>
+												<option th:each="_instituicao : ${listaDeInstituicoes}"	th:value="${{_instituicao.id}}" th:id="${{_instituicao.id}}" th:text="${_instituicao.nome}">Selecionar</option>			
+										</select>
+									</div>
+									<div class="form-group col-2">
+										<label for="inicioPlantao">Data/Hora In&iacute;cio</label>
+										<input id="inicioPlantao" type="text" name="inicioPlantao" th:field="*{inicioPlantao}" class="form-control input-group dataInicio" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off" required>
+									</div>						
+									<div class="form-group col-2">
+										<label for="fimPlantao">Data/Hora Final</label>
+										<input id="fimPlantao"  type="text" name="fimPlantao"  th:field="*{fimPlantao}" class="form-control input-group dataFim" th:value="${#dates.format(fimPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off"  required>
+									</div>
+								
+									<button type="submit" class="btn btn-sm btn-info btn-modal mr-3" id="salvar-efetivo" data-titulo="Edita servidores da mesa" >Salvar Alteração</button>
+										
+									<button type="button" class="btn btn-sm btn-info" onclick="window.location.href='/admin/menu/mesa'" id="cancelar-efetivo">Cancelar</button>
+										
+								</div>
+								</form>
+								<div th:replace="fragmentos/modal/servidorInterno :: modal-adicionarServidorNaMesaEditando"></div>	
+							</div>
+						</div>
+						<div hidden="hidden" id="servidoresSelects">
+					
+					</div>
+					</div>
+				<script type="text/javascript" th:if="${abrirModal != null}">
+					window.onload = function(){
+						abrirModalEditando();
+					}
+				</script>
+			</div>	
+		</div>
+	</main>
+</section>

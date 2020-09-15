@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Cadastro Ocorrências</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main>
+	<div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Registro de Ocorrência</h5>
+				<form id="formRegistroOcorrencia" class="form-RegistroOcorrencia"
+					th:action="@{/cadastraRegistroOcorrencia}" method="POST">
+					<div th:object="${registro}">
+						<div class="form-control form-control-sm" th:if="${#fields.hasErrors('*')}">
+							<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+							<div class="alert alert-danger" role="alert">
+								<ul>
+								  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+								</ul>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<h6>REFERÊNCIAS</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+										<label for="estabelecimento">CICOM</label>
+										<select id="estabelecimento" name="estabelecimento" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('estabelecimento')} ? 'is-invalid'" required>
+											<option value="">Selecione</option>
+											<option th:each="_cicom: ${cicoms}" th:value="${{_cicom.id}}" th:if="${registro.estabelecimento} != null" th:selected="${_cicom.id == registro.estabelecimento.id}" th:text="${_cicom.nome}"></option>
+											<option th:each="_cicom: ${cicoms}" th:value="${{_cicom.id}}" th:if="${registro.estabelecimento} == null" th:text="${_cicom.nome}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('estabelecimento')}" th:errors="*{estabelecimento}"></span>
+									</div>
+
+									<div class="form-group col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2">
+										<label for="dataDaOcorrencia">Data</label>
+										<input id="dataDaOcorrencia" type="text" name="dataDaOcorrencia" readonly class="form-control form-control-sm input-group" th:classappend="${#fields.hasErrors('dataDaOcorrencia')} ? 'is-invalid'"  th:value="${#dates.format(dataDaOcorrencia, 'dd/MM/yyyy HH:mm:ss')}" th:field="*{{dataDaOcorrencia}}" placeholder="DD/MM/YYYY HH:mm:ss" autocomplete="off" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('dataDaOcorrencia')}" th:errors="*{dataDaOcorrencia}"></span>
+									</div>
+
+									<div class="form-group col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3" th:object="${categoria}">
+										<label for="categoria">Categoria</label>
+										<select id="categoria" name="categoria" class="form-control form-control-sm" required>
+											<option value="">Selecione</option>
+											<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria != null}"th:selected="${_categoria.id == categoria.id}"  th:value="${{_categoria}}"></option>
+											<option th:each="_categoria : ${categorias}" th:text="${_categoria.nome}" th:if="${categoria == null}" th:value="${{_categoria}}"></option>
+										</select>
+									</div>
+
+									<div class="form-group col-12 col-sm-12 col-md-6 col-lg-5 col-xl-5">
+										<label for="tipificacao">Tipificação</label>
+										<select id="tipificacao" name="tipificacao" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('tipificacao')} ? 'is-invalid'"  th:field="*{tipificacao}" required>
+											<option value="">Selecionar</option>
+											<option th:each="_tipificacao : ${tipificacoes}" th:text="${_tipificacao.nome}" th:value="${{_tipificacao}}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('tipificacao')}" th:errors="*{tipificacao}"></span>
+									</div>
+
+									<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+										<label for="sic">Número SIC</label>
+										<input id="sic" name="sic" type="number" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('sic')} ? 'is-invalid'"  th:field="*{sic}" autocomplete="off" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('sic')}" th:errors="*{sic}"></span>
+									</div>
+
+									<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+										<label for="estadoOcorrencia">Estado da Ocorrência</label>
+										<select id="estadoOcorrencia" name="estadoOcorrencia" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('estadoOcorrencia')} ? 'is-invalid'" th:field="*{estadoOcorrencia}" required>
+											<option value="">Selecionar</option>
+											<option th:each="_estado : ${estadosOcorrencia}" th:text="${_estado.nome}" th:value="${{_estado}}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('estadoOcorrencia')}" th:errors="*{estadoOcorrencia}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h6>LOCALIZAÇÃO</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-12 col-md-12 col-lg-4">
+										<label for="cidade">Cidade</label> <select id="cidade" name="cidade" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('endereco.cidade')} ? 'is-invalid'" th:field="*{endereco.cidade}" required>
+											<option value="">Selecionar</option>
+											<option th:each="_cidade : ${cidades}" th:value="${{_cidade.id}}" th:text="${_cidade.nome}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></span>
+									</div>
+
+									<div class="form-group col-12 col-md-6 col-lg-4">
+										<label for="localidade">Localidade/Distrito</label>
+										<select id="localidade" name="localidade" class="form-control form-control-sm" th:field="*{endereco.bairro.localidade}" required="required">
+											<option th:each="localidade : ${localidades}" th:value="${{localidade.id}}" th:text="${localidade.nome}"></option>
+										</select>
+									</div>
+
+									<div class="form-group col-12 col-md-6 col-lg-4">
+										<label for="bairro">Bairro</label>
+										<select id="bairro" name="bairro" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('endereco.bairro')} ? 'is-invalid'" th:field="*{endereco.bairro}" required="required">
+											<option th:each="bairro : ${bairros}" th:value="${{bairro.id}}" th:text="${bairro.nome}"></option>
+										</select>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.bairro')}" th:errors="*{endereco.bairro}"></span>
+									</div>
+								</div>
+
+								<div class="form-row">
+									<div class="form-group col-12 col-md-10 col-lg-10">
+										<label for="rua">Endereço</label> <input id="rua" name="rua" type="text" class="form-control form-control-sm" placeholder="Rua, Avenida, Trevo ..." th:field="*{endereco.rua}" autocomplete="off" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.rua')}" th:errors="*{endereco.rua}"></span>
+									</div>
+									
+									<div class="form-group col-12 col-md-2 col-lg-2">
+										<label for="numero">Número</label>
+										<input id="numero" name="numero" type="text" class="form-control form-control-sm" th:field="*{endereco.numero}" th:classappend="${#fields.hasErrors('endereco.numero')} ? 'is-invalid'" autocomplete="off">
+										<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></span>
+									</div>
+
+									<div class="form-group col-12 col-md-12">
+										<label for="referencia">Referência</label>
+										<input id="referencia" name="referencia" type="text" class="form-control form-control-sm" placeholder="Próximo a ..." th:field="*{endereco.referencia}" autocomplete="off">
+										<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.referencia')}" th:errors="*{endereco.referencia}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<h6>DESCRIÇÃO DO FATO</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col col-md-12 col-lg-12">
+										<label for="descricaoRegistro">Descrição do fato</label>
+										<textarea id="descricaoRegistro" name="descricaoRegistro" th:field="${registro.descricao}" class="form-control form-control-sm" autocomplete="off" required></textarea>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" id="pessoas-envolvidas">
+						<h6>PESSOAS ENVOLVIDAS</h6>
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col col-md-12 col-lg-12" >
+									<br>
+									<div class="form-group">
+										<div class="form-control form-control-sm">
+											<div class="form-row" th:object="${pessoa}">
+												<div class="form-control form-control-sm" th:if="${#fields.hasErrors('*')}">
+													<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+													<div class="alert alert-danger" role="alert">
+														<ul>
+														  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+														</ul>
+													</div>
+												</div>
+												
+												<div class="form-group col-6 col-md-6">
+													<label for="nome">Nome</label>
+													<input id="nome" name="nome" type="text" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'"  placeholder="Nome completo" th:field="${pessoa.nome}" autocomplete="off">
+													<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="sexo">Sexo</label> <select id="sexo" name="sexo" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('sexo')} ? 'is-invalid'"  th:field="${pessoa.sexo}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_sexo : ${sexos}" th:text="${_sexo}" th:value="${{_sexo}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="envolvimento">Envolvimento</label>
+														<select id="envolvimento" name="envolvimento" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('envolvimento')} ? 'is-invalid'" th:field="${pessoa.envolvimento}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_envolvimento : ${envolvimentos}" th:text="${_envolvimento.nome}" th:value="${{_envolvimento}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('envolvimento')}" th:errors="*{envolvimento}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="tipoPessoa">Tipo Pessoa</label>
+														<select id="tipoPessoa" name="tipoPessoa" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('tipoPessoa')} ? 'is-invalid'"  th:field="${pessoa.tipoPessoa}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_tipoPessoa : ${tipoPessoas}" th:text="${_tipoPessoa}" th:value="${{_tipoPessoa}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('tipoPessoa')}" th:errors="*{tipoPessoa}"></span>
+												</div>
+
+												<div
+													class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="nacionalidade">Nacionalidade</label>
+														<select id="nacionalidade" name="nacionalidade" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('nacionalidade')} ? 'is-invalid'" th:field="${pessoa.nacionalidade}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_nacionalidade : ${nacionalidades}" th:text="${_nacionalidade.nome}" th:value="${{_nacionalidade}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('nacionalidade')}" th:errors="*{nacionalidade}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-6 col-md-6 col-lg-2 col-xl-2">
+													<label for="dataNascimento">Data Nascimento</label>
+													<input id="dataNascimento" type="text" name="dataNascimento" class="form-control form-control-sm input-group" th:classappend="${#fields.hasErrors('dataNascimento')} ? 'is-invalid'" readonly th:value="${#dates.format(dataNascimento, 'dd/MM/yyyy')}" th:field="${pessoa.dataNascimento}" placeholder="DD/MM/YYYY" autocomplete="off" required>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
+												</div>
+												
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="estadoCivil">Estado Civil</label>
+													<select id="estadoCivil" name="estadoCivil" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('estadoCivil')} ? 'is-invalid'"  th:field="${pessoa.estadoCivil}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_estadoCivil : ${estadosCivis}" th:text="${_estadoCivil.nome}" th:value="${{_estadoCivil}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('estadoCivil')}" th:errors="*{estadoCivil}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="etnia">Etnia</label>
+													<select id="etnia" name="etnia" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('etnia')} ? 'is-invalid'"  th:field="${pessoa.etnia}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_etnia : ${etnias}" th:text="${_etnia.nome}" th:value="${{_etnia}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('etnia')}" th:errors="*{etnia}"></span>
+												</div>
+
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="contexto">Contexto Criminal</label>
+													<select id="contexto" name="contexto" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('contexto')} ? 'is-invalid'"  th:field="${pessoa.contexto}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_contexto : ${contextos}" th:text="${_contexto.nome}" th:value="${{_contexto}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('contexto')}" th:errors="*{contexto}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="submit" name="inserirPessoa" class="btn btn-primary">Inserir Pessoa</button>
+									
+									<div class="form-row p-3">
+										<br>
+										<h6>RELAÇÃO DE PESSOAS ENVOLVIDAS</h6>
+										<div class="form-group col col-md-12 col-lg-12">
+											<div class="table-responsive-md">
+												<table id="tabela-envolvidos" class="table table-sm table-hover">
+													<thead>
+														<tr>
+															<th scope="col">Id</th>
+															<th scope="col">Tipo Pessoa</th>
+															<th scope="col">Nome</th>
+															<th scope="col">Tipo Envolvimento</th>
+															<th scope="col">Contexto</th>
+															<th scope="col">Ação</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="_pessoa, row:${registro.envolvidos}">
+															<th scope="row" th:text="__${row.index}__"></th>
+															<td th:text="${#strings.toUpperCase(_pessoa.tipoPessoa)}"></td>
+															<td th:text="${#strings.toUpperCase(_pessoa.nome)}"></td>
+															<td th:text="${#strings.toUpperCase(_pessoa.envolvimento.nome)}"></td>
+															<td th:text="${#strings.toUpperCase(_pessoa.contexto.nome)}"></td>
+															<td class="text-center" id="botaoEditar">
+																<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+																	<div class="btn-group" role="group">
+																		<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+																		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+																			<a class="dropdown-item" href="#" th:href="@{cadastro/editarPessoa/{id}(id=__${row.index}__)}" th:value="__${row.index}__"><i class="far fa-edit"></i> Editar</a>
+																			<a class="dropdown-item" href="#" th:href="@{cadastro/excluirPessoa/{id}(id=__${row.index}__)}" th:value="__${row.index}__"><i class="far fa-trash-alt"></i> Excluir</a>
+																		</div>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group" id="objetos-envolvidos">
+						<h6>OBJETOS ENVOLVIDOS</h6>
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col col-md-12 col-lg-12" >
+									<br>
+									
+									<div class="form-group">
+										<div class="form-control form-control-sm">
+											<div class="form-row" th:object="${objeto}">
+												<div class="form-control form-control-sm" th:if="${#fields.hasErrors('*')}">
+													<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+													<div class="alert alert-danger" role="alert">
+														<ul>
+														  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+														</ul>
+													</div>
+												</div>
+												<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+													<label for="tipo" >Tipificação</label>
+													<select id="tipo" name="tipo" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('tipo')} ? 'is-invalid'"  th:field="${objeto.tipo}" required>
+														<option value="">Selecionar</option>
+														<option th:each="_tipo : ${tipificacoesObjeto}" th:text="${_tipo}" th:value="${{_tipo}}"></option>
+													</select>
+													<span class="fv-help-block" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}"></span>
+												</div>
+												
+												<div class="form-group col-6 col-md-6">
+													<label for="descricaoObjeto">Descrição</label>
+													<input id="descricaoObjeto" name="descricaoObjeto" type="text" class="form-control form-control-sm" th:classappend="${#fields.hasErrors('descricaoObjeto')} ? 'is-invalid'" th:field="${objeto.descricaoObjeto}" autocomplete="off">
+													<span class="fv-help-block" th:if="${#fields.hasErrors('descricaoObjeto')}" th:errors="*{descricaoObjeto}"></span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<button type="submit" name="inserirObjeto" class="btn btn-primary">Inserir Objeto</button>
+									<br>
+									
+									<div class="form-row p-3">
+										<h6>RELAÇÃO DE OBJETOS ENVOLVIDOS</h6>
+										<div class="form-group col col-md-12 col-lg-12">
+											<div class="table-responsive-md">
+												<table id="tabela-objetosEnvolvidos" class="table table-sm table-hover">
+													<thead>
+														<tr>
+															<th scope="col">Id</th>
+															<th scope="col">Tipo Objeto</th>
+															<th scope="col">Descrição</th>
+															<th scope="col">Ação</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="_objeto, row:${registro.objetosEnvolvidos}">
+															<th scope="row" th:text="__${row.index}__"></th>
+															<td th:text="*{#strings.toUpperCase(registro.objetosEnvolvidos[__${row.index}__].tipo)}"></td>
+															<td th:text="*{#strings.toUpperCase(registro.objetosEnvolvidos[__${row.index}__].descricaoObjeto)}"></td>
+															<td id="botaoEditar">
+																<div class="btn-group" role="group" aria-label="group dropdown">
+																	<div class="btn-group" role="group">
+																		<button id="btnGroupDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+																		<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+																			<a class="dropdown-item" href="#" th:href="@{cadastro/editarObjeto/{id}(id=__${row.index}__)}" th:value="__${row.index}__"><i class="far fa-edit"></i> Editar</a>
+																			<a class="dropdown-item" href="#" th:href="@{cadastro/excluirObjeto/{id}(id=__${row.index}__)}" th:value="__${row.index}__"><i class="far fa-trash-alt"></i> Excluir</a>
+																		</div>
+																	</div>
+																</div>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<button type="submit" name="salvar" class="btn btn-success">Salvar Ocorrência</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	<script src="/assets/js/validador/form-RegistroOcorrencias.js"></script>
+</body>
+</html>

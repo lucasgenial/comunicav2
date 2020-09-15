@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Visualização de Guarnições</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<!-- 		<div th:replace="fragmentos/navbar :: navbar3(${usuario})"></div> -->
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-8 mx-auto">
+	
+	<div class="card">
+	
+	<div class="card-body"  >
+		<div class="form-group">
+	<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-6 text-rigth ml-4 mb-2">
+							<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+							<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+							<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+
+						<div class="col-md-3 text-left offset-2 imagem-logoCicom">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+		<div class="card-body">
+			<h5 class="card-title mb-2 text-center">DADOS DA MESA</h5>
+			<div class="form-group">
+
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-12">
+							<label for="mesa" ><b>MESA: </b>[[${mesa.nome}]]</label>						
+						</div>
+						<div class="col-md-6">
+							<label><b>INÍCIO PLANTÃO: </b>[[${#temporals.format(mesa.inicioPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label><b>FIM PLANTÃO: </b>[[${#temporals.format(mesa.fimPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="form-group" th:if="${not mesa.servidores.isEmpty()}">
+					<h6 class="text-center" >INTEGRANTES INTERNOS</h6>
+					
+					<div class="form-control form-control-sm" >
+						<div class="table-responsive-md"> 
+							<table id="tabela-efetivos-mesa" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col" >Função</th>
+										<th scope="col" >Grau Hierárquico</th>
+										<th scope="col" >Nome</th>
+										<th scope="col" >Matrícula</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${not mesa.getServidoresCoordenadores().isEmpty()}" th:each="_servidores : ${mesa.getServidoresCoordenadores()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+									<tr th:if="${not mesa.getServidoresCoordenadoresAdjuntos().isEmpty()}" th:each="_servidores : ${mesa.getServidoresCoordenadoresAdjuntos()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+									<tr th:if="${not mesa.getServidoresTeledespacho().isEmpty()}" th:each="_servidores : ${mesa.getServidoresTeledespacho()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+									<tr th:if="${not mesa.getServidoresVideoMonitoramento().isEmpty()}" th:each="_servidores : ${mesa.getServidoresVideoMonitoramento()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+									<tr th:if="${not mesa.getServidoresTeleAtendimento().isEmpty()}" th:each="_servidores : ${mesa.getServidoresTeleAtendimento()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+									<tr th:if="${not mesa.getServidoresSuporteOperacional().isEmpty()}" th:each="_servidores : ${mesa.getServidoresSuporteOperacional()}" class="" th:classappend="${_servidores} ? table-default : table-danger">
+										<th th:text="${_servidores.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidores.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidores.servidor.nome}">Bahia</td>
+										<td th:text="${_servidores.servidor.matricula}">Bahia</td>
+									</tr>
+									
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<br>
+					
+					<h6 class="text-center" th:if="${not mesa.listaDePoliciamentos.isEmpty()}">INTEGRANTES EXTERNOS</h6>
+				
+					<div th:if="${not mesa.listaDePoliciamentos.isEmpty()}" class="form-control form-control-sm" th:each="_policiamentos : ${mesa.listaDePoliciamentos}" style="border: 1px solid #ccc; margin-bottom: 1vw;">
+						<br>
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="col-md-6">
+									<label for="mesa" ><b>UNIDADE: </b>[[${_policiamentos.unidade.nome}]]</label>						
+								</div>
+								<div class="col-md-6">
+									<label><b>CIDADE: </b>[[${_policiamentos.cidade.nome}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>LOCALIDADE: </b>[[${_policiamentos.localidade.nome}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>BAIRRO: </b>[[${_policiamentos.bairro.nome}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>PREFIXO: </b>[[${_policiamentos.prefixo}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>CONTATO: </b>[[${_policiamentos.telefone}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>INÍCIO PLANTÃO: </b>[[${#temporals.format(_policiamentos.comecoPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+								</div>
+								<div class="col-md-6">
+									<label><b>FIM PLANTÃO: </b>[[${#temporals.format(_policiamentos.terminoPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+								</div>
+							</div>
+						</div>
+						
+						<div class="form-row">
+							<div class="col-md-12">
+								
+								<table id="tabela-efetivos-mesa" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col" >Função</th>
+										<th scope="col" >Grau Hierárquico</th>
+										<th scope="col" >Nome</th>
+										<th scope="col" >Matrícula</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:if="${not _policiamentos.guarnicao.isEmpty()}" th:each="_servidoresExternos : ${_policiamentos.guarnicao}" class="" th:classappend="${_servidoresExternos} ? table-default : table-danger">
+										<th th:text="${_servidoresExternos.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidoresExternos.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidoresExternos.servidor.nome}">Bahia</td>
+										<td th:text="${_servidoresExternos.servidor.matricula}">Bahia</td>
+									</tr>
+								</tbody>
+								</table>
+                                       
+							</div>
+						</div>
+					
+					</div>
+			
+				</div>
+				
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa}" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >Voltar</a>
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/report/mesa/{id}(id=${mesa.id})}" target="_blank" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >Imprimir</a>
+		
+		</div>
+	</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+</html>

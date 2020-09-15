@@ -1,0 +1,1304 @@
+
+<!-- MODAL DE RETORNO DO SISTEMA -->
+<div class="modal fade" id="modal-mensagem" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalMensagem">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Aviso</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">
+					 [[${aviso}]]
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a th:href="${link}" type="btn btn-danger"  class="btn btn-primary" th:name="generico"  id="delRef">Ok</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL DE RETORNO DO SISTEMA -->
+<div class="modal fade" id="modal-alertaComTutorial" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalAlertaComTutorial">
+	<div style="margin-left:27vw;" class="modal-dialog modal-dialog-centered" role="document">
+	
+	<div  class="modal-content" style="width: 80vw;">
+			<div class="modal-header" style="width:100%;">
+				<h5 class="modal-title" id="exampleModalLongTitle">Aviso</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">[[${aviso}]]</p>
+				<video width="800" heigth="600" controls="controls">
+				<source src="/assets/videos-tutoriais/adicionando-senha-email.mp4" type="video/mp4">
+				</video>
+			</div>
+			<div class="modal-footer">
+				<a th:href="${link}" type="btn btn-danger"  class="btn btn-primary" th:name="generico"  id="delRef">Ok</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL CADASTRA E EDITA CIDADE -->
+<div class="modal fade" id="modal-cidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalCidade">
+	<form id="formCidade" th:object="${cidade}" th:action="@{/admin/cadastraCidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled="" />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="nome">Nome da Cidade</label>
+							<input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" placeholder="Informe o nome da cidade" required/>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" th:href="@{~/admin/historico/cidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-cidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA LOCALIDADE -->
+<div class="modal fade" id="modal-localidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalLocalidade">
+	<form id="formLocalidade" class="form-localidade" th:object="${localidade}" th:action="@{/admin/editarLocalidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled="" />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="nome">Nome da Localidade</label>
+							<input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" placeholder="Informe o nome da localidade" required/>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cidade">Cidade</label>
+							<select id="cidade" name="cidade" class="form-control">
+								<option value="">Selecionar</option>
+								<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade.id}}">Selecione</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" th:href="@{~/admin/historico/localidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-localidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- MODAL CADASTRA E EDITA BAIRRO -->
+<div class="modal fade" id="modal-bairro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalBairro">
+	<form id="formBairro" class="form-bairro" th:object="${bairro}" th:action="@{/admin/editarBairro}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+				
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled="" />
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cidade">Cidade</label>
+							<select id="cidade" name="cidade" class="form-control">
+								<option value="">Selecionar</option>
+								<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade.id}}">Selecione</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="localidade">Localidade</label>
+							<select id="localidade" name="localidade" class="form-control">
+								<option value="">Selecionar</option>
+								<option th:each="_localidade : ${localidades}" th:text="${_localidade.nome}" th:value="${{_localidade.id}}">Selecione</option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+							<label for="nome">Bairro</label>
+							<input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" required/>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" th:href="@{~/admin/historico/bairros}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-bairro">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA TIPIFICAÇÃO -->
+<div class="modal fade" id="modal-tipificacao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalTipificacao">
+	<form id="formTipificacao"class="form-tipificacao" th:object="${tipificacao}" th:action="@{/cadastraTipificacao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4"  th:classappend="${#fields.hasErrors('id')}? 'has-error'">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled="" />
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+							<label for="nome">Nome Tipificacao</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/tipificacoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-tipificacao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA EMAIL -->
+<div class="modal fade" id="modal-email" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+	data-backdrop="static" th:fragment="modalEmail">
+	<form id="formEmail" class="form-email" th:object="${email}" th:action="@{/cadastraUsuario}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4" th:classappend="${#fields.hasErrors('id')}? 'has-error'">
+						<label for="id">ID</label>
+						<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12" th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+							<label for="nome">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12"th:classappend="${#fields.hasErrors('enderecoDeEmail')}? 'has-error'">
+							<label for="enderecoDeEmail">Email</label>
+							<input type="text" readonly class="form-control" id="enderecoDeEmail" name="enderecoDeEmail"	placeholder="" th:field="*{enderecoDeEmail}" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" th:href="@{~/admin/historico/emails}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-email">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA USUARIOS -->
+<div class="modal fade" id="modal-usuario" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"
+	data-backdrop="static" th:fragment="modalUsuario">
+	<form id="formUsuario" class="form-usuario" th:object="${usuario}" th:action="@{/cadastraUsuario}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled />
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="nome">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome" th:field="*{nome}" />
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="login">Login</label>
+							<input type="text" class="form-control" id="login" name="login"	th:field="*{login}" />
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="senha">Senha</label>
+							<input type="password" class="form-control" id="senha" name="senha"	th:field="*{senha}" />
+						</div>
+					</div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="grupo">Grupo</label>
+							<select id="grupo" name="grupo" class="form-control" th:field="*{grupo}">
+								<option value="">Selecionar</option>
+								<option th:each="_grupo : ${grupos}" th:text="${_grupo.nome}" th:value="${{_grupo}}">Selecione</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" th:href="@{~/admin/historico/usuarios}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-usuario">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA PERMISSÃO -->
+<div class="modal fade" id="modal-permissao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalPermissao">
+	<form id="formPermissao"class="form-permissao" th:object="${permissao}" th:action="@{/cadastraPermissao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome Permissão</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="descricao">Descrição</label>
+						    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="" th:field="*{descricao}" />
+					    </div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/permissoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-permissao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA GRUPO -->
+<div class="modal fade" id="modal-grupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalGrupo">
+	<form id="formGrupo"class="form-grupo" th:object="${grupo}" th:action="@{/cadastraGrupo}" method="POST">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class=" col-12 float-left">
+						<div class="col-12 form-row">
+							<div class="form-group col-md-2">
+								<label for="id">ID</label>
+								<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+							</div>
+							
+							<div class="form-group col-md-4">
+								<label for="nome">Nome Grupo</label>
+							    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+						    </div>
+
+						    <div class="form-group col-md-6">
+								<label for="descricao">Descrição</label>
+								<textarea id="descricao" class="form-control" rows="3" th:value="${{descricao}}" name="descricao" th:field="*{descricao}"></textarea>
+						    </div>
+					    </div>
+					</div>
+					<div class="col-12 form-row">
+					    <div class="form-group col-md-12">
+					    	<label for="permissao">Permissões</label>
+					    	<table id="tabela-permissao-grupo" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th></th>
+										<th>Nome</th>
+									</tr>
+								</thead>
+								<tbody>
+								  	<tr th:each="_permissao : ${permissoes}" class="" th:classappend="${_permissao.ativo} ? table-default : table-danger">
+<!-- 										<th scope="row" th:text="${_permissao.id}">1</th> -->
+										<td></td>
+										<td th:text="${_permissao.nome}">teste</td>
+									</tr>
+								</tbody>
+							</table>
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/grupos}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-grupo">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- MODAL CADASTRA E EDITA OCORRÊNCIA -->
+<div class="modal fade" id="modal-ocorrencia" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalOcorrencia">
+	<form id="formOcorrencia" class="form-ocorrencia" th:object="${ocorrencia}" th:action="@{/cadastraOcorrencia}" method="POST">
+
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+			  <h5 class="modal-title" id="tituloModal"></h5>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			    <span aria-hidden="true">&times;</span>
+			  </button>
+			</div>
+			<div class="modal-body">
+				<div class="form-row">
+					    <div class="form-group col-md-3">
+					     	<label for="sic">Número SIC</label>
+					     	<input type="text" class="form-control" id="sic" name="sic" th:value="${{sic}}" placeholder="" th:field="*{sic}" required="required">
+					    </div>
+					    <div class="form-group col-md-5">
+							<label for="tipificacao">Tipificação</label>
+						      	<select id="tipificacao" name="tipificacao" class="form-control" required="required">
+						        <option  th:value="Selecionar" hidden>Selecionar</option>
+						    	<option th:each="_tipificacao : ${tipificacoes}" name="tipificacao" th:text="${_tipificacao.nome}" th:value="${{_tipificacao}}">Selecione</option> 							        
+						    </select>
+					    </div>
+					        <div class="form-group col-md-4">
+						    <label for="dataOcorrencia">Data e Hora</label>
+						    <input id="dataOcorrencia" type="text" readonly class="form-control input-group date form_datetime" data-date-format="dd-mm-yyyy HH:ii:ss" autocomplete="off" nome="dataOcorrencia" th:field="*{dataOcorrencia}" th:value="${{dataOcorrencia}}" placeholder="dd/mm/aaaa  hh:mm:ss" required="required">
+						    
+						</div> 
+						
+					</div>
+					<hr/>
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="cidade">Cidade</label>
+							<select id="endereco.cidade" name="endereco.cidade" class="form-control btn-escolhercidade" th:field="*{endereco.cidade}" required="required">
+						        <option  th:value="Selecionar" hidden>Selecionar</option>
+						      	<option th:each="_cidade : ${cidades}" th:id="${_cidade.id}" th:text="${_cidade.nome}" th:value="${{_cidade}}">Selecione</option>							        								        
+						    </select>
+					    </div>
+					    <div class="form-group col-md-6">
+							<label for="bairro">Bairro</label>
+							<select id="endereco.bairro" name="endereco.bairro" class="form-control" title="teste" th:field="*{endereco.bairro}" required="required">
+						    <option  th:value="Selecionar" hidden>Selecionar</option>								  
+						         
+						  <!--       <option value="">Selecionar</option>
+						        <option th:each="_bairro : ${bairros}" name="bairrosEscolhidos" th:text="${_bairro.nome}" th:value="${{_bairro}}">Selecione</option> 							        								        					        
+						     --></select>
+					    </div>
+					</div>
+					
+				  	<div class="form-group">
+				    	<label for="endereco">Endereco</label>
+				    	<input type="text" name="endereco" class="form-control" id="endereco" th:value="${{local}}" th:field="*{endereco.local}" placeholder="Rua, Avenida, Trevo ..." required="required">
+				  	</div>
+				  	<div class="form-group">
+				    	<label for="endereco.referencia">Referência</label>
+				    	<input type="text" class="form-control" id="endereco.referencia" name="endereco.referencia" th:value="${{referencia}}" th:field="*{endereco.referencia}" placeholder="Próximo a ..." >
+				  	</div>
+				  	<hr/>
+				  	<div class="form-group">
+				    	<label for="guarnicao">Viatura/Guarnição</label>
+                              <input type="text" class="form-control" name="guarnicao" id="guarnicao" th:value="${{guarnicao}}" th:field="*{guarnicao}" placeholder="" required>
+				  	</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+					    	<label for="descricao">Descrição do fato</label>
+					    	<textarea id="descricao" class="editor" th:value="${{descricao}}" name="descricao" th:field="*{descricao}" required="required"></textarea>
+					    </div>
+					</div>
+				</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+			  <button type="submit" class="btn btn-primary" id="btn-salvar-ocorrencia"  >Salvar</button>
+			</div>
+		</div>
+	</div>
+    </form>
+</div>
+
+<!-- MODAL ENVIO DE OCORRENCIA PELO WHATSAPP -->
+<div class="modal fade" id="modal-enviarWhatsapp" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalWhatsapp">>
+	<form class="form-enviarWhatsapp" th:object="${ocorrencia}" th:action="@{/enviaWhatsapp}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title">Enviar Ocorrência pelo Whatsapp</h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				<div class="modal-body">
+				<div class="modal-dialog" id="descricaoDaOcorrenciaWhatsapp">
+				</div>
+				</div>
+			    <div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/emails}" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-enviarWhatsapp" th:name="enviarOcorrencia">Enviar pelo whatsapp</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL ENVIO DE OCORRENCIA PELO EMAIL -->
+<!-- <div class="modal fade" id="modal-enviarEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"	aria-hidden="true" data-backdrop="static"	th:fragment="modalEnviarEmail">
+	<form class="form-enviarEmail" id="formularioEmail" th:object="${ocorrencia}" action="/teste" method="POST">	 
+	<div class="modal-dialog modal-dialog-centered modal-lg"role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title">Enviar Ocorrência para Email</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body ">
+					<div class="col">
+						<div class="col-md-12" id="descricaoDaOcorrenciaEmail"></div>
+						<hr>
+						<div class="col-md-12" >
+						
+						<div class="corCinza">
+						<h6 class="text-center">SELECIONAR E-MAILS PARA ENVIO</h6>
+							<table id="tabela-enviarPorEmail" class="table text-center table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col" class="text-center">SELECIONAR</th>
+										<th scope="col" class="text-center">NOME</th>
+										<th scope="col" class="text-center">EMAIL</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_email : ${emails}" th:if="${_email.ativo==true}">
+										<td><input type="checkbox" id="lista" th:value="${_email.id}" class="listaDeEmails" name="emailLista"></td>
+										<td class="text-left" th:text="${_email.nome}"></td>
+										<td class="text-left"  th:text="${_email.enderecoDeEmail}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						</div>
+					</div>
+                         <div class="col-lg-12" id="progress">
+					
+				         </div>
+				</div>
+				
+				<div class="modal-footer">
+				
+					<button type="button" th:href="@{~/admin/historico/emails}"	class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary" id="btn-enviarEmails_Selecionados"	name="enviarOcorrencia" disabled="disabled">Enviar pelo Email</button>
+				</div>
+			</div>
+		</div>
+	</form> 
+</div>
+ -->
+<!-- MODAL ENVIO DE VARIAS OCORRENCIAS PELO EMAIL -->
+<div class="modal fade" id="modal-envio-varias-ocorrencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"	aria-hidden="true" data-backdrop="static"	th:fragment="modalEnviovariasOcorrencias">
+	<div class="modal-dialog modal-dialog-centered modal-lg"role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Enviar Várias Ocorrência para Email</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			
+			<form class="form-enviarVariasPorEmail" th:action="@{/cadastraOcorrencias}">	
+				<div class="modal-body">
+					<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+						<div class="table-responsive-md">
+							<table id="tabela-enviar-ocorrencias" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col">SIC</th>
+										<th scope="col">Tipificação</th>
+										<th scope="col">Resumo</th>
+										<th scope="col">Cidade</th>
+										<th scope="col">Selecionar</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_ocorrencia : ${ocorrencias}" th:classappend="${_ocorrencia.enviada} ?  table-enviada : table-default">
+									      <th scope="row" th:text="${_ocorrencia.sic}"></th>
+									      <td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}"></td>
+									      <td th:utext="${#strings.abbreviate(_ocorrencia.descricao,50)}"></td>
+									      <td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome)}"></td>
+										  <td><input type="checkbox" th:id="${_ocorrencia.id}" class="enviarVarias" th:value="${_ocorrencia.id}" name="listaDeOcorrencias"></td>
+									</tr>
+								</tbody>
+							</table>
+						 <div class="col-lg-12" id="progresso">
+					
+				         </div>
+				  		<button type="submit"  class="btn btn-primary btn-enviar-varias-por-email" id="btn-enviar-varias-por-email" data-titulo="Enviar ocorrencias selecionadas" disabled>Enviar Selecionadas</button>
+				   </main>
+				</div>
+			</form> 
+			
+			<div class="modal-footer"> </div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL REGISTRA USUARIO -->
+<div class="modal fade" id="modal-registro" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalRegistro">
+	<form id="formUsuario" th:object="${usuario}" th:action="@{/login}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="login">Nome da Cidade</label>
+							<input type="text" class="form-control" id="login" name="login"  placeholder="Informe o nome da cidade" required/>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<!-- <button type="submit"  class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+					<button type="submit" class="btn btn-primary" id="btn-salvar-usuario">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- MODAL CADASTRO REALIZADO COM SUCESSO -->
+<div class="modal fade" id="modal-sucesso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="modalSucesso">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">
+					Cadastro realizado com sucesso<br>
+					Procure seu coordenador para ativa��o do usu�rio.
+				</p>
+			</div>
+			<div class="modal-footer">
+				<a href="" type="btn btn-danger" th:href="@{/logout}" class="btn btn-primary" th:name="generico"  id="delRef">Sair</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- MODAL EDITA GRUPO USUARIO -->
+<div class="modal fade" id="modal-usuario-grupo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalRegistroGrupo">
+<style>
+	 #selectGrupo{
+		margin-left:17px;
+	}
+</style>
+	<form id="formUsuarioGrupo" th:object="${usuarioEditar}" th:action="@{/admin/historico/usuarios}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<h6 id="selectGrupo">Selecione o Grupo</h6>
+				<div class="modal-body">					
+					<div class="form-row">
+						<div class="form-group col-md-6">									
+							<select id="grupo" name="usuarioEditar.grupo" th:field="*{grupo}" class="form-control form-control-sm" required>
+								<option value="Selecionar">Selecionar</option>
+								<option th:each="_grupo : ${grupos}"  th:text="${_grupo.nome}" th:value="${{_grupo.id}}"></option>
+							</select>
+						</div>							
+					</div>					
+				</div>
+				
+				<div class="modal-footer">
+					<!-- <button type="submit"  class="btn btn-secondary" data-dismiss="modal">Fechar</button> -->
+					<button type="submit" class="btn btn-primary"  name="usuario" id="btn-usuarioEditar">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL ADICIONAR MESA -->
+<div class="modal fade" id="modalAdicionarMesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalAdicionarMesa">
+	<form id="adicionarMesa"class="formAdicionarMesa" th:object="${mesa}" th:action="@{admin/adicionarMesa}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+					
+												<div class="col-12">
+								<div class="form-group">
+	
+					<div
+									class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-12">
+									<label for="estabelecimento">CICOM</label> <select
+										id="estabelecimento" name="estabelecimento"
+										class="form-control form-control-sm"
+										th:field="*{nome}"
+										>
+										<option th:each="_estabelecimento : ${estabelecimento}"
+											th:value="${{_estabelecimento.nome}}"
+											th:text="${_estabelecimento.nome}"></option>
+									</select>
+								</div>
+
+
+								
+										<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-12">
+										<dl class="dropdown">
+											<label>INSTITUICAO</label>											<dt class="drop1">
+												<a href="#"> <span class="hida">Selecione</span>
+													<p class="multiSel"></p>
+												</a>
+											</dt>
+											<dd>
+												<div class="form-group mutliSelect">
+													<ul>
+														<li th:each="_instituicoes : ${instituicoes}"
+															th:field="*{instituicoes}"><input type="checkbox"
+															th:id="${{_instituicoes.id}}" th:value="${{_instituicoes.nome}}"
+															th:text="${_instituicoes.nome}" /></li>
+
+													</ul>
+												</div>
+											</dd>
+										</dl>
+									
+								</div>
+								
+										<div
+									class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-12">
+									<label for="unidades">UNIDADES</label> <!-- <select
+										id="unidades" name="unidades"
+										class="form-control form-control-sm"
+										th:field="*{unidades}"
+										>
+										<option th:each="_unidades : ${unidades}"
+											th:value="${{_unidades.id}}"
+											th:text="${_unidades.nome}"></option>
+									</select> -->
+									
+													
+									<select id="unidade" class="form-control form-control-sm">
+  
+								    <option value="volvo">Selecionar</option>
+								    
+								</select>
+								</div>
+
+
+
+
+
+
+								</div>
+								<div class="row-center" style="margin-top: 5px">
+									<a type="button"
+										class="btn btn-primary btn-sm col-md-3 col-md-offset-3"
+										th:href="@{gestaoefetivo/efetivo-diario}">ADICIONAR</a>
+
+								</div>
+							</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/tipificacoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-tipificacao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL ADICIONAR SERVIDOR NA MESA -->
+<div class="modal fade" id="modal-adicionarServidorMesa" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorMesa">
+	
+	<form id="form-adicionarServidorMesa" class="modal-adicionarServidorMesa" th:object="${servidorFuncao}" th:action="@{/admin/diarioMesa/servidor}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row col-12">	
+									
+					<div class="form-group col-12">
+					<label>Nome</label>	
+					<select	id="funcoes" name="servidorFuncao.servidor" th:field="*{servidor}" class="form-control form-control-sm" >
+										<option th:each="_servidor : ${servidores}"
+											th:value="${{_servidor.id}}"
+											th:text="${_servidor.nome}"></option>
+									</select></td>
+									</div>
+									
+														<div class="form-group col-12">
+					<label>Fun&ccedil;&atilde;o</label>	
+					<select	id="funcoes" name="servidorFuncao.funcao" th:field="*{funcao}"  class="form-control form-control-sm" >
+										<option th:each="_funcao : ${funcoes}"
+											th:value="${{_funcao.id}}"
+											th:text="${_funcao.nome}"></option>
+									</select></td>
+									</div>
+					
+					<div class="form-group col-12">
+					<label>In&iacute;cio</label>	
+					<div class="form-row">
+								<input id="servidorFuncao.inicioPlantao" type="text" th:field="*{inicioPlantao}" name="servidorFuncao.inicioPlantao" readonly class="form-control form-control-sm input-group col-8" th:value="${#dates.format(servidorFuncao.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off" required>
+								<button type="button" class="col-4 btn btn-primary btn-sm btn-adicionarMesa" data-titulo="Nova Mesa">Inicio Mesa</button>
+								</div>
+								</div>
+								
+
+									<div class="form-group col-12">
+					<label>Intervalo 1</label>	
+					<div class="form-row">
+								<input id="pausa1" type="text" th:field="*{pausa1}" name="pausa1" readonly class="form-control form-control-sm input-group col-8" th:value="${#dates.format(pausa1, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off" required>
+								</div>
+								</div>							
+																
+					
+														<div class="form-group col-12">
+					<label>Intervalo 2</label>	
+					<div class="form-row">
+								<input id="pausa2" type="text" th:field="*{pausa2}" name="pausa2" readonly class="form-control form-control-sm input-group col-8" th:value="${#dates.format(pausa2, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off" required>
+								</div>
+								</div>
+								
+								
+								<div class="form-group col-12">
+					<label>Final</label>	
+					<div class="form-row">
+								<input id="servidorFuncao.fimPlantao" type="text" th:field="*{fimPlantao}" name="servidorFuncao.fimPlantao" readonly class="form-control form-control-sm input-group col-8" th:value="${#dates.format(servidorFuncao.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off" required>
+								<button type="button" class="col-4 btn btn-primary btn-sm btn-adicionarMesa" data-titulo="Nova Mesa">Fim Mesa</button>
+								</div>
+								</div>				
+									
+					
+										
+												
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/tipificacoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-adicionarServidorMesa">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- MODAL ADICIONAR POLICIAMENTO -->
+<div class="modal fade" id="modalAdicionarPoliciamento" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalAdicionarPoliciamento">
+	<form id="adicionarPoliciamento"class="formAdicionarPoliciamento" th:object="${policiamento}" th:action="@{admin/adicionarPoliciamento}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+					
+												<div class="col-12">
+								<div class="form-group">
+							
+							</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/tipificacoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-tipificacao">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA INSTITUICAO -->
+<div class="modal fade" id="modal-instituicao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalInstituicao">
+	<form id="formInstituicao"class="form-instituicao" th:object="${instituicao}" th:action="@{/cadastraInstituicao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome Instituicao</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+					
+					
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{/instituicoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-instituicao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA UNIDADE -->
+<div class="modal fade" id="modal-unidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalUnidade">
+	<form id="formUnidade"class="form-unidade" th:object="${unidade}" th:action="@{/cadastraUnidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome Unidade</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="enderecoDeEmail">Email</label>
+							<input type="email" class="form-control" id="enderecoDeEmail" name="enderecoDeEmail" placeholder="EMAIL" th:field="*{email.enderecoDeEmail}" required="required"/>
+						</div>
+					 </div>
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="uf-unidade">UF</label>
+								<select id="uf-unidade" name="uf" class="form-control">
+									<option th:each="_uf : ${ufs}" th:value="${{_uf.id}}" th:text="${_uf.nome}"></option>
+								</select>
+						</div>
+					</div>							
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="cidade-unidade">Cidade</label>
+							<select id="cidade-unidade" name="cidade" class="form-control" th:field="*{cidade.nome}">
+								<option th:each="_cidade : ${cidades}" th:value="${{_cidade.id}}" th:text="${_cidade.nome}" >Selecionar</option>
+							</select>
+						</div>
+					</div>						
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/unidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-unidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA MODALIDADE -->
+<div class="modal fade" id="modal-modalidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalModalidade">
+	<form id="formModalidade"class="form-modalidade" th:object="${modalidade}" th:action="@{/cadastraModalidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+							
+									<div class="form-group row">
+									  <label for="qtdServidores" class="col-12 col-form-label">Qtd. Servidores</label>
+									  <div class="col-12">
+									    <input class="form-control" type="number" name="qtdServidores" value="42"id="qtdServidores"  th:field="*{qtdServidores}">
+									  </div>
+									</div>							
+					
+					
+					
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/modalidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-modalidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL CADASTRA E EDITA RECURSOS -->
+<div class="modal fade" id="modal-recurso" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalRecurso">
+	<form id="formRecurso"class="form-recurso" th:object="${recurso}" th:action="@{/cadastraRecurso}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Cadastra Recurso</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/recursos}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-recurso">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+
+<!-- MODAL CADASTRA E EDITA FUNCOES -->
+<div class="modal fade" id="modal-funcao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalFuncao">
+	<form id="formFuncao"class="form-funcao" th:object="${funcao}" th:action="@{/cadastraFuncao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					
+								<div class="form-row">
+								<div class="form-group col-md-12">
+								<label for="tipo">Tipo Funcao</label> <select
+										id="tipo" name="tipo"
+										class="form-control"
+										
+										>
+										<option value="SERVIDOR_INTERNO">EFETIVO_INTERNO</option>
+										<option value="SERVIDOR_EXTERNO">EFETIVO_EXTERNO</option>
+									</select>
+									</div>
+									</div>
+					
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Cadastrar Funcao</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+				 	<a type="button" th:href="@{~/admin/historico/funcoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</a>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-funcao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL DE CONFIRMAÇÃO DE EXCLUSÃO FUNCAO -->
+<div class="modal fade" id="modal-excluirFuncao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" th:fragment="excluirFuncao">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Confirmação de Exclusão de Funcção</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="alert alert-danger">
+					Aten&#231;&#227;o: existe um servidor com esta fun&#231;&#227;o.<br>
+					Voc&#234; pode: Editar a fun&#231;&#227;o ou excluir o servidor ligado
+					a esta fun&#231;&#227;o, em seguida poder&#225; excluir a mesma.
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL CADASTRA E EDITA TIPO DE SERVICOS -->
+<div class="modal fade" id="modal-tipoServico" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modaltipoServico">
+	<form id="formtipoServico"class="form-tipoServico" th:object="${tipoServico}" th:action="@{/cadastraTipoServico}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Cadastra Tipo de Servico</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{/tipoServico}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-tipoServico">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<!-- MODAL ADICIONAR SERVIDOR NA MESA -->
+<div class="modal fade" id="modal-adicionarServidorTabela" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorTabela">
+	<!-- <style>
+	@media (min-width:992px){.modal-lg{max-width:1300px}}
+	</style> -->
+	<form id="form-adicionarServidorTabela" class="modal-adicionarServidorTabela" th:object="${servidorTabela}" th:action="@{/admin/diarioMesa/cadastro/servidorDiarioMesa}" method="GET">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					
+					<div class="table-responsive-md"> 
+					<table id="tabela-tabelaServidor" class="table table-sm table-hover text-center" >
+						<thead>
+							<tr>
+								<th scope="col" >GH</th>
+								<th scope="col" >Nome</th>
+								<th scope="col" >Matricula</th>
+								<th scope="col" >Fun&ccedil;&atilde;o</th>		
+								<th scope="col" >Selecionar</th>						
+							<!-- 	<th scope="col" >Data/Hora In&iacute;cio</th>
+								<th scope="col" >Data/Hora Fim</th>
+								<th scope="col" >Intervalo</th>								
+								 -->
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="_servidores : ${servidores}">
+								<td id="funces" name="servidorFuncao.funcao"  th:text="${_servidores.hierarquia.nome}"></td>								
+								<td class="text-left" th:text="${_servidores.nome}">Nome</td>
+								<td id="funcoe" name="servidorFuncao.funcao"  th:text="${_servidores.matricula}"></td>
+								<td id="funcoes" name="servidorFuncao.funcao"  th:text="${_servidores.funcao.nome}"></td>
+								<!-- 	<td class="text-center" width="13%"><input id="inicioPlantao"  type="text" name="inicioPlantao" readonly class="form-control form-control-sm input-group text-center" th:value="${#dates.format(diariomesa.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off"  required></td>
+									<td class="text-center" width="13%"><input id="inicioPlantao"  type="text" name="inicioPlantao" readonly class="form-control form-control-sm input-group" th:value="${#dates.format(diariomesa.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}"  autocomplete="off"  required></td>	
+									 -->
+						<!-- 			<td class="text-center" width="11%">
+									<div class="form-group">
+									<div class="form-row">
+									<input id="pausa2Policiamento" type="text" name="pausa2Policiamento" readonly class="form-control form-control-sm col-6" th:value="${#dates.format(pausa2Policiamento, 'HH:mm:ss')}"  placeholder="hh:mm:ss" autocomplete="off" required>
+									<input id="pausa2Policiamento" type="text" name="pausa2Policiamento" readonly class="form-control form-control-sm col-6" th:value="${#dates.format(pausa2Policiamento, 'HH:mm:ss')}"  placeholder="hh:mm:ss" autocomplete="off" required>
+									</div>
+									</div>
+									</td> -->									
+									
+									<td><input type="checkbox" name="listaDeServidores" th:id="${_servidores.id}" th:value="${_servidores.id}"></td>	
+							</tr>
+						</tbody>
+					</table>
+				</div>
+					
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{~/admin/historico/tipificacoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-adicionarServidorTabela">Salvar</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</form>
+</div>
+
+
+>>>>>>> Mauricio

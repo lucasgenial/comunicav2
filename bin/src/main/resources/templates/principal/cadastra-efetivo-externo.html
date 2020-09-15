@@ -1,0 +1,238 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}"> 
+	<main>   	
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO EFETIVO EXTERNO</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Histórico Servidores</a></li>
+				            <li class="breadcrumb-item active">Editar Servidor</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+				<div class="row">
+					<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<form method="post" th:object="${policiamento}" id="formEfetivoExterno" th:action="@{/admin/cadastros/gestaoefetivo/cadastra-efetivoExterno/{id}/(id=${mesa.id})}">
+	       					<div class="ribbon-wrapper card">	       					
+								<div class="ribbon ribbon-info">Características</div>
+<!-- 								<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+ -->									<!-- <h6>Atenção, corrija os erros sinalizados abaixo:</h6>
+									<div class="alert alert-danger" role="alert">
+										<ul>
+										 <li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li> 
+										</ul>
+									</div> -->									       						
+	       						<hr/>
+		       					<div class="form-row">			       						
+									<div class="form-row col-12">
+										<div class="form-row col-12">
+											<div class="form-group col-4">
+												<label for="unidade">Unidade</label>
+												<select id="unidade" name="unidade" class="form-control " th:field="*{unidade}" required="required">
+												<option value="" >Selecionar</option>
+													<option th:each="_unidades : ${unidade}" th:value="${{_unidades.id}}" th:text="${_unidades.nome}"></option>
+												</select>
+											</div>				
+											<div class="form-group col-4">
+												<label for="tipoServico">Serviço</label>
+												<select id="tipoServico" name="tipoServico" class="form-control " th:field="*{tipoServico}" required="required">
+												<option value="" >Selecionar</option>
+													<option th:each="_tipoServicos : ${tipoServico}" th:value="${{_tipoServicos.id}}" th:text="${_tipoServicos.nome}"></option>
+												</select>
+											</div>				
+											<div class="form-group col-4">
+												<label for="unidades">Modalidade</label>
+												<select id="modalidade" name="modalidade" class="form-control" th:field="*{modalidade}" required="required">
+												<option value="" >Selecionar</option>
+													<option th:each="_modalidades : ${modalidade}" th:value="${{_modalidades.id}}" th:text="${_modalidades.nome}"></option>
+												</select>
+											</div>
+											<div class="form-group col-4">
+												<label for="comecoPlantao">Data/Hora Inicio</label>
+												<input id="comecoPlantao"  th:field="*{comecoPlantao}" required="required" type="text" name="comecoPlantao" placeholder="dd/mm/aaaa hh:mm:ss"  class="form-control  input-group" th:value="${#dates.format(comecoPlantao, 'dd/MM/yyyy HH:mm:ss')}">
+											</div>				
+											<div class="form-group col-4">
+												<label for="terminoPlantao">Data/Hora Final</label>
+												<input id="terminoPlantao"  th:field="*{terminoPlantao}" required="required" type="text" name="terminoPlantao" placeholder="dd/mm/aaaa hh:mm:ss"  class="form-control  input-group" th:value="${#dates.format(terminoPlantao, 'dd/MM/yyyy HH:mm:ss')}"  >
+											</div>
+											<div class="form-group col-4">
+												<label for="telefone">Número de contato</label>
+												<input id="telefone" name="telefone" type="text" class="form-control " placeholder="(00) 00000-0000" th:field="*{telefone}"autocomplete="off">
+											</div>	
+											</div>
+											</div>
+												</div> 
+												</div> 
+												<div class="ribbon-wrapper card">	       					
+								<div class="ribbon ribbon-info">Local de atuação</div>
+<!-- 								<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+ -->									<!-- <h6>Atenção, corrija os erros sinalizados abaixo:</h6>
+									<div class="alert alert-danger" role="alert">
+										<ul>
+										 <li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li> 
+										</ul>
+									</div> -->									       						
+	       						<hr/>
+		       					<div class="form-row">			       						
+									<div class="form-row col-12 col-sm-6 col-md-4 col-lg-2 col-xl-12">
+										<div class="form-row col-12 col-sm-6 col-md-4 col-lg-2 col-xl-12">
+											<div class="form-group col-4">
+												<label for="cidade">Cidade</label>
+												<select id="cidade" name="cidades" class="form-control " th:field="*{cidade}" required="required">
+													<option value="" >Selecionar</option>
+													<option th:each="_cidades : ${cidade}" th:value="${{_cidades.id}}" th:text="${_cidades.nome}"></option>
+												</select>
+											</div>		
+											<div class="form-group col-4">
+												<label for="localidade">Localidade</label>
+												<select id="localidade" name="localidades" class="form-control " th:field="*{localidade}" required="required">
+													<option value="">Selecionar</option>
+													<option th:each="_localidades : ${localidade}" th:value="${{_localidades.id}}" th:text="${_localidades.nome}"></option>
+												</select>
+											</div>
+											<div class="form-group col-4">
+												<label for="bairro">Bairro</label>
+												<select id="bairro" name="bairro" class="form-control " th:field="*{bairro}" required="required">
+												    <option value="">Selecionar</option>
+													<option th:each="_bairros : ${bairro}" th:value="${{_bairros.id}}" th:text="${_bairros.nome}"></option>
+												</select>
+											</div>
+											</div>
+											</div>
+												</div> 
+												</div> 
+												<div class="ribbon-wrapper card">	       					
+												<div class="ribbon ribbon-info">Dados da Guarnição</div>
+												<hr/>
+												<div class="form-row">		
+												<div class="form-row col-12">
+													<div class="col-4">
+														<label for="kmInicial">KM Inicial</label>
+														<input id="kmInicial" name="kminicial" type="text" th:field="*{kmInicial}" class="form-control " autocomplete="off">
+													</div>				
+													<div class="col-4">
+														<label for="kmFinal">KM Final</label>
+														<input id="kmFinal" name="kmFinal" type="text" class="form-control " th:field="*{kmFinal}"autocomplete="off">
+													</div>
+													<div class="col-4">
+														<label for="prefixo">Prefixo VTR</label>
+														<input id="prefixo" name="prefixo" th:field="*{prefixo}" type="text" class="form-control " autocomplete="off">
+													</div>
+													
+												</div>	
+												<br>							
+										 		<div class="form-row col-12">	
+										 		<div class="col-4">
+														<label for="placaPolicial">Placa Policial</label>
+														<input id="placaPolicial" name="numeroCasa" type="text" th:field="*{placaPolicial}" class="form-control " placeholder="AAA - 9999" autocomplete="off">
+													</div>
+													<div class="form-group col-4 ">
+													<label for="instituicao">Recursos</label>	
+														<select class="form-control  selectpicker select-dropdrow" title="Nenhum Selecionado" data-hide-disabled="true" th:field="${policiamento.recursos}" multiple="multiple" data-actions-box="true">
+														<option th:each="_recursos : ${recurso}" class="col-md " th:value="${_recursos.id}" th:id="${{_recursos.id}}" th:text="${_recursos.nome}">Selecionar</option>
+														</select>
+													</div>
+													<div class="col-1">
+														<label for="botaoBaixar">&nbsp</label>
+														<button type="button" id="botaoBaixar" class="btn btn-info  col-12">Baixar</button>
+													</div>				
+													<div class="col-3">
+														<label for="horaBaixa">Hora da Baixa</label>
+														<input id="horaBaixa" disabled="disabled"  type="text" th:name="horaBaixa" readonly th:field="*{horaBaixa}" class="form-control  input-group" th:value="${#dates.format(horaBaixa, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" required>
+													</div>
+												</div>
+											</div>
+										</div>
+								
+									<div class="ribbon-wrapper card">
+										<div class="ribbon ribbon-info">Servidores nesse efetivo</div>	
+										<hr/>
+										<!-- <h5 class="card-title mb-2 col-md-12">Servidores nessa Guarnição</h5> -->
+					  					<div class="form-row">
+						  					<div class=" form-group col-12">
+												<label for="matricula">Matrícula</label>
+												<div class="input-group input-group-sm">
+													<input class="form-control ativaBotaoDePesquisar" id="matriculaServidor" name="matriculaServidor" type="text">
+													<div class="input-group-append">
+														<button id="pesquisarMatricula" class="btn btn-info buscarPorMatricula" disabled="disabled" type="button">Pesquisar</button>
+													</div>
+												</div>					
+											</div>
+											<div class=" form-group col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+												<label for="nomeServidor">Nome</label>
+												<div class="input-group input-group-sm">
+													<input class="form-control" id="nomeServidor" name="sic" type="text" readonly="readonly" autocomplete="off">
+													<div class="input-group-append">
+														<button class="btn btn-info" id="inserirServidoresExternos" disabled="disabled" type="submit" name="inserirServidoresExternos">Adicionar Servidor</button>
+													</div>
+												</div>			
+											</div>
+										</div>
+											<table id="tabela-efetivoExterno"	class="table table-bordered table-striped dt-responsive text-center">
+											<thead>
+												<tr>
+													<th>GH</th>
+													<th>Nome</th>
+													<th>Matricula</th>
+													<th>Fun&ccedil;&atilde;o</th>
+													<th>Data/Hora In&iacute;cio</th>
+													<th>Data/Hora Fim</th>
+													<th>Ação</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="_servidores, itemStat : ${policiamento.guarnicao}">
+													<td id="funcoes" th:text="${policiamento.guarnicao[__${itemStat.index}__].servidor.hierarquia.nome}" th:value="${{policiamento.guarnicao[__${itemStat.index}__].servidor.id}}" th:field="*{guarnicao[__${itemStat.index}__].servidor}"></td>											
+													<td>
+														 <select class="form-control  select-transparente" th:field="*{guarnicao[__${itemStat.index}__].servidor}" >
+		 													<option class="select-transparente"  th:each="_servi : ${policiamento.guarnicao[__${itemStat.index}__].servidor}" th:value="${{_servi.id}}" th:text="${_servi.nome}"></option>
+														</select>
+													</td>
+													<td id="funcoes" name="servidorFuncao.funcao" th:text="${policiamento.guarnicao[__${itemStat.index}__].servidor.matricula}" ></td>											
+													<td>
+														<select class="form-control " th:field="*{guarnicao[__${itemStat.index}__].funcao}">
+		 													<option th:each="_funcao : ${funcao}" th:value="${{_funcao.id}}" th:text="${_funcao.nome}"></option>
+														</select>
+													</td>
+													<td class="text-center" width="11%" >
+														<input th:field="*{guarnicao[__${itemStat.index}__].inicioPlantao}" required="required"  placeholder="dd/mm/aaaa hh:mm:ss" type="text" name="inicioPlantao" class="form-control  input-group efetivoGuarnicaoInicioPlantao" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('mesa.inicioPlantao')} ? 'is-invalid'" >
+													</td>
+													<td class="text-center" width="11%">
+														<input th:field="*{guarnicao[__${itemStat.index}__].fimPlantao}"  required="required" placeholder="dd/mm/aaaa hh:mm:ss" type="text" name="fimPlantao" class="form-control  input-group  efetivoGuarnicaoFimPlantao" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('mesa.inicioPlantao')} ? 'is-invalid'" >
+													</td>
+													<td class="text-center">																	      
+												      <button type="submit" name="remover-efetivoGuarnicao" th:value="${itemStat.index}" class="btn btn-info "><i class="far fa-trash-alt"></i> Remover</button>
+												    </td>
+												</tr>
+											</tbody>
+										</table>
+										<div class="form-row">									
+					<!-- 		<button type="submit" name="inserirServidoresExternos" class="btn btn-info ">Adicionar Servidor</button>     -->           
+											<button type="submit" name="salvar" class="btn btn-info " id="salvar-efetivo">Salvar</button>
+											<button type="button" onclick="window.location.href='/admin/cadastros/gestaoefetivo/diariodemesa'" class="btn btn-info ml-2"  id="cancelar-efetivo">Cancelar</button>
+										</div>
+								</div>									
+							</form>
+						</div>
+					</div>
+				</div>
+			<div  th:replace="fragmentos/modal/servidorExterno :: modal-adicionarServidorExterno"></div>
+			<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+		</main>
+<!-- 	<footer th:replace="fragmentos/footer :: footer"></footer> -->
+<!-- 	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object> -->
+
+		<!-- <div th:if="${abrirModal != null}">
+		<script type="text/javascript">
+			window.onload = function(){
+					abrirModal();
+					}
+		</script>
+		</div> -->
+</section>	

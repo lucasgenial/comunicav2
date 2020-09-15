@@ -1,0 +1,14 @@
+<div th:fragment="navbarTopo">
+		<nav class="navbar top-navbar navbar-expand-md justify-content-between">
+			<div sec:authorize="hasAuthority('MASTER')">
+				<a th:if='${tituloPagina.contains("Efetivo")}' class=" col-1 btn btn-info" th:href="@{/admin/home/}"><i class="fa fa-arrow-left"> </i>  Ocorrências</a>
+				<a th:if='${tituloPagina.contains("Ocorrência")}' class=" col-1 btn btn-info" th:href="@{/admin/home/grafico/efetivo}"><i class="fa fa-arrow-left"> </i>  Efetivos</a>
+				
+				<h4 class="text-white mt-2" th:if='${usuario.servidor != null && tituloPagina.contains("Efetivo")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - EFETIVOS' :  usuario.servidor.estabelecimento.nome + ' - EFETIVOS'}"></h4>
+				<h4 class="text-white mt-2" th:if='${usuario.servidor != null && tituloPagina.contains("Ocorrência")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - OCORRENCIAS' :  usuario.servidor.estabelecimento.nome + ' - OCORRENCIAS'}"></h4>
+				<h4 class="text-white mt-2" th:if='${usuario.servidor == null && tituloPagina.contains("Efetivo")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - EFETIVOS' :  usuario.servidor.estabelecimento.nome + ' - EFETIVOS'}"></h4>
+				<h4 class="text-white mt-2" th:if='${usuario.servidor == null && tituloPagina.contains("Ocorrência")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - OCORRENCIAS' :  usuario.servidor.estabelecimento.nome + ' - OCORRENCIAS'}"></h4>
+			</div>			
+			<a class="dropdown-item btn-info col-1 text-center" th:href="@{/logout}"><i class="fa fa-power-off"></i> [[#{sistema.menu.usuario.sair}]]</a>
+		</nav>
+</div>

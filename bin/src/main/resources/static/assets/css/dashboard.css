@@ -1,0 +1,50 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700);
+/*Theme Colors*/
+/**
+ * Table Of Content
+ *
+ * 	1. Color system
+ *	2. Options
+ *	3. Body
+ *	4. Typography
+ *	5. Breadcrumbs
+ *	6. Cards
+ *	7. Dropdowns
+ *	8. Buttons
+ *	9. Typography
+ *	10. Progress bars
+ *	11. Tables
+ *	12. Forms
+ *	14. Component
+ */
+/*******************
+ Our income
+*******************/
+.cmin-height {
+  height: 105px; }
+ 
+ @media only screen and (min-width: 768px) {
+	#apresentacaoPorStatus>.owl-stage-outer>.owl-stage>.owl-item {
+		display: inline-grid;
+		float: none;
+	}
+}
+
+.owl-wrapper {
+    margin: 0 auto;
+}
+
+.owl-stage{
+    margin: 0 auto;
+}
+
+.item {
+	height: 100%;
+}
+
+.item h5 {
+	height: 60px;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+} 

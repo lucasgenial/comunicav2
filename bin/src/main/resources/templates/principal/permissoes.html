@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+        <div class="row">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+				
+						<h4 class="card-title">Cadastros de Permissões</h4>
+                        <h6 class="card-subtitle"></h6>
+                        
+						<div class="table-responsive m-t-40"> 
+							<table id="tabela-permissoes" class="table table-sm table-hover table-bordered table-striped" >
+								<thead>
+									<tr>
+										<th scope="col" th:text="#{tabela-permissoes.titulo.id}">ID</th>
+										<th scope="col" th:text="#{tabela-permissoes.titulo.nome}">Nome</th>
+										<th scope="col" th:text="#{tabela-permissoes.titulo.acao}">Ação</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr  th:each="_permissao : ${permissoes}" class="" th:classappend="${_permissao.ativo} ? table-default : table-danger">
+										<th scope="row" th:text="${_permissao.id}">1</th>
+										<td th:text="${_permissao.nome}">Cadastrar</td>
+										<td class="text-center">
+											<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+												<div class="btn-group" role="group">
+													<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-permissoes.titulo.acao}">
+												      Ação
+												    </button>
+												    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+												      <a class="dropdown-item btn-editar-permissao" th:href="@{permissoes/editar/{id}(id=${_permissao.id})}" data-titulo="Editar Permissao" th:id="${_permissao.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{tabela-permissoes.botao.editar}]]</a>
+												      <a class="dropdown-item" href="#" th:href="@{permissoes/status/{id}(id=${_permissao.id})}" th:inline="text" th:if="${_permissao.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{tabela-permissoes.botao.desabilitar}]]</a>
+												      <a class="dropdown-item" href="#" th:href="@{permissoes/status/{id}(id=${_permissao.id})}" th:inline="text" th:if="${_permissao.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{tabela-permissoes.botao.habilitar}]]</a>
+												      <a class="dropdown-item btn-excluir-permissao" href="#" th:href="@{permissoes/excluir/{id}(id=${_permissao.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-permissoes.botao.excluir}]]</a>
+												    </div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<button type="button" class="btn btn-primary btn-nova-permissao" data-titulo="Cadastro de Nova Permissão">Adicionar</button>
+						<div th:replace="fragmentos/modal/permissao :: modalPermissao"></div>
+						<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+</section>
+</html>

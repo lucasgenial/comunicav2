@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Cadastro de Servidor</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastrar Servidor</h5><br>
+				<form id="formOcorrencia" class="form-ocorrencia" th:object="${ocorrencia}" th:action="@{/cadastraOcorrencia}" method="POST" >					
+					<div class="form-group">
+						<div class="form-group">
+						<h6>CICOM</h6>
+							<div class="form-control form-control-sm">
+								<div class="form-row">
+									<div class="form-group col-md-2">
+										<label for="unidade"></label>
+										<select id="unidade" name="unidade" class="form-control form-control-sm" required>
+											<option value="">Selecionar</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+													
+						<h6>DADOS PESSOAIS</h6>
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="hierarquia">GH</label>
+									<select id="hierarquia" name="hierarquia" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="instituicao">Instituição</label>
+									<select id="instituicao" name="instituicao" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="funcao">Função</label>
+									<select id="funcao" name="tipificacao" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_funcao : ${funcoes}" th:text="${_funcao}" th:value="${{_funcao}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="nome">Nome Completo</label>
+									<input id="nome" name="nome" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-4">
+									<label for="matricula">Matricula</label>
+									<input id="matricula" name="matricula" type="text" class="form-control form-control-sm"  required>
+								</div>
+																
+								<div class="form-group col-md-2">
+									<label for="sexo">Sexo</label>
+									<select id="sexo" name="tipificacao" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_sexo : ${sexos}" th:text="${_sexo}" th:value="${{_sexo}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="cpf">CPF</label>
+									<input id="cpf" name="cpf" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="rg">RG</label>
+									<input id="rg" name="rg" type="text" class="form-control form-control-sm"  required>
+								</div>
+								<div class="form-group col-md-2">
+									<label for="emissor">Orgão Emissor</label>
+									<input id="orgaoEmissor" name="emissor" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label>Data de Nascimento</label>
+									<input id="dataNascimento" type="text" name="nascimento" readonly class="form-control form-control-sm input-group date form_date"
+										data-date-format="dd/mm/yyyy" autocomplete="off" placeholder="DD/MM/AAAA" required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="naturalidade">Naturalidade</label>
+									<input id="naturalidade" name="naturalidade" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="uf">UF</label>
+									<input id="uf" name="uf" type="text" class="form-control form-control-sm"  required>
+								</div>	
+								
+								<div class="form-group col-md-2">
+									<label for="nacionalidade">Nacionalidade</label>
+									<select id="nacionalidade" name="tipificacao" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_nacionalidade : ${nacionalidades}" th:text="${_nacionalidade}" th:value="${{_nacionalidade}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="etnia">Fator RH</label>
+									<select id="tipoSangue" name="tipoSangue" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_sangue : ${sangues}" th:text="${_sangue}" th:value="${{_sangue}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="etnia">Raça/Cor</label>
+									<select id="etnia" name="etnia" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_etnia : ${etnias}" th:text="${_etnia}" th:value="${{_etnia}}"></option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<h6>CONTATOS</h6>
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-md-3">
+									<label for="celular1">Celular 1</label>
+									<input id="celular1" name="celular1" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-3">
+									<label for="celular2">Celular 2</label>
+									<input id="celular2" name="celular2" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-6">
+									<label for="emailContato">E-mail</label>
+									<input id="emailContato" name="emailContato" type="text" class="form-control form-control-sm"  required>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<h6>OUTRAS INFORMAÇÕES</h6>
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="situacao">Situação</label>
+									<select id="situacao" name="situacao" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+									
+									<div class="form-group col-md-2">
+									<label for="estadoCivil">Estado Civil</label>
+									<select id="estadoCivil" name="estadoCivil" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+									</select>
+								</div>	
+								
+								<div class="form-group col-md-2">
+									<label for="qtdFilhos">Quantidade de Filhos</label>
+									<input id="qtdFilhos" name="qtdFilhos" type="number" min="0" max="15" class="form-control form-control-sm"  required>
+								</div>	
+								
+								<div class="form-group col-md-4">
+									<label for="nomePai">Nome do Pai</label>
+									<input id="nomePai" name="nomePai" type="text" class="form-control form-control-sm"  required>
+								</div>	
+								
+								<div class="form-group col-md-4">
+									<label for="nomeMae">Nome da Mãe</label>
+									<input id="nomeMae" name="nomeMae" type="text" class="form-control form-control-sm"  required>
+								</div>	
+										
+								<div class="form-group col-md-2">
+									<label for="escolaridade">Grau de Escolaridade</label>
+									<select id="escolaridade" name="escolaridade" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_escolaridade : ${escolaridades}" th:text="${_escolaridade}" th:value="${{_escolaridade}}"></option>
+									</select>
+								</div>	
+								
+								<div class="form-group col-md-2">
+									<label>Data de Admissão</label>
+									<input id="dataEmissao" type="text" name="data" readonly class="form-control form-control-sm input-group date form_date"
+										data-date-format="dd/mm/yyyy" autocomplete="off" placeholder="DD/MM/AAAA" required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="cartaoSUS">Cartão SUS</label>
+									<input id="cartaoSUS" name="cartaoSUS" type="text" class="form-control form-control-sm"  required>
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+					<h6>ENDEREÇO</h6>
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+							
+							<div class="form-group col-md-2">
+									<label for="ufEndereco">UF</label>
+									<select id="ufEndereco" name="ufEndereco" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_ufEndereco : ${ufs}" th:text="${_ufEndereco.nome}" ></option>
+									</select>
+
+								</div>	
+								
+								<div class="form-group col-md-5">
+									<label for="cidadeUf">Cidade</label>
+									<select id="cidadeUf" name="cidadeUf" class="form-control form-control-sm" required>
+										<option value="">Selecionar</option>
+										<option th:each="_cidadeUf : ${cidades}" th:text="${_cidadeUf.nome}" th:value="${{_cidadeUf.id}}"></option>
+									</select>
+								</div>
+								
+								<div class="form-group col-md-5">
+									<label for="bairro">Bairro</label>
+									<input id="bairro" name="bairro" type="text" class="form-control form-control-sm"  required>
+								</div>		
+								
+								<div class="form-group col-md-10">
+									<label for="endereco">Endereço</label>
+									<input id="endereco" name="endereco" type="text" placeholder="Rua, Avenida, Trevo..."  class="form-control form-control-sm"  required>
+								</div>							
+								
+								<div class="form-group col-md-2">
+									<label for="numero">Número</label>
+									<input id="numero" name="numero" type="number" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-7">
+									<label for="complemento">Complemento</label>
+									<input id="complemento" name="complemento" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-5">
+									<label for="cep">CEP</label>
+									<input id="cep" name="cep" type="text" class="form-control form-control-sm"  required>
+								</div>								
+							</div>
+						</div>
+					</div>
+					
+					<h6>DADOS DO USUARIO SISTEMA</h6>
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="login">Login</label>
+									<input id="login" name="login" type="text" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="senhaAntiga">Senha Antiga</label>
+									<input id="senhaAntiga" name="senhaAntiga" type="password" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="novaSenha">Nova Antiga</label>
+									<input id="novaSenha" name="novaSenha" type="password" class="form-control form-control-sm"  required>
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="conferirSenha">Repetir Nova Antiga</label>
+									<input id="conferirSenha" name="conferirSenha" type="password" class="form-control form-control-sm"  required>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<button type="submit" class="btn btn-success">Salvar</button>
+					
+				</form>
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>	
+	<script src="/assets/js/validador/form-servidores.js"></script>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	
+</body>
+</html>

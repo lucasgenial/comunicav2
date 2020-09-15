@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastros de Recursos</h5>
+				<hr/>
+				<div class="table-responsive-md"> 
+					<table id="tabela-instituicoes" class="table table-sm table-hover text-center" >
+						<thead>
+							<tr>
+								<th scope="col" >ID</th>
+								<th scope="col" >Nome</th>								
+								<th scope="col" >Status</th>
+								<th scope="col" >A&#231;&#227;o</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_recursos : ${recursoLista}" th:classappend="${_recursos.ativo} ? table-default : table-danger">
+								<th scope="row" th:text="${_recursos.id}">1</th>
+								<td class="text-left" th:text="${_recursos.nome}">Nome</td>								
+								<td th:if="${_recursos.ativo==true}">Ativo</td>
+								<td th:if="${_recursos.ativo==false}">Inativo</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-permissoes.titulo.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a class="dropdown-item btn-editar-recurso" th:href="@{recursos/editar/{id}(id=${_recursos.id})}" data-titulo="Editar Recurso" th:id="${_recursos.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{modalidade.tabela.editar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{recursos/status/{id}(id=${_recursos.id})}" th:inline="text" th:if="${_recursos.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{modalidade.tabela.desabilitar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{recursos/status/{id}(id=${_recursos.id})}" th:inline="text" th:if="${_recursos.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{modalidade.tabela.habilitar}]]</a>
+										      <a class="dropdown-item btn-excluir-recurso" href="#" th:href="@{recursos/excluir/{id}(id=${_recursos.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{modalidade.tabela.excluir}]]</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<button type="button" class="btn btn-primary btn-nova-recurso" data-titulo="Cadastro de Nova Recurso">Adicionar</button>
+				
+			</div>
+		</div>
+		<div th:replace="fragmentos/modal/recurso :: modalRecurso"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+		
+	</main>
+	
+	<script src="/assets/js/validador/form-recurso.js"></script>
+</section>
+</html>

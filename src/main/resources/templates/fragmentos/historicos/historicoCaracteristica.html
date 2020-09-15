@@ -1,0 +1,44 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DIÁRIO DE CARACTERÍSTICAS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Histórico características</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="card">
+				       <div class="card-body">
+				            <h6 class="card-subtitle"></h6>
+							<div class="table-responsive-md"> 
+								<table id="tabela-caracteristicas" class="table table-bordered table-striped dt-responsive text-center" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th scope="col" >ID</th>
+											<th scope="col" >Nome</th>								
+											<th scope="col" >Status</th>
+											<th scope="col" >Ação</th>
+										</tr>
+									</thead>
+									<tbody class="table-sm" >
+							
+									</tbody>
+								</table>
+							</div>
+						<a type="button" class="btn btn-info" href="/admin/cadastra/caracteristica" >Adicionar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+</section>

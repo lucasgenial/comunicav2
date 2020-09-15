@@ -1,0 +1,128 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CRIMES VIOLENTOS LETAIS INTENCIONAIS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Perfil CVLI</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">GRÁFICO DO ANO</div>
+						<div id="grafico" style="width: 100%; min-height: 400px;"></div>
+						<hr>
+						<div class="form-group col-12">
+							<button class="active btn-sm btn btn-info text-center col-2 list-group-item-action mudaBotaoDePDF"  type="button"  id="mostraGraficos" data-target="#graficosEscondidos" data-toggle="collapse">Gráficos Detalhados</button>
+							<button class="active btn-sm btn btn-info text-center col-2 list-group-item-action mudaBotaoDePDF"  type="button"  id="mostraDados" data-target="#dadosEscondidos" data-toggle="collapse">Dados por Mês</button>
+							<button class="active btn-sm btn btn-info text-center col-2 list-group-item-action mudaBotaoDePDF"  type="button"  id="mostraDadosNumeradosEscondidos" data-target="#dadosNumeradosEscondidos" data-toggle="collapse">Dados do Ano</button>
+						</div>			
+					</div>
+				</div>			
+			</div>			
+			<div class="row collapse show" id="graficosEscondidos">
+				<div class="col-12">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">GRÁFICOS ESPECÍFICOS</div>
+						<hr> 
+							<div th:each="_tipificacao : ${tipificacoes}">
+								<label class="d-flex text-capitalize text-center font-weight-bold justify-content-center mt-0 pt-0 mb-0" th:text="${_tipificacao.tipificacao}"></label>
+								<div th:id="${_tipificacao.idTipificacao}" style="width: 100%; min-height: 400px;"></div>
+								<hr>
+							</div>		
+						<div id="list-example" class="list-group" data-toggle="buttons">
+							<button class="active btn-sm btn btn-info text-center col-3 list-group-item-action"  type="button"  id="escondeGraficos" data-target="#graficosEscondidos" data-toggle="collapse">Esconder Gráficos Detalhados</button>
+						</div>
+					</div>
+				</div>			
+			</div>
+			
+			<div class="row collapse show" id="dadosEscondidos">
+				<div class="col-12">
+					<div  th:if="${resultados != null}" class="ribbon-wrapper card" th:each="_result : ${resultados}">
+						<div class="ribbon ribbon-info">[[${_result.mes}]]</div>
+							<div class="form-row" >
+								<div class="form-group col-12" id="dadosGerados">
+									<hr />
+									<div class="table-responsive-md"> 
+										<table id="tabela-resultados" class="table table-sm table-hover" >
+											<thead>
+												<tr>
+													<th scope="col">TIPIFICACÃO</th>
+													<th scope="col">SEDE</th>
+													<th scope="col">ZONA RURAL</th>
+													<th scope="col">DEMAIS LOCALIDADES</th>
+													<th scope="col">TOTAL</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="_dado : ${_result.dados}">
+													<td th:text="${_dado.tipificacao}"></td>
+													<td th:text="${_dado.sede}"></td>
+													<td th:text="${_dado.zonaRural}"></td>
+													<td th:text="${_dado.outras}"></td>
+													<td th:text="${_dado.total}"></td>
+												</tr>
+												<tr class="text-info">
+													<td >TOTAL NO MÊS</td>
+													<td th:text="${_result.totalSede}"></td>
+													<td th:text="${_result.totalZonaRural}"></td>
+													<td th:text="${_result.totalOutras}"></td>
+													<td th:text="${_result.totalDoMes}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>			
+				</div>
+				<div class="row collapse show" id="dadosNumeradosEscondidos">
+				<div class="col-12">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">DADOS NUMÉRICOS DO ANO</div>
+							<div class="form-row" >
+								<div class="form-group col-12" id="dadosGerados">
+									<hr />
+									<div class="table-responsive-md"> 
+										<table id="tabela-resultados" class="table table-sm table-hover" >
+											<thead class="thead-light">
+												<tr >
+													<th scope="col">TIPIFICACÃO</th>
+													<th scope="col" th:each="_result : ${resultados}">[[${_result.mes.substring(0,3)}]]</th>
+													
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="_res : ${tipificacoes}">
+												    <th th:text="${_res.tipificacao}"></th>
+												    <td th:text="${_res.getValorDoMes(_resul.mes)}" th:each="_resul : ${resultados}">1</td>
+													
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+							</div>
+							<div id="list-example" class="list-group" data-toggle="buttons">
+									<button class="active btn-sm btn btn-info text-center col-3 list-group-item-action"  type="button"  id="escondeGraficos" data-target="#dadosNumeradosEscondidos" data-toggle="collapse">Esconder Dados Numéricos</button>
+						</div>
+						</div>
+						
+					</div>			
+				</div>
+			</div>
+		</main>
+
+	</section>
+</html>

@@ -1,0 +1,128 @@
+<<<<<<< HEAD
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main >
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <!-- <h4 class="text-themecolor">SERVIDORES</h4> -->
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Visualizar</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Servidores</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+		
+			<div class="row">					
+<!-- 				<div class="ribbon-wrapper card col-md-auto ml-sm-auto col-lg-9 mx-auto">
+ -->					<!-- <div class="form-row">						
+						<div class="col-md-6" >
+								<label><b>GOVERNO DO ESTADO DA BAHIA</b></label><br>
+								<label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label><br>
+								<label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label><br>
+						</div>
+							<div class="col-md-3 offset-3 imagem-logoCicomVisualizacao"></div>
+					</div> -->
+					
+						<div class="col-12">
+							<div class="ribbon-wrapper card">	
+							<div class="ribbon ribbon-info">SERVIDORES</div>
+								<div class="table-responsive-m-t-40">
+									<table id="tabela-servidor-paginada" class="text-center table table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+										<thead>
+											<tr>
+												<th scope="col">GH</th>
+												<th scope="col">Instituição</th>
+												<th scope="col">Nome</th>											
+												<th scope="col">Função</th>
+												<th scope="col">Matricula</th>										
+											</tr>
+										</thead>
+									    <tbody>										
+											<tr th:each="_servidor : ${servidores}" th:classappend="${_servidor.ativo} ? table-default : table-danger">
+												<td th:text="${#strings.capitalize(_servidor.hierarquia.nome)}"></td>
+												<td th:text="${#strings.capitalize(_servidor.instituicao.nome)}"></td>	
+												<td th:text="${_servidor.nome}"></td>
+												<td th:text="${_servidor.funcao.nome}"></td>											
+												<td th:text="${_servidor.matricula}"></td>											
+											</tr>
+										</tbody>	
+									</table>
+								</div>	
+								<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			                  		<div class="btn-group mr-2" role="group">
+			                 			<a class="btn btn-info" th:href="@{~/admin/cadastros/servidores/historico}" th:inline="text" >Voltar</a>		
+			                 		</div>
+			                    </div>
+							</div><!-- ribbon-wrapper conteudo-->								
+						</div>					
+				<!--</div> ribbon-wrapper cabeçalho -->
+			</div><!-- Row 1 -->
+		</div><!-- Container -->
+	</main>
+</section>
+=======
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Visualização de Servidor</title>
+<meta charset="utf-8">
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<!-- 		<div th:replace="fragmentos/navbar :: navbar3(${usuario})"></div> -->
+	</header>
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 mx-auto">	
+		<div class="card">				
+			<div class="form-group">				
+				<div class="form-control form-control-sm">
+					<div class="form-row">						
+						<div class="col-md-6 text-center">
+							<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+							<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+							<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+							<div class="col-md-3 offset-2 imagem-logoCicom"></div>
+					</div>
+				</div>				
+			</div>							
+				<div class="form-group">
+					<div class="form-control">						
+						<div class="table-responsive-md">
+							<table id="tabela-todos" class="table table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col">GH</th>
+										<th scope="col">Instituição</th>
+										<th scope="col">Nome</th>											
+										<th scope="col">Função</th>
+										<th scope="col">Matricula</th>										
+									</tr>
+								</thead>
+							    <tbody>										
+									<tr th:each="_servidor : ${servidores}" th:classappend="${_servidor.ativo} ? table-default : table-danger">
+										<td th:text="${#strings.capitalize(_servidor.hierarquia.nome)}"></td>
+										<td th:text="${#strings.capitalize(_servidor.instituicao.nome)}"></td>	
+										<td th:text="${_servidor.nome}"></td>
+										<td th:text="${_servidor.funcao.nome}"></td>											
+										<td th:text="${_servidor.matricula}"></td>											
+									</tr>
+								</tbody>	
+							</table>
+						</div>													
+					</div>
+				</div>				
+		</div><!-- FECHAMENTO CARD -->
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+</html>
+>>>>>>> Mauricio

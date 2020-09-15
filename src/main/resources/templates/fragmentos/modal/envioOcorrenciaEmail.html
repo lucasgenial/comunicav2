@@ -1,0 +1,155 @@
+<!-- MODAL ENVIO DE OCORRENCIA PELO EMAIL -->
+<div class="modal fade" id="modal-enviarEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"	aria-hidden="true" data-backdrop="static"	th:fragment="modalEnviarEmail">
+	<form class="form-enviarEmail" id="formularioEmail" th:object="${ocorrencia}" th:action="@{/teste}" method="POST">	 
+	<div class="modal-dialog modal-dialog-centered modal-lg"role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title">Enviar Ocorrência para Email</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body ">
+				<div class="col" id="descricaoDaOcorrenciaEmail"></div>
+					<div class="col">
+						
+						<hr>
+						<div class="col-md-12" >
+						
+						<div class="corCinza">
+						<h6 class="text-center">SELECIONAR E-MAILS PARA ENVIO</h6>
+							<table id="tabela-enviarPorEmails" class="table text-center table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col" class="text-center">SELECIONAR</th>
+										<th scope="col" class="text-center">NOME</th>
+										<th scope="col" class="text-center">EMAIL</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_email : ${emails}" th:if="${_email.ativo==true}">
+										<td><input type="checkbox" th:value="${_email.id}" class="listaDeEmails" name="emailLista"></td>
+										<td class="text-left" th:text="${_email.nome}"></td>
+										<td class="text-left"  th:text="${_email.enderecoDeEmail}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						</div>
+					</div>
+                         <div class="col-lg-12" id="progress">
+					
+				         </div>
+				</div>
+				
+				<div class="modal-footer">				
+					<button type="button" th:href="@{~/admin/historico/emails}"	class="btn btn-info" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-info" id="btn-enviarEmails_Selecionados"	name="enviarOcorrencia" disabled="disabled">Enviar pelo Email</button>
+				</div>
+			</div>
+		</div>
+	</form> 
+</div>
+
+<!-- MODAL ENVIO DE VARIAS OCORRENCIAS PELO EMAIL -->
+<div class="modal fade" id="modal-envio-varias-ocorrencias" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"	aria-hidden="true" data-backdrop="static"	th:fragment="modalEnviovariasOcorrencias">
+	<div class="modal-dialog modal-dialog-centered modal-lg"role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Enviar Várias Ocorrência para Email</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<form class="form-enviarVariasPorEmail" th:action="@{/cadastraOcorrencias}">	
+				<div class="modal-body">
+					<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+						<div class="table-responsive-md">
+							<table id="tabela-enviar-ocorrencias" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col">SIC</th>
+										<th scope="col">Tipificação</th>
+										<th scope="col">Data</th>
+										<th scope="col">Hora</th>
+										<th scope="col">Cidade</th>
+										<th scope="col">Selecionar</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_ocorrencia : ${ocorrencias}" th:classappend="${_ocorrencia.enviada} ?  table-enviada : table-default">
+									      <th scope="row" th:text="${_ocorrencia.sic}"></th>
+									      <td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}"></td>
+									      <td th:text="${#temporals.format(_ocorrencia.dataOcorrencia,'dd/MM/yyyy')}"></td>
+									      <td th:text="${#temporals.format(_ocorrencia.dataOcorrencia,'HH:mm')}"></td>
+									      <td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome)}"></td>
+										  <td><input type="checkbox" th:id="${_ocorrencia.id}" class="enviarVarias ocorrenciaSelecionada" th:value="${_ocorrencia.id}" name="listaDeOcorrencias"></td>
+									</tr>
+								</tbody>
+							</table>
+							</div>
+						 <div class="col-lg-12" id="progresso">
+					
+				         </div>
+				  		<button type="button"  class="btn btn-info btn-enviar-varias-por-email" id="btn-enviar-varias-por-email" data-titulo="Enviar ocorrencias selecionadas" disabled>Enviar Selecionadas</button>
+				   </main>
+				</div>
+			</form> 
+			
+			<div class="modal-footer"> </div>
+		</div>
+	</div>
+</div>
+
+<!-- MODAL ENVIO DE VARIAS OCORRENCIAS PARA VÁRIOS EMAILS -->
+<div class="modal fade" id="modal-enviarVariasOcorrenciasVariosEmails" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"	aria-hidden="true" data-backdrop="static"	th:fragment="modalEnviarVariasOcorrenciasVariosEmails">
+	<form class="form-enviarEmail" th:action="@{/cadastraOcorrencias}" method="POST">	 
+	<div class="modal-dialog modal-dialog-centered modal-lg"role="document">
+			<div class="modal-content">
+				<div class="modal-header ">
+					<h5 class="modal-title">Enviar Ocorrência para Email</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body ">
+					<div class="col">
+						<div class="col-md-12" id="descricaoDaOcorrenciaEmail"></div>
+						<hr>
+						<div class="col-md-12" >
+						
+						<div class="corCinza">
+						<h6 class="text-center">SELECIONAR E-MAILS PARA ENVIO</h6>
+							<table id="tabela-enviarPorEmail" class="table text-center table-sm table-hover">
+								<thead>
+									<tr>
+										<th scope="col" class="text-center">SELECIONAR</th>
+										<th scope="col" class="text-center">NOME</th>
+										<th scope="col" class="text-center">EMAIL</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_email : ${emails}" th:if="${_email.ativo==true}">
+										<td><input type="checkbox" id="lista" th:value="${_email.id}" class="listaDeEmails" name="listaDeEmails"></td>
+										<td class="text-left" th:text="${_email.nome}"></td>
+										<td class="text-left"  th:text="${_email.enderecoDeEmail}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						</div>
+					</div>
+                         <div class="col-lg-12" id="progress">
+					
+				         </div>
+				</div>
+				
+				<div class="modal-footer">
+				
+					<button type="button" th:href="@{~/admin/historico/emails}"	class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+					<button type="button" class="btn btn-primary" id="btn-enviarEmails_Selecionados"	name="enviarOcorrencia" disabled="disabled">Enviar pelo Email</button>
+				</div>
+			</div>
+		</div>
+	</form> 
+</div>

@@ -1,0 +1,53 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+				<!-- INICIO TITULO DA PÁGINA -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+					    <h4 class="text-themecolor">DIÁRIO DE ARQUIVOS</h4>
+					</div>
+					<div class="col-md-7 align-self-center text-right">
+					    <div class="d-flex justify-content-end align-items-center">
+					        <ol class="breadcrumb">
+					            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+					            <li class="breadcrumb-item active">Histórico Arquivos</li>
+					        </ol>
+					    </div>
+					</div>
+				</div>
+				
+			<div class="row">
+				<div class="col-12">
+					<div class="ribbon-wrapper card">
+                           <div class="table-responsive m-t-40">
+                            <table id="tabela-arquivo-paginada" class="table table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Nome</th>
+										<th>Tipo</th>
+										<th>Descrição</th>
+										<th>Data de Envio</th>
+									 	<th>Download</th> 
+										<!-- <th>Ação</th> -->
+									</tr>
+								</thead>
+								<tbody>
+								
+								</tbody>
+							</table>
+						</div>								
+						<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                         	<div class="btn-group mr-2" role="group">
+								<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/servidores/solicitacao/{id}(id=${usuario.servidor.id})}">Adicionar Novo</a>
+							</div>
+						<div class="btn-group mr-2" role="group">
+							<a class="btn btn-info btn-sm" href="javascript:history.back()">Voltar</a> 					
+						</div>
+					</div>
+				</div>					
+			</div><!-- row -->
+				
+		</div><!-- container-fluid -->
+	</main>
+</section>	

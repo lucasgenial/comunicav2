@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+        <div class="row">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+				
+						<h4 class="card-title">Cadastros de Grupos</h4>
+                        <h6 class="card-subtitle"></h6>
+                        
+                        <div th:object="${grupo}">
+						<div class="table-responsive m-t-40"> 
+							<table id="tabela-grupos" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col" th:text="#{tabela-grupos.titulo.id}">ID</th>
+										<th scope="col" th:text="#{tabela-grupos.titulo.nome}">Nome</th>
+										<th scope="col" th:text="#{tabela-grupos.titulo.permissoes}">Permissões</th>
+										<th scope="col" th:text="#{tabela-grupos.titulo.acao}">Ação</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr  th:each="_grupo : ${grupos}" class="" th:classappend="${_grupo.ativo} ? table-default : table-danger">
+										<th scope="row" th:text="${_grupo.id}">1</th>
+										<td scope="row" th:text="${_grupo.nome}">TESTE</td>
+										<td scope="row" th:text="${#lists.size(_grupo.permissoes)}">0</td>
+										<td class="text-center">
+											<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+												<div class="btn-group" role="group">
+													<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-grupos.botao.acao}">
+												      Ação
+												    </button>
+												    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+												      <a class="dropdown-item" th:href="@{~/admin/grupos/consultar/{id}(id=${_grupo.id})}" data-titulo="Permissoes" th:id="${_grupo.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{tabela-grupos.botao.consultar}]]</a>
+												      <a class="dropdown-item" href="#" th:href="@{grupos/status/{id}(id=${_grupo.id})}" th:inline="text" th:if="${_grupo.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{tabela-grupos.botao.desabilitar}]]</a>
+												      <a class="dropdown-item" href="#" th:href="@{grupos/status/{id}(id=${_grupo.id})}" th:inline="text" th:if="${_grupo.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{tabela-grupos.botao.habilitar}]]</a>
+												      <a class="dropdown-item btn-excluir-grupo" href="#" th:href="@{grupos/excluir/{id}(id=${_grupo.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-grupos.botao.excluir}]]</a>
+												    </div>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<button type="button" class="btn btn-primary btn-novo-grupo" data-titulo="Cadastro de Novo Grupo">Adicionar</button>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragmentos/modal/grupo :: modalGrupo"></div>
+				<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+			</div>
+		</div>
+		<script src="/assets/js/validador/form-grupos.js"></script>
+</section>
+</html>

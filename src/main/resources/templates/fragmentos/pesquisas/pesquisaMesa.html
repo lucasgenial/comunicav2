@@ -1,0 +1,101 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">PESQUISAR</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Dados Estatisticos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+			
+				<form id="formPesquisaMesa" class="form-mesa" th:object="${mesa}" th:action="@{/admin/cadastros/mesa/filtrar}" method="get">
+					
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">REFERÊNCIAS</div>
+						
+						<div class="form-group">
+							<div class="form-row">
+								<div class="form-group col-md-2">
+									<label for="nome">Número mesa</label> 
+									<input id="nome" type="text" class="form-control form-control-sm" name="nome" th:field="*{nome}">
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="inicioPlantao">Data Inicial</label>
+									<input id="inicioPlantao" type="text" name="inicioPlantao" th:field="*{inicioPlantao}"  class="form-control form-control-sm input-group liberar"  placeholder="DD/MM/YYYY hh:mm:ss">
+								</div>
+								
+								<div class="form-group col-md-2">
+									<label for="fimPlantao">Data Final</label>
+									<input id="fimPlantao" type="text" name="fimPlantao" class="form-control form-control-sm input-group fimPlantaoMesa"  placeholder="DD/MM/YYYY hh:mm:ss">
+								</div>
+						
+								<div class="form-group col-md-6">
+									<label for="fimPlantao">Servidores</label>
+									<select class="form-control form-control-sm selectpicker select-dropdrow" title="Servidor(es)" name="listaDeServidores" data-live-search="true" data-live-search-placeholder="Search" data-hide-disabled="true" multiple="multiple" data-actions-box="true">
+										<option th:each="_servidores : ${servidoresInternos}" class="col-md" th:value="${_servidores.id}" th:id="${_servidores.id}"  th:text="${_servidores.hierarquia.nome +' - '+ _servidores.nome}"></option>
+									</select>
+								</div>	
+							</div>
+							<button type="submit" class="btn btn-info btn-sm">Buscar</button>
+<!-- 							<button type="reset" class="btn btn-info btn-sm" >Limpar</button>
+ -->						</div>
+					</div>
+				</form>
+			</div>
+		</div>		
+			<div class="ribbon-wrapper card">
+				<div class="ribbon ribbon-info">RESULTADO</div>
+				<hr/>
+				
+				<div class="table-responsive-md">
+					<table id="tabela-pesquisaMesa" class="table table-sm table-bordered table-striped dt-responsive text-center" >
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Iníio do Plantão</th>
+								<th scope="col">Fim do Plantão</th>
+								<th scope="col">Mesa</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody>		
+							<tr th:each="_mesa : ${mesas}" th:classappend="${_mesa.ativo} ? table-default : table-danger">
+								<td th:text="${_mesa.id}"></td>
+								<td th:text="${#temporals.format(_mesa.inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+								<td th:text="${#temporals.format(_mesa.fimPlantao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+								<td th:text="${_mesa.nome}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-info  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a th:if="${_mesa.ativo}" class="dropdown-item" th:id="${_mesa.id}" th:href="@{/admin/cadastros/gestaoefetivo/diariodemesa/editarMesa/{id}(id=${_mesa.id})}"th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+											  <a id="" class="dropdown-item" href="" th:href="@{~/admin/cadastros/report/mesa/{id}(id=${_mesa.id})}"  th:inline="text" th:id="${_mesa.id}"><i class="fa fa-print"></i> Imprimir</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa/visualizar/mesaCompleta/{id}(id=${_mesa.id})}" th:inline="text" th:id="${_mesa.id}"><i class="glyphicon glyphicon-eye-open"></i> Efetivos</a>
+<!-- 										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/historico/policiamentos/{id}(id=${_mesa.id})}"  th:inline="text" th:id="${_mesa.id}"><i class="fa fa-users"></i> Efetivo externo</a>
+ -->										       
+										    </div>                                                       
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

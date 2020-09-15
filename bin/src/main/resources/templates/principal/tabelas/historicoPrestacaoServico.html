@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+	<div class="card">
+		<div class="card-body">
+			<h5 class="card-title mb-2">Natureza de Acesso</h5>
+			<hr />
+			<div class="table-responsive-md">
+				<table id="tabela-prestacaoServico" class="table table-sm table-hover">
+					<thead>
+						<tr>
+							<th scope="col" th:text="#{tabela-prestacaoServico.titulo.id}">ID</th>
+							<th scope="col" th:text="#{tabela-prestacaoServico.titulo.nome}">Nome</th>
+							<th scope="col" th:text="#{tabela-prestacaoServico.titulo.acao}">A��es</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr th:each="_servico : ${servicos}">
+							<th scope="row" th:text="${_servico.id}"></th>
+							<td th:text="${#strings.capitalize(_servico.nome)}"></td>
+							<td class="text-center" id="botaoEditar">
+								<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+									<div class="btn-group" role="group">
+										<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+											aria-expanded="false" th:text="#{tabela-prestacaoServico.botao.acao}">A��o</button>
+										  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+											<a class="dropdown-item" th:href="@{/servico/editar/{id}(id=${_servico.id})}" data-titulo="Editar Servico" th:id="${_servico.id}"
+												th:inline="text" th:text="#{tabela-prestacaoServico.botao.editar}"><i class="far fa-edit"></i> Editar</a>
+										</div>  
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			 <a class="btn btn-primary btn-sm" th:href="@{/admin/cadastro/prestacaoServico}">Adicionar Novo</a>
+			<!-- <a class="btn btn-secondary btn-sm" th:href="@{/admin/importar/servidor/externo}">Adicionar por Arquivo</a> -->
+
+		</div>
+	</div>
+
+	</main>
+</section>
+</html>

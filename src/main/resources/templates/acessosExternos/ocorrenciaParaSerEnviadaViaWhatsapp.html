@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="offset-2 col-md-8">
+	
+	<div class="card">
+	
+	<div class="card-body"  >
+		<div class="form-group">
+
+				
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						
+						<div class="col-md-6 text-rigth ml-4 mb-2">
+							<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+							<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+							<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+
+						<div class="col-md-3 text-left offset-2 imagem-logoCicom">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+		<div class="card-body"  >
+
+			<div class="form-group"><h5 class="card-title mb-2">Ocorrência</h5><h6 class="offset-7">Id:[[${servidor.id}]] - Gerado em:[[${datahora}]]</h6>
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-6">
+							<label for="numeroSIC" ><b>Nº: </b>[[${ocorrencia.sic}]]</label>
+						</div>
+                        <div class="col-md-6">
+							<label><b>DATA - HORA: </b>[[${ocorrencia.dataOcorrencia}]] / [[${ocorrencia.horaOcorrencia}]]</label>
+							
+						</div>
+						<div class="col-md-12">
+							<label><b>TIPIFICAÇÃO:</b> [[${ocorrencia.tipificacao.nome}]]</label>
+							
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<h6>Localização</h6>
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-5">
+							<label><b>CIDADE: </b>[[${ocorrencia.endereco.cidade.nome}]]</label>
+						</div>
+
+						<div class="col-md-7">
+							<label><b>LOCALIDADE/DISTRITO: </b>[[${ocorrencia.endereco.bairro.localidade.nome}]]</label>
+						</div>
+
+						<div class="col-md-5">
+							<label><b>BAIRRO: </b>[[${ocorrencia.endereco.bairro.nome}]]</label>
+						</div>
+					
+						<div class="col-md-5">
+							<label><b>RUA: </b>[[${ocorrencia.endereco.rua}]]</label>
+						</div>
+
+						<div class="col-md-2">
+							<label><b>Nº: </b>[[${ocorrencia.endereco.numero}]]</label>
+						</div>
+
+						<div class="col-md-12">
+							<label><b>REFERÊNCIA: </b>[[${ocorrencia.endereco.referencia}]]</label>
+						</div>
+						<div class="col-md-12">
+							<label for="data"><b>VIATURA/GUARNIÇÃO: </b>[[${ocorrencia.guarnicao}]]</label>
+						</div>
+							
+					</div>
+				</div>
+			</div>
+				
+			  <div class="form-control form-control-sm">
+				<div class="form-row">
+					<div class="col text-center">
+						<label for="descricao"><b>DESCRIÇÃO DO FATO</b></label>
+					</div>
+				
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+					
+						<div class="col col-md-12 col-lg-12" align="justify">
+							<label  th:utext="${#strings.unescapeJava(ocorrencia.descricao)}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			  <div class="form-control form-control-sm">
+				<div class="form-row">
+					<div class="col text-center">
+						<label for="descricao"><b>HISTÓRICO</b></label>
+					</div>
+				
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+					
+						<div class="col col-md-12 col-lg-12" align="justify">
+							<label  th:utext="${#strings.unescapeJava(ocorrencia.historico)}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button class="btn btn-primary btn-sm btn-whatsapp"  type="button" data-titulo="Editar Ocorrência" th:id="${ocorrencia.id}" th:inline="text" >Enviar link via Whatsapp</button>
+<!-- 			<a class="btn btn-primary btn-sm btn-whatsapp"  th:href="@{/admin/cadastros/ocorrencia/visualizarExterno/{id}(id=${ocorrencia.id})}" data-titulo="Editar Ocorrência" id="emtestemuitomassa" th:inline="text" >Enviar link via Whatsapp</a>
+ -->		</div>
+		
+	</div>
+	</main>
+	<script type="text/javascript" src="/assets/js/validador/form-enviarOcorrenciaWhatsappExterno.js"></script>
+
+</section>
+</html>

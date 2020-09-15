@@ -1,0 +1,130 @@
+<!-- **************************************************## Navbar só para Master ##*********************************************************************** -->     
+<nav sec:authorize="hasAuthority('MASTER')"  class="navbar top-navbar navbar-expand-md justify-content-between" th:fragment="navbarTopo">
+	<a th:if='${tituloPagina.contains("Efetivo")}' class=" col-1 btn btn-info" th:href="@{/admin/home/}"><i class="fa fa-arrow-left"> </i>  Ocorrências</a>
+	<a th:if='${tituloPagina.contains("Ocorrência")}' class=" col-1 btn btn-info" th:href="@{/admin/home/grafico/efetivo}"><i class="fa fa-arrow-left"> </i>  Efetivos</a>
+<!-- 	<h4 class="text-white mt-2" th:if='${tituloPagina.contains("Efetivo")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - EFETIVOS' :  usuario.servidor.estabelecimento.nome + ' - EFETIVOS'}"></h4>
+		<h4 class="text-white mt-2" th:if='${tituloPagina.contains("Ocorrência")}' th:text="${usuario.servidor == null ? usuario.estabelecimento.get(0).nome + ' - OCORRENCIAS' :  usuario.servidor.estabelecimento.nome + ' - OCORRENCIAS'}"></h4>
+ -->	
+ 		<h4 class="text-white mt-2" th:if='${tituloPagina.contains("Efetivo")}' th:text="${usuario.servidor == null ? 'GRÁFICO' + ' - EFETIVOS' :  'GRÁFICO' + ' - EFETIVOS'}"></h4>
+		<h4 class="text-white mt-2" th:if='${tituloPagina.contains("Ocorrência")}' th:text="${usuario.servidor == null ? 'GRÁFICO' + ' - OCORRENCIAS' :  'GRÁFICO' + ' - OCORRENCIAS'}"></h4>
+ 
+ <a class="dropdown-item btn-info col-1 text-center" th:href="@{/logout}"><i class="fa fa-power-off"></i> [[#{sistema.menu.usuario.sair}]]</a>
+	
+</nav>
+
+<!-- **************************************************## Navbar só para graficos Visão Geral ##*********************************************************************** -->     
+<nav sec:authorize="hasAuthority('GRAFICOS-VISAO-GERAL')"  class="navbar top-navbar navbar-expand-md justify-content-between" th:fragment="navbarTopo">
+	<a class=" col-1 btn btn-info" href="/admin/home/" >Pular  <i class="fa fa-arrow-right"></i></a>
+	<h4 class="text-white mt-2" th:if='${tituloPagina.contains("Ocorrência")}' th:text="${geradorDeId.getNomeEstabelecimento(usuario) + ' - OCORRENCIAS'}"></h4>
+	<a class="dropdown-item btn-info col-1 text-center" th:href="@{/logout}"><i class="fa fa-power-off"></i> [[#{sistema.menu.usuario.sair}]]</a>
+</nav>
+
+
+<!-- **************************************************## Navbar Para usuáros com servidor ##*********************************************************************** -->     
+<nav sec:authorize="not hasAuthority('MASTER') AND not hasAuthority('GRAFICOS-VISAO-GERAL')"  class="navbar top-navbar navbar-expand-md navbar-dark" th:fragment="navbarTopo">
+	<div class="navbar-header">
+		<a class="navbar-brand" th:href="@{/admin/home/}">
+		<b> 			
+		
+			<img src="/assets/imagens/pages/navbar/c.png" alt="homepage" class="dark-logo" /> 
+<!-- 		<img src="/assets/imagens/pages/navbar/c.png" alt="homepage" class="light-logo"/>
+ -->		</b>
+ 			<span class="hidden-xs"><img src="/assets/imagens/pages/navbar/comunicaPequena.png" alt="homepage" class="light-logo" /></span>
+ 		</a>
+	</div>
+
+	<div class="navbar-collapse">
+		<!-- Icone de abertura do navbar esquerdo -->
+               <ul class="navbar-nav mr-auto">
+                   <li class="nav-item">
+                   	<a class="nav-link sidebartoggler d-none d-lg-block d-md-block waves-effect waves-dark" href="javascript:void(0)"><i class="icon-menu"></i></a>
+                   </li>
+               </ul>
+               
+               <ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" th:href="@{~/admin/historico/telefones}">
+							<!-- <span class="hidden-xl-down glyphicon glyphicon-earphone">LISTA TELEFÔNICA</span> -->
+							<span class="hidden-xl-down">LISTA TELEFÔNICA</span>	    	
+						</a>			
+					</li>			
+				</ul>
+				
+				
+				<ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="hidden-xl-down">CÓDIGO FONÊTICO</span>			
+						</a>
+						
+						<div class="dropdown-menu dropdown-menu-right animated flipInY">
+							<a href="#" class="dropdown-item" th:inline="html"><img src="/assets/imagens/agenda/codigoFonetico.png"></a>			
+						</div>
+					</li>			
+				</ul>
+
+               
+              <!--  <ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" th:href="@{~/admin/historico/telefones}">
+							<span class="hidden-xl-down glyphicon glyphicon-earphone"></span>	    	
+						</a>			
+					</li>			
+				</ul> -->
+               
+		<!-- 		<ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="hidden-xl-down">ALFA</span>
+						</a>		
+						<div class="dropdown-menu dropdown-menu-right animated flipInY">
+							<img alt="" src="/assets/imagens/agenda/ALFA.png">			
+						</div>
+					</li>			
+				</ul>
+				<ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="hidden-xl-down">BETA</span>
+						</a>		
+						<div class="dropdown-menu dropdown-menu-right animated flipInY">
+							<a href="#" class="dropdown-item"><img alt="" src="/assets/imagens/agenda/BETA1.png"></a>			
+						</div>
+					</li>			
+				</ul>
+				<ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="hidden-xl-down">GAMA</span>
+						</a>		
+						<div class="dropdown-menu dropdown-menu-right animated flipInY">
+							<a href="#" class="dropdown-item"><img alt="" src="/assets/imagens/agenda/GAMA.png"></a>			
+						</div>
+					</li>			
+				</ul>
+                -->
+				<ul class="navbar-nav  my-lg-0">
+					<li class="nav-item dropdown u-pro">
+						<a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<span sec:authorize="hasAuthority('PRIMEIRO-LOGIN')" th:if="${usuario?.servidor?.nome == null}" class="hidden-xl-down">PRIMEIRO LOGIN</span>
+						<span th:if="${usuario?.servidor?.nome != null}" th:text="${#strings.toUpperCase(usuario.servidor.nomeDeGuerra)}" class="hidden-xl-down"></span>
+						<img th:if="${usuario?.servidor?.nome != null and usuario?.servidor?.sexo.toString().equals('MASCULINO')}" src="/assets/imagens/perfil.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+					    <img th:if="${usuario?.servidor?.nome != null and usuario?.servidor?.sexo.toString().equals('FEMININO')}" src="/assets/imagens/teste1.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+				    	<i class="fa fa-angle-down"></i>
+					</a>
+					
+					<div class="dropdown-menu dropdown-menu-right animated flipInY">
+						<a href="#" th:if="${usuario.servidor != null}" class="dropdown-item" th:href="@{~/admin/historico/arquivos}" th:inline="html"><i class="fa fa-file-pdf"></i>  Documentos</a>
+						
+						<div class="dropdown-divider"></div>
+						
+						<a href="#" th:if="${usuario.servidor != null}" class="dropdown-item" th:href="@{~/admin/edita/servidor}" th:inline="html"><i class="ti-user"></i> [[#{sistema.menu.usuario.editar}]]</a>
+						
+						<div class="dropdown-divider"></div>
+						
+						<a href="#" class="dropdown-item" th:href="@{/logout}"><i class="fa fa-power-off"></i> [[#{sistema.menu.usuario.sair}]]</a>
+					</div>
+				</li>
+			</ul>
+	</div>
+</nav>

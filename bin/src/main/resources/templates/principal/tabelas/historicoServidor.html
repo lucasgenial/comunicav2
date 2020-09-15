@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Servidores</h5>
+				<hr/>
+				<div class="table-responsive-md">
+					<table id="tabela-servidor" class="table table-sm table-hover" >
+						<thead>
+							<tr>
+								<th scope="col">Instituição</th>
+								<th scope="col">CICOM</th>
+								<th scope="col">Matricula</th>
+								<th scope="col">GH</th>
+								<th scope="col">Nome</th>								
+								<th scope="col">Função</th>
+								<th scope="col">Tipo de Acesso</th>		
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+										
+							<tr th:each="_servidor : ${servidores}" th:classappend="${_servidor.ativo} ? table-default : table-danger">
+								<td th:text="${#strings.capitalize(_servidor.instituicao.nome)}"></td>
+								<td th:text="${_servidor.estabelecimento.nome}"></td>
+								<td th:text="${_servidor.matricula}"></td>
+								<td th:text="${#strings.capitalize(_servidor.hierarquia.nome)}"></td>
+								<td th:text="${_servidor.nome}"></td>								
+								<td th:text="${#strings.capitalize(_servidor.funcao.nome)}"></td>
+								<td th:if="${_servidor.usuario == null}">------------------</td>
+								<td th:if="${_servidor.usuario != null}" th:text="${#strings.capitalize(_servidor.usuario.grupo.nome)}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a id="" th:if="${usuario.servidor.id != _servidor.id and _servidor.usuario == null}" class="dropdown-item" href="" th:href="@{editar/{id}(id=${_servidor.id})}" data-titulo="Editar Servidor" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+<<<<<<< HEAD
+										      <a id="" th:if="${usuario.servidor.id != _servidor.id and usuario.grupo.nome == 'ADMINISTRADOR'}" class="dropdown-item" href="" th:href="@{editar/{id}(id=${_servidor.id})}" data-titulo="Editar Servidor" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+										      <!-- <a id="" class="dropdown-item" href="" th:href="@{servidores/solicitacao/{id}(id=${_servidor.id})}" data-titulo="Adcionar Solicitacao" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Adicionar</a>  -->
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/cadastros/arquivos/{id}(id=${_servidor.id})}" data-titulo="Adcionar Solicitacao" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Arquivo</a>
+=======
+										      <!-- <a id="" class="dropdown-item" href="" th:href="@{servidores/solicitacao/{id}(id=${_servidor.id})}" data-titulo="Adcionar Solicitacao" th:id="${_servidor.id}" th:inline="text" ><i class="far fa-edit"></i> Adicionar</a>  -->
+>>>>>>> Mauricio
+										      <a id="" class="dropdown-item" href="" th:href="@{visualizar/{id}(id=${_servidor.id})}" th:inline="text" th:id="${_servidor.id}"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/report/servidor/{id}(id=${_servidor.id})}" target="_blank" data-titulo="Imprimir Servidor" th:id="${_servidor.id}" th:inline="text" ><i class="fa fa-print"></i> Imprimir</a>
+										      <a class="dropdown-item" href="#" th:href="@{servidores/status/{id}(id=${_servidor.id})}" th:inline="text" th:if="${_servidor.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i>Desabilitar </a>
+										      <a class="dropdown-item" href="#" th:href="@{servidores/status/{id}(id=${_servidor.id})}" th:inline="text" th:if="${_servidor.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i>Habilitar </a>
+										      <!-- <a id="" class="dropdown-item" href="" th:href="@{excluir/{id}(id=${_servidor.id})}" th:inline="text" th:id="${_servidor.id}"><i class="far fa-trash-alt"></i> Excluir</a> -->
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+				
+				 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/servidores/cadastroTerceirizado}">Adicionar Novo</a> 
+				<a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/servidores/visualizarTodos}" >Visualizar</a>				
+			</div>
+		</div>
+	
+	</main>
+	
+	<!-- <div th:replace="fragmentos/modal :: modalExcluir"></div>
+	<div th:replace="fragmentos/modal :: modalWhatsapp"></div>
+	<div th:replace="fragmentos/modal/envioOcorrenciaEmail :: modalEnviarEmail"></div>
+	<div th:replace="fragmentos/modal :: modalEnviovariasservidores"></div>-->
+</section>
+</html>

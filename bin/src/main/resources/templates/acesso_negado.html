@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+	<title>Comunica CICOM - Acesso Negado</title>
+	<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+
+	<body class="container-fluid" style="background-image: url('/assets/imagens/WEB - RGB (2).jpg'); background-size: cover;">
+	<nav class="navbar navbar-expand-md fixed-top navbar-dark" style="background-color: #0d47a1;"  th:fragment="navbar(usuario)">
+	<a class="navbar-brand" href="#" th:href="@{/admin/home}">
+		<img src="/assets/imagens/bootstrap-solid.svg" width="30" height="30" alt="">
+	</a>
+
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-principal" aria-controls="navbarSupportedContent"
+		aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="menu-principal">
+		<ul class="navbar-nav">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" id="menu-login" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<span th:utext="${usuario.nome}"></span>
+					<img src="http://www.torneodj.com/files/avatar/2_120.jpg" class="img-fluid rounded-circle z-depth-0" width="25">
+				</a>
+				
+				<div class="dropdown-menu" aria-labelledby="menu-login">
+					<a class="dropdown-item" href="#" th:href="@{/logout}" th:text="#{sistema.menu.usuario.sair}">Sair</a>
+					<a class="dropdown-item" href="#" th:text="#{sistema.menu.usuario.editar}">Editar Conta</a>
+					<a class="dropdown-item" href="#" th:text="#{sistema.menu.usuario.historico}">Histórico</a>
+				</div>
+			</li>
+		</ul>
+		
+	</div>
+</nav>
+	<div>Acesso negado Contate o seu coordenador de área</div>
+	
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+  </body>
+  <object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</html>

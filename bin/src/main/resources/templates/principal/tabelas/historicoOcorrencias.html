@@ -1,0 +1,138 @@
+<section layout:fragment="content"
+	layout:decorate="~{/fragmentos/layout}">
+	<main>
+	<div class="container-fluid">
+		<!-- INICIO TITULO DA PÁGINA -->
+		<div class="row page-titles">
+			<div class="col-md-5 align-self-center">
+				<h4 class="text-themecolor">DIÁRIO DE OCORRÊNCIAS</h4>
+			</div>
+			<div class="col-md-7 align-self-center text-right">
+				<div class="d-flex justify-content-end align-items-center">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+						<li class="breadcrumb-item active">Histórico Ocorrências</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12">
+				<div class="ribbon-wrapper card">
+					<div class="table-responsive m-t-40">
+						<table id="tabela-ocorrencia-paginada"
+							class="table table-bordered table-striped dt-responsive"
+							cellspacing="0" width="100%">
+							<thead>
+								<tr>
+									<th>SIC</th>
+									<th>Data Ocorrência</th>
+									<th>Tipificação</th>
+									<th>Descrição</th>
+									<th>Cidade</th>
+									<th>Localidade</th>
+									<th>Bairro</th>
+									<th>Enviada</th>
+									<th>Estabelecimento</th>
+									<th>Ação</th>
+								</tr>
+							</thead>
+							<tbody>
+
+<<<<<<< HEAD
+							</tbody>
+						</table>
+					</div>
+
+					<div class="btn-toolbar" role="toolbar"
+						aria-label="Toolbar with button groups">
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{ocorrencias/cadastro}">Adicionar</a>
+						</div>
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{/admin/cadastro/ocorrencias/enviarVarias/email}">Enviar várias E-mail</a>
+						</div>
+						<div class="btn-group mr-2" role="group">
+							<a type="button" class="btn btn-info" th:href="@{/admin/cadastro/ocorrencias/enviarVarias/whatsapp}">Enviar várias Whatsapp</a>
+						</div>
+					</div>
+=======
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+	<title th:text="#{sistema.titulo}">Comunic@CICOM - Histórico de Ocorrências</title>
+	<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Diário de Ocorrências</h5>
+				<hr/>
+				<div class="table-responsive-md">
+					<table id="tabela-ocorrencia" class="table table-sm table-hover" >
+						<thead>
+							<tr>
+								<th scope="col">SIC</th>
+								<th scope="col">Data/Hora</th>
+								<th scope="col">Tipificação</th>
+								<th scope="col">Resumo</th>
+								<th scope="col">Cidade/Bairro</th>
+								<th scope="col">Enviadas</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+										
+							<tr th:each="_ocorrencia : ${ocorrencias}">
+								<th scope="row" th:text="${_ocorrencia.sic}"></th>
+								<td th:text="${_ocorrencia.dataOcorrencia +'-'+ #strings.substring(_ocorrencia.horaOcorrencia,0,5)}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}"></td>
+								<td th:utext="${#strings.unescapeJava(#strings.abbreviate(_ocorrencia.descricao,55))}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome +'/'+_ocorrencia.endereco.bairro.nome)}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.enviada? 'Sim':'Não')}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a id="" class="dropdown-item" href="" th:href="@{ocorrencias/visualizar/{id}(id=${_ocorrencia.id})}" th:inline="text" th:id="${_ocorrencia.id}"><i class="glyphicon glyphicon-eye-open"></i> Visualizar</a>
+										      <a id="" class="dropdown-item" href="" th:href="@{~/admin/editar/ocorrencias/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+											   <a id="" class="dropdown-item" href="" th:href="@{~/admin/report/ocorrencia/{id}(id=${_ocorrencia.id})}" target="_blank" data-titulo="Imprimir Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="fa fa-print"></i> Imprimir</a>
+										      <a id="" class="dropdown-item btn-whatsapp" href="" th:id="${_ocorrencia.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+										      <a id="" class="dropdown-item btn-enviarEmail-ocorrencia" href="" data-titulo="Enviar Ocorrência" th:id="${_ocorrencia.id}"><i class="far fa-envelope"></i> Email</a>
+										      <a id="" class="dropdown-item btn-excluir-ocorrencia" href="" th:href="@{ocorrencias/excluir/{id}(id=${_ocorrencia.id})}" th:inline="text" th:id="${_ocorrencia.id}"><i class="far fa-trash-alt"></i> Excluir</a>
+										      
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+>>>>>>> Mauricio
+				</div>
+			</div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaEmail :: modalEnviarEmail"></div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaWhatsapp :: modalWhatsapp"></div>
+			<div th:replace="fragmentos/modal :: modalMensagem"></div>
+
+		</div>
+		<div id="verificador" th:data-verificador="${verificador}"></div>
+		<div th:if="${emailEnviado == 'ok'}">
+			<script type="text/javascript">
+				window.onload = function() {
+					abrirmodal_alerta_paginainicial();
+				}
+			</script>
+		</div>
+
+	</div>
+	</main>
+</section>

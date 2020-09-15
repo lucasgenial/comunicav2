@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+        <div class="row">
+	        <div class="col-12">
+				<div class="card">
+                    <div class="card-body">
+				
+						<h4 class="card-title">Email</h4>
+                        <h6 class="card-subtitle"></h6>
+						
+							<div class="table-responsive m-t-40">
+								<table id="tabela-emails" class="table table-hover table-bordered table-striped" >
+									<thead>
+										<tr>
+											<th scope="col" >ID</th>
+											<th scope="col" >Nome</th>
+											<th scope="col" >Email</th>
+											<th scope="col" >Ação</th>
+										</tr>
+									</thead>
+									<tbody>
+									  	<tr  th:each="_email : ${emails}" class="" th:classappend="${_email.ativo} ? table-default : table-danger">
+											<th scope="row" th:text="${_email.id}">1</th>
+											<td th:text="${_email.nome}">delivelton.1000@gmail.com</td>
+											<td th:text="${_email.enderecoDeEmail}">delivelton.1000@gmail.com</td>
+											<td class="text-center">
+												<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+													<div class="btn-group" role="group">
+														<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" 
+														data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+													      Ação
+													    </button>
+													    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+													      <a class="dropdown-item btn-editar-email" th:href="@{emails/editar/{id}(id=${_email.id})}" data-titulo="Editar Email" th:id="${_email.id}" th:inline="text" ><i class="far fa-edit"></i> Editar </a>
+													      <a class="dropdown-item" th:href="@{emails/status/{id}(id=${_email.id})}" th:inline="text" th:if="${_email.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> Desabilitar</a>
+													      <a class="dropdown-item" th:href="@{emails/status/{id}(id=${_email.id})}" href="#" th:inline="text" th:if="${_email.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> Habilitar</a>
+													      <a class="dropdown-item btn-excluir-email" href="#" th:href="@{emails/excluir/{id}(id=${_email.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> Excluir</a>
+													    </div>
+													</div>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+									
+								</table>
+							</div>
+							<button type="button" class="btn btn-primary btn-novo-email" data-titulo="Cadastro de Novo Email">Adicionar</button>
+						</div>
+					</div>
+				</div>
+					<div th:replace="fragmentos/modal/email :: modalEmail"></div>
+					<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+			</div>
+</section>
+</html>

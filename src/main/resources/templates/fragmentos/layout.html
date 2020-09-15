@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge chrome=1">
+    
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    	
+	<!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/imagens/pages/login/favicon.png">
+	
+	<title th:text="${tituloPagina}">Comunica CICOM</title>
+	
+	<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+	
+</head>
+
+
+<body sec:authorize="hasAuthority('MASTER') || hasAuthority('GRAFICOS-VISAO-GERAL')" class="skin-blue fixed-layout">
+
+			<!-- INICIO NAVBAR TOPO -->
+			 <header class="topbar">
+	            <div th:insert="fragmentos/navbar-topo :: navbarTopo" th:remove="tag"></div>
+	        </header> 
+	        <!-- FIM NAVBAR TOPO -->
+	        
+	        <!-- INICIO DO CONTEÚDO DAS PÁGINAS -->
+	        <div class="ml-0 page-wrapper">
+				<section layout:fragment="content" th:remove="tag"></section>
+			</div> 
+	        <!-- FIM DO CONTEÚDO DAS PÁGINAS -->
+	        
+	        <!-- INICIO FOOTER -->
+	        <footer th:insert="fragmentos/footer :: footer" th:remove="tag"></footer>
+	        <!-- FIM FOOTER -->
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+
+<body sec:authorize="not hasAuthority('MASTER') AND not hasAuthority('GRAFICOS-VISAO-GERAL')" class="skin-blue fixed-layout">
+		
+		<!-- INICIO PRELOADER -->
+	    <div class="preloader">
+	        <div class="loader">
+	            <div class="loader__figure"></div>
+	            <p class="loader__label">COMUNIC@</p>
+	        </div>
+	    </div>
+<!-- 		 FIM PRELOADER
+ -->	     
+		<div id="main-wrapper">
+<!-- 			INICIO NAVBAR TOPO
+ -->			<header class="topbar">
+	            <div th:insert="fragmentos/navbar-topo :: navbarTopo" th:remove="tag"></div>
+	        </header>
+<!-- 	        FIM NAVBAR TOPO
+ -->	        
+<!-- 	        INICIO NAVBAR ESQUERDO
+ -->	    	<div th:insert="fragmentos/navbar-esquerdo :: navbarEsquerdo" th:remove="tag"></div>    
+<!-- 	        FIM NAVBAR ESQUERDO
+ -->	        
+<!-- 	        INICIO DO CONTEÚDO DAS PÁGINAS
+ -->	        <div class="page-wrapper">
+				<section layout:fragment="content" th:remove="tag"></section>
+			</div>
+<!-- 	        FIM DO CONTEÚDO DAS PÁGINAS
+ -->	        
+<!-- 	        INICIO FOOTER
+ -->	        <footer th:insert="fragmentos/footer :: footer" th:remove="tag"></footer>
+<!-- 	        FIM FOOTER
+ -->		</div>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastros de Processo de Policiamento</h5>
+				<hr/>
+				<div class="table-responsive-md"> 
+					<table id="tabela-instituicoes" class="table table-sm table-hover text-center" >
+						<thead>
+							<tr>
+								<th scope="col" >ID</th>
+								<th scope="col" >Nome</th>								
+								<th scope="col" >Status</th>
+								<th scope="col" >A&ccedil;&atilde;o</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_modalidades : ${modalidadesLista}" th:classappend="${_modalidades.ativo} ? table-default : table-danger">
+								<th scope="row" th:text="${_modalidades.id}">1</th>
+								<td class="text-left" th:text="${_modalidades.nome}">Nome</td>								
+								<td th:if="${_modalidades.ativo==true}">Ativo</td>
+								<td th:if="${_modalidades.ativo==false}">Inativo</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-permissoes.titulo.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a class="dropdown-item btn-editar-modalidade" th:href="@{modalidades/editar/{id}(id=${_modalidades.id})}" data-titulo="Editar Modalidade" th:id="${_modalidades.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{modalidade.tabela.editar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{modalidades/status/{id}(id=${_modalidades.id})}" th:inline="text" th:if="${_modalidades.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{modalidade.tabela.desabilitar}]]</a>
+										      <a class="dropdown-item" href="#" th:href="@{modalidades/status/{id}(id=${_modalidades.id})}" th:inline="text" th:if="${_modalidades.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{modalidade.tabela.habilitar}]]</a>
+										      <a class="dropdown-item btn-excluir-modalidade" href="#" th:href="@{modalidades/excluir/{id}(id=${_modalidades.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{modalidade.tabela.excluir}]]</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<button type="button" class="btn btn-primary btn-nova-modalidade" data-titulo="Cadastro de Nova Modalidade">Adicionar</button>
+				
+			</div>
+		</div>
+		<div th:replace="fragmentos/modal/modalidade :: modalModalidade"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+		
+	</main>
+	<script src="/assets/js/validador/form-modalidade.js"></script>
+</section>
+</html>

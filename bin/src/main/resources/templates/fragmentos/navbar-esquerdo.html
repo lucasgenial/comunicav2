@@ -1,0 +1,105 @@
+	<aside class="left-sidebar" th:fragment="navbarEsquerdo">
+			<div class="scroll-sidebar">
+				<nav class="sidebar-nav">
+					<ul id="sidebarnav">
+						<li sec:authorize="hasAuthority('MASTER')" >
+							<a class="waves-effect waves-dark" href="#" th:href="@{/admin/home/}" aria-expanded="false"><i class=" icon-speedometer"></i><span class="hide-menu">Início</span></a>
+						</li>
+					
+						<li sec:authorize="hasAuthority('PRIMEIRO-LOGIN')" >
+							<a class="waves-effect waves-dark" th:href="@{~/admin/servidores/cadastro}" aria-expanded="false"><i class=" icon-speedometer"></i><span class="hide-menu">Primeiro Login</span></a>
+						</li>
+					
+						<li sec:authorize="hasAuthority('MASTER')">
+							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" icon-graph"></i><span class="hide-menu">Gráficos</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li><a href="#" th:href="@{~/admin/home/grafico/efetivo}" name="graficoEfetivo"  th:text="#{sistema.menu.graficos.efetivos}">Efetivos</a></li>
+								<li><a href="#" th:href="@{~/admin/home/grafico/ocorrencia}"name="graficoOcorrencia"  th:text="#{sistema.menu.graficos.ocorrencias}">Ocorrências</a></li>
+							</ul>
+						</li>
+	                 
+						<li sec:authorize="hasAuthority('TELEDESPACHO')"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" ti-files"></i><span class="hide-menu"> Ocorrências</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li><a href="#" th:href="@{~/admin/cadastros/ocorrencias/cadastro}" th:text="#{sistema.menu.ocorrencias.sub.novaOcorrencia}">Nova Ocorrência</a></li>
+								<li><a href="#" th:href="@{~/admin/cadastros/ocorrencias/historico}" th:text="#{sistema.menu.ocorrencias.sub.historico}">Histórico</a></li>
+								<li><a href="#" th:href="@{~/admin/cadastros/ocorrencias/pesquisar}" th:text="#{sistema.menu.ocorrencias.sub.pesquisarOcorrencia}">Pesquisar Ocorrência</a></li>
+							</ul>
+						</li>
+	                  
+						<li sec:authorize="hasAuthority('TELEDESPACHO')"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class=" ti-user"></i><span class="hide-menu"> Efetivos</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<span th:if="${usuario.servidor.estabelecimento.nome == 'COSTA DO DESCOBRIMENTO'}">
+									<li sec:authorize="hasAuthority('TELEDESPACHO')"><a href="#" th:href="@{~/admin/cadastro/efetivo/mesa}">Nova Mesa</a></li>
+									<li sec:authorize="hasAuthority('TELEDESPACHO')"><a href="#" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa}">Histórico de Mesas</a></li>
+									<li sec:authorize="hasAuthority('TELEDESPACHO')"><a href="#" th:href="@{~/admin/gestaoefetivo/mesa/pesquisar}">Pesquisar Mesa</a></li>
+							    	<li sec:authorize="hasAuthority('TELEDESPACHO')"><a href="#" th:href="@{~/admin/cadastro/efetivo/historicoPoliciamento/ativo/cidade/190}">Efetivos Ativos</a>
+							    </span>
+								<span th:if="${usuario.servidor.estabelecimento.nome != 'COSTA DO DESCOBRIMENTO'}">
+									<li sec:authorize="hasAuthority('TELEDESPACHO')"><a href="#">Módulo em Desenvolvimento</a></li>
+							    </span>
+							</ul>
+						</li>
+	                  
+						<li sec:authorize="hasAuthority('TELEDESPACHO')">
+							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-calendar"></i><span class="hide-menu"> Acessos</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li><a href="#" th:href="@{~/admin/cadastros/visitas/historico}">Controle de Acesso</a></li>
+							</ul>
+						</li>
+	                  
+						<li sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')">
+							<a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-pie-chart"></i><span class="hide-menu"> Relatórios</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li th:if="${usuario.servidor.estabelecimento.nome != 'COSTA DO DESCOBRIMENTO'}">
+									<a href="#" th:href="@{~/admin/relatorio/dadosEstatisticos}" ><i class="ti-stats-down"></i> Dados Estatísticas</a>
+								</li>
+								<li th:if="${usuario.servidor.estabelecimento.nome != 'COSTA DO DESCOBRIMENTO'}">
+									<a href="#" th:href="@{~/admin/relatorio/graficos}" ><i class="ti-stats-down"></i> Gerar Gráficos</a>
+								</li>
+								<li th:if="${usuario.servidor.estabelecimento.nome != 'COSTA DO DESCOBRIMENTO'}">
+									<a href="#">Módulo em Desenvolvimento</a>
+								</li>
+							</ul>
+						</li>
+	
+						<li sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')"> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu"> Administrativa</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')"><a href="#" th:href="@{~/admin/cadastros/usuarios/historico}">Usuários</a></li>
+								<li sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')"><a href="#" th:href="@{~/admin/cadastros/servidores/historico}">Servidores</a></li>
+								<li sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')"><a href="#" th:href="@{~/admin/cadastros/localidades/historico}">Localidades</a></li>
+								<li sec:authorize="hasAuthority('COORDENADOR-ADJUNTO')"><a href="#" th:href="@{~/admin/historico/bairros}">Bairros</a></li>
+								<li sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')"><a href="#" th:href="@{~/admin/cadastros/historico/unidades}">Cadastrar Unidades / E-mail</a></li>
+								<li sec:authorize="hasAuthority('COORDENADOR-SUPERVISOR')"><a href="#" th:href="@{~/admin/historico/estabelecimentos}">CICOM</a></li>
+							</ul>
+						</li>
+	
+						<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-settings"></i><span class="hide-menu">Sistema</span></a>
+							<ul aria-expanded="false" class="collapse">
+								<li class="nav-small-cap">Sistema</li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/historico/auditorias}">Auditoria</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/permissoes}">Grupos de Permissões</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/emails}">e-Mails</a></li>
+								<li class="nav-small-cap">Ocorrencias</li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/cidades}">Cidades</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/tipificacoes}">Tipificação</a></li>
+								<li class="nav-small-cap">Efetivo</li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/servico/historico}">Prestação Serviço</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/servidoresexternos/historico}">Servidores Externos</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/instituicoes}">Instituições</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/historico/unidades}">Unidades</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/cadastros/modalidades}">Processos de Policiamento</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/home/cadastro/funcoes}">Funções</a></li>
+								<li class="nav-small-cap">Gráficos</li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/home/cadastro/recursos}">Recursos</a></li>
+								<li sec:authorize="hasAuthority('ADMINISTRADOR')"><a href="#" th:href="@{~/admin/home/cadastro/tipoServico}">Tipos de Serviços</a></li>
+							</ul>
+						</li>
+						
+						<li>
+							<a class="waves-effect waves-dark" href="#" th:href="@{/logout}" aria-expanded="false"><i class="far fa-circle text-danger"></i><span class="hide-menu">Logout</span></a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+		</aside>
+

@@ -1,0 +1,112 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">VIOLÊNCIA CONTRA A MULHER</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Violência Contra A Mulher</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12">
+					<form id="formGerarDadosEstatisticos" th:Object="${ocorrencia}" class="form-ocorrencia" th:action="@{/gerarDadosEstatisticos}" method="POST">
+						<!-- <h5 class="card-title mb-2">Gerador de Dados Estatísticos</h5> -->
+				<!-- 		
+						<div class="ribbon-wrapper align-items-center text-center card">
+						 <div class="ribbon ribbon-info">GERAR DADOS ESTATÍTICOS</div>
+							<div class="form-group">
+								<div class="form-row">
+									<div class="form col-6" >
+										<label for="anoInicial text-center">Ano:</label>
+										<select id="anoInicial" name="anoInicial" class="form-control " required>
+											<option th:each="_anosValidos : ${anosValidos}" th:text="${_anosValidos.value}" th:value="${_anosValidos.value}"></option>	
+										</select>
+									</div>
+									<div class="form-group col-6">
+										<label for="estabelecimentos">Estabelecimento:</label>
+										<select id="estabelecimentos" name="estabelecimento" class="form-control " required>
+	 										<option th:each="_estabelecimento: ${estabelecimentos}" th:text="${_estabelecimento.nome}" th:value="${{_estabelecimento}}"></option>
+	 									</select>
+									</div>
+									<div class="form-group col-6">
+										<label for="cidadeDisponivel">Cidade:</label>
+										<select id="cidadeDisponivel" name="endereco.cidade" class="form-control ">
+											<option value="">Selecione uma cidade</option>
+											<option th:each="_cidade : ${cidades}" th:text="${_cidade.nome}" th:value="${{_cidade}}"></option>
+										</select>							
+									</div>
+									<div class="form-group col-6">
+										<label for="localidadeDisponivel">Localidade:</label>
+										<select id="localidadeDisponivel" name="endereco.cidade.localidade" class="form-control ">
+											<option value="">Selecione uma localidade</option>
+										</select>							
+									</div>
+									<div class="form-group col-6" th:each="_categoria : ${categorias}">
+										<button class="btn btn-info form-control" type="submit" name="persquisarPor" th:text="${_categoria.nome}" th:value="${_categoria.id}"></button>
+									</div>
+									
+									<div th:if="${resultados != null}" class="form-group col-6">
+										<button class="btn btn-info-escuro form-control">TAXA DE DELITO</button>
+									</div>
+									<div class="form-group col-12">
+									<br>
+										<label th:if="${resultados != null}" for="cidadeDisponivel">[[${usuario.servidor.estabelecimento.endereco.cidade.nome}]] | [[${usuario.servidor.estabelecimento.endereco.cidade.uf.nome}]] | BRASIL :</label>
+										<br>
+										<button th:if="${resultados != null}" class="btn btn-info-escuro form-control">DELEGACIA RESPONSÁVEL</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+						
+					</form>
+					<div  th:if="${resultados != null}" class="ribbon-wrapper card" th:each="_result : ${resultados}">
+						<div class="ribbon ribbon-info">[[${_result.mes}]]</div>
+							<div class="form-row" >
+								<div class="form-group col-12" id="dadosGerados">
+									<hr />
+									<div class="table-responsive-md"> 
+										<table id="tabela-resultados" class="table table-sm table-hover" >
+											<thead>
+												<tr>
+													<th scope="col">TIPIFICACÃO</th>
+													<th scope="col">SEDE</th>
+													<th scope="col">ZONA RURAL</th>
+													<th scope="col">DEMAIS LOCALIDADES</th>
+													<th scope="col">TOTAL</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr th:each="_dado : ${_result.dados}">
+													<td th:text="${_dado.tipificacao}"></td>
+													<td th:text="${_dado.sede}"></td>
+													<td th:text="${_dado.zonaRural}"></td>
+													<td th:text="${_dado.outras}"></td>
+													<td th:text="${_dado.total}"></td>
+												</tr>
+												<tr class="text-info">
+													<td >TOTAL NO MÊS</td>
+													<td th:text="${_result.totalSede}"></td>
+													<td th:text="${_result.totalZonaRural}"></td>
+													<td th:text="${_result.totalOutras}"></td>
+													<td th:text="${_result.totalDoMes}"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>			
+				</div>
+			</div>
+		</main>
+	</section>
+</html>

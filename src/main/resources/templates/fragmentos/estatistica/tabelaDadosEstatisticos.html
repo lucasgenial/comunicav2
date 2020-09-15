@@ -1,0 +1,64 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">DADOS ESTATISTICOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)" th:href="@{.}">Gerar Dados Estatísticos</a></li>
+				            <li class="breadcrumb-item active">Apresentação Dados Estatisticos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">APRESENTAÇÃO</div>
+						
+						<div class="col-lg-12">
+	                        <div class="card">
+	                            <div class="card-body">
+	                                <h4 class="card-title">DADOS ESTATÍSTICOS</h4>
+	                                <h6 class="card-subtitle">Período:</h6>
+	                                <div class="table-responsive">
+	                                    <table id="tabela-dadosEstatisticos" class="table color-bordered-table muted-bordered-table">
+	                                        <thead>
+	                                            <tr>
+	                                                <th>[[${titulo}]]</th>
+	                                                <th>JAN</th>
+	                                                <th>FEV</th>
+	                                                <th>MAR</th>
+	                                                <th>ABR</th>
+	                                                <th>MAI</th>
+	                                                <th>JUN</th>
+	                                                <th>JUL</th>
+	                                                <th>AGO</th>
+	                                                <th>SET</th>
+	                                                <th>OUT</th>
+	                                                <th>NOV</th>
+	                                                <th>DEZ</th>
+	                                                <th>TOTAL</th>
+	                                            </tr>
+	                                        </thead>
+	                                        <tbody>
+	                                        
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

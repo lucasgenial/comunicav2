@@ -1,0 +1,160 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">		
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+					<h4 class="text-themecolor">PESQUISAR OCORRÊNCIAS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+					<div class="d-flex justify-content-end align-items-center">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+							<li class="breadcrumb-item"><a href="javascript:void(0)">Ocorrências</a></li>
+							<li class="breadcrumb-item active">Pesquisar</li>
+						</ol>
+					</div>
+				</div>
+			</div>							
+			<div class="row">
+				<div class="col-12">									
+					<form id="formPesquisaOcorrencia" class="form-ocorrencia" th:object="${ocorrencia}" th:action="@{/ocorrencias/visualizar/filtrar}" method="post">									
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">REFERÊNCIAS</div>									
+							<div class="form-row">
+								<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+									<label for="sic">Número</label> 
+									<input id="sic" type="number" class="form-control form-control-sm" name="sic" th:field="*{sic}">
+								</div>
+	
+								<div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+									<label for="tipificacao">Tipificação</label> 
+									<select id="tipificacao" name="tipificacao" class="form-control form-control-sm liberar" readonly>
+										<option value="">Selecionar</option>
+										<option th:each="_tipificacao : ${tipificacoes}" name="tipificacao" th:text="${_tipificacao.nome}" th:value="${{_tipificacao}}">Selecione</option>
+									</select>
+								</div>
+								<div class="form-group col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+									<label for="estadoOcorrencia">Status</label> 
+									<select id="estadoOcorrencia" name="estadoOcorrencia" class="form-control form-control-sm liberar" th:field="*{estadoOcorrencia}" readonly>
+										<option value="">Selecionar</option>
+										<option th:each="_estadoOcorrencia: ${estadosOcorrencia}" th:value="${{_estadoOcorrencia.id}}" th:text="${_estadoOcorrencia.nome}"></option>
+									</select>
+								</div>
+								<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+									<label for="dataOcorrencia">Data Inicial</label> 
+									<input id="dataInicio" type="text" name="dataInicio" readonly class="form-control form-control-sm input-group liberar" placeholder="DD/MM/YYYY HH:mm" autocomplete="off">
+								</div>
+	
+								<div class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-2">
+									<label for="dataOcorrencia">Data Final</label> 
+									<input id="dataFim" type="text" name="dataFim" readonly class="form-control form-control-sm input-group liberar" placeholder="DD/MM/YYYY HH:mm" autocomplete="off">
+								</div>
+							</div>
+						</div><!-- ribbon de referencias -->
+									
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">LOCALIZAÇÃO</div>
+							<div class="form-row">	
+								<div th:if="${usuario.estabelecimento.size() > 1}" class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<label for="estabelecimento">Estabelecimento</label> 
+									<select id="estabelecimento" name="estabelecimento" class="form-control form-control-sm liberar" required readonly>
+										<option value="">Selecionar</option>
+										<option th:each="_cicom: ${cicoms}" th:value="${{_cicom.id}}" th:text="${_cicom.nome}"></option>
+									</select> 
+									<span class="fv-help-block" th:if="${#fields.hasErrors('endereco.cidade')}" th:errors="*{endereco.cidade}"></span>
+								</div>
+								
+								<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<label for="cidade">Cidade</label> 
+									<select id="cidade" name="endereco.cidade" class="form-control form-control-sm btn-escolhercidade liberar" readonly>
+										<option value="">Selecionar</option>
+										<option th:each="_cidade : ${cidades}" th:id="${_cidade.id}"
+											th:text="${_cidade.nome}" th:value="${{_cidade}}">Selecione</option>
+									</select>
+								</div>
+	
+								<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<label for="localidade">Localidade/Distrito</label> 
+									<select id="localidade" name="endereco.bairro.localidade" class="form-control form-control-sm" title="teste" th:field="*{endereco.bairro.localidade}" readonly>
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+	
+								<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+									<label for="bairro">Bairro</label> <select id="bairro" name="endereco.bairro" class="form-control form-control-sm" title="teste" th:field="*{endereco.bairro}" readonly>
+										<option value="">Selecionar</option>
+									</select>
+								</div>
+								
+							</div>
+							
+							<div class="form-row">	
+								<button type="submit" class="btn btn-info">Buscar</button>
+								<button id="limparCampos" type="button" class="btn btn-info ml-1">Limpar</button>
+							</div>
+						</div><!-- div robbon localização -->									
+					</form>
+				</div><!-- div do form -->
+				</div><!-- Div Row -->
+					<div class="row">
+						<div class="col-12">			
+							<div class="ribbon-wrapper card pt-5">
+							<form target="blank" action="admin/cadastros/ocorrencias/imprimir/varias" method="post">
+								<input hidden="" th:each="_ocorrencia : ${ocorrencias}" th:value="${_ocorrencia.id}" name="listaDeOcorrencias"/>			
+								<div class="ribbon ribbon-info">RESULTADO DA BUSCA</div>																	
+									<div class="table-responsive">
+										<table id="tabela-pesquisa-paginada" class="table table-sm table-bordered table-striped dt-responsive text-center" cellspacing="0" width="100%">
+											<thead>
+												<tr>
+													<th>SIC</th>
+													<th>Data Ocorrência</th>
+													<th>Tipificação</th>
+													<th>Descrição</th>
+													<th>Cidade</th>
+													<th>Localidade</th>
+													<th>Bairro</th>
+													<th>Ação</th>
+												</tr>
+											</thead>
+											<tbody>									
+												  <tr th:each="_ocorrencia : ${ocorrencias}" th:classappend="${_ocorrencia.enviada} ?   table-enviada : table-default">
+													<!-- <tr th:each="_ocorrencia : ${ocorrencias}" th:classappend="${_ocorrencia.enviada} ?   table-enviada : table-default"> -->
+													<th scope="row" th:text="${_ocorrencia.sic}"></th>
+													<td th:text="${#temporals.format(_ocorrencia.dataOcorrencia, 'dd/MM/yyyy HH:mm')}"></td>
+													<td th:text="${_ocorrencia.tipificacao.nome}"></td>
+													<td th:utext="${#strings.unescapeJava(#strings.abbreviate(_ocorrencia.descricao,45))}"></td>
+													<td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome)}"></td>
+													<td th:text="${#strings.capitalize(_ocorrencia.endereco.bairro.localidade.nome)}"></td>
+													<td th:text="${#strings.capitalize(_ocorrencia.endereco.bairro.nome)}"></td>
+														<!-- <td><input type="checkbox" th:id="${_ocorrencia.id}" class="enviarVarias ocorrenciaSelecionada" th:value="${_ocorrencia.id}" name="listaDeOcorrencias"></td> -->
+													 <td class="text-center" id="botaoEditar">
+														<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+															<div class="btn-group" role="group">
+																<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ação</button>
+																<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+																	<a class="dropdown-item" id="" href="" th:href="@{~/admin/editar/ocorrencias/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text"><i class="far fa-edit"></i> Editar</a>
+																	<a class="dropdown-item" th:href="@{~/admin/visualiza/ocorrencias/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text"><i class="far fa-edit"></i> Visualizar</a>
+																	<a class="dropdown-item" id="" href="" th:href="@{~/admin/report/ocorrencia/{id}(id=${_ocorrencia.id})}" target="_blank" data-titulo="Imprimir Ocorrência" th:id="${_ocorrencia.id}" th:inline="text"><i class="fa fa-print"></i> Imprimir</a>
+																	<a class="dropdown-item btn-whatsapp" id="" href="" th:id="${_ocorrencia.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a> 
+																	<a class="dropdown-item btn-enviarEmail-ocorrencia" id="" href="" data-titulo="Enviar Ocorrência" th:id="${_ocorrencia.id}"><i class="far fa-envelope"></i> Email</a>
+																</div>
+															</div>
+														</div>
+													</td> 
+												</tr>  
+											</tbody>
+										</table>								
+									</div>									
+								<div th:if="${ocorrencias != null && ocorrencias.size() > 0}"  class="form-row ml-4 mt-3">	
+									<button type="button" class="btn btn-info btn-enviar-varias">Enviar varias por email</button>
+									<button type="submit" class="btn btn-info ml-1">Imprimir todas</button>
+								</div>
+								</form>									
+						</div><!-- div ribbon antes table -->
+					</div>
+				</div>		
+			<div th:replace="fragmentos/modal/envioOcorrenciaEmail :: modalEnviovariasOcorrencias"></div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaEmail :: modalEnviarEmail"></div>
+		</div><!-- container -->
+	</main>
+</section>

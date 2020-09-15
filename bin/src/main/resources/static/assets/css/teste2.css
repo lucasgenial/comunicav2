@@ -1,0 +1,262 @@
+<<<<<<< HEAD
+@media only screen and (min-width: 768px) {
+	#apresentacaoPorStatus>.owl-stage-outer>.owl-stage>.owl-item {
+		display: inline-grid;
+		float: none;
+	}
+}
+
+.owl-wrapper {
+    margin: 0 auto;
+}
+
+.owl-stage{
+    margin: 0 auto;
+}
+
+#apresentacaoPorStatus .item {
+	background: #FFC000;
+	padding: 30px 0px;
+	margin: 11px;
+	color: #000;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: run-in;
+	text-align: center;
+	height: 160px;
+	padding: 1rem;
+}
+
+#apresentacaoPorStatus .item h4 {
+	height: 60px;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+}
+
+#apresentaPorClassificacao .item {
+	background: #FFC000;
+	padding: 30px 0px;
+	margin: 11px;
+	color: #000;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: run-in;
+	text-align: center;
+	height: 160px;
+	padding: 1rem;
+}
+
+#apresentaPorClassificacao .item h4 {
+	height: 60px;
+	font-size: 20px;
+	font-weight: 700;
+	text-align: center;
+}
+
+#apresentaPorCidades .item {
+	padding: 30px 0px;
+	margin: 11px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: run-in;
+	text-align: center;
+	height: 160px;
+	padding: 1rem;
+}
+
+h4.text-modalidade{
+    color: #333;
+    text-align: center;
+    margin: 10 auto;
+}
+
+h3.text-number{
+	text-align: center;
+}
+
+h4 {
+	font-weight: bold;
+	font-family: inherit;
+	font-weight: 1000;
+=======
+h4{
+	font-size: 18px;
+    font-weight: 400;
+    font-family: inherit;
+    line-height: 1.1;
+    color: inherit;
+>>>>>>> Mauricio
+}
+
+.x_title h4 {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.x_title h4 {
+	text-overflow: ellipsis;
+}
+
+.x_title h4 {
+	overflow: hidden;
+}
+
+@media ( max-width :1200px) {
+	.x_title h4 {
+		width: 62%;
+		font-size: 17px;
+	}
+}
+
+@media ( max-width :1270px) and (min-width:192px) {
+	.x_title h4 small {
+		display: none;
+	}
+}
+
+.x_panel, .x_title {
+	margin-bottom: 10px;
+}
+
+.accordion .panel-heading {
+	background: #F2F5F7;
+	padding: 13px;
+	width: 100%;
+	display: block;
+}
+
+.accordion .panel:hover {
+	background: #F2F5F7;
+}
+
+.x_panel {
+	width: 100%;
+	padding: 10px 17px;
+	display: inline-block;
+	background: #fff;
+	border: 1px solid #E6E9ED;
+	-webkit-column-break-inside: avoid;
+	-moz-column-break-inside: avoid;
+	column-break-inside: avoid;
+	opacity: 1;
+	transition: all .2s ease;
+}
+
+.x_title {
+	border-bottom: 2px solid #E6E9ED;
+	padding: 1px 5px 6px;
+}
+
+.x_title .filter {
+	width: 40%;
+	float: right;
+}
+
+.x_content, table.tile td ul li a, table.tile_info {
+	width: 100%
+}
+
+.x_title h4 {
+	margin: 5px 0 6px;
+	float: left;
+	display: block;
+}
+
+.x_title h4 small {
+	margin-left: 10px;
+}
+
+.x_title span {
+	color: #BDBDBD;
+}
+
+.x_content {
+	width: 100%
+}
+
+.x_content {
+	padding: 0 5px 6px;
+	float: left;
+	clear: both;
+	margin-top: 5px;
+}
+
+.x_content h4 {
+<<<<<<< HEAD
+	font-size: 18px;
+=======
+	font-size: 16px;
+	font-weight: 500;
+>>>>>>> Mauricio
+}
+
+legend {
+	padding-bottom: 7px;
+}
+
+.x_title {
+	padding: 5px 5px 7px;
+}
+
+.x_title h3 {
+	margin: 0;
+	font-weight: 400;
+}
+
+/* Toolbox */
+ul.nav.navbar-right.panel_toolbox {
+	
+}
+
+.panel_toolbox {
+	float: right;
+<<<<<<< HEAD
+	/* 	MinhaModificaçao  70px --> 0px */
+	min-width: 0px;
+=======
+/* 	MinhaModificaçao  70px --> 0px */
+	min-width: 0px; 
+>>>>>>> Mauricio
+}
+
+.panel_toolbox>li {
+	float: left;
+	cursor: pointer
+}
+
+.panel_toolbox>li>a {
+	padding: 5px;
+	color: #C5C7CB;
+	font-size: 14px
+}
+
+.panel_toolbox>li>a:hover {
+	background: #F5F7FA
+}
+
+/* Navbar-Right */
+.navbar-right {
+	margin-right: 0
+}
+
+.top_nav .navbar-right {
+	margin: 0;
+	width: 70%;
+	float: right
+}
+
+.top_nav .navbar-right li {
+	display: inline-block;
+	float: right;
+	position: static
+}
+
+@media ( min-width :480px) {
+	.top_nav .navbar-right li {
+		position: relative
+	}
+}

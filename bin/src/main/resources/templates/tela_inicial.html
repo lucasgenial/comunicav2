@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Registro Usuario</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main>
+	<div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-sm-11 col-md-11 col-lg-11 col-xl-11">
+						<h5 class="card-title mb-2">DashBoard</h5>
+						<div class="alert alert-danger" role="alert" th:if="${estabelecimento.id} == null">
+							  Selecione um estabelecimento para obter os gráficos
+						</div>
+					</div>
+
+					<div class="col-sm-1 col-md-1 col-lg-1 col-xl-1">
+						<nav class="navbar navbar-expand-lg navbar-light">
+							<div class="container-fluid">
+								<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#configuraDashboard"
+									aria-expanded="false" aria-controls="collapseExample">
+									<i class="fa fa-wrench"></i>
+								</button>
+							</div>
+						</nav>
+					</div>
+				</div>
+				
+				<div class="row collapse" id="configuraDashboard">
+					<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<div class="card">
+							<div class="card-body">
+								<form id="formGraficosDashboard" th:action="@{/configuraDashboard}" method="POST">
+									<div class="form-group" th:object="${estabelecimento}">
+										<h6>CONFIGURAÇÃO DO DASHBOARD</h6>
+										<div class="form-control form-control-sm">
+											<div class="form-row" >
+												<div class="form-group col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+													<label for="estabelecimento">CICOM</label>
+													<select id="estabelecimento" name="estabelecimento" class="form-control form-control-sm" required>
+														<option value="">Selecione</option>
+														<option th:each="_estabelecimento: ${estabelecimentos}" th:value="${{_estabelecimento.id}}" th:if="${estabelecimento} != null" th:selected="${_estabelecimento.id == estabelecimento.id}" th:text="${_estabelecimento.nome}"></option>
+														<option th:each="_estabelecimento: ${estabelecimentos}" th:value="${{_estabelecimento.id}}" th:if="${estabelecimento} == null" th:text="${_estabelecimento.nome}"></option>
+													</select>
+												</div>
+											</div>
+											<button type="submit" name="salvar" class="btn btn-success">SALVAR</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<hr>
+				<div id="refreshGraficosDashBoard">
+
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-2 col-xl-5">
+							<div class="x_panel">
+								<div class="x_content">
+									<div class="x_title">
+										<h4>REGISTROS DE OCORRÊNCIAS POR TIPIFICAÇÃO</h4>
+										<div class="clearfix"></div>
+									</div>
+									<div id="grf_1" style="width: 100%; min-height: 400px"></div>
+								</div>
+							</div>
+						</div>
+	
+						<div class="col-sm-12 col-md-6 col-lg-2 col-xl-7">
+							<div class="x_panel">
+								<div class="x_content">
+									<div class="x_title">
+										<h4>REGISTROS DE OCORRÊNCIAS POR HORA</h4>
+										<div class="clearfix"></div>
+									</div>
+									<div id="grf_2" style="width: 100%; min-height: 400px"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+	
+					<div class="row">
+						<div class="col-sm-12 col-md-6 col-lg-2 col-xl-7">
+							<div class="x_panel">
+								<div class="x_content">
+									<div class="x_title">
+										<h4>RESUMO DE REGISTROS DE OCORRÊNCIAS POR ÁREA DE
+											ABRANGÊNCIA</h4>
+										<div class="clearfix"></div>
+									</div>
+									<div id="grf_3" style="width: 100%; min-height: 400px"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	<script src="/assets/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/echarts/dist/echarts.min.js"></script>
+	<script src="/assets/js/graficosDashboard.js" type="text/javascript"></script>
+	<script src="/assets/js/refreshDashboard.js" type="text/javascript"></script>
+	<script  th:inline="javascript">
+		geradorDeGraficosDashboard([[${estabelecimento.id} == null? 0:${#strings.escapeJavaScript(estabelecimento.id)} ]]);
+	</script>
+</body>
+</html>

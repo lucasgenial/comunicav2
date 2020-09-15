@@ -1,0 +1,61 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">CADASTRO DE RECURSOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Histórico Recurso</a></li>
+				            <li class="breadcrumb-item active">Cadastro Recursos</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			
+			<div class="row col-md-auto ml-sm-auto col-lg-7 mx-auto">
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<form id="formRecurso" class="form-recurso" th:object="${recurso}" th:action="@{/admin/cadastrarRecurso}" method="POST">
+						<div class="ribbon-wrapper card">
+							<div class="ribbon ribbon-info">RECURSOS</div>
+							<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+								<h6>Atenção, corrija os erros sinalizados abaixo:</h6>
+								<div class="alert alert-danger" role="alert">
+									<ul><li th:each = "err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li></ul>
+								</div>								
+							</div> <!-- Erros -->
+							
+							<div class="form-row">
+								<div class="form-group col-md-4">
+									<label for="id">ID</label>
+									<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" readonly="readonly"/>
+								</div>
+							</div>
+							
+							<div class="form-row">
+							    <div class="form-group col-md-12">
+									<label for="nome">Recurso</label>
+								    <input type="text" class="text-uppercase form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+							    </div>
+							</div>
+							
+							<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			                    	<div class="btn-group mr-2" role="group">			
+										<a type="button" th:href="@{~/admin/historico/recursos}" class="btn btn-info">Voltar</a>
+									</div>
+									<div class="btn-group mr-2" role="group">
+										<button id="btn-editar-recurso" th:if="${edicao}" type="submit" name="atualizar" class="btn btn-success">Salvar Modificações</button>
+										<button id="btn-salvar-recurso" th:if="${!edicao}" type="submit" name="cadastrar" class="btn btn-success">Salvar</button>
+									</div>
+								</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</main>
+</section>

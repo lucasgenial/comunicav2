@@ -1,0 +1,117 @@
+<div id="modal-preTabela" th:fragment="modalPreTabela">
+	<form class="form-material m-t-40" id="formDaTabelaPaginada" th:action="@{{link} (link=${mappingCompleto})}">
+		<div class="row m-4 col-16 justify-content-between">
+			<div class="col-4 align-self-end row">
+				<select id="resultadosPorPagina" name="resultadosPorPagina" th:field="${bookPage.size}" class="form-control form-control-sm col-2">
+					<option value="10">10</option>
+					<option value="20">20</option>
+					<option value="30">30</option>
+					<option value="40">40</option>
+				</select>
+				<label for="resultadoPorPagina" class="col-10 mb-0">resultados por página</label>
+			</div>
+
+			<div class="col-5 row">
+				<label for="parametroDePesquisa" class="offset-5 mr-2 ">Pesquisar</label>
+				<input th:value="${parametroDePesquisa}" type="text" id="parametroDePesquisa" name="parametroDePesquisa"
+					autofocus="autofocus" onfocus="this.selectionStart = this.selectionEnd = this.value.length;"
+					class="mb-2 col-4 form-control form-control-sm">
+			</div>
+		</div>
+</div>
+
+<div id="modal-posTabela" th:fragment="modalPosTabela">
+	<div class="row m-4 col-16 justify-content-between">
+		<p class="sm col-4">Mostrando 1 até [[${bookPage.size}]] de [[${bookPage.totalElements}]] registros</p>
+
+		<div class="col-6 row">
+			<ul class="nav nav-pills offset-4 col-8 sm" th:if="${bookPage.totalPages > 5}">
+
+				<li th:if="${bookPage.number == 0}" class="sm nav-item">
+					<button type="submit" class="sm btn btn-outline-primary border" value="0" name="page">Anterior</button>
+				</li>
+
+				<li th:if="${bookPage.number > 0}" class="sm nav-item">
+					<button class="sm btn btn-primary border" name="page" th:value="${bookPage.number-1}">Anterior</button>
+				</li>
+
+				<li class="sm nav-item">
+					<button class="sm btn border" th:classappend="${bookPage.number == 0} ? btn-primary : btn-outline-primary"
+						name="page" value="0">0</button>
+				</li>
+
+				<li th:if="${bookPage.number > 2 && (bookPage.number >= 0)}" class="sm nav-item">
+					<p class="sm btn btn-outline-primary border">...</p>
+				</li>
+
+				<li th:if="${bookPage.number >= 0 && bookPage.totalPages >= 3  && bookPage.number < 3 }"
+					class="sm nav-item" th:each="numeroDaPagina : ${#numbers.sequence(1, 4)}">
+					<button class="sm btn border" th:text="${numeroDaPagina}" name="page" th:value="${numeroDaPagina}"
+						th:classappend="${bookPage.number}==${numeroDaPagina} ? btn-primary : btn-outline-primary"></button>
+				</li>
+
+				<li th:if="${bookPage.number >= 3 && (bookPage.number + 2) < bookPage.totalPages}"
+					class="sm nav-item" th:each="numeroDaPagina : ${#numbers.sequence(bookPage.number-1, bookPage.number+1)}">
+					<button class="sm btn border" th:text="${numeroDaPagina}" name="page" th:value="${numeroDaPagina}"
+						th:classappend="${bookPage.number}==${numeroDaPagina} ? btn-primary : btn-outline-primary"></button>
+				</li>
+
+				<li th:if="${(bookPage.number + 1) == bookPage.totalPages || (bookPage.number + 2) == bookPage.totalPages}"
+					class="sm nav-item" th:each="numeroDaPagina : ${#numbers.sequence(bookPage.totalPages-4, bookPage.totalPages-2)}">
+					<button class="sm btn border" th:text="${numeroDaPagina}" th:value="${numeroDaPagina}" name="page"
+						th:classappend="${bookPage.number}==${numeroDaPagina} ? btn-primary : btn-outline-primary"></button>
+				</li>
+
+				<li th:if="${(bookPage.number+3) < bookPage.totalPages}" class="sm nav-item">
+					<p class="sm btn btn-outline-primary border">...</p>
+				</li>
+
+				<li class="sm nav-item">
+					<button th:text="${bookPage.totalPages-1}"
+						th:classappend="${bookPage.number}==${bookPage.totalPages}-1 ? btn-primary : btn-outline-primary"
+						class="sm btn btn-outline-primary border" name="page" th:value="${bookPage.totalPages - 1}"></button>
+				</li>
+
+				<li th:if="${bookPage.number >= (bookPage.totalPages - 1)}" class="sm nav-item">
+					<button class="sm btn btn-outline-primary border" name="page" th:href="${bookPage.number}">Próximo</button>
+				</li>
+
+
+				<li th:if="${bookPage.number < (bookPage.totalPages - 1)}" class="sm nav-item">
+					<button class="sm btn btn-primary" name="page" th:value="${bookPage.number + 1}">Próximo</button>
+				</li>
+			</ul>
+
+			<ul class="nav nav-pills offset-5 col-7 sm" th:if="${bookPage.totalPages <= 5}">
+
+				<li th:if="${bookPage.number == 0}" class="sm nav-item">
+					<button type="submit" class="sm btn btn-outline-primary border" name="page" value="0">Anterior</button>
+				</li>
+
+				<li th:if="${bookPage.number > 0}" class="sm nav-item">
+					<button type="submit" class="sm btn btn-primary" name="page" th:value="${bookPage.number-1}">Anterior</button>
+				</li>
+
+				<li class="sm nav-item" th:if="${bookPage.totalPages > 0}" th:each="numeroDaPagina : ${#numbers.sequence(0, bookPage.totalPages-1)}">
+					<button class="sm btn border" th:text="${numeroDaPagina}" name="page" th:value="${numeroDaPagina}"
+						th:classappend="${bookPage.number}==${numeroDaPagina} ? btn-primary : btn-outline-primary"></button>
+				</li>
+
+				<li class="sm nav-item" th:if="${bookPage.totalPages == 0}">
+					<button class="sm btn btn-primary border" th:text="${0}" name="page" value="0">0</button>
+				</li>
+
+				<li th:if="${bookPage.number >= (bookPage.totalPages - 1)}" class="sm nav-item">
+					<button class="sm btn btn-outline-primary border" name="page" th:value="${bookPage.number}">Próximo</button>
+				</li>
+
+				<li th:if="${bookPage.number < (bookPage.totalPages - 1)}" class="sm nav-item">
+					<button class="sm btn btn-primary" name="page" th:value="${bookPage.number + 1}">Próximo</button>
+				</li>
+			</ul>
+
+		</div>
+
+		</form>
+	</div>
+</div>

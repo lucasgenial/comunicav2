@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+	<title>Comunica CICOM - Importação de Servidores Externo</title>
+	<meta charset="utf-8">
+	<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main>
+	<div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Importação de Servidores Externo</h5>
+				<br>
+				<form method="POST" enctype="multipart/form-data" id="fileUploadForm" th:action="@{/admin/importar/servidor/externo}">
+				
+					<div class="table-responsive-md" th:if="${finalizado}">
+						<div class="alert alert-success" role="alert">
+							<h6><strong>Sucesso!</strong></h6>
+							<div th:text="${'Foram adicionados ' + qtdAdicionados  + ' novos Registros de Servidores Externos'}"></div>
+							
+							<div th:text="${'Foram desativados ' + qtdDesativados  + ' Registros'}"></div>
+						</div>
+					</div>
+					
+					<div class="table-responsive-md" th:if="${erro}">
+						<div class="alert alert-warning" role="alert">
+							<h6><strong>Atenção</strong>, ocorreu erro ao importar os seguintes Servidores:</h6>
+							<div th:each="_texto : ${msgErro}" th:text="${_texto + ''}"></div>
+							
+						</div>
+					</div>
+						
+					<div class="input-group mb-3">
+						<div class="custom-file">
+						  	<input type="file" id="selecionarArquivo" placeholder="Upload File" name="arquivo"></input>
+						  	<label class="custom-file-label" for="selecionarArquivo">Escolher arquivo</label>
+						</div>
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" name="enviar" type="submit">Enviar</button>
+						</div>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	<script src="/assets/js/jquery.mask.min.js"></script>
+	<script src="/assets/js/validador/form-servidorExterno.js"></script>
+	<script>
+		$("#selecionarArquivo").on("change",function(){
+		    //get the file name
+		    
+		    var fileName = $(this).val();
+		    
+		    alert(fileName);
+		    
+		    //replace the "Choose a file" label
+		    $(this).next(".custom-file-label").html(fileName);
+		    $(this).next(".custom-file-label").val(fileName);
+		})
+   </script>
+</body>
+</html>

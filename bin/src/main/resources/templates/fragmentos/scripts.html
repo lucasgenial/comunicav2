@@ -1,0 +1,124 @@
+<div th:fragment="scripts">
+
+	<script src="/assets/js/es6-shim.min.js" type="text/javascript"></script>
+	<script src="/assets/popper/popper.min.js"></script>
+	<script src="/assets/js/jquery-3.3.1.min.js" type="text/javascript"></script>
+	
+
+	<!-- Bootstrap 4.1.2 tether Core JavaScript -->
+	<script src="/assets/bootstrap4.1.2/dist/js/bootstrap.min.js"></script>
+	
+	<!-- Moments -->
+	<script src="/assets/moments/moments.js"></script>
+	<script src="/assets/moments/moment-with-locales.js"></script>
+	
+	<!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/assets/js/perfect-scrollbar.jquery.min.js"></script>
+    
+    <!--Wave Effects -->
+    <script src="/assets/js/waves.js"></script>
+    
+    <!--Menu sidebar -->
+    <script src="/assets/js/sidebarmenu.js"></script>
+    
+     <!--stickey kit -->
+    <script src="/assets/js/sticky-kit.min.js"></script>
+    <script src="/assets/js/jquery.sparkline.min.js"></script>
+    
+    <!--Custom JavaScript do Template -->
+    <script src="/assets/js/custom.js"></script>
+    
+    <!-- Desabilita botao direito do mouse -->
+    <script src="/assets/js/desabilitaBotaoDireitoMouse.js" type="text/javascript"></script>
+    
+	 	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Dashboard Ocorrência - Tipificação'}" th:insert="fragmentos/scripts/script-dash-ocorrencia :: script-ocorrencia"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Dashboard Efetivo'}" th:insert="fragmentos/scripts/script-dash-efetivo :: script-efetivo"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Ocorrência' || tituloPagina == 'ComunicaCICOM - Editar Ocorrência'}"  th:insert="fragmentos/scripts/cad-ocorrencia :: script-ocorrencia"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Importa Ocorrência' || tituloPagina == 'ComunicaCICOM - Atualiza Ocorrência'}"  th:insert="fragmentos/scripts/cad-ocorrencia :: script-ocorrencia"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Pesquisa Ocorrências'}"  th:insert="fragmentos/scripts/pesquisa-ocorrencia :: script-ocorrencia"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Enviar várias ocorrências para vários e-mails'}"  th:insert="fragmentos/scripts/enviar-variasOcorrencias-para-variosEmails :: script-ocorrencia"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Enviar várias Ocorrências para Whatsapp'}"  th:insert="fragmentos/scripts/enviar-variasOcorrencias-para-Whatsapp :: script-ocorrencia"></th:block>
+
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Ocorrências'}"  th:insert="fragmentos/scripts/tabela-ocorrencias :: tabela-ocorrencias"></th:block>
+	
+	<!-- Servidor -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Servidores'}"  th:insert="fragmentos/scripts/tabela-servidores :: tabela-servidores"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Servidor' || tituloPagina == 'ComunicaCICOM - Editar Servidor'}"  th:insert="fragmentos/scripts/cad-servidor :: script-servidor"></th:block>
+	
+	<!-- Usuario -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Usuários'}"  th:insert="fragmentos/scripts/tabela-usuarios :: tabela-usuarios"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Usuário' || tituloPagina == 'ComunicaCICOM - Editar Usuário'}"  th:insert="fragmentos/scripts/cad-usuario :: script-usuario"></th:block>
+	
+	<!-- Arquivo -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Arquivos'}"  th:insert="fragmentos/scripts/tabela-arquivos :: tabela-arquivos"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Arquivo' || tituloPagina == 'ComunicaCICOM - Editar Arquivo'}"  th:insert="fragmentos/scripts/cad-arquivo :: script-arquivo"></th:block>
+	
+	<!-- Visita -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Visitas'}"  th:insert="fragmentos/scripts/tabela-visitas :: tabela-visitas"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Visita' || tituloPagina == 'ComunicaCICOM - Editar Visita'}"  th:insert="fragmentos/scripts/cad-visita :: script-visita"></th:block>
+	
+	<!-- Localidade -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Localidades'}"  th:insert="fragmentos/scripts/tabela-localidades :: tabela-localidades"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Localidade' || tituloPagina == 'ComunicaCICOM - Editar Localidade'}"  th:insert="fragmentos/scripts/cad-localidade :: script-localidade"></th:block>
+	
+	<!-- Mesa -->
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Mesa'}"  th:insert="fragmentos/scripts/cad-novaMesa :: script-novaMesa"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Edição Mesa'}"  th:insert="fragmentos/scripts/edita-mesa :: script-editaMesa"></th:block>
+		
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Histórico Mesa'}"  th:insert="fragmentos/scripts/tabela-mesas :: script-tabela-mesas"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Visualiza Mesa'}"  th:insert="fragmentos/scripts/visualiza-mesa :: script-visualiza-mesa"></th:block>
+	
+	<!-- Efetivo externo -->
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Histórico Efetivo Externo'}" th:insert="fragmentos/scripts/tabela-efetivoExterno :: script-tabela-efetivoExterno"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Cadastro Efetivo Externo'}" th:insert="fragmentos/scripts/cad-efetivoExterno :: script-efetivoExterno"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Edição Efetivo Externo'}" th:insert="fragmentos/scripts/edita-efetivoExterno :: script-editaEfetivoExterno"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Visualiza Efetivo Externo Ativos Por Cidade'}" th:insert="fragmentos/scripts/visualiza-efetivoExternoAtivoPorCidade :: script-visualizaEfetivoExternoAtivoPorCidade"></th:block>
+	
+	<!-- bairro -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Bairros'}"  th:insert="fragmentos/scripts/tabela-bairros :: tabela-bairros"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Bairro' || tituloPagina == 'ComunicaCICOM - Editar Bairro'}"  th:insert="fragmentos/scripts/cad-bairro :: script-bairro"></th:block>
+	
+	<!-- unidade -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Unidades'}"  th:insert="fragmentos/scripts/tabela-unidades :: tabela-unidades"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Nova Unidade' || tituloPagina == 'ComunicaCICOM - Editar Unidade'}"  th:insert="fragmentos/scripts/cad-unidade :: script-unidade"></th:block>
+	
+	<!-- estabelecimento -->
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Estabelecimentos'}"  th:insert="fragmentos/scripts/tabela-estabelecimentos :: tabela-estabelecimentos"></th:block>
+	
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Novo Estabelecimento' || tituloPagina == 'ComunicaCICOM - Editar Estabelecimento'}"  th:insert="fragmentos/scripts/cad-estabelecimento :: script-estabelecimento"></th:block>
+	 
+	<!-- 	Login -->
+	<th:block th:if="${tituloPagina == 'ComunicaCICOM - Login'}"  th:insert="fragmentos/scripts/script-login :: script-login"></th:block>
+
+	<!--  Servidores Externos -->
+    
+    <th:block th:if="${tituloPagina == 'ComunicaCICOM - Relação de Servidores Externos'}"  th:insert="fragmentos/scripts/tabela-servidoresExternos :: script-tabela-servidoresExternos"></th:block>
+	
+</div>

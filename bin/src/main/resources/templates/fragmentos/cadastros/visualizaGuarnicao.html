@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Visualização de Guarnições</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<!-- 		<div th:replace="fragmentos/navbar :: navbar3(${usuario})"></div> -->
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-6 mx-auto">
+	
+	<div class="card">
+	
+	<div class="card-body"  >
+		<div class="form-group">
+
+				
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						
+						<div class="col-md-6 text-rigth ml-4 mb-2">
+							<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+							<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+							<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+
+						<div class="col-md-3 text-left offset-2 imagem-logoCicom">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+		<div class="card-body"  >
+			<h5 class="card-title mb-2 text-center">DADOS DA GUARNIÇÃO</h5>
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-12">
+							<label for="mesa" ><b>MESA: </b>[[${policiamento.mesa.nome}]]</label>						
+						</div>
+						<div class="col-md-12" >
+							<label><b>UNIDADE: </b> [[${policiamento.unidade.nome}]]</label>
+						</div>
+                        <div class="col-md-6">
+							<label><b>INÍCIO PLANTÃO: </b>[[${#temporals.format(policiamento.comecoPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+						</div>
+						<div class="col-md-6" th:if="${policiamento.prefixo != null}">
+							<label><b>FIM PLANTÃO: </b> [[${#temporals.format(policiamento.terminoPlantao, 'dd/MM/yyyy - HH:mm:ss')}]]</label>
+						</div>			
+					</div>
+				</div>
+			</div>
+				<div class="form-group ">
+					<h6 class="text-center">DADOS DE REGISTRO</h6>
+					<div class="form-control form-control-sm">
+						<div class="form-row">
+							  <div class="col-md-6" th:if="${policiamento.prefixo != null}">
+							<label><b>PREFIXO: </b> [[${policiamento.prefixo}]]</label>
+						</div>
+						<div class="col-md-6" >
+							<label><b>MODALIDADE:</b> [[${policiamento.modalidade.nome}]]</label>
+						</div>
+							<div class="col-md-6" th:if="${policiamento.kmInicial != null}" >
+							<label><b>KM INICIAL:</b> [[${policiamento.kmInicial}]]</label>
+						</div>
+						<div class="col-md-6" th:if="${policiamento.kmFinal != null}">
+							<label><b>KM FINAL:</b> [[${policiamento.kmFinal}]]</label>
+						</div>
+						<div class="col-md-6" th:if="${policiamento.kmFinal != null}">
+							<label><b>PLACA VIATURA:</b> [[${policiamento.placaPolicial}]]</label>
+						</div>
+							<div class="col-md-6" th:if="${policiamento.telefone != null}">
+							<label><b>TELEFONE: </b> [[${policiamento.telefone}]]</label>
+						</div>
+							<div class="col-md-6" th:if="${policiamento.horaBaixa != null}">
+							<label><b>HORA DE BAIXA:</b> [[${policiamento.horaBaixa}]]</label>
+						</div>
+						</div>
+					</div>
+				</div>
+				
+			<div class="form-group">
+				<h6 class="text-center" >ÁREA DE ATUAÇÃO</h6>
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-5">
+							<label><b>CIDADE: </b>[[${policiamento.cidade.nome}]]</label>
+						</div>
+
+						<div class="col-md-7">
+							<label th:if="${policiamento.localidade != null}"><b>LOCALIDADE/DISTRITO: </b>[[${policiamento.localidade.nome}]]</label>
+						</div>
+						
+						<div class="col-md-12">
+							<label th:if="${policiamento.bairro != null}"><b>BAIRRO: </b>[[${policiamento.bairro.nome}]]</label>
+						</div>
+						</div>
+				</div>
+				</div>
+				<div class="form-group" th:if="${not policiamento.guarnicao.isEmpty()}">
+					<h6 class="text-center">INTEGRANTES</h6>
+					<div class="form-control form-control-sm">
+					<div class="form-row">
+							<div class="col-md-12">
+								
+								<table id="tabela-efetivos-mesa" class="table table-sm table-hover" >
+								<thead>
+									<tr>
+										<th scope="col" >Função</th>
+										<th scope="col" >Grau Hierárquico</th>
+										<th scope="col" >Nome</th>
+										<th scope="col" >Matrícula</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="_servidoresExternos : ${policiamento.guarnicao}" class="" th:classappend="${_servidoresExternos} ? table-default : table-danger">
+										<th th:text="${_servidoresExternos.funcao.nome}">Patrulheiro</th>
+										<td th:text="${_servidoresExternos.servidor.hierarquia.nome}">Porto Seguro</td>
+										<td th:text="${_servidoresExternos.servidor.nome}">Bahia</td>
+										<td th:text="${_servidoresExternos.servidor.matricula}">Bahia</td>
+									</tr>
+								</tbody>
+								</table>
+                                       
+							</div>
+						</div>
+					</div>
+				</div>
+					
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/efetivo/historicoPoliciamento}" data-titulo="Editar Ocorrência" th:id="${policiamento.id}" th:inline="text" >Voltar</a>
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/report/efetivoExterno/{id}(id=${policiamento.id})}" target="_blank" data-titulo="Editar Ocorrência" th:id="${policiamento.id}" th:inline="text" >Imprimir</a>
+		
+		</div>
+	</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+</html>

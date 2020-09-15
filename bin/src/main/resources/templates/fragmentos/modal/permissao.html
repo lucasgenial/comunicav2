@@ -1,0 +1,43 @@
+<!-- MODAL CADASTRA E EDITA PERMISSÃO -->
+<div class="modal fade" id="modal-permissao" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalPermissao">
+	<form id="formPermissao"class="form-permissao" th:object="${permissao}" th:action="@{/cadastraPermissao}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome Permissão</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="descricao">Descrição</label>
+						    <input type="text" class="form-control" id="descricao" name="descricao" placeholder="" th:field="*{descricao}" />
+					    </div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{/permissoes}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-permissao">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

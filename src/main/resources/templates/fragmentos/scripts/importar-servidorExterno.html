@@ -1,0 +1,20 @@
+<th:block th:fragment="script-importar-servidorExterno">
+	<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela de Cadastro de Novos Servidores Esternos -->
+    <!-- ============================================================== -->   
+	<script src="/assets/js/validador/form-servidorExterno.js"></script>
+	<script>
+	$("#selecionarArquivo").on("change",function(){
+		    //get the file name
+		    
+		    var fileName = $(this).val();
+		    
+		    alert(fileName);
+		    
+		    //replace the "Choose a file" label
+		    $(this).next(".custom-file-label").html(fileName);
+		    $(this).next(".custom-file-label").val(fileName);
+		})
+   </script>
+		
+</th:block>

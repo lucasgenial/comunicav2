@@ -1,0 +1,65 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>	
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				        </ol>
+				    </div>
+				</div>
+			</div>
+				
+				<div class="row">
+					<div class="col-12">
+						<form method="post" id="formEnvioVariasOcorrenciaVariosEmails" th:action="@{/admin/cadastros/ocorrencias/enviarSelecionadas}">
+							<div class="ribbon-wrapper card">
+								<div class="ribbon ribbon-info">ENVIO DE OCORRÊNCIAS</div>
+									<div class="table-responsive-md">
+										<div class="ocorrencias row col-12 pb-3">									
+											<div class="col-12">
+												<h5 class="text-center">Selecione as ocorrências</h5>
+													<div class="overflow-auto"  style="height: 630px; max-height:630px;" >
+														<table id="tabela-variasOcorrenciaParaWhatsapp"  class="table text-center table-sm table-bordered table-striped dt-responsive" cellspacing="0" width="100%">
+															<thead>
+																<tr>
+																	<th scope="col">SIC</th>
+																	<th scope="col">Tipificação</th>
+																	<th scope="col">Data/Hora</th>
+																	<th scope="col">Cidade</th>
+																	<th scope="col">Selecionar</th>
+																</tr>
+															</thead>
+															<tbody>
+																 <tr th:each="_ocorrencia : ${ocorrencias}" th:id="${_ocorrencia.sic}" class="table-default">
+																   <th scope="row" th:text="${_ocorrencia.sic}"></th>
+															       <td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}" data-toggle="tooltip" data-placement="top" th:title="${#strings.unescapeJava(_ocorrencia.descricao).replaceAll('<p>','').replaceAll('</p>','')}"></td>
+															       <td th:text="${#temporals.format(_ocorrencia.dataOcorrencia,'dd/MM/yyyy')}"></td>
+															       <td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome)}"></td>
+																   <td><input type="checkbox" th:id="${_ocorrencia.id}" class="selecionado" th:value="${_ocorrencia.id}" th:data-tr="${_ocorrencia.sic}" name="listaDeOcorrencias"></td>
+																 </tr>
+															</tbody>
+														</table>
+														</div>
+														</div>
+													</div>
+		
+													<div class="col-2">
+														<span class="d-inline-block" tabindex="0" data-toggle="tooltip" id="tolltip-btn-enviarVariasWhatsapp" title="Marque ao menos uma ocorrência">
+															<button type="button" style="pointer-events: none;" id="btn-enviarVariasWhatsapp"  class="btn btn-info btn-sm disabled" disabled="disabled">Visualizar mensagem</button> 
+																						</span>
+													<a type="button"class="btn btn-info btn-sm ml-2" th:href="@{~/admin/historico/ocorrencias}" id="cancelar-efetivo">Cancelar</a>
+															</div>										
+								</div><!-- TABLE-RESPONSIVE -->
+							</div><!-- WRAPPER -->
+						</form>
+					</div>
+					<div th:replace="fragmentos/modal/envioOcorrenciaWhatsapp :: modalMensagemWhatsapp"></div>
+	
+				</div><!-- Row -->
+			<!-- </div> -->
+		</div><!-- CONTAINER -->
+	</main>
+</section>
+					

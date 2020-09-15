@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Visualização de Ocorrências</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<!-- 		<div th:replace="fragmentos/navbar :: navbar3(${usuario})"></div> -->
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-6 mx-auto">
+	
+	<div class="card">
+	
+	<div class="card-body"  >
+		<div class="form-group">
+
+				
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						
+						<div class="col-md-6 text-rigth ml-4 mb-2">
+							<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+							<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+							<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+
+						<div class="col-md-3 text-left offset-2 imagem-logoCicom">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+	
+		<div class="card-body"  >
+
+			<div class="form-group"><h5 class="card-title mb-2">Ocorrência</h5><h6 class="offset-7">Id:[[${servidor.id}]] - Gerado em:[[${datahora}]]</h6>
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-6">
+							<label for="numeroSIC" ><b>Nº: </b>[[${ocorrencia.sic}]]</label>
+						</div>
+                        <div class="col-md-6">
+							<label><b>DATA/HORA: </b>[[${ocorrencia.dataOcorrencia}]]</label>
+							
+						</div>
+						<div class="col-md-12">
+							<label><b>TIPIFICAÇÃO:</b> [[${ocorrencia.tipificacao.nome}]]</label>
+							
+						</div>
+
+						
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<h6>Localização</h6>
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-5">
+							<label><b>CIDADE: </b>[[${ocorrencia.endereco.cidade.nome}]]</label>
+						</div>
+
+						<div class="col-md-7">
+							<label><b>LOCALIDADE/DISTRITO: </b>[[${ocorrencia.endereco.bairro.localidade.nome}]]</label>
+						</div>
+
+						<div class="col-md-5">
+							<label><b>BAIRRO: </b>[[${ocorrencia.endereco.bairro.nome}]]</label>
+						</div>
+					
+						<div class="col-md-5">
+							<label><b>RUA: </b>[[${ocorrencia.endereco.rua}]]</label>
+						</div>
+
+						<div class="col-md-2">
+							<label><b>Nº: </b>[[${ocorrencia.endereco.numero}]]</label>
+						</div>
+
+						<div class="col-md-12">
+							<label><b>REFERÊNCIA: </b>[[${ocorrencia.endereco.referencia}]]</label>
+						</div>
+						<div class="col-md-12">
+							<label for="data"><b>VIATURA/GUARNIÇÃO: </b>[[${ocorrencia.guarnicao}]]</label>
+						</div>
+							
+					</div>
+				</div>
+			</div>
+				
+			  <div class="form-control form-control-sm">
+				<div class="form-row">
+					<div class="col text-center">
+						<label for="descricao"><b>DESCRIÇÃO DO FATO</b></label>
+					</div>
+				
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+					
+						<div class="col col-md-12 col-lg-12" align="justify">
+							<label  th:utext="${#strings.unescapeJava(ocorrencia.descricao)}"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+			  <div class="form-control form-control-sm">
+				<div class="form-row">
+					<div class="col text-center">
+						<label for="descricao"><b>HISTÓRICO</b></label>
+					</div>
+				
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+					
+						<div class="col col-md-12 col-lg-12" align="justify">
+<<<<<<< HEAD
+							<label  th:utext="${#strings.unescapeJava(ocorrencia.historico)}"></label>
+=======
+							<label  th:utext="${#strings.unescapeJava(ocorrencia.descricao)}"></label>
+>>>>>>> Mauricio
+						</div>
+					</div>
+				</div>
+			</div>
+
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/ocorrencias/historico}" data-titulo="Editar Ocorrência" th:id="${ocorrencia.id}" th:inline="text" >Voltar</a>
+			 <a class="btn btn-primary btn-sm" th:href="@{~/admin/report/ocorrencia/{id}(id=${ocorrencia.id})}" target="_blank" data-titulo="Editar Ocorrência" th:id="${ocorrencia.id}" th:inline="text" >Imprimir</a>
+		
+		</div>
+	</div>
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+</body>
+</html>

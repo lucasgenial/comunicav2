@@ -1,0 +1,119 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>	
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor"></h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="ribbon-wrapper card ml-sm-auto width-visualizarImpressaoA4 mx-auto" style="padding-top: 70px; height: 1100px;">
+					<div class="form-row ml-2 mr-2 justify-content-between" style="border:2px solid #333;">					
+						<div class="col-md-7 ml-3 mt-3 mb-2 h6" >
+							<label class="col-12 font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+							<label class="col-12 font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+							<label class="col-12 font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+						</div>
+						<div class="col-md-3 imagem-logoCicomVisualizacao"></div>
+					</div>
+					<br/>
+				
+				
+				<div class="collapse show ml-2 mr-2" style="height: 22px; ">
+					<div class="col-md-12 text-center border-bottom-0" style="border:2px solid #333; ">
+						<label class="row ">
+							<font class="col-7 font-weight-bold text-right">Ocorrência</font>
+							<font class="col-5 text-right">Id:&emsp;[[${servidor.id}]]&emsp;Gerado em:&emsp;[[${datahora}]]</font>
+						</label>
+					</div>
+				</div>
+				
+				<div class="collapse show ml-2 mt-0 mr-2" style="border:2px solid #333;">					
+					<div class="form-row ml-3 ">
+						<div class="col-md-6">
+							<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">N°:&nbsp; </font><font>[[${ocorrencia.sic}]]</font></label>
+						</div>	
+						<div class="col-md-6">
+							<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">DATA/HORA:&nbsp; </font><font th:text="${#temporals.format(ocorrencia.dataOcorrencia, 'dd/MM/yyyy - HH:mm')}" >[[${ocorrencia.dataOcorrencia}]]</font></label>
+						</div>
+						<div class="col-md-12">
+							<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">TIPIFICAÇÃO:&nbsp; </font><font>[[${ocorrencia.tipificacao.nome}]]</font></label>
+						</div>											
+					</div>				
+				</div><!-- DIV GERADOR USUSARIO -->
+				
+				<div class="collapse show ml-2 mr-2 mt-3 ">
+					<div class="col-md-12 text-center border-bottom-0" style="border:2px solid #333;">
+						<label style="margin-bottom: 0px;"><font class="font-weight-bold">Localização&nbsp;</font></label>
+					</div>
+				</div>
+				
+				<div class="collapse show ml-2 mr-2" style="border:2px solid #333;">					
+					<div class="form-row ml-3 mt-2">
+						<div class="col-md-6">
+							<label><font class="font-weight-bold">CIDADE:&nbsp; </font><font>[[${ocorrencia.endereco.cidade.nome}]]</font></label>
+						</div>	
+						<div class="col-md-6">
+							<label ><font class="font-weight-bold">LOCALIDADE/DISTRITO:&nbsp; </font><font>[[${ocorrencia.endereco.bairro.localidade.nome}]]</font></label>
+						</div>
+						<div class="col-md-6">
+							<label><font class="font-weight-bold">BAIRRO:&nbsp; </font><font>[[${ocorrencia.endereco.bairro.nome}]]</font></label>
+						</div>
+						<div class="col-md-6">
+							<label ><font class="font-weight-bold">RUA:&nbsp; </font><font>[[${ocorrencia.endereco.rua}]]</font></label>
+						</div>														
+						
+						<div class="col-md-12">
+							<label><font class="font-weight-bold">REFERÊNCIA:&nbsp; </font><font>[[${ocorrencia.endereco.referencia}]]</font></label>
+						</div>
+						<div class="col-md-12">
+							<label><font class="font-weight-bold">VIATURA/GUARNIÇÃO:&nbsp; </font><font>[[${ocorrencia.guarnicao}]]</font></label>
+						</div>										
+					</div>				
+				</div><!-- DIV LOCALIZAÇÃO -->
+				
+				<div class="collapse show ml-2 mr-2 mt-3 ">
+					<div class="col-md-12 text-center border-bottom-0" style="border:2px solid #333;">
+						<label style="margin-bottom: 0px;"><font class="font-weight-bold">DESCRIÇÃO DO FATO&nbsp;</font></label>
+					</div>
+				</div>
+				<div class="collapse show ml-2 mr-2" style="border:2px solid #333;">
+					<div class="form-row ml-2 mr-2 mt-2 text-justify">
+						<label th:utext="${#strings.unescapeJava(ocorrencia.descricao)}" style="margin-bottom: 3px; margin-top:3px;margin-right: 6px;"></label>
+					</div>
+				</div>
+				
+				<div class="collapse show ml-2 mr-2 mt-3">
+					<div class="col-md-12 text-center border-bottom-0" style="border:2px solid #333;">
+						<label style="margin-bottom: 0px;"><font class="font-weight-bold">HISTÓRICO&nbsp;</font></label>
+					</div>
+				</div>
+				<div class="collapse show ml-2 mr-2" style="border:2px solid #333;">
+					<div class="form-row ml-2 mr-2 mt-2 text-justify">
+						<label th:utext="${#strings.unescapeJava(ocorrencia.historico)}" style="margin-bottom: 3px; margin-top:3px;margin-right: 6px;"></label>
+					</div>
+				</div>
+				
+				<div class="collapse show ml-2 mt-2">
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+	             		<div class="btn-group mr-2" role="group">
+	             			<a class="btn btn-info btn-sm" th:href="@{~/admin/historico/ocorrencias}" data-titulo="Editar Ocorrência" th:id="${ocorrencia.id}" th:inline="text" >Voltar</a>
+	             		</div>
+	                	<div class="btn-group mr-2" role="group">
+	             			 <a class="btn btn-info btn-sm" th:href="@{~/admin/report/ocorrencia/{id}(id=${ocorrencia.id})}" target="_blank" data-titulo="Visualizar Ocorrência" th:id="${ocorrencia.id}" th:inline="text" >Imprimir</a>
+	             		</div>
+	                </div> 
+                </div>		
+				
+				</div><!-- div do cabeçalho -->
+			</div><!-- ROW -->
+		</div><!-- Container -->
+	</main>	
+</section>

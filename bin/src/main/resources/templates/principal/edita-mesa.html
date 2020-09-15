@@ -1,0 +1,114 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">Edição de Mesa</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item active">Edita De Mesa</li>
+				        </ol>
+				    </div>
+				</div>
+			</div>
+			<div class="row">
+		        <div class="col-12">
+					<div class="card">
+	                    <div class="card-body">
+							<form id="formEditaMesa"  method="post" th:action="@{/admin/cadastros/gestaoefetivo/editaMesa/{id}(id=${mesa.id})}">
+								<h5 class="card-title mb-2" style="margin-top: 10px;"></h5>
+								<div class="form-row col-12">
+									<div class="form-group col-5">
+										<label>NOME DA MESA</label> 
+										<input id="nomeMesaEditando" type="text" th:field="*{mesa.nome}" readonly="readonly" class="form-control input-group" required >
+									</div>
+									<div class="form-group col-3">
+										<label for="instituicao" >Instituições Internas e Externas</label>	
+										<select class="form-control selectpicker" data-hide-disabled="true" th:name="lista" multiple="multiple" data-actions-box="true">
+											<option th:if="${mesa.instituicoes != null and mesa.instituicoes.contains(instituicoes[__${itemStat.index}__])}" th:each="_instituicao, itemStat : ${instituicoes}" selected="selected" th:value="${{_instituicao.id}}" th:id="${{_instituicao.id}}" th:text="${_instituicao.nome}">Selecionar</option>
+											<option th:if="${mesa.instituicoes != null and not mesa.instituicoes.contains(instituicoes[__${itemStat.index}__])}" th:each="_instituicao, itemStat : ${instituicoes}"  th:value="${{_instituicao.id}}" th:id="${{_instituicao.id}}" th:text="${_instituicao.nome}">Selecionar</option>
+											<option th:if="${mesa.instituicoes == null}" th:each="_instituicao, itemStat : ${instituicoes}"  th:value="${{_instituicao.id}}" th:id="${{_instituicao.id}}" th:text="${_instituicao.nome}">Selecionar</option>
+										</select> 
+									</div>
+									<div class="form-group col-2">
+										<label for="inicioPlantao">Data/Hora In&iacute;cio</label>
+										<input id="inicioPlantao" type="text" name="inicioPlantao" th:field="*{mesa.inicioPlantao}" class="form-control input-group" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off" required>
+									</div>						
+									<div class="form-group col-2">
+										<label for="fimPlantao">Data/Hora Final</label>
+										<input id="fimPlantao"  type="text" name="fimPlantao"  th:field="*{mesa.fimPlantao}" class="form-control input-group" th:value="${#dates.format(fimPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off"  required>
+									</div>
+									<div class="card-body">					
+										<h5 class="card-title mb-2">Adicionar Servidor</h5>								
+											<div class="table-responsive-md">
+												<table id="tabela-servidoresFuncao"	class="table table-bordered table-striped text-center">
+													<thead>
+														<tr>
+															<th class="pt-3 pb-3">GH</th>
+															<th class="pt-3 pb-3">Nome</th>
+															<th class="pt-3 pb-3">Matricula</th>
+															<th class="pt-3 pb-3">Função</th>
+															<th class="pt-3 pb-3">Data/Hora Início</th>
+															<th class="pt-3 pb-3">Data/Hora Fim</th>
+															<th class="pt-3 pb-3">Intervalo</th>
+															<th class="pt-3 pb-3">Ação</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr th:each="_servidores, itemStat : ${mesa.servidores}" th:classappend="${mesa.servidores[__${itemStat.index}__].ativo} ? table-default : table-danger">
+															<td class="pl-1 pr-1 pb-1 pt-1 align-middle" id="funcoes" th:text="${mesa.servidores[__${itemStat.index}__].servidor.hierarquia.nome}" th:value="${{mesa.servidores[__${itemStat.index}__].servidor.id}}" th:field="*{mesa.servidores[__${itemStat.index}__].servidor}">
+															</td>											
+															<td class="pl-1 pr-1 pb-1 pt-1 align-middle">
+																<select class="form-control select-transparente" th:field="*{mesa.servidores[__${itemStat.index}__].servidor}" >
+																	<option class="select-transparente"  th:each="_servi : ${mesa.servidores[__${itemStat.index}__].servidor}" th:value="${{_servi.id}}" th:text="${_servi.sobreNome}"></option>
+																</select>
+															</td>
+															<td class="pl-1 pr-1 pb-1 pt-1 align-middle" id="funcoes" name="servidorFuncao.funcao" th:text="${mesa.servidores[__${itemStat.index}__].servidor.matricula}" ></td>											
+															<td class="pl-1 pr-1 pb-1 pt-1 align-middle" width="25%">
+																<select class="form-control" th:field="*{mesa.servidores[__${itemStat.index}__].funcao}">
+																	<option th:each="_funcao : ${funcoes}" th:value="${{_funcao.id}}" th:text="${_funcao.nome}"></option>
+																</select>
+															</td>
+															<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="12%"  name="listaDeServidoresNaMesa">
+																<input th:field="*{mesa.servidores[__${itemStat.index}__].inicioPlantao}" type="text" name="inicioPlantao" class="form-control pl-1 pr-1 input-group text-center servidorInicioPlantao" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('mesa.inicioPlantao')} ? 'is-invalid'" required>
+															</td>
+															<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="12%">
+																<input th:field="*{mesa.servidores[__${itemStat.index}__].fimPlantao}" type="text" name="fimPlantao" class="form-control input-group text-center pl-1 pr-1 servidorFimPlantao" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('mesa.inicioPlantao')} ? 'is-invalid'" required>
+															</td>
+															<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="11%">
+																<div class="form-row pl-1 pr-1 pb-1 pt-1">
+																	<input  type="text" name="pausa1" th:field="*{mesa.servidores[__${itemStat.index}__].pausa1}" class="text-center form-control col-6 servidorPausa1 pl-0 pr-0" th:value="${#dates.format(pausa1, 'HH:mm:ss')}" placeholder="hh:mm:ss" autocomplete="off">
+																	<input  type="text" name="pausa2" th:field="*{mesa.servidores[__${itemStat.index}__].pausa2}"  class="text-center form-control col-6 servidorPausa2 pl-0 pr-0" th:value="${#dates.format(pausa2, 'HH:mm:ss')}" placeholder="hh:mm:ss" autocomplete="off">
+																</div>											
+															</td>
+															<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" id="funcionarioEditar">																	      
+																<button type="submit" id="remover-servidorFuncao" name="remover-servidorFuncao" th:value="${itemStat.index}" class="btn btn-sm btn-info"><i class="far fa-trash-alt"></i> Remover</button>
+														    </td>
+														</tr>
+													</tbody>
+												</table>
+											</div>							
+											<button type="submit" class="btn btn-info" name="adicionar-efetivo" id="adicionar-efetivo" data-titulo="Adicionar">Adicionar Servidor</button>
+											<button type="submit" class="btn btn-info btn-modal" id="salvar-efetivo" data-titulo="Edita servidores da mesa" >Salvar Alteração</button>
+											<button type="button" class="btn btn-info" onclick="window.location.href='/admin/cadastros/gestaoefetivo/diariodemesa'" id="cancelar-efetivo">Cancelar</button>
+										</div>
+									</div>
+								</form>
+								<div th:replace="fragmentos/modal/servidorInterno :: modal-adicionarServidorNaMesaEditando"></div>	
+								<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+							</div>
+						</div>
+					</div>
+				<script type="text/javascript" th:if="${abrirModal != null}">
+					window.onload = function(){
+						abrirModalEditando();
+					}
+				</script>
+			</div>	
+		</div>
+	</main>
+</section>

@@ -1,0 +1,173 @@
+<section id="pagina" onbeforeunload="return myFunction()" layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+				<!-- INICIO TITULO DA PÁGINA -->
+				<div class="row page-titles">
+					<div class="col-md-5 align-self-center">
+					    <h4 class="text-themecolor">DIÁRIO DE MESA</h4>
+					</div>
+					<div class="col-md-7 align-self-center text-right">
+					    <div class="d-flex justify-content-end align-items-center">
+					        <ol class="breadcrumb">
+					            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+					            <li class="breadcrumb-item active">Menu mesa</li>
+					        </ol>
+					    </div>
+					</div>
+				</div>	
+				
+			<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="ribbon-wrapper card">
+					<div class="ribbon ribbon-info">Menu</div>
+					<div class="container-fluid row justify-content-between">
+						<div hidden="hidden" id="divNovaMesa" class="card col-2 text-center">
+							<a href="\admin\cadastra\mesa">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconMesaSmall.png" alt="Card image cap"width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Nova Mesa</p>
+								</div>
+							</a>
+						</div>
+						<div th:if="${mesa.id != null}" id="divEditaMesa" class="card col-2 text-center" >
+							<a th:href="${'/admin/edita/mesa/' + mesa.id}">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconMesaSmall.png" alt="Card image cap"  width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Editar Mesa</p>
+								</div>
+							</a>
+						</div>
+						<div th:if="${mesa.id != null}" id="divGerenciaInterno"class="card col-2 text-center" >
+							<a th:href="${'/admin/edita/mesa/interno/' + mesa.id}">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconInternoSmall.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Gerenciar Efetivo Interno</p>
+								</div>
+							</a>
+						</div>
+						<div th:if="${mesa.id != null}" id="divGerenciaExterno" class="card col-2 text-center" >
+							<a th:href="${'/admin/historico/policiamentos/'+mesa.id}">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconExternoSmall.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Gerenciar Efetivo Externo</p>
+								</div>
+							</a>
+						</div>
+						<div th:if="${mesa.id != null}" id="divVisualiza" class="card col-2 text-center">
+							<a th:href="${'\admin\cadastros\gestaoefetivo\diariodemesa\visualizar\mesaCompleta\'+mesa.id}">
+								<img class="img-thumbnail" src="/assets/imagens/pages/mesa/iconVisualizarSmall.png" alt="Card image cap" width="100" height="100">
+								<div class="card-body">
+									<p class="card-text">Visualizar / Imprimir</p>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<div class="ribbon-wrapper card"  th:object="${mesa}">
+						<div class="ribbon ribbon-info">Status da Mesa</div>
+						
+						<div class="form-row col-12">
+							<div class="form-group col-12 alert alert-warning">
+								<div class="col-12"><font id="tempoEncerrar"></font>
+								<br>
+								<font id="statusMesa"></font>
+								</div>					
+							</div>
+																							
+							<div class="form-group col-3">
+								<label>Nome da mesa</label>
+								<input id="nomeMesaNova" readonly="readonly" type="text" name="nome" th:field="*{nome}" class="form-control input-group" required >
+							</div>
+							
+							<div class="form-group col-5">	
+								<label for="instituicao" >Instituições Internas e Externas</label>	
+								<select disabled="disabled" class="form-control border selectpicker" data-hide-disabled="true" th:field="*{instituicoes}" multiple="multiple" required="required" >
+									<option th:each="_instituicao : ${mesa.instituicoes}"
+										th:value="${{_instituicao.id}}" th:id="${{_instituicao.id}}"
+										th:text="${_instituicao.nome}">Selecionar</option>			
+								</select>
+								<span class="fv-help-block" th:if="${#fields.hasErrors('instituicoes')}" th:errors="*{instituicoes}"></span> 
+							</div>				
+							
+							<div class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+								<label for="inicioPlantao">Data/Hora In&iacute;cio</label>
+								<input readonly="readonly" type="text"th:field="*{inicioPlantao}" class="form-control input-group" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss">
+							</div>		
+							<div class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+								<label for="fimPlantao">Data/Hora Final</label>                                                     
+								<input readonly="readonly" type="text"th:field="*{fimPlantao}" class="form-control input-group" th:value="${#dates.format(fimPlantao, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss">
+							</div>
+						</div>
+					</div>
+				</div>	
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+					<div class="ribbon-wrapper card">
+						<div class="ribbon ribbon-info">Efetivos Internos</div>
+							<div class="table-responsive-md">  
+								<table id="tabela-servidoresInternos"	class="table table-sm table-bordered table-striped dt-responsive text-center">
+									<thead>
+										<tr >
+											<th>GH</th>
+											<th>Nome</th>
+											<th>Matricula</th>
+											<th>Função</th>
+											<th>Data/Hora Início</th>
+											<th>Data/Hora Fim</th>
+											<th>Intervalo</th>
+										</tr>
+									</thead>
+									<tbody >
+									<tr th:each="_servidores, itemStat : ${mesa.servidores}" >
+										<td class="pl-1 pr-1 pb-1 pt-1 align-middle" th:text="${mesa.servidores[__${itemStat.index}__].servidor.hierarquia.nome}"></td>											
+										
+										<td class="pl-1 pr-1 pb-1 pt-1 align-middle" th:text="${mesa.servidores[__${itemStat.index}__].servidor.nome}"></td>
+										
+										<td class="pl-1 pr-1 pb-1 pt-1 align-middle" id="funcoes" th:text="${mesa.servidores[__${itemStat.index}__].servidor.matricula}"></td>											
+										
+										<td class="pl-1 pr-1 pb-1 pt-1 align-middle" width="25%" th:text="${mesa.servidores[__${itemStat.index}__].funcao.nome}"></td>
+										
+										<td class="pl-1 pr-1 pb-1 pt-1 align-middle" width="12%" th:text="${#temporals.format(mesa.servidores[__${itemStat.index}__].inicioPlantao,'dd/MM/yyyy HH:mm')}"></td>
+																													
+										<td class="pl-1 pr-1 pb-1 pt-1 text-center align-middle" width="12%" th:text="${#temporals.format(mesa.servidores[__${itemStat.index}__].fimPlantao,'dd/MM/yyyy HH:mm')}"></td>
+										
+										<td class="pl-1 pr-1 pb-1 pt-1 text-center align-middle" width="12%" th:text="${mesa.servidores[__${itemStat.index}__].pausa1 +' -- '+ mesa.servidores[__${itemStat.index}__].pausa2}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+							
+				<div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="ribbon-wrapper card">
+					<div class="ribbon ribbon-info">Efetivos Externos</div>
+						<div class="table-responsive-md">  
+							<table id="tabela-servidoresExternos"	class="table table-sm table-bordered table-striped dt-responsive text-center">
+							<thead>
+								<tr>
+									<th>Unidade</th>
+									<th>Abrangência</th>
+									<th>Prefixo</th>
+									<th>Modalidade</th>
+									<th>Início plantão</th>
+									<th>Fim plantão</th>
+								</tr>
+							</thead>
+							<tbody class="table-sm">
+								<tr th:each="policiamento : ${mesa.listaDePoliciamentos}" th:classappend="${policiamento.ativo} ? table-default : table-danger">
+									<td th:text="${policiamento.unidade.nome}"></td>
+									<td th:text="${policiamento.abrangencia}"></td>
+									<td th:text="${policiamento.prefixo}"></td>
+									<td th:text="${policiamento.modalidade.nome}"></td>	
+									<td th:text="${#temporals.format(policiamento.comecoPlantao, 'dd/MM/yyyy HH:mm')}"></td>	
+									<td th:text="${#temporals.format(policiamento.terminoPlantao, 'dd/MM/yyyy HH:mm')}"></td>	
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>				
+		</div>
+	</main>
+</section>

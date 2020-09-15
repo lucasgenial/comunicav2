@@ -1,0 +1,81 @@
+<!-- MODAL CADASTRA E EDITA VISITA -->
+<div class="modal fade" id="modal-visita" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modalVisita">
+	<form id="formVisita" class="form-visita" th:object="${visita}" th:action="@{/admin/cadastrarVisita}" method="POST">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" readonly="readonly"/>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<input type="hidden" readonly class="form-control" name="usuario" id="usuario"  th:field="*{usuario}"/>
+						</div>
+					</div>					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<input type="hidden" readonly class="form-control" id="estabelecimento"  th:field="*{estabelecimento}"/>
+						</div>
+					</div>	
+					<div class="form-row">
+						<div class="form-group col-md-12" >
+							<label for="nome">Nome</label>
+							<input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" onkeyup="maiuscula(this);"/> 
+						</div>
+					</div>	
+					<div class="form-row">
+						<div class="form-group col-md-6" >
+							<label for="cpf">C.P.F</label>
+							<input type="text" class="form-control" id="cpf" name="cpf" th:field="*{cpf}"/> 
+						</div>
+						<div class="form-group col-md-6" >
+							<label for="empresa">Empresa</label>
+							<input type="text" class="form-control" id="empresa" th:field="*{empresa}" name="empresa" placeholder="" onkeyup="maiuscula(this);"/> 
+						</div>
+					</div>	
+						
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="servico">Serviço</label>
+							<select id="servico" name="servico" class="form-control" th:field="*{servico}" th:classappend="${#fields.hasErrors('servico')} ? 'is-invalid'">
+								<option value="">Selecionar</option>
+							    <option th:each="_servico : ${servicos}"  th:text="${_servico.nome}" th:value="${{_servico.id}}">Selecione</option> 
+							</select>
+						</div>
+					</div>		
+					<div class="form-row">
+						<div class="form-group col-md-6">
+							<label for="inicioServico">Data/Hora In&iacute;cio</label>
+							<input id="inicioServico" name="inicioServico" type="text" th:field="*{{inicioServico}}" class="form-control form-control-sm input-group inicioServico" th:value="${#dates.format(inicioServico, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off" required>
+						</div>
+
+						<div class="form-group col-md-6">
+							<label for="fimServico">Data/Hora Final</label>
+							<input id="fimServico" name="fimServico" type="text" th:field="*{{fimServico}}" class="form-control form-control-sm input-group fimServico" th:value="${#dates.format(fimServico, 'dd/MM/yyyy HH:mm:ss')}" placeholder="dd/mm/aaaa hh:mm:ss" autocomplete="off">
+						</div>
+					</div>				
+					
+					<div class="form-row">
+						<div class="form-group col-md-12">
+							<label for="historico">Historico</label>
+							<textarea rows="7" class="form-control" id="historico" name="historico" th:field="*{historico}" placeholder="Informe o historico da visita" onkeyup="maiuscula(this);"/></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" th:href="@{/visitas}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+					<button type="submit" class="btn btn-primary" id="btn-salvar-visita">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

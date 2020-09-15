@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Relatório Efetivo</title>
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<div th:replace="fragmentos/navbar :: navbar(${usuario})"></div>
+	</header>
+
+	<main>
+	<div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Relatório Efetivo</h5>
+				<form id="formOcorrencia" class="form-ocorrencia"
+					th:object="${ocorrencia}" th:action="@{/cadastraOcorrencia}"
+					method="POST">
+					<div class="form-control form-control-sm"
+						th:if="${#fields.hasErrors('*')}">
+						<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+						<div class="alert alert-danger" role="alert">
+							<ul>
+								<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input
+									is incorrect</li>
+							</ul>
+						</div>
+					</div>
+
+					<br th:if="${#fields.hasErrors('*')}">
+
+					<div class="form-group">
+						<div class="form-control form-control-sm">
+							<div class="form-row">
+								<div
+									class="form-group col-12 col-sm-12 col-md-4 col-lg-2 col-xl-4">
+									<label for="estabelecimento">CICOM</label> <select
+										id="estabelecimento" name="estabelecimento"
+										class="form-control form-control-sm"
+										th:field="*{estabelecimento}"
+										th:classappend="${#fields.hasErrors('estabelecimento')} ? 'is-invalid'"
+										required>
+										<option th:each="estabelecimento : ${estabelecimento}"
+											th:value="${{estabelecimento.id}}"
+											th:text="${estabelecimento.nome}"></option>
+									</select>
+								</div>
+								
+								<div
+									class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+									<label for="dataOcorrencia">Data Inicial</label> <input
+										id="dataInicial" type="text" name="dataInicial" readonly
+										class="form-control form-control-sm input-group"
+										th:value="${#dates.format(dataOcorrencia, 'dd/MM/yyyy')}"
+										th:field="*{{dataOcorrencia}}" placeholder="DD/MM/YYYY"
+										autocomplete="off"
+										th:classappend="${#fields.hasErrors('dataOcorrencia')} ? 'is-invalid'"
+										required> <span class="fv-help-block"
+										th:if="${#fields.hasErrors('dataOcorrencia')}"
+										th:errors="*{dataOcorrencia}"></span>
+								</div>
+
+								<div
+									class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+									<label for="horaOcorrencia">Hora Inicial</label> <input
+										id="horaInicial" type="text" name="horaOcorrencia" readonly
+										class="form-control form-control-sm input-group"
+										th:value="${#dates.format(horaOcorrencia, 'HH:mm:ss')}"
+										th:field="*{{horaOcorrencia}}" placeholder="hh:mm:ss"
+										autocomplete="off"
+										th:classappend="${#fields.hasErrors('horaOcorrencia')} ? 'is-invalid'"
+										required> <span class="fv-help-block"
+										th:if="${#fields.hasErrors('horaOcorrencia')}"
+										th:errors="*{horaOcorrencia}"></span>
+								</div>
+								<div
+									class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+									<label for="dataOcorrencia">Data Final</label> <input
+										id="dataFinal" type="text" name="dataFinal" readonly
+										class="form-control form-control-sm input-group"
+										th:value="${#dates.format(dataOcorrencia, 'dd/MM/yyyy')}"
+										th:field="*{{dataOcorrencia}}" placeholder="DD/MM/YYYY"
+										autocomplete="off"
+										th:classappend="${#fields.hasErrors('dataOcorrencia')} ? 'is-invalid'"
+										required> <span class="fv-help-block"
+										th:if="${#fields.hasErrors('dataOcorrencia')}"
+										th:errors="*{dataOcorrencia}"></span>
+								</div>								
+								
+								<div
+									class="form-group col-12 col-sm-6 col-md-4 col-lg-2 col-xl-2">
+									<label for="horaOcorrencia">Hora Final</label> <input
+										id="horaFinalEfetivoDiario" type="text" name="horaOcorrencia" readonly
+										class="form-control form-control-sm input-group"
+										th:value="${#dates.format(horaOcorrencia, 'HH:mm:ss')}"
+										th:field="*{{horaOcorrencia}}" placeholder="hh:mm:ss"
+										autocomplete="off"
+										th:classappend="${#fields.hasErrors('horaOcorrencia')} ? 'is-invalid'"
+										required> <span class="fv-help-block"
+										th:if="${#fields.hasErrors('horaOcorrencia')}"
+										th:errors="*{horaOcorrencia}"></span>
+								</div>					
+																
+							</div>
+						</div>
+					</div>
+					<div class="form-control form-control-sm">
+					<div class="table-responsive-md">
+					<table id="tabela-ocorrencia" class="table table-sm table-hover" >
+						<thead>
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Inicio do Plantão</th>
+								<th scope="col">Fim do Plantão</th>
+								<th scope="col">Modalidade</th>
+								<th scope="col">Prefixo</th>
+								<th scope="col">Unidade</th>
+								<th scope="col">Mesa</th>
+								<th scope="col">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+										
+							<tr th:each="_ocorrencia : ${ocorrencias}">
+								<th scope="row" th:text="${_ocorrencia.sic}"></th>
+								<td th:text="${_ocorrencia.dataOcorrencia +'-'+ _ocorrencia.horaOcorrencia}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}"></td>
+								<td th:utext="${#strings.unescapeJava(#strings.abbreviate(_ocorrencia.descricao,70))}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome +'/'+_ocorrencia.endereco.bairro.nome)}"></td>
+								<td th:text="${#strings.capitalize(_ocorrencia.enviada? 'Sim':'Não')}"></td>
+								<td class="text-center" id="botaoEditar">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      <a id="" class="dropdown-item" href="" th:href="@{editar/{id}(id=${_ocorrencia.id})}" data-titulo="Editar Ocorrência" th:id="${_ocorrencia.id}" th:inline="text" ><i class="far fa-edit"></i> Editar</a>
+										      <a id="" class="dropdown-item btn-whatsapp" href="" th:id="${_ocorrencia.id}"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+										      <a id="" class="dropdown-item btn-enviarEmail-ocorrencia" href="" data-titulo="Enviar Ocorrência" th:id="${_ocorrencia.id}"><i class="far fa-envelope"></i> Email</a>
+										      <a id="" class="dropdown-item btn-excluir-ocorrencia" href="" th:href="@{ocorrencias/excluir/{id}(id=${_ocorrencia.id})}" th:inline="text" th:id="${_ocorrencia.id}"><i class="far fa-trash-alt"></i> Excluir</a>
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>	
+					</table>
+				</div>
+				</div>
+					
+					<div class="row-right" style="margin-top: 5px">
+						<a type="button" class="btn btn-primary btn-sm offset-md-10"
+							th:href="@{gestaoefetivo/efetivo-diario}">CANCELAR</a>
+						<button type="submit" class="btn btn-primary btn-sm offset-md-12">GERAR RELATÓRIO</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	</main>
+
+	<footer th:replace="fragmentos/footer :: footer"></footer>
+	<object th:include="fragmentos/scripts :: scripts" th:remove="tag"></object>
+	<script src="/assets/js/validador/form-adicionar-mesa.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-12 pt-3 px-4">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2" th:text="#{sistema.titulo2.tipificacao}">Cadastros de Tipificações</h5>
+				<hr/>
+				<div class="table-responsive-md">
+					<table id="tabela-tipificacao" class="table table-sm table-hover" >
+						<thead>
+							<tr>
+								<th scope="col" th:text="#{tabela-tipificacao.titulo.id}">ID</th>
+								<th scope="col" th:text="#{tabela-tipificacao.titulo.nome}">Tipificação</th>
+								<th scope="col" th:text="#{tabela-tipificacao.titulo.acao}">Ação</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr  th:each="_tipificacao : ${tipificacoes}" class="" th:classappend="${_tipificacao.ativo} ? table-default : table-danger">
+								<th scope="row" th:text="${_tipificacao.id}">1</th>
+								<td th:text="${_tipificacao.nome}">Porto Seguro</td>
+								<td class="text-center">
+									<div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+										<div class="btn-group" role="group">
+											<button id="btnGroupDrop1" type="button" class="btn btn-secondary  btn-sm dropdown-toggle" 
+											data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="#{tabela-tipificacao.botao.acao}">
+										      Ação
+										    </button>
+										    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+										      	<a class="dropdown-item btn-editar-tipificacao" th:href="@{/tipificacoes/editar/{id}(id=${_tipificacao.id})}" data-titulo="Editar Tipificação" th:id="${_tipificacao.id}" th:inline="text" ><i class="far fa-edit"></i> [[#{tabela-tipificacao.botao.editar}]]</a>
+										      	<a class="dropdown-item" href="#" th:href="@{/tipificacoes/status/{id}(id=${_tipificacao.id})}" th:inline="text" th:if="${_tipificacao.ativo==true}"><i class="far fa-thumbs-down" aria-hidden="true"></i> [[#{tabela-tipificacao.botao.desabilitar}]]</a>
+										     	<a class="dropdown-item" href="#" th:href="@{/tipificacoes/status/{id}(id=${_tipificacao.id})}" th:inline="text" th:if="${_tipificacao.ativo==false}"><i class="far fa-thumbs-up" aria-hidden="true"></i> [[#{tabela-tipificacao.botao.habilitar}]]</a>
+<!-- 												<a class="dropdown-item btn-excluir-tipificacao" href="#" th:href="@{tipificacoes/excluir/{id}(id=${_tipificacao.id})}" th:inline="text"><i class="far fa-trash-alt" aria-hidden="true"></i> [[#{tabela-tipificacao.botao.excluir}]]</a> -->
+										    </div>
+										</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+						
+					</table>
+				</div>
+				<button type="button" class="btn btn-primary btn-nova-tipificacao" data-titulo="Cadastro de Nova Tipificação">Adicionar</button>
+				
+			</div>
+		</div>
+		
+		<div th:replace="fragmentos/modal/tipificacao :: modalTipificacao"></div>
+		<div th:replace="fragmentos/modal/sistema :: modalExcluir"></div>
+	</main>
+	
+	<script src="/assets/js/validador/form-tipificacao.js"></script> 
+	<script src="/assets/js/jquery.mask.min.js"></script>
+</section>
+</html>

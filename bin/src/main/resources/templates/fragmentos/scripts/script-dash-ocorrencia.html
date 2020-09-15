@@ -1,0 +1,39 @@
+<th:block th:fragment="script-ocorrencia">
+<!-- ============================================================== -->
+    <!-- Estes são plugins necessários no projeto para a tela do DashBoard Ocorrencia -->
+    <!-- ============================================================== -->   
+	
+	<!-- JQuery Mask -->	
+	<script src="/assets/js/jquery.mask.js"></script>
+	<script src="/assets/toast-master/js/jquery.toast.js"></script>
+
+	<!-- Moments -->
+	<script src="/assets/moments/moments.js"></script>
+	<script src="/assets/moments/moment-with-locales.js"></script>
+	
+	<!-- OwlCarousel -->
+	<script src="/assets/OwlCarousel/dist/owl.carousel.js"></script>
+	<script src="/assets/OwlCarousel/dist/owl.rows.js"></script>
+	
+	<!-- Echarts -->
+	<script src="/assets/echarts/dist/echarts.js"></script>
+	<script src="/assets/echarts/dist/echarts-en.js"></script>
+	<script src="/assets/echarts/dist/extension/dataTool.js"></script>
+	<script src="/assets/echarts/dist/extension/bmap.js"></script>
+	
+	<!-- EASY PIE CHART JS -->
+    <script src="/assets/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
+	
+	<!-- Customização -->
+	<script src="/assets/js/grafico-ocorrencia.js"></script>
+	<script src="/assets/js/refreshDashboard.js"></script>	
+				
+	<script th:inline="javascript" th:if="${usuario.servidor != null}">
+		geradorDeGraficosDashboard([[${estabelecimento.id} == null? ${usuario.servidor.estabelecimento.id}:${estabelecimento.id} ]]);
+	</script>
+	
+	<script th:inline="javascript" th:if="${usuario.servidor == null}">
+		//Para Usuário MASTER - Exibição nas TVs
+		geradorDeGraficosDashboard([[${usuario.getEstabelecimento().get(0).getId()} ]]);
+	</script>
+	</th:block>

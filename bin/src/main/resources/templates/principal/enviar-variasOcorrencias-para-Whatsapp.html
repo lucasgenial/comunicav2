@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{/fragmentos/layout}">
+
+<section layout:fragment="content">
+
+    <div class="row">
+	    <div class="col-12">
+			<div class="card">
+                 <div class="card-body">
+						<h5>Envio de Ocorrências</h5>
+			     </div>
+					<hr>
+				<div class="ocorrencias row col-12 pb-3">		
+					<div class="col-sm-12 col-md-12">
+						<h5 class="text-center">Selecione as ocorrências</h5>
+						<div class="form-control form-control-sm"  style="height: 630px; z-index:10000 max-height:630px; overflow-x:auto;" >
+							<table id="tabela-enviar-ocorrencias"  class="table table-sm" >
+								<thead>
+									<tr>
+										<th scope="col">SIC</th>
+										<th scope="col">Tipificação</th>
+										<th scope="col">Data/Hora</th>
+										<th scope="col">Cidade</th>
+										<th scope="col">Selecionar</th>
+									</tr>
+								</thead>
+								<tbody>
+									 <tr th:each="_ocorrencia : ${ocorrencias}" th:id="${_ocorrencia.sic}" class="table-default">
+									   <th scope="row" th:text="${_ocorrencia.sic}"></th>
+								       <td th:text="${#strings.capitalize(_ocorrencia.tipificacao.nome)}" data-toggle="tooltip" data-placement="top" th:title="${#strings.unescapeJava(_ocorrencia.descricao).replaceAll('<p>','').replaceAll('</p>','')}"></td>
+								       <td th:text="${#temporals.format(_ocorrencia.dataOcorrencia,'dd/MM/yyyy')}"></td>
+								       <td th:text="${#strings.capitalize(_ocorrencia.endereco.cidade.nome)}"></td>
+									   <td><input type="checkbox" th:id="${_ocorrencia.id}" class="selecionado" th:value="${_ocorrencia.id}" th:data-tr="${_ocorrencia.sic}" name="listaDeOcorrencias"></td>
+									 </tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			<div class="col-6">
+					<span class="d-inline-block" tabindex="0" data-toggle="tooltip" id="tolltip-btn-enviarVariasWhatsapp" title="Marque ao menos uma ocorrência">
+						<button type="button" style="pointer-events: none;" id="btn-enviarVariasWhatsapp"  class="btn btn-info btn-sm disabled" disabled="disabled">Visualizar mensagem</button> 
+					</span>				
+					
+					<a type="button"class="btn btn-info btn-sm ml-2" th:href="@{~/admin/cadastros/ocorrencias/historico}" id="cancelar-efetivo">Cancelar</a>
+			</div>	
+		</div>
+			<div th:replace="fragmentos/modal/envioOcorrenciaWhatsapp :: modalMensagemWhatsapp"></div>
+			<script type="text/javascript" src="/assets/js/validador/form-envioDeVariasOcorrencias-Whatsapp.js"></script>			
+		</div>
+	</div>
+</section>
+</html>

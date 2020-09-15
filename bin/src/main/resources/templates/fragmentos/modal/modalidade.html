@@ -1,0 +1,48 @@
+<!-- MODAL CADASTRA E EDITA MODALIDADE -->
+<div class="modal fade" id="modal-modalidade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" 
+data-backdrop="static" th:fragment="modalModalidade">
+	<form id="formModalidade"class="form-modalidade" th:object="${modalidade}" th:action="@{/cadastraModalidade}" method="POST">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+				  <h5 class="modal-title" id="tituloModal"></h5>
+				  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				    <span aria-hidden="true">&times;</span>
+				  </button>
+				</div>
+				
+				<div class="modal-body">
+					<div class="form-row">
+						<div class="form-group col-md-4">
+							<label for="id">ID</label>
+							<input type="number" class="form-control" id="id" name="id" placeholder="ID" th:field="*{id}" disabled/>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-md-12">
+							<label for="nome">Nome</label>
+						    <input type="text" class="form-control" id="nome" name="nome" placeholder="" th:field="*{nome}" />
+					    </div>
+					</div>
+					<div class="form-group row">
+						<label for="qtdServidores" class="col-12 col-form-label">Qtd. Servidores</label>
+						<div class="col-12">
+							 <input class="form-control" type="number" name="qtdServidores" value="42"id="qtdServidores"  th:field="*{qtdServidores}">
+						</div>
+					</div>								
+					<div class="form-group row">
+						<label for="cor" class="col-12 col-form-label">Cor</label>
+						<div class="col-12">
+							 <input  type="text" class="form-control" name="cor" id="cor" th:field="*{cor}">
+						</div>
+					</div>								
+
+				</div>
+				<div class="modal-footer">
+				 	<button type="button" th:href="@{/modalidades}" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+				 	<button type="submit" class="btn btn-primary" id="btn-salvar-modalidade">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>

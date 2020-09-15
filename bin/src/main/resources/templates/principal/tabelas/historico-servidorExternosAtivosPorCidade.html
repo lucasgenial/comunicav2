@@ -1,0 +1,114 @@
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+			<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">EFETIVOS INTERNOS</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="/admin/cadastros/gestaoefetivo/diariodemesa">Histórico De Mesas</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Efetivo Interno</li>
+				        </ol>
+				    </div>	
+				</div>
+			</div>
+	
+		<div class="row">	
+			<div class="btn-group col-12 text-center" role="group">
+			  	<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Porto Seguro" data-toggle="collapse">Porto Seguro</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Eunápolis" data-toggle="collapse">Eunápolis</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itagimirim" data-toggle="collapse">Itagimirim</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itapebi" data-toggle="collapse">Itapebi</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Guaratinga" data-toggle="collapse">Guaratinga</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Belmonte" data-toggle="collapse">Belmonte</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Santa cruz cabrália" data-toggle="collapse">Santa cruz cabrália</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itabela" data-toggle="collapse">Itabela</button>
+			</div>
+			<div class="btn-group col-12 text-center" role="group">
+			  	<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Porto Seguro" data-toggle="collapse">Porto Seguro</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Eunápolis" data-toggle="collapse">Eunápolis</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itagimirim" data-toggle="collapse">Itagimirim</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itapebi" data-toggle="collapse">Itapebi</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Guaratinga" data-toggle="collapse">Guaratinga</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Belmonte" data-toggle="collapse">Belmonte</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Santa cruz cabrália" data-toggle="collapse">Santa cruz cabrália</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itabela" data-toggle="collapse">Itabela</button>
+			</div>
+			<div class="btn-group col-12 text-center" role="group">
+			  	<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Porto Seguro" data-toggle="collapse">Porto Seguro</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Eunápolis" data-toggle="collapse">Eunápolis</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itagimirim" data-toggle="collapse">Itagimirim</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itapebi" data-toggle="collapse">Itapebi</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Guaratinga" data-toggle="collapse">Guaratinga</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Belmonte" data-toggle="collapse">Belmonte</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Santa cruz cabrália" data-toggle="collapse">Santa cruz cabrália</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itabela" data-toggle="collapse">Itabela</button>
+			</div>
+			<div class="btn-group col-12 text-center" role="group">
+			  	<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Porto Seguro" data-toggle="collapse">Porto Seguro</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Eunápolis" data-toggle="collapse">Eunápolis</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itagimirim" data-toggle="collapse">Itagimirim</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itapebi" data-toggle="collapse">Itapebi</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Guaratinga" data-toggle="collapse">Guaratinga</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Belmonte" data-toggle="collapse">Belmonte</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Santa cruz cabrália" data-toggle="collapse">Santa cruz cabrália</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itabela" data-toggle="collapse">Itabela</button>
+			</div>
+			<div class="btn-group col-12 text-center" role="group">
+			  	<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Porto Seguro" data-toggle="collapse">Porto Seguro</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Eunápolis" data-toggle="collapse">Eunápolis</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itagimirim" data-toggle="collapse">Itagimirim</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itapebi" data-toggle="collapse">Itapebi</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Guaratinga" data-toggle="collapse">Guaratinga</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Belmonte" data-toggle="collapse">Belmonte</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Santa cruz cabrália" data-toggle="collapse">Santa cruz cabrália</button>
+				<button class="active btn-sm btn btn-info list-group-item list-group-item-action mudaBotaoDePDF" th:data-idDaMesa="${mesa.id}" type="button" data-target="#Itabela" data-toggle="collapse">Itabela</button>
+			</div>
+			<div class="col-12">
+				<div class="card">
+                    <div class="card-body">				
+						 <h6 class="card-subtitle"></h6>
+								<div class="table-responsive-md">
+									<table id="tabela-historicoEfetivoExterno" class="table table-bordered table-striped dt-responsive" cellspacing="0" width="100%" >
+										<thead>
+											<tr>
+												<th>ID</th>
+												<th>Mesa</th>
+												<th>Inicio do Plantão</th>
+												<th>Fim do Plantão</th>
+												<th>Modalidade</th>
+												<th>Prefixo</th>
+												<th>Unidade</th>	
+											    <th>Abrangência</th>								
+												<th>Ação</th>
+											</tr>
+										</thead>
+										<tbody>
+										
+										</tbody>	
+									</table>
+								</div>	
+				
+					<!-- Botões -->
+					<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                      		<div th:if="${mesa.ativo}" class="btn-group mr-2" role="group">
+								<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa/editarMesa/{id}(id=${mesa.id})}" th:id="${mesa.id}" th:inline="text" >Editar Mesa</a>
+                      		</div>
+                            <div class="btn-group mr-2" id="divBotaoDeDownload" role="group">							
+							<a class="btn btn-info btn-sm botaoDeDownload" name="botaoDeDownload" th:href="@{~/admin/cadastros/report/mesa_completa/{id}(id=${mesa.id})}" th:download="'Mesa ' +${#temporals.format(mesa.inicioPlantao, 'dd/MM/yyyy')}" target="_blank" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >Download PDF</a>
+                      		</div>
+                      		<div class="btn-group mr-2" role="group">
+							<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/gestaoefetivo/diariodemesa}" data-titulo="Editar Ocorrência" th:id="${mesa.id}" th:inline="text" >Voltar</a>
+                      		</div>
+                     </div>	
+				</div>
+				</div>					
+			</div>
+			</div>
+		</div>
+	</main>
+</section>

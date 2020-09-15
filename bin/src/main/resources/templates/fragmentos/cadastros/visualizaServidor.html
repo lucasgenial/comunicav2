@@ -1,0 +1,320 @@
+<<<<<<< HEAD
+<section layout:fragment="content" layout:decorate="~{/fragmentos/layout}">
+	<main>
+		<div class="container-fluid">
+			<!-- INICIO TITULO DA PÁGINA -->
+			<div class="row page-titles">
+				<div class="col-md-5 align-self-center">
+				    <h4 class="text-themecolor">Servidor</h4>
+				</div>
+				<div class="col-md-7 align-self-center text-right">
+				    <div class="d-flex justify-content-end align-items-center">
+				        <ol class="breadcrumb">
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+				            <li class="breadcrumb-item"><a href="javascript:void(0)">Servidores</a></li>
+				            <li class="breadcrumb-item active">Vizualizar Servidor</li>
+				        </ol>
+				    </div>
+=======
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+<title>Comunica CICOM - Visualização de Servidor</title>
+<meta charset="utf-8">
+<object th:include="fragmentos/head :: head" th:remove="tag"></object>
+</head>
+<body>
+	<header>
+		<!-- 		<div th:replace="fragmentos/navbar :: navbar3(${usuario})"></div> -->
+	</header>
+
+	<main role="main" class="col-md-auto ml-sm-auto col-lg-7 mx-auto">
+	
+	<div class="card">	
+		<div class="card-body"  >
+			<div class="form-group">				
+				<div class="form-control form-control-sm">
+					<div class="form-row">						
+						<div class="col-md-6 text-center">
+								<br><label><b>GOVERNO DO ESTADO DA BAHIA</b></label>
+								<br><label><b>SECRETARIA DA SEGURANÇA PÚBLICA</b></label>
+								<br><label><b>SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</b></label>
+						</div>
+							<div class="col-md-3 offset-3 imagem-logoCicom"></div>
+					</div>
+>>>>>>> Mauricio
+				</div>
+			</div>
+		
+<<<<<<< HEAD
+			<div class="row">					
+				<div class="ribbon-wrapper card col-md-auto ml-sm-auto col-lg-8 mx-auto" style="padding-top: 33px;">
+					<div class="form-row ml-2 mr-2 justify-content-between" style="border:2px solid #333;">					
+						<div class="col-md-5 ml-3 mt-3 mb-2 h4" >
+							<label class="font-weight-bold">GOVERNO DO ESTADO DA BAHIA</label>
+							<label class="font-weight-bold">SECRETARIA DA SEGURANÇA PÚBLICA</label>
+							<label class="font-weight-bold">SUPERINTENDÊNCIA DE TELECOMUNICAÇÕES</label>
+						</div>
+							<div class="col-md-2 imagem-logoCicomVisualizacao"></div>
+					</div></br>
+					
+						<div class="collapse show ml-2 mr-2" style="border:2px solid #333;">					
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">MATRÍCULA:&nbsp; </font><font>[[${servidor.matricula}]]</font></label>
+								</div>	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">CICOM:&nbsp; </font><font>[[${servidor.estabelecimento.nome}]]</font></label>
+								</div>						
+							</div>
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-12">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">NOME:&nbsp; </font><font>[[${servidor.nome}]]</font></label>
+								</div>
+							</div>
+							<div class="form-row ml-3 mt-2">	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">HIERARQUIA:&nbsp; </font><font>[[${servidor.hierarquia.nome}]]</font></label>
+								</div>								
+														
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">FUNÇÃO:&nbsp; </font><font>[[${servidor.funcao.nome}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">								
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">C.P.F:&nbsp; </font><font>[[${servidor.cpf}]]</font></label>
+								</div>									
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">R.G:&nbsp; </font><font>[[${servidor.rg}]]&nbsp; / &nbsp;[[${servidor.orgaoEmissor}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">NASCIMENTO:&nbsp; </font><font th:text="${#temporals.format(servidor.dataNascimento, 'dd / MM / yyyy')}"></font></label>
+								</div>								
+								
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">NATURALIDADE:&nbsp; </font><font>[[${servidor.naturalidade}]]&nbsp; / &nbsp;[[${servidor.ufNaturalidade.nome}]]</font> </label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">NACIONALIDADE:&nbsp; </font><font>[[${servidor.nacionalidade.nome}]]</font></label>
+								</div>	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">FATOR RH:&nbsp; </font><font>[[${servidor.tipoSanguineo.nome}]]</font></label>
+								</div>
+							</div>
+							
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">ETNIA:&nbsp; </font><font>[[${servidor.etnia.nome}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">								
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">TEL:&nbsp; </font><font>[[${servidor.celular1}]]</font></label>
+								</div>	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">E-MAIL:&nbsp; </font><font>[[${servidor.email.enderecoDeEmail}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">ESCOLARIDADE:&nbsp; </font><font>[[${servidor.escolaridade.nome}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">ESTADO CÍVIL:&nbsp; </font><font>[[${servidor.estadoCivil.nome}]]</font></label>
+								</div>	
+								<div class="col-md-6">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">FILHOS:&nbsp; </font><font>[[${servidor.qtdFilhos}]]</font></label>
+								</div>
+							</div>
+							
+							<div class="form-row ml-3 mt-2">									
+								<div class="col-md-12">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">PAI:&nbsp; </font><font>[[${servidor.nomePai}]]</font></label>
+								</div>
+							</div>
+							
+							<div class="form-row  ml-3 mt-2">
+								<div class="col-md-12">
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">MÃE:&nbsp; </font><font>[[${servidor.nomeMae}]]</font></label>
+								</div>	
+							</div>
+							
+							<div class="form-row ml-3 mt-2">								
+								<div class="col-md-12">
+									<!-- <label style="margin-bottom: 5px;"><font class="font-weight-bold">ADMISSÃO:&nbsp; </font><font>[[${servidor.dataAdmissao}]]</font></label> -->
+									<label style="margin-bottom: 5px;"><font class="font-weight-bold">ADMISSÃO:&nbsp; </font><font th:text="${#temporals.format(servidor.dataAdmissao, 'dd / MM / yyyy')}"></font></label>
+								    
+								</div>
+							</div>								
+						</div>
+								
+								
+								
+								<div class="collapse show ml-2 mr-2">
+									<div class="col-md-12 text-center" style="border:2px solid #333; background-color:#0bf;">
+										<label style="margin-bottom: 0px;"><font class="font-weight-bold">ENDEREÇO:&nbsp; </font></label>
+									</div>
+								</div>
+									<div class="collapse show ml-2 mr-2" style="border:2px solid #333;">	
+										<div class="form-row ml-3 mt-2">	
+											<div class="col-md-12">
+												<label style="margin-bottom: 5px; margin-top:5px;"><font class="font-weight-bold">C.E.P:&nbsp; </font><font>[[${servidor.cep}]]</font></label>
+											</div>
+										</div>
+										
+										<div class="form-row ml-3 mt-2">
+											<div class="col-md-4">
+												<label style="margin-bottom: 5px;"><font class="font-weight-bold">RUA:&nbsp; </font><font>[[${servidor.endereco.rua}]]</font></label>
+											</div>
+											<div class="col-md-4">
+												<label style="margin-bottom: 5px;"><font class="font-weight-bold">Nº:&nbsp; </font><font>[[${servidor.endereco.numero}]]</font></label>
+											</div>
+											<div class="col-md-4">
+												<label style="margin-bottom: 5px;"><font class="font-weight-bold">BAIRRO:&nbsp; </font><font>[[${servidor.endereco.bairro}]]</font></label>
+											</div>
+										</div>
+										
+										<div class="form-row ml-3 mt-2">
+											<div class="col-md-6">
+												<label style="margin-bottom: 5px;"><font class="font-weight-bold">CIDADE:&nbsp; </font><font>[[${servidor.endereco.cidade.nome}]]</font></label>
+											</div>
+											<div class="col-md-6">
+												<label style="margin-bottom: 5px;"><font class="font-weight-bold">ESTADO:&nbsp; </font><font>[[${servidor.endereco.ufServidor.nome}]]</font></label>
+											</div>
+										</div>	
+									</div>						
+							<div class="collapse show ml-2 mt-2">
+							 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                       		<div class="btn-group mr-2" role="group">
+                       			<a class="btn btn-info btn-sm" th:href="@{~/admin/cadastros/servidores/historico}" data-titulo="Editar OcorrÃªncia" th:id="${servidor.id}" th:inline="text" >Voltar</a>
+                       		</div>
+                          	<div class="btn-group mr-2" role="group">
+                       			 <a class="btn btn-info btn-sm" th:href="@{~/admin/report/servidor/{id}(id=${servidor.id})}" target="_blank" data-titulo="Editar Servidor" th:id="${servidor.id}" th:inline="text" >Imprimir</a>
+                       		</div>
+                        </div> 
+                        </div>
+				</div><!-- ribbon-wrapper cabeçalho -->										
+			</div><!-- div row 1 -->			
+		</div><!-- container -->
+=======
+		<div class="card-body">			
+			<div class="form-group">
+				<div class="form-control form-control-sm">
+					<div class="form-row">
+						<div class="col-md-12">
+							<label for="matricula"><b>MATRÍCULA: </b>[[${servidor.matricula}]]</label>
+						</div>	
+						<div class="col-md-12">
+							<label for="nome"><b>NOME: </b>[[${servidor.nome}]]</label>
+						</div>
+												
+						<!-- ****************************************************************************** -->
+						<div class="col-md-6">
+							<label for="hierarquia"><b>HIERARQUIA: </b>[[${servidor.hierarquia.nome}]]</label>
+						</div>							
+						<!-- ****************************************************************************** -->
+												
+						<div class="col-md-6">
+							<label for="funcao"><b>FUNÇÃO: </b>[[${servidor.funcao.nome}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="cpf"><b>C.P.F: </b>[[${servidor.cpf}]]</label>
+						</div>	
+						<!-- ****************************************************************************** -->
+						<div class="col-md-6">
+							<label for="gr"><b>R.G: </b>[[${servidor.rg}]]&nbsp / &nbsp[[${servidor.orgaoEmissor}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="nascimento"><b>NASCIDO EM: </b>[[${servidor.dataNascimento}]]</label>
+						</div>
+						
+						<!-- ****************************************************************************** -->
+						
+						<div class="col-md-6">
+							<label for="naturalidade"><b>NATURALIDADE: </b>[[${servidor.naturalidade}]]&nbsp / &nbsp[[${servidor.ufNaturalidade.nome}]] </label>
+						</div>	
+						<div class="col-md-6">
+							<label for="nacionalidade"><b>NACIONALIDADE: </b>[[${servidor.nacionalidade.nome}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="tipoSanguineo"><b>FATOR RH: </b>[[${servidor.tipoSanguineo.nome}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="etnia"><b>ETNIA: </b>[[${servidor.etnia.nome}]]</label>
+						</div>	
+						
+						<!-- ****************************************************************************** -->
+						
+						<div class="col-md-6">
+							<label for="tel"><b>TEL: </b>[[${servidor.celular1}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="email"><b>E-MAIL: </b>[[${servidor.email.enderecoDeEmail}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="escolaridade"><b>ESCOLARIDADE: </b>[[${servidor.escolaridade.nome}]]</label>
+						</div>	
+						
+						<!-- ****************************************************************************** -->
+						
+						<div class="col-md-6">
+							<label for="estadoCivil"><b>ESTADO CÍVIL: </b>[[${servidor.estadoCivil.nome}]]</label>
+						</div>	
+						<div class="col-md-6">
+							<label for="qtdFilhos"><b>FILHOS: </b>[[${servidor.qtdFilhos}]]</label>
+						</div>	
+						<div class="col-md-12">
+							<label for="nomePai"><b>PAI: </b>[[${servidor.nomePai}]]</label>
+						</div>
+						<div class="col-md-12">
+							<label for="nomeMae"><b>MÃE: </b>[[${servidor.nomeMae}]]</label>
+						</div>	
+						<div class="col-md-12">
+							<label for="admissao"><b>ADMISSÃO: </b>[[${servidor.dataAdmissao}]]</label>
+						</div>
+						<div class="col-md-12">
+							<label for="end"><b>ENDEREÇO: </b></label>
+						</div>
+						<div class="col-md-6">
+							<label for="rua"><b>RUA: </b>[[${servidor.endereco.rua}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="numero"><b>RUA: </b> [[${servidor.endereco.numero}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="bairro"><b>BAIRRO: </b> [[${servidor.endereco.bairro}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="bairro"><b>C.E.P: </b> [[${servidor.cep}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="cidade"><b>CIDADE: </b> [[${servidor.endereco.cidade.nome}]]</label>
+						</div>
+						<div class="col-md-6">
+							<label for="estado"><b>ESTADO: </b>[[${servidor.endereco.ufServidor.nome}]]</label>
+						</div>																				
+					</div>									
+				</div>
+			</div>	
+			<a class="btn btn-primary btn-sm" th:href="@{~/admin/cadastros/servidores/historico}" data-titulo="Editar OcorrÃªncia" th:id="${servidor.id}" th:inline="text" >Voltar</a>
+		    <a class="btn btn-primary btn-sm" th:href="@{~/admin/report/servidor/{id}(id=${servidor.id})}" target="_blank" data-titulo="Editar Servidor" th:id="${servidor.id}" th:inline="text" >Imprimir</a>
+		
+		</div>
+		
+	</div><!-- FECHAMENTO CARD -->
+>>>>>>> Mauricio
+	</main>
+</section>

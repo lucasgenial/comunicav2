@@ -1,0 +1,118 @@
+
+	
+	<div role="main" class="col-md-auto ml-sm-auto col-lg-12">
+		<div class="card">
+			<div class="card-body">
+				<h5 class="card-title mb-2">Cadastro de Unidade</h5>
+				<br>
+				
+				
+				
+				<form id="formUnidade"class="form-unidade" th:object="${unidade}" th:action="@{/cadastraUnidade}" method="POST">
+					<div class="table-responsive-md" th:if="${#fields.hasErrors('*')}">
+						<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+						<div class="alert alert-danger" role="alert">
+							<ul>
+								<li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+							</ul>
+						</div>
+					</div>
+					
+					<div class="table-responsive-md" th:if="${aviso}">
+						<h6>Atenção, corrija os erros sinalizados abaixo</h6>
+						<div class="alert alert-danger" role="alert">
+							<span th:text="${mensagem}"></span>
+						</div>
+					</div>
+					
+					<br th:if="${#fields.hasErrors('*')}">
+					
+					<div class="form-group">
+						<div class="form-group">
+							<h6>DADOS DA UNIDADE</h6>
+							<div class="form-control">
+								<div class="form-row col-12">
+									<div class="form-group col-1" th:if="${edicao}">
+										<label for="id">Id</label>
+										<input id="id" name="id" type="text" class="form-control" th:field="*{id}" th:value="${id}" readonly="readonly">
+									</div>
+									
+									<div class="form-group col-6">
+										<label for="nome">Nome Completo</label>
+										<input id="nome" name="nome" type="text" class="form-control" th:field="*{nome}" autocomplete="off"  th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+									</div>
+									
+									<div class="form-group col-1">
+										<label for="cor">Cor Gráfico</label>
+										<input id="cor" name="cor" type="color" th:field="*{cor}" class="form-control form-control-sm"  list="" style="height: 38px" placeholder="#FFFFFF"/>
+									</div>
+								</div>
+								<div class="form-row col-12">
+									<div class="form-group col-4">
+										<label for="estabelecimento">Estabelecimento</label>
+										<select id="estabelecimento" name="estabelecimento" class="form-control">
+											<option value="">Selecionar</option>
+											<option th:each="_estabelecimento : ${estabelecimentos}"  th:if="${unidade.estabelecimento} != null" th:selected="${_estabelecimento.id == unidade.estabelecimento.id}" th:value="${_estabelecimento.id}" th:text="${_estabelecimento.nome}"></option>
+											<option th:each="_estabelecimento : ${estabelecimentos}"  th:if="${unidade.estabelecimento} == null" th:value="${_estabelecimento.id}" th:text="${_estabelecimento.nome}"></option>
+										</select>
+									</div>
+									
+									<div class="form-group col-4">
+										<label for="instituicao">Instituição</label>
+										<select id="instituicao" name="instituicao" class="form-control">
+											<option value="">Selecionar</option>
+											<option th:each="_instituicao : ${instituicoes}"  th:if="${unidade.instituicao} != null" th:selected="${_instituicao.id == unidade.instituicao.id}" th:value="${_instituicao.id}" th:text="${_instituicao.nome}"></option>
+											<option th:each="_instituicao : ${instituicoes}"  th:if="${unidade.instituicao} == null" th:value="${_instituicao.id}" th:text="${_instituicao.nome}"></option>
+										</select>
+									</div>
+									
+									<div class="form-group col-4">
+										<label for="cidade">Cidade</label>
+										<select id="cidade" name="cidade" class="form-control">
+											<option value="">Selecionar</option>
+											<option th:each="_cidade : ${cidades}"  th:if="${unidade.cidade} != null" th:selected="${_cidade.id == unidade.cidade.id}" th:value="${_cidade.id}" th:text="${_cidade.nome}"></option>
+											<option th:each="_cidade : ${cidades}"  th:if="${unidade.cidade} == null" th:value="${_cidade.id}" th:text="${_cidade.nome}"></option>
+										</select>
+									</div>	
+								</div>	
+							</div>
+							
+							<br>
+							<h6>CONTATO DA UNIDADE</h6>
+							<div class="form-control" th:object="${unidade.email}">
+								<div class="form-row col-12">
+									<div class="form-group col-1" th:if="${edicao}">
+										<label for="id">Id</label>
+										<input id="id" name="id" type="text" class="form-control" th:field="*{id}" th:value="${id}" readonly="readonly">
+									</div>
+									
+									<div class="form-group col-4">
+										<label for="nome">Responsável</label>
+										<input id="nome" name="nome" type="text" class="form-control" th:field="*{nome}" autocomplete="off"  th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+									</div>
+									
+									<div class="form-group col-6">
+										<label for="enderecoDeEmail">Email</label>
+										<input id="enderecoDeEmail" name="enderecoDeEmail" type="email" class="form-control" th:field="*{enderecoDeEmail}" autocomplete="off"  th:classappend="${#fields.hasErrors('nome')} ? 'is-invalid'" onkeyup="maiuscula(this);" required>
+										<span class="fv-help-block" th:if="${#fields.hasErrors('enderecoDeEmail')}" th:errors="*{enderecoDeEmail}"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+						
+					<button th:if="${edicao}" type="submit" name="atualizar" class="btn btn-primary">Salvar Modificações</button>
+					<button th:if="${!edicao}" type="submit" name="cadastrar" class="btn btn-primary">Salvar</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	</main>
+
+	<script src="/assets/js/jquery.mask.min.js"></script>
+	<script src="/assets/js/validador/form-unidade.js"></script>
+</section>
+</html>

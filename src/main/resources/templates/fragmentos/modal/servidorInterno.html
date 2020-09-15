@@ -1,0 +1,97 @@
+<!-- MODAL ADICIONAR SERVIDOR NA MESA  EDITANDO-->
+<div class="modal fade" id="modal-adicionarServidorNaMesaEditando"	tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" th:fragment="modal-adicionarServidorNaMesaEditando">
+	<div id="form-adicionarServidorNaMesaEditando"	class="modal-adicionarServidorNaMesaEditando modal-lg center">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content" style="width: 80vw;">
+				<div class="modal-header" style="width: 100%;">
+					<h5 class="modal-title" id="tituloModal"></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form th:action="${'/admin/salva/edicao/mesa/interno/'+mesa.id}"  th:object="${mesa}" method="post">
+				
+				<table hidden="hidden" class="table table-bordered table-striped text-center">
+					<thead>
+						<tr>
+							<th class="pt-3 pb-3">GH</th>
+							<th class="pt-3 pb-3">Nome</th>
+							<th class="pt-3 pb-3">Matricula</th>
+							<th class="pt-3 pb-3">Função</th>
+							<th class="pt-3 pb-3">Data/Hora Início</th>
+							<th class="pt-3 pb-3">Data/Hora Fim</th>
+							<th class="pt-3 pb-3">Intervalo</th>
+							<th class="pt-3 pb-3">Ação</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="_servidores, itemStat : ${mesa.servidores}" th:classappend="${mesa.servidores[__${itemStat.index}__].ativo} ? table-default : table-danger">
+							<td class="pl-1 pr-1 pb-1 pt-1 align-middle" id="funcoes" th:text="${mesa.servidores[__${itemStat.index}__].servidor.hierarquia.nome}" th:value="${{mesa.servidores[__${itemStat.index}__].servidor.id}}" th:field="*{servidores[__${itemStat.index}__].servidor}">
+							</td>											
+							<td class="pl-1 pr-1 pb-1 pt-1 align-middle">
+								<select class="form-control select-transparente" th:field="*{servidores[__${itemStat.index}__].servidor}" >
+									<option class="select-transparente"  th:each="_servi : ${mesa.servidores[__${itemStat.index}__].servidor}" th:value="${{_servi.id}}" th:text="${_servi.nome}"></option>
+								</select>
+							</td>
+							<td class="pl-1 pr-1 pb-1 pt-1 align-middle" name="servidorFuncao.funcao" th:text="${mesa.servidores[__${itemStat.index}__].servidor.matricula}" ></td>											
+							<td class="pl-1 pr-1 pb-1 pt-1 align-middle" width="25%">
+								<select class="form-control" th:field="*{servidores[__${itemStat.index}__].funcao}">
+									<option th:each="_funcao : ${funcoes}" th:value="${{_funcao.id}}" th:text="${_funcao.nome}"></option>
+								</select>
+							</td>
+							<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="12%"  name="listaDeServidoresNaMesa">
+								<input th:field="*{servidores[__${itemStat.index}__].inicioPlantao}" type="text" name="inicioPlantao" class="form-control pl-1 pr-1 input-group text-center servidorInicioPlantao" th:value="${#dates.format(inicioPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('inicioPlantao')} ? 'is-invalid'" required>
+							</td>
+							<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="12%">
+								<input th:field="*{servidores[__${itemStat.index}__].fimPlantao}" type="text" name="fimPlantao" class="form-control input-group text-center pl-1 pr-1 servidorFimPlantao" th:value="${#dates.format(fimPlantao, 'dd/MM/yyyy HH:mm:ss')}" autocomplete="off" th:classappend="${#fields.hasErrors('fimPlantao')} ? 'is-invalid'" required>
+							</td>
+							<td class="text-center pl-1 pr-1 pb-1 pt-1 align-middle" width="11%">
+								<div class="form-row pl-1 pr-1 pb-1 pt-1">
+									<input  type="text" name="pausa1" th:field="*{servidores[__${itemStat.index}__].pausa1}" class="text-center form-control col-6 servidorPausa1 pl-0 pr-0" th:value="${#dates.format(pausa1, 'HH:mm:ss')}" placeholder="hh:mm:ss" autocomplete="off">
+									<input  type="text" name="pausa2" th:field="*{servidores[__${itemStat.index}__].pausa2}"  class="text-center form-control col-6 servidorPausa2 pl-0 pr-0" th:value="${#dates.format(pausa2, 'HH:mm:ss')}" placeholder="hh:mm:ss" autocomplete="off">
+								</div>											
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<input hidden="hidden" th:field="${mesa.id}">
+				<div hidden="hidden"  id="servidoresSelects">
+				</div>
+				
+				<div class="modal-body">
+					<div class="table-responsive-md">
+						<table id="tabela-tabelaServidor" class="table table-bordered table-striped text-center">
+							<thead>
+								<tr>
+									<th scope="col">GH</th>
+									<th scope="col">Nome</th>
+									<th scope="col">Matricula</th>
+									<th scope="col">Fun&ccedil;&atilde;o</th>
+									<th scope="col">Selecionar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="_servidores : ${servidoresMesa}" th:class="${_servidores.id} + ' table-default'">
+									<td class="clicador" th:data-identificador="${_servidores.id}" th:text="${_servidores.hierarquia.nome}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" th:text="${_servidores.nome}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" th:text="${_servidores.matricula}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" th:text="${_servidores.funcao.nome}"></td>
+									<td class="clicador" th:data-identificador="${_servidores.id}" >
+										<input type="checkbox" name="listaServidores"	th:id="${_servidores.id}" th:data-identificador="${_servidores.id}" class="clicador" th:value="${_servidores.id}">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info"	data-dismiss="modal">Fechar</button>
+						<button type="submit" class="btn btn-info" name="adicionaServidorNaMesa">Adicionar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
