@@ -1,4 +1,4 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.dto;
+package br.com.cicom.comunicacicom.DSPrimary.DTO.sisEfetivo;
 
 import java.util.ArrayList;
 import java.util.List;

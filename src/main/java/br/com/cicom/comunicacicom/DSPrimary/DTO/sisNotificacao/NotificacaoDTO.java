@@ -1,53 +1,24 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.notificacao;
+package br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+public class NotificacaoDTO {
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-@Entity
-@Table(name = "NOTIFICACAO")
-@SuppressWarnings("serial")
-public class Notificacao implements Serializable {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", unique = true)
 	private Long id;
-
-	@NotNull
-	@Column(name = "ASSUNTO", unique = false)
 	private String assunto;
-
-	@NotNull
-	@Column(name = "MENSAGEM", unique = false)
 	private String mensagem;
-	
-	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Column(name = "DATA_CRIACAO", nullable = false)
 	private LocalDateTime dataCriacao;
 	
-	public Notificacao() {
-		
+	public NotificacaoDTO() {
 	}
 
-	public Notificacao(Long id, @NotNull String assunto, @NotNull String mensagem, @NotNull LocalDateTime dataCriacao) {
-		super();
+	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao) {
 		this.id = id;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 		this.dataCriacao = dataCriacao;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -99,7 +70,7 @@ public class Notificacao implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Notificacao other = (Notificacao) obj;
+		NotificacaoDTO other = (NotificacaoDTO) obj;
 		if (assunto == null) {
 			if (other.assunto != null)
 				return false;
@@ -125,7 +96,7 @@ public class Notificacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Notificacao [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
+		return "NotificacaoDTO [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
 				+ dataCriacao + "]";
-	}	
+	}
 }

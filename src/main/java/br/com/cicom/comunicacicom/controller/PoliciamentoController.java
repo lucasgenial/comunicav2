@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.dto.DadosPoliciamentoDTO;
-import br.com.cicom.comunicacicom.DSPrimary.model.dto.InstituicaoDTO;
-import br.com.cicom.comunicacicom.DSPrimary.model.dto.ModalidadeDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisEfetivo.DadosPoliciamentoDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisEfetivo.InstituicaoDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisEfetivo.ModalidadeDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.localizacao.Bairro;
 import br.com.cicom.comunicacicom.DSPrimary.model.localizacao.Cidade;
 import br.com.cicom.comunicacicom.DSPrimary.model.localizacao.Localidade;

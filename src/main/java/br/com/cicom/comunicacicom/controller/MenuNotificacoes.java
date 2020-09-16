@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.notificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
 @Controller

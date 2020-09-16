@@ -1,4 +1,4 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.dto;
+package br.com.cicom.comunicacicom.DSPrimary.DTO.sisEfetivo;
 
 public class ModalidadeDTO {
 	private String nomeModalidade;

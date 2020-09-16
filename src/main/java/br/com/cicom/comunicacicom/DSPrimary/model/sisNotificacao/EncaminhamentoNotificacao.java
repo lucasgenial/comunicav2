@@ -1,4 +1,4 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.notificacao;
+package br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
