@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-@Table(name = "NOTIFICACAO")
+@Table(name = "NOTIFICACAO", schema = "comunicacicom")
 @SuppressWarnings("serial")
 public class Notificacao implements Serializable {
 	

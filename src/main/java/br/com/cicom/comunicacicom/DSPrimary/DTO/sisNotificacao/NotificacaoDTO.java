@@ -1,6 +1,10 @@
 package br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
 
 public class NotificacaoDTO {
 
@@ -8,17 +12,22 @@ public class NotificacaoDTO {
 	private String assunto;
 	private String mensagem;
 	private LocalDateTime dataCriacao;
-	
+	private List<UsuarioDTO> listaUsuario;
+	private List<GrupoDTO> listaGrupo;
+
 	public NotificacaoDTO() {
 	}
 
-	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao) {
+	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao,
+			List<UsuarioDTO> listaUsuario, List<GrupoDTO> listaGrupo) {
 		this.id = id;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 		this.dataCriacao = dataCriacao;
+		this.listaUsuario = listaUsuario;
+		this.listaGrupo = listaGrupo;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -51,6 +60,22 @@ public class NotificacaoDTO {
 		this.dataCriacao = dataCriacao;
 	}
 
+	public List<UsuarioDTO> getListaUsuario() {
+		return listaUsuario;
+	}
+
+	public void setListaUsuario(List<UsuarioDTO> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+	}
+
+	public List<GrupoDTO> getListaGrupo() {
+		return listaGrupo;
+	}
+
+	public void setListaGrupo(List<GrupoDTO> listaGrupo) {
+		this.listaGrupo = listaGrupo;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -58,6 +83,8 @@ public class NotificacaoDTO {
 		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
 		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((listaGrupo == null) ? 0 : listaGrupo.hashCode());
+		result = prime * result + ((listaUsuario == null) ? 0 : listaUsuario.hashCode());
 		result = prime * result + ((mensagem == null) ? 0 : mensagem.hashCode());
 		return result;
 	}
@@ -86,6 +113,16 @@ public class NotificacaoDTO {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (listaGrupo == null) {
+			if (other.listaGrupo != null)
+				return false;
+		} else if (!listaGrupo.equals(other.listaGrupo))
+			return false;
+		if (listaUsuario == null) {
+			if (other.listaUsuario != null)
+				return false;
+		} else if (!listaUsuario.equals(other.listaUsuario))
+			return false;
 		if (mensagem == null) {
 			if (other.mensagem != null)
 				return false;
@@ -97,6 +134,7 @@ public class NotificacaoDTO {
 	@Override
 	public String toString() {
 		return "NotificacaoDTO [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
-				+ dataCriacao + "]";
+				+ dataCriacao + ", listaUsuario=" + listaUsuario + ", listaGrupo=" + listaGrupo + "]";
 	}
+
 }

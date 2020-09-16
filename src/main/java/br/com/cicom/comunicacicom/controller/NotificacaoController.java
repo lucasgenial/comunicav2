@@ -21,6 +21,7 @@ public class NotificacaoController {
 	
 	@RequestMapping(value = "**/cadastrarNotificao", params = {"cadastrar"})
 	public String cadastrarNotificao(ModelAndView mv) {
+		
 		return "redirect:/admin/notificacoes/entrada";
 	}
 }

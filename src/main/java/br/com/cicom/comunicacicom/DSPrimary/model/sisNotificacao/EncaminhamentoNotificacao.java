@@ -19,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 
 @Entity
-@Table(name = "ENCAMINHAMENTO_NOTIFICACAO")
+@Table(name = "ENCAMINHAMENTO_NOTIFICACAO", schema = "comunicacicom")
 @SuppressWarnings("serial")
 public class EncaminhamentoNotificacao implements Serializable {
 

@@ -76,8 +76,8 @@ public class FirstRepositoryConfig {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
 		entityManagerFactoryBean.setDataSource(dataSource());
-		//entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-		//entityManagerFactoryBean.setPersistenceUnitManager(persistenceUnitManager());
+//		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+//		entityManagerFactoryBean.setPersistenceUnitManager(persistenceUnitManager());
 		entityManagerFactoryBean.setPersistenceUnitName("entityManagerFactory");
 		entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
 		entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());

@@ -21,36 +21,53 @@
 				<div class="card">
 					<div class="row">
 						<div class="col-lg-2 col-md-4">
-							<div class="card-body inbox-panel">
-								<a href="app-compose.html" class="btn btn-danger m-b-20 p-10 btn-block waves-effect waves-light">Criar Notificação</a>
-								<ul class="list-group list-group-full">
-									<li class="list-group-item">
-										<a href="javascript:void(0)"><i class="mdi mdi-gmail"></i> Recebidas</a>  <span class="badge badge-success ml-auto">6</span>
-									</li>
-									<li class="list-group-item">
-										<a href="javascript:void(0)"><i class="mdi mdi-send"></i> Criadas</a>  <span class="badge badge-danger ml-auto">3</span>
-									</li>
-								</ul>
-							</div>
+								<div class="card-body inbox-panel">
+									<a href="app-compose.html" class="btn btn-danger m-b-20 p-10 btn-block waves-effect waves-light">Criar Notificação</a>
+									<ul class="list-group list-group-full">
+										<li class="list-group-item">
+											<a href="javascript:void(0)"><i class="mdi mdi-gmail"></i> Recebidas</a>  <span class="badge badge-success ml-auto">6</span>
+										</li>
+										<li class="list-group-item">
+											<a href="javascript:void(0)"><i class="mdi mdi-send"></i> Criadas</a>  <span class="badge badge-danger ml-auto">3</span>
+										</li>
+									</ul>
+								</div>
 						</div>
+						
 						<div class="col-xlg-10 col-lg-10 col-md-8 bg-light border-left">
-						    <div class="card-body">
-								<h3 class="card-title">Nova Notificação</h3>
-								<div class="form-group">
-									<label for=mensagem>Destinatários</label>
-								    <input class="form-control" placeholder="Para:">
-								</div>
-								<div class="form-group">
-									<label for=mensagem>Assunto</label>
-								    <input class="form-control" placeholder="Assunto:">
-								</div>
-								<div class="form-group">
-									<label for=mensagem>Mensagem</label>
-									<textarea id="mensagem" class="form-control" rows="15" placeholder="Insira sua mensagem..."></textarea>
-								</div>
-								<button type="submit" class="btn btn-success m-t-20"><i class="fa fa-envelope-o"></i> Enviar</button>
-								<button class="btn btn-dark m-t-20"><i class="fa fa-times"></i> Descartar</button>
-						    </div>
+							<form id="formNovaNotificacao" class="form-servidor" th:object="${notificacao}" th:action="@{{link}(link=${linkCadastro})}" method="POST" >
+							    <div class="card-body">
+									<h3 class="card-title">Nova Notificação</h3>
+									
+									<div class="form-group col-6">
+										<label for="listaGrupo">Grupos de Destinatários:</label>
+										<select id="listaGrupo" th:field="${notificacao.listaGrupo}" class="form-control selectpicker" data-style="form-control" multiple="multiple" title="Selecione os grupos ...">
+	 										<option value="" >Selecionar</option>
+	 										<option th:each="_grupo : ${listaGrupo}" th:text="${{_grupo.nome}}" th:value="${_grupo.id}"></option>
+										</select>											
+									</div>
+									<div class="form-group col-6">
+										<label for="listaUsuarios">Usuários:</label>
+										<select id="listaUsuarios" th:field="${notificacao.listaUsuario}" class="form-control selectpicker" data-style="form-control"  multiple="multiple" title="Selecione os destinatários ...">
+	 										<option value="" >Selecionar</option>
+	 										<option th:each="_usuario : ${listaUsuario}" th:text="${{_usuario.servidor.nome}}" th:value="${_usuario.id}"></option>
+										</select>											
+									</div>
+									
+									<div class="form-group col-12">
+										<label for="assunto">Assunto</label>
+									    <input id="assunto" name="assunto" class="form-control form-control-sm" th:field="*{assunto}" th:classappend="${#fields.hasErrors('assunto')} ? 'is-invalid'" required placeholder="Assunto:">
+									</div>
+									
+									<div class="form-group col-12">
+										<label for="mensagem">Mensagem</label>
+										<textarea id="mensagem" name="mensagem" class="form-control form-control-sm" th:field="*{mensagem}" th:classappend="${#fields.hasErrors('mensagem')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
+									</div>
+									
+									<button type="submit" class="btn btn-success m-t-20"><i class="fa fa-envelope-o"></i> Enviar</button>
+									<button class="btn btn-dark m-t-20"><i class="fa fa-times"></i> Descartar</button>
+							    </div>
+							</form>
 						</div>
 					</div>
 				</div>

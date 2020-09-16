@@ -18,6 +18,7 @@ import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 public interface UsuarioRepository extends DataTablesRepository<Usuario, Long>, JpaRepository<Usuario, Long>{
 	Optional<Usuario> findByLogin(String login);
 	List<Usuario> findByEstabelecimento(Estabelecimento estabelecimento);
+	List<Usuario> findByEstabelecimentoIn(List<Estabelecimento> estabelecimentos);
 	DataTablesOutput<Usuario> findAll(@Valid DataTablesInput input);
 	Optional<Usuario> findById(Long id);
 	List<Usuario> findAll();

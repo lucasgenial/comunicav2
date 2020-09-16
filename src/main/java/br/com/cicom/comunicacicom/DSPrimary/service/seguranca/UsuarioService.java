@@ -138,6 +138,12 @@ public class UsuarioService  {
 	public List<Usuario> buscarPorEstabelecimento(Estabelecimento estabelecimento) {
 		return repositorio.findByEstabelecimento(estabelecimento);
 	}
+	
+	public List<Usuario> buscarPorEstabelecimentos(List<Estabelecimento> estabelecimentos) {
+		System.out.println(repositorio.findByEstabelecimentoIn(estabelecimentos));
+		
+		return repositorio.findByEstabelecimentoIn(estabelecimentos);
+	}
 
 	/**
 	 * IMPLEMENTAÇÕES DA NOVA TEMPLATE
