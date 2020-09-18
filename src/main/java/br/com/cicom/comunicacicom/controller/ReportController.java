@@ -32,7 +32,6 @@ import br.com.cicom.comunicacicom.DSPrimary.model.rh.Email;
 import br.com.cicom.comunicacicom.DSPrimary.model.rh.Servidor;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisComunica.Ocorrencia;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisComunica.OcorrenciaLog;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.Mesa;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.Policiamento;
 import br.com.cicom.comunicacicom.DSPrimary.service.gestao.VisitaService;

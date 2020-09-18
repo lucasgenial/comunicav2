@@ -1,17 +1,12 @@
 package br.com.cicom.comunicacicom.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.datatables.mapping.Column;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -31,7 +26,6 @@ import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Servico;
 import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Visita;
 import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Visitante;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisComunica.Ocorrencia;
 import br.com.cicom.comunicacicom.DSPrimary.service.gestao.ServicoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.gestao.VisitaService;
 import br.com.cicom.comunicacicom.DSPrimary.service.gestao.VisitanteService;

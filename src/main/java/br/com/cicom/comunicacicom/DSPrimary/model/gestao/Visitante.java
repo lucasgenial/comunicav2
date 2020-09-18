@@ -2,33 +2,15 @@ package br.com.cicom.comunicacicom.DSPrimary.model.gestao;
 
 import java.io.Serializable;
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.Base64;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.Cascade;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.annotation.DateTimeFormat.ISO;
-import org.springframework.lang.Nullable;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
-import lombok.Builder.Default;
 
 /**
  * @author Anderson Kroger

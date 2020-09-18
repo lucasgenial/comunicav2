@@ -1,18 +1,13 @@
 package br.com.cicom.comunicacicom.DSPrimary.specification;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 
 import org.springframework.data.jpa.domain.Specification;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Visita;
 import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Visitante;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 
 public class VisitanteEspecification {	
 	

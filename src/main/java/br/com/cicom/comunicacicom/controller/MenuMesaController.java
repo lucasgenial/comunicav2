@@ -16,23 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.localizacao.Bairro;
-import br.com.cicom.comunicacicom.DSPrimary.model.localizacao.Localidade;
 import br.com.cicom.comunicacicom.DSPrimary.model.rh.Servidor;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.Mesa;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.Policiamento;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.ServidorFuncao;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisEfetivo.TipoFuncao;
-import br.com.cicom.comunicacicom.DSPrimary.service.rh.FuncaoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.rh.ServidorService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 import br.com.cicom.comunicacicom.DSPrimary.service.sisEfetivo.MesaService;
-import br.com.cicom.comunicacicom.DSPrimary.service.sisEfetivo.ModalidadeService;
-import br.com.cicom.comunicacicom.DSPrimary.service.sisEfetivo.RecursoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.sisEfetivo.ServidorFuncaoInternoService;
-import br.com.cicom.comunicacicom.DSPrimary.service.sisEfetivo.TipoServicoService;
-import br.com.cicom.comunicacicom.DSPrimary.service.sisGeral.InstituicaoService;
 
 @Controller
 public class MenuMesaController {

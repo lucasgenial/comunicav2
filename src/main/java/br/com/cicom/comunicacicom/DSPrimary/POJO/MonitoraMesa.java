@@ -2,7 +2,6 @@ package br.com.cicom.comunicacicom.DSPrimary.POJO;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 

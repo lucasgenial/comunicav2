@@ -140,9 +140,10 @@ public class UsuarioService  {
 	}
 	
 	public List<Usuario> buscarPorEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-		System.out.println(repositorio.findByEstabelecimentoIn(estabelecimentos));
+		System.out.println(estabelecimentos);
 		
-		return repositorio.findByEstabelecimentoIn(estabelecimentos);
+//		return repositorio.findByEstabelecimentoIn(estabelecimentos);
+		return null;
 	}
 
 	/**

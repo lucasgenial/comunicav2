@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Servico;
-import br.com.cicom.comunicacicom.DSPrimary.model.gestao.Visita;
 
 @Repository
 public interface ServicoRepository extends DataTablesRepository<Servico, Long>,JpaRepository <Servico, Long> {

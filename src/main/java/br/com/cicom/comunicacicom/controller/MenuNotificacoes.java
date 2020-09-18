@@ -1,5 +1,6 @@
 package br.com.cicom.comunicacicom.controller;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -85,11 +86,22 @@ public class MenuNotificacoes {
 		model.addObject("notificacao", new NotificacaoDTO());
 		model.addObject("listaGrupo",
 				servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
-
-		// System.out.println(servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento()));
-		model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento()).stream()
-				.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
-
+		
+		List<Estabelecimento> listaEstabelecimento = user.getEstabelecimento();
+		
+		System.out.println(listaEstabelecimento);
+		
+		if(listaEstabelecimento.size()>1) {
+			model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimentos(listaEstabelecimento).stream()
+			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
+		}else {
+			System.out.println(servicoUsuario.buscarPorEstabelecimento(user.getEstabelecimento().get(0)));
+			model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimento(listaEstabelecimento.get(0)));
+						
+//			model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimento(user.getEstabelecimento().get(0)).stream()
+//					.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
+		}
+		
 		model.setViewName("/fragmentos/notificacao/novaNotificacao");
 		model.addObject("tituloPagina", "ComunicaCICOM - Nova Notificação");
 

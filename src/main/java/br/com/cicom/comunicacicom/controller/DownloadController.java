@@ -1,8 +1,6 @@
 package br.com.cicom.comunicacicom.controller;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.cicom.comunicacicom.DSArquivo.model.Arquivo;
-import br.com.cicom.comunicacicom.DSArquivo.model.ArquivoDT;
 import br.com.cicom.comunicacicom.DSArquivo.service.ArquivoDTService;
 import br.com.cicom.comunicacicom.DSArquivo.service.ArquivoService;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;

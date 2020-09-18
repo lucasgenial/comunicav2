@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.datatables.mapping.DataTablesInput;
 import org.springframework.data.jpa.datatables.mapping.DataTablesOutput;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -39,7 +38,6 @@ import br.com.cicom.comunicacicom.DSPrimary.service.estatistica.RegistroOcorrenc
 import br.com.cicom.comunicacicom.DSPrimary.service.estatistica.TipoEnvolvimentoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.ocorrencia.EstadoOcorrenciaService;
 import br.com.cicom.comunicacicom.DSPrimary.service.ocorrencia.OcorrenciaService;
-import br.com.cicom.comunicacicom.DSPrimary.service.ocorrencia.TipificacaoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.rh.EstadoCivilService;
 import br.com.cicom.comunicacicom.DSPrimary.service.rh.EtniaService;
 import br.com.cicom.comunicacicom.DSPrimary.service.rh.NacionalidadeService;

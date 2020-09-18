@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.cicom.comunicacicom.DSPrimary.model.rh.Email;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Permissao;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisComunica.EstadoOcorrencia;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisComunica.Ocorrencia;
 import br.com.cicom.comunicacicom.DSPrimary.service.ocorrencia.EstadoOcorrenciaService;
 import br.com.cicom.comunicacicom.DSPrimary.service.ocorrencia.OcorrenciaService;
