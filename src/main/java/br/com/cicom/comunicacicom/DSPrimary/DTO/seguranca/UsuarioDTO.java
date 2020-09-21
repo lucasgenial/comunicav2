@@ -14,16 +14,16 @@ public class UsuarioDTO {
 
 	public UsuarioDTO() {
 	}
+	
+	public UsuarioDTO(Long id, Servidor servidor) {
+		this.id = id;
+		this.setServidor(servidor);
+	}
 
 	public UsuarioDTO(Long id, Servidor servidor, List<EstabelecimentoDTO> estabelecimento) {
 		this.id = id;
 		this.setServidor(servidor);
 		this.estabelecimento = estabelecimento;
-	}
-
-	public UsuarioDTO(Long id, Servidor servidor) {
-		this.id = id;
-		this.setServidor(servidor);
 	}
 
 	public Long getId() {

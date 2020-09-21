@@ -38,11 +38,7 @@
 	<script type="text/javascript" src="/assets/tinymce/js/tinymce/jquery.tinymce.min.js"></script>
 	<script type="text/javascript" src="/assets/tinymce/js/tinymce/tinymce.min.js"></script>
 
-    <!-- <script type="text/javascript" src="/assets/js/customizacao-js.js"></script> -->
     <script type="text/javascript" src="/assets/js/config-tabelas.js"></script>
-
-	<!-- <script type="text/javascript" src="/assets/OwlCarousel/dist/owl.carousel.js"></script>
-	<script type="text/javascript" src="/assets/OwlCarousel/dist/owl.rows.js"></script> -->
 	
 	<script type="text/javascript" src="/assets/morrisjs/morris.js"></script>
 	<script type="text/javascript" src="/assets/morrisjs/morris.min.js"></script>
@@ -58,7 +54,6 @@
 
 	<script type="text/javascript" src="/assets/js/desabilitaBotaoDireitoMouse.js"></script>
 	
-		
 	<!-- Echarts -->
 	<script src="/assets/echarts/dist/echarts.js"></script>
 	<script src="/assets/echarts/dist/echarts-en.js"></script>
@@ -70,7 +65,7 @@
 	<!-- ADIÇÃO PARA FUNCIONALIDADE DOS GRÁFICOS -->
 	
 	<script sec:authorize="hasAuthority('RELATORIO_DADOS_ESTATISTICOS')" type="text/javascript">
-	$(document).ready(function(){	
+	$(document).ready(function(){
 		$.ajax({
 		    type : "GET",
 		    url : "/registros/ocorrencias/quantidade/naoRegistradas",

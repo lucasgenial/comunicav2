@@ -20,9 +20,8 @@ import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 import br.com.cicom.comunicacicom.DSPrimary.repository.seguranca.UsuarioRepository;
 import br.com.cicom.comunicacicom.DSPrimary.service.rh.EmailService;
 
-
 @Service
-public class UsuarioService  {
+public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repositorio;
@@ -42,7 +41,7 @@ public class UsuarioService  {
 		if (usuarioBanco == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		
+
 		// Copia de um objeto para outro!
 		BeanUtils.copyProperties(usuario, usuarioBanco, "id");
 		return repositorio.saveAndFlush(usuarioBanco);
@@ -54,7 +53,7 @@ public class UsuarioService  {
 		if (usuarioBanco == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		
+
 		// Copia de um objeto para outro!
 		usuario.setSenha(usuarioBanco.getSenha());
 		usuario.setSenha(BcryptGenerator(usuario.getSenha()));
@@ -77,15 +76,15 @@ public class UsuarioService  {
 		if (usuarioBanco == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		
+
 		// Gera nova senha aleória;
 		for (int x = 0; x < 8; x++) {
 			int j = (int) (Math.random() * carct.length);
 			senha += carct[j];
 		}
-		
+
 		GerenciadorDeEnvioPorEmail enviarEmail = new GerenciadorDeEnvioPorEmail();
-		
+
 		if (enviarEmail.enviarSenha("", "Senha de acesso " + usuario.getServidor().getEstabelecimento().getNome(),
 				(new Formatador().formataEmailParaResetDeSenha(senha)),
 				usuario.getServidor().getEmail().getEnderecoDeEmail(), serviceEmail.pegarRemetente(usuario),
@@ -106,7 +105,7 @@ public class UsuarioService  {
 		if (usuarioBanco == null) {
 			throw new EmptyResultDataAccessException(1);
 		}
-		
+
 		// Copia de um objeto para outro!
 		usuario.setSenha(usuarioBanco.getSenha());
 		BeanUtils.copyProperties(usuario, usuarioBanco, "id");
@@ -120,7 +119,7 @@ public class UsuarioService  {
 	public Optional<Usuario> buscaPorId(Long id) {
 		return repositorio.findById(id);
 	}
-	
+
 	public List<Usuario> listarTodos() {
 		return repositorio.findAll();
 	}
@@ -138,26 +137,25 @@ public class UsuarioService  {
 	public List<Usuario> buscarPorEstabelecimento(Estabelecimento estabelecimento) {
 		return repositorio.findByEstabelecimento(estabelecimento);
 	}
-	
+
 	public List<Usuario> buscarPorEstabelecimentos(List<Estabelecimento> estabelecimentos) {
-		System.out.println(estabelecimentos);
-		
-//		return repositorio.findByEstabelecimentoIn(estabelecimentos);
-		return null;
+
+		return repositorio.findByEstabelecimentoIn(estabelecimentos);
 	}
 
 	/**
 	 * IMPLEMENTAÇÕES DA NOVA TEMPLATE
 	 */
-	 
+
 	public DataTablesOutput<Usuario> listarTodosUsuarios(@Valid DataTablesInput input, Usuario user) {
-		
-		if(!user.getGrupo().getNome().equals("ADMINISTRADOR")) {		
-			input.getColumns().get(4).getSearch().setValue(String.valueOf(user.getServidor().getEstabelecimento().getNome()));			
+
+		if (!user.getGrupo().getNome().equals("ADMINISTRADOR")) {
+			input.getColumns().get(4).getSearch()
+					.setValue(String.valueOf(user.getServidor().getEstabelecimento().getNome()));
 		}
 		DataTablesOutput<Usuario> dados = repositorio.findAll(input);
-		
+
 		return dados;
 	}
-	
+
 }
