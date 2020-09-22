@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.cicom.comunicacicom.DSPrimary.model.Formatador;
 import br.com.cicom.comunicacicom.DSPrimary.model.GerenciadorDeEnvioPorEmail;
+import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 import br.com.cicom.comunicacicom.DSPrimary.repository.seguranca.UsuarioRepository;
@@ -141,6 +142,11 @@ public class UsuarioService {
 	public List<Usuario> buscarPorEstabelecimentos(List<Estabelecimento> estabelecimentos) {
 
 		return repositorio.findByEstabelecimentoIn(estabelecimentos);
+	}
+	
+	public List<Usuario> buscarPorEstabelecimentosGrupo(List<Estabelecimento> estabelecimentos, List<Grupo> grupos) {
+
+		return repositorio.findByEstabelecimentoInAndGrupoNotIn(estabelecimentos, grupos);
 	}
 
 	/**

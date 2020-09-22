@@ -11,6 +11,7 @@ import org.springframework.data.jpa.datatables.repository.DataTablesRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
 
@@ -19,6 +20,7 @@ public interface UsuarioRepository extends DataTablesRepository<Usuario, Long>, 
 	Optional<Usuario> findByLogin(String login);
 	List<Usuario> findByEstabelecimento(Estabelecimento estabelecimento);
 	List<Usuario> findByEstabelecimentoIn(List<Estabelecimento> estabelecimentos);
+	List<Usuario> findByEstabelecimentoInAndGrupoNotIn(List<Estabelecimento> estabelecimentos, List<Grupo> grupos);
 	DataTablesOutput<Usuario> findAll(@Valid DataTablesInput input);
 	Optional<Usuario> findById(Long id);
 	List<Usuario> findAll();

@@ -161,8 +161,7 @@ public class BairroController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/bairros/buscar/historico", method = { RequestMethod.POST,RequestMethod.GET })
-	public DataTablesOutput<Map<String, Object>> listPOST(DataTablesInput input) {	
-		Usuario user = servicoUsuario.buscaPeloLogin(SecurityContextHolder.getContext().getAuthentication().getName());	
+	public DataTablesOutput<Map<String, Object>> listPOST(DataTablesInput input) {
 		return serviceBairro.listarTodosBairros(input);
 	}
 
