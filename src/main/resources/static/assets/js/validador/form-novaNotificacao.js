@@ -20,16 +20,17 @@ $(document).ready(function() {
 			
 			$.ajax({
 				type: "POST",
-				url: "/admin/notificacoes/nova/usuarios/" + id,
+				url: "/admin/notificacoes/nova/usuarios/",
 				data:{
 					grupos: JSON.parse(gruposSelecionados)
 				},
 				success: function(data) {
+					console.log(data);
 					for (var i = 0; i < data.length; i++) {
-						var option = new Option(data[i].nome, data[i].id);
+						var option = new Option(data[i].servidor.nome, data[i].servidor.id);
 						var select = document.getElementById("listaUsuarios");
 
-						select.add(option);
+						select.remove(option);
 					}
 				},
 				fail: function() {
@@ -37,21 +38,22 @@ $(document).ready(function() {
 				}
 			});
 		} else {
-			$.ajax({
-				type: "POST",
-				url: "/admin/notificacoes/nova/usuarios/",
-				success: function(data) {
-					for (var i = 0; i < data.length; i++) {
-						var option = new Option(data[i].nome, data[i].id);
-						var select = document.getElementById("listaUsuarios");
-
-						select.add(option);
-					}
-				},
-				fail: function() {
-					alert('Falha ao Buscar as Usuários');
-				}
-			});
+			alert('Funcionando');
+//			$.ajax({
+//				type: "POST",
+//				url: "/admin/notificacoes/nova/usuarios/",
+//				success: function(data) {
+//					for (var i = 0; i < data.length; i++) {
+//						var option = new Option(data[i].nome, data[i].id);
+//						var select = document.getElementById("listaUsuarios");
+//
+//						select.add(option);
+//					}
+//				},
+//				fail: function() {
+//					alert('Falha ao Buscar as Usuários');
+//				}
+//			});
 		}
 
 

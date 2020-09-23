@@ -22,54 +22,60 @@ function graficoEfetivo(id){
 			var instituicoes = dados[i].instituicoes;
 					
 			for(var k=0; k< instituicoes.length; k++){
+				var imgLogo = "";
+				var nomeColuna = "";
+				
+				if(instituicoes[k].nomeInstituicao == "PM"){
+					imgLogo = imgPM;
+					nomeColuna = "POLICIAIS";
+				}else if(instituicoes[k].nomeInstituicao == "PC"){
+					imgLogo = imgPC;
+					nomeColuna = "POLICIAIS";
+				}else if(instituicoes[k].nomeInstituicao == "DPT"){
+					imgLogo = imgDPT;
+					nomeColuna = "POLICIAIS";
+				}else if(instituicoes[k].nomeInstituicao == "BM"){
+					imgLogo = imgBM;
+					nomeColuna = "BOMBEIROS";
+				}
+				
 				html += 
-					'<div class="col-sm-12 col-md-6 col-lg-6 col-xl-4">'+
+					'<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">'+
+					
 						'<div class="ribbon-wrapper card h-100">'+
 							'<div class="ribbon ribbon-info">EFETIVO - '+ instituicoes[k].nomeInstituicao +'</div>'+
 							'<div class="row">'+
-								'<div class="col-md-12">'+
+								'<div class="col-12">'+
 			                        '<div class="card">'+
 			                            '<div class="card-body">'+
-			                                '<div class="d-flex">';
-												var imgLogo = "";
-												
-												if(instituicoes[k].nomeInstituicao == "PM"){
-														imgLogo = imgPM;
-												}else if(instituicoes[k].nomeInstituicao == "PC"){
-													imgLogo = imgPC;
-												}else if(instituicoes[k].nomeInstituicao == "DPT"){
-													imgLogo = imgDPT;
-												}else if(instituicoes[k].nomeInstituicao == "BM"){
-													imgLogo = imgBM;
-												}
-												
-			                              		html +='<img src="'+ imgLogo +'" style="text-align: center; display: block; margin-left: auto; margin-right: auto; width: 50% ">'+
+			                                '<div class="d-flex">'+
+												'<img src="'+ imgLogo +'" style="text-align: center; display: block; margin-left: auto; margin-right: auto; width: 50% ">'+
 			                                '</div>'+
 			                            '</div>'+
-			                            '<div class="row">'+
+			                            '<div class="col-12 col-md-12 col-lg-12 col-xl-12">'+
 											'<table class="table table-striped">'+
 												'<thead>'+
 			                                        '<tr>'+
-			                                            '<th>TIPO</th>'+
-			                                            '<th>QUANTIDADE</th>'+
-			                                            '<th>SERVIDORES</th>'+
+			                                            '<th class="text-center" style="padding: 5px;">MODALIDADE</th>'+
+			                                            '<th style="padding: 5px;">QUANTIDADE</th>'+
+			                                            '<th style="padding: 5px;">'+ nomeColuna +'</th>'+
 			                                        '</tr>'+
 			                                    '</thead>'+
 			                                    '<tbody id="dados-modalidade">';
 					
-					var modalidades = instituicoes[k].modalidades;
-					
-					for(j=0; j< modalidades.length; j++){
-						
-						html +=                         
-                        '<tr>'+
-                            '<td>'+ modalidades[j].nomeModalidade +'</td>'+
-                            '<td class="text-center">'+ modalidades[j].qtdModalidade +'</td>'+
-                            '<td class="text-center">'+ modalidades[j].qtdPoliciamento +'</td>'+
-                        '</tr>';
-					}
-					
-					html +=
+													var modalidades = instituicoes[k].modalidades;
+													
+													for(j=0; j< modalidades.length; j++){
+														
+														html +=                         
+								                        '<tr>'+
+								                            '<td class="">'+ modalidades[j].nomeModalidade +'</td>'+
+								                            '<td class="text-center">'+ modalidades[j].qtdModalidade +'</td>'+
+								                            '<td class="text-center">'+ modalidades[j].qtdPoliciamento +'</td>'+
+								                        '</tr>';
+													}
+													
+													html +=
 												'</tbody>'+
 											'</table>'+
 										'</div>'+
@@ -91,7 +97,7 @@ function graficoEfetivo(id){
 			items:1,
 		    autoplay:true,
 		    dots: false,
-		    autoplayTimeout:3000,
+		    autoplayTimeout:30000,
 		    autoplayHoverPause:true,
 //		    owl2row: true, // enable plugin
 	        owl2rowTarget: 'item',    // class for items in carousel div

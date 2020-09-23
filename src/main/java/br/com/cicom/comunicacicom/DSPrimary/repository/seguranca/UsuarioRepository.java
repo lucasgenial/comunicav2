@@ -20,7 +20,7 @@ public interface UsuarioRepository extends DataTablesRepository<Usuario, Long>, 
 	Optional<Usuario> findByLogin(String login);
 	List<Usuario> findByEstabelecimento(Estabelecimento estabelecimento);
 	List<Usuario> findByEstabelecimentoIn(List<Estabelecimento> estabelecimentos);
-	List<Usuario> findByEstabelecimentoInAndGrupoNotIn(List<Estabelecimento> estabelecimentos, List<Grupo> grupos);
+	List<Usuario> findByEstabelecimentoInAndGrupoIn(List<Estabelecimento> estabelecimentos, List<Grupo> grupos);
 	DataTablesOutput<Usuario> findAll(@Valid DataTablesInput input);
 	Optional<Usuario> findById(Long id);
 	List<Usuario> findAll();

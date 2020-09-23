@@ -43,7 +43,7 @@ public class NotificacaoController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
-		
+				
 		List<UsuarioDTO> usuarios = servicoUsuario.buscarPorEstabelecimentosGrupo(user.getEstabelecimento(), grupos)
 				.stream().filter(e -> e.getServidor()!=null)
 				.map(this::converterParaUsuarioDTO).collect(Collectors.toList());

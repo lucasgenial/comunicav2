@@ -146,7 +146,7 @@ public class UsuarioService {
 	
 	public List<Usuario> buscarPorEstabelecimentosGrupo(List<Estabelecimento> estabelecimentos, List<Grupo> grupos) {
 
-		return repositorio.findByEstabelecimentoInAndGrupoNotIn(estabelecimentos, grupos);
+		return repositorio.findByEstabelecimentoInAndGrupoIn(estabelecimentos, grupos);
 	}
 
 	/**
