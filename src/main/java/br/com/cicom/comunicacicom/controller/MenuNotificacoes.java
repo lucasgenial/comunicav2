@@ -1,7 +1,5 @@
 package br.com.cicom.comunicacicom.controller;
 
-import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -86,13 +84,13 @@ public class MenuNotificacoes {
 		model.addObject("notificacao", new NotificacaoDTO());
 		
 		// Adiciona uma lista de Grupos
-		model.addObject("listaGrupo", 
-			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
-		
+//		model.addObject("listaGrupo", 
+//			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
+//		
 		// Adiciona uma lista de Usuários por estabelecimento do Usuário Logado.
-		model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
-			.stream().filter(e -> e.getServidor()!=null)
-			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
+//		model.addObject("listaUsuario", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
+//			.stream().filter(e -> e.getServidor()!=null)
+//			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
 		
 		model.setViewName("/fragmentos/notificacao/novaNotificacao");
 		model.addObject("link", "/salvarNotificacao");
