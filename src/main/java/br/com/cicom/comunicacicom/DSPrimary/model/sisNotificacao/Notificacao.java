@@ -5,13 +5,18 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 
 @Entity
 @Table(name = "NOTIFICACAO", schema = "comunicacicom")
@@ -36,15 +41,22 @@ public class Notificacao implements Serializable {
 	@Column(name = "DATA_CRIACAO", nullable = false)
 	private LocalDateTime dataCriacao;
 	
+	@NotNull
+	@OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "CRIADOR")
+	private Usuario criador;
+	
 	public Notificacao() {
 	}
 
-	public Notificacao(Long id, @NotNull String assunto, @NotNull String mensagem, @NotNull LocalDateTime dataCriacao) {
+	public Notificacao(Long id, @NotNull String assunto, @NotNull String mensagem, @NotNull LocalDateTime dataCriacao,
+			@NotNull Usuario criador) {
 		super();
 		this.id = id;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 		this.dataCriacao = dataCriacao;
+		this.criador = criador;
 	}
 
 	public Long getId() {
@@ -79,11 +91,20 @@ public class Notificacao implements Serializable {
 		this.dataCriacao = dataCriacao;
 	}
 
+	public Usuario getCriador() {
+		return criador;
+	}
+
+	public void setCriador(Usuario criador) {
+		this.criador = criador;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
+		result = prime * result + ((criador == null) ? 0 : criador.hashCode());
 		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((mensagem == null) ? 0 : mensagem.hashCode());
@@ -103,6 +124,11 @@ public class Notificacao implements Serializable {
 			if (other.assunto != null)
 				return false;
 		} else if (!assunto.equals(other.assunto))
+			return false;
+		if (criador == null) {
+			if (other.criador != null)
+				return false;
+		} else if (!criador.equals(other.criador))
 			return false;
 		if (dataCriacao == null) {
 			if (other.dataCriacao != null)
@@ -125,6 +151,6 @@ public class Notificacao implements Serializable {
 	@Override
 	public String toString() {
 		return "Notificacao [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
-				+ dataCriacao + "]";
-	}	
+				+ dataCriacao + ", criador=" + criador + "]";
+	}
 }

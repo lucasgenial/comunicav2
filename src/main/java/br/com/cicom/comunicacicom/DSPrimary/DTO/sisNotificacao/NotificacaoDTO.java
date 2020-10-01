@@ -12,22 +12,25 @@ public class NotificacaoDTO {
 	private String assunto;
 	private String mensagem;
 	private LocalDateTime dataCriacao;
+	private UsuarioDTO criador;
 	private List<UsuarioDTO> listaUsuario;
 	private List<GrupoDTO> listaGrupo;
 
 	public NotificacaoDTO() {
 	}
-
-	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao,
+	
+	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao, UsuarioDTO criador,
 			List<UsuarioDTO> listaUsuario, List<GrupoDTO> listaGrupo) {
+		super();
 		this.id = id;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 		this.dataCriacao = dataCriacao;
+		this.criador = criador;
 		this.listaUsuario = listaUsuario;
 		this.listaGrupo = listaGrupo;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -75,12 +78,21 @@ public class NotificacaoDTO {
 	public void setListaGrupo(List<GrupoDTO> listaGrupo) {
 		this.listaGrupo = listaGrupo;
 	}
+	
+	public UsuarioDTO getCriador() {
+		return criador;
+	}
+
+	public void setCriador(UsuarioDTO criador) {
+		this.criador = criador;
+	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
+		result = prime * result + ((criador == null) ? 0 : criador.hashCode());
 		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((listaGrupo == null) ? 0 : listaGrupo.hashCode());
@@ -102,6 +114,11 @@ public class NotificacaoDTO {
 			if (other.assunto != null)
 				return false;
 		} else if (!assunto.equals(other.assunto))
+			return false;
+		if (criador == null) {
+			if (other.criador != null)
+				return false;
+		} else if (!criador.equals(other.criador))
 			return false;
 		if (dataCriacao == null) {
 			if (other.dataCriacao != null)
@@ -134,7 +151,8 @@ public class NotificacaoDTO {
 	@Override
 	public String toString() {
 		return "NotificacaoDTO [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
-				+ dataCriacao + ", listaUsuario=" + listaUsuario + ", listaGrupo=" + listaGrupo + "]";
+				+ dataCriacao + ", criador=" + criador + ", listaUsuario=" + listaUsuario + ", listaGrupo=" + listaGrupo
+				+ "]";
 	}
-
+	
 }

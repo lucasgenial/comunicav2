@@ -1,6 +1,7 @@
 package br.com.cicom.comunicacicom.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,14 +46,14 @@ public class NotificacaoController {
 
 	@ResponseBody
 	@RequestMapping(value = "/admin/notificacoes/nova/usuarios/", method = { RequestMethod.POST })
-	public List<UsuarioDTO> buscarUsuarios(@RequestParam(value = "grupos") List<Grupo> grupos) {
+	public List<UsuarioDTO> buscarUsuarios(@RequestParam(value = "grupos[]") ArrayList<Grupo> grupos) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 		
 		List<UsuarioDTO> usuarios = new ArrayList<>();
 
-		if (grupos.size() > 0) {
+		if (!grupos.toString().equals("[null]")) {
 			usuarios = servicoUsuario.buscarPorEstabelecimentosGrupo(user.getEstabelecimento(), grupos).stream()
 					.filter(e -> e.getServidor() != null).map(this::converterParaUsuarioDTO)
 					.collect(Collectors.toList());
@@ -61,6 +62,9 @@ public class NotificacaoController {
 					.filter(e -> e.getServidor() != null).map(this::converterParaUsuarioDTO)
 					.collect(Collectors.toList());
 		}
+		
+		//Ordena a lista
+		Collections.sort(usuarios);
 
 		return usuarios;
 	}
@@ -68,14 +72,13 @@ public class NotificacaoController {
 	@ResponseBody
 	@RequestMapping(value = "/admin/notificacoes/nova/grupos/", method = { RequestMethod.POST })
 	public List<GrupoDTO> buscarGrupos() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
-		
 		List<GrupoDTO> grupos = new ArrayList<>();
 
 		grupos = servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList());
 
+		//Ordena a lista
+		Collections.sort(grupos);
+		
 		return grupos;
 	}
 

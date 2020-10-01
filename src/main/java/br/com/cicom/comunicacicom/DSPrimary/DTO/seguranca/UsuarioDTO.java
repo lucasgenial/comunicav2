@@ -7,7 +7,7 @@ import br.com.cicom.comunicacicom.DSPrimary.DTO.rh.ServidorDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.sisGeral.EstabelecimentoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.rh.Servidor;
 
-public class UsuarioDTO {
+public class UsuarioDTO implements Comparable<UsuarioDTO> {
 	private Long id;
 	private ServidorDTO servidor = new ServidorDTO();
 	private List<EstabelecimentoDTO> estabelecimento = new ArrayList<>();
@@ -91,5 +91,10 @@ public class UsuarioDTO {
 	@Override
 	public String toString() {
 		return "UsuarioDTO [id=" + id + ", servidor=" + servidor + ", estabelecimento=" + estabelecimento + "]";
+	}
+	
+	@Override
+	public int compareTo(UsuarioDTO usuario) {
+		return this.servidor.getNome().toUpperCase().compareTo(usuario.servidor.getNome().toUpperCase());
 	}
 }
