@@ -82,6 +82,7 @@ public class MenuNotificacoes {
 		
 		// Adiciona uma nova notificação na view
 		model.addObject("notificacao", new NotificacaoDTO());
+		model.addObject("linkCadastro", "/cadastrarNotificao");
 		
 		// Adiciona uma lista de Grupos
 //		model.addObject("listaGrupo", 

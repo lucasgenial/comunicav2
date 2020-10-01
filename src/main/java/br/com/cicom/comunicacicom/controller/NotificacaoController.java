@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,7 @@ import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.NotificacaoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
@@ -38,9 +41,11 @@ public class NotificacaoController {
 		return null;
 	}
 
-	@RequestMapping(value = "**/cadastrarNotificao", params = { "cadastrar" })
-	public String cadastrarNotificao(ModelAndView mv) {
-
+	@RequestMapping(value = "**/cadastrarNotificao")
+	public String cadastrarNotificao(@Valid Notificacao notificacao, ModelAndView mv) {
+		
+		System.out.println(notificacao);
+		
 		return "redirect:/admin/notificacoes/entrada";
 	}
 
