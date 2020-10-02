@@ -77,8 +77,10 @@ public class MenuNotificacoes {
 
 			return model;
 		}
-				
-		model.addObject("usuario", user);
+		
+		model.addObject("usuario",user);
+		
+		model.addObject("criador", converterParaUsuarioDTO(user));
 		
 		// Adiciona uma nova notificação na view
 		model.addObject("notificacao", new NotificacaoDTO());

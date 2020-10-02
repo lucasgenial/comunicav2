@@ -3,17 +3,31 @@ package br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
 
 public class NotificacaoDTO {
 
 	private Long id;
+	
+	@NotNull(message = "O Assunto deve ser preenchido!")
 	private String assunto;
+	
+	@NotNull(message = "Não é possível enviar notificações sem mensagens!")
 	private String mensagem;
+	
 	private LocalDateTime dataCriacao;
+	
 	private UsuarioDTO criador;
+	
+	@NotNull(message = "Não é possível criar notificações sem destinatários")
 	private List<UsuarioDTO> listaUsuario;
+	
 	private List<GrupoDTO> listaGrupo;
 
 	public NotificacaoDTO() {

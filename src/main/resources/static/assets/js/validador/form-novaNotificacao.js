@@ -1,6 +1,9 @@
 /**
  * Arquivo de configuração da validação via Javascript do formulário de Cadastro e edição de notificação
  */
+var dataAtual = new Date();
+$('#dataCriacao').value = dataAtual.toISOString().slice(0,16);
+
 $.ajax({
 	type: "POST",
 	url: "/admin/notificacoes/nova/usuarios/",

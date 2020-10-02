@@ -1,5 +1,6 @@
 package br.com.cicom.comunicacicom.controller;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,7 +23,6 @@ import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.NotificacaoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
@@ -42,7 +42,10 @@ public class NotificacaoController {
 	}
 
 	@RequestMapping(value = "**/cadastrarNotificao")
-	public String cadastrarNotificao(@Valid Notificacao notificacao, ModelAndView mv) {
+	public String cadastrarNotificao(@Valid NotificacaoDTO notificacao, ModelAndView mv) {
+		
+		
+		notificacao.setDataCriacao(LocalDateTime.now());
 		
 		System.out.println(notificacao);
 		
