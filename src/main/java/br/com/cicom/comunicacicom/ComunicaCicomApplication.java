@@ -11,6 +11,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
 
+import static org.modelmapper.Conditions.isNotNull;
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
+import static org.modelmapper.convention.MatchingStrategies.STRICT;
+import static org.modelmapper.convention.NamingConventions.JAVABEANS_MUTATOR;
 
 @SpringBootApplication
 public class ComunicaCicomApplication extends SpringBootServletInitializer {
@@ -32,6 +36,14 @@ public class ComunicaCicomApplication extends SpringBootServletInitializer {
 	
 	@Bean
 	public ModelMapper modelMapper() {
-	    return new ModelMapper();
+		ModelMapper modelMapper = new ModelMapper();
+	    modelMapper
+	        .getConfiguration()
+	        .setPropertyCondition(isNotNull())
+	        .setFieldMatchingEnabled(true)
+	        .setFieldAccessLevel(PRIVATE)
+	        .setMatchingStrategy(STRICT)
+	        .setSourceNamingConvention(JAVABEANS_MUTATOR);
+	    return modelMapper;
 	}
 }

@@ -1,16 +1,15 @@
 package br.com.cicom.comunicacicom.DSPrimary.DTO.sisGeral;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.rh.Email;
-
 public class EstabelecimentoDTO {
 	private Long id;
 	private String nome;
-	private Email email;
-
+	private String email;
+	
 	public EstabelecimentoDTO() {
+		
 	}
 
-	public EstabelecimentoDTO(Long id, String nome, Email email) {
+	public EstabelecimentoDTO(Long id, String nome, String email) {
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -32,11 +31,11 @@ public class EstabelecimentoDTO {
 		this.nome = nome;
 	}
 
-	public Email getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(Email email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
@@ -81,5 +80,4 @@ public class EstabelecimentoDTO {
 	public String toString() {
 		return "EstabelecimentoDTO [id=" + id + ", nome=" + nome + ", email=" + email + "]";
 	}
-
 }

@@ -3,8 +3,9 @@ package br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca;
 public class GrupoDTO implements Comparable<GrupoDTO> {
 	private Long id;
 	private String nome;
-
+	
 	public GrupoDTO() {
+		
 	}
 
 	public GrupoDTO(Long id, String nome) {

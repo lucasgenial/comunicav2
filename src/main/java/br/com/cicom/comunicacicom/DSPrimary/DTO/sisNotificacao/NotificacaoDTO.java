@@ -3,10 +3,7 @@ package br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
@@ -29,8 +26,9 @@ public class NotificacaoDTO {
 	private List<UsuarioDTO> listaUsuario;
 	
 	private List<GrupoDTO> listaGrupo;
-
+	
 	public NotificacaoDTO() {
+		
 	}
 	
 	public NotificacaoDTO(Long id, String assunto, String mensagem, LocalDateTime dataCriacao, UsuarioDTO criador,

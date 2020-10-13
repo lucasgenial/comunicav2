@@ -9,7 +9,13 @@ function graficoEfetivo(id){
 
 		for (var i=0; i < dados.length; i++) {
 			var html = "";
-			html += '<div class="col-12 item">'+
+			var ativo = "";
+			
+			if(i==1){
+				var ativo = "active";
+			}
+						
+			html += '<div class="col-12 carousel-item '+ ativo +' " >'+
 						'<div class="row">'+
 							'<div class="col-12" style="text-align: center">'+
 								'<div class="ribbon-wrapper card">'+
@@ -66,10 +72,10 @@ function graficoEfetivo(id){
 													var modalidades = instituicoes[k].modalidades;
 													
 													for(j=0; j< modalidades.length; j++){
-														
+														var nomeModalidade = modalidades[j].nomeModalidade;
 														html +=                         
 								                        '<tr>'+
-								                            '<td class="">'+ modalidades[j].nomeModalidade +'</td>'+
+								                            '<td class="">'+ nomeModalidade.replace("VIATURA","") +'</td>'+
 								                            '<td class="text-center">'+ modalidades[j].qtdModalidade +'</td>'+
 								                            '<td class="text-center">'+ modalidades[j].qtdPoliciamento +'</td>'+
 								                        '</tr>';
@@ -86,36 +92,9 @@ function graficoEfetivo(id){
 					'</div>';
 			}
 			html += '</div>'+'</div>';
-			$("#painel-efetivo").append(html);
+			$("#painel-itens").append(html);
 		}
 		
-		//Configura o OWL Carousel
-		var painel = $('#painel-efetivo');
-		
-		painel.owlCarousel({
-		    loop:true,
-			items:1,
-		    autoplay:true,
-		    dots: false,
-		    autoplayTimeout:30000,
-		    autoplayHoverPause:true,
-//		    owl2row: true, // enable plugin
-	        owl2rowTarget: 'item',    // class for items in carousel div
-//	        owl2rowContainer: 'owl2row-item', // class for items container
-//	        owl2rowDirection: 'utd'
-			responsive:{
-			        0:{
-			            items:1
-			        },
-			        600:{
-			            items:1
-			        },
-			        1000:{
-			            items:1
-			        }
-			}
-		});	
-		
-		
+		$('.carousel').carousel();
 	});
 }

@@ -1,12 +1,9 @@
 package br.com.cicom.comunicacicom.controller;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +11,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -47,29 +48,39 @@ public class NotificacaoController {
 		return null;
 	}
 
-	@RequestMapping(value = "**/cadastrarNotificao")
-	public String cadastrarNotificao(NotificacaoDTO notificacao, BindingResult result) {
+	@RequestMapping(value = "**/cadastrarNotificao", method = { RequestMethod.POST})
+	public String cadastrarNotificao(List<GrupoDTO> grupos, List<UsuarioDTO> usuarios, BindingResult result) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 		
-		System.out.println(notificacao);
+//		if(notificacao!=null) {
+//			notificacao.setDataCriacao(LocalDateTime.now());
+//			notificacao.setCriador(user);
+//		}
+		
+		//System.out.println(notificacao);
+		System.out.println(grupos);
+		System.out.println(usuarios);
 		
 		if (result.hasErrors()) {
-			return "redirect:/admin/cadastra/caracteristica";
+			return "redirect:/admin/notificacoes/nova";
 		}
 		
 		return "redirect:/admin/notificacoes/entrada";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/admin/notificacoes/nova/usuarios/", method = { RequestMethod.POST })
-	public List<UsuarioDTO> buscarUsuarios(@RequestParam(value = "grupos[]") ArrayList<Grupo> grupos) {
+	@RequestMapping(value = "/admin/notificacoes/nova/usuarios/{listaGrupo}", method = { RequestMethod.GET })
+	public List<UsuarioDTO> buscarUsuarios(@PathVariable("listaGrupo") List<Grupo> listaGrupo) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 		
 		List<UsuarioDTO> usuarios = new ArrayList<>();
-
-		if (!grupos.toString().equals("[null]")) {
-			usuarios = servicoUsuario.buscarPorEstabelecimentosGrupo(user.getEstabelecimento(), grupos).stream()
+				
+		if(!listaGrupo.toString().equals("[null]")) {
+			usuarios = servicoUsuario.buscarPorEstabelecimentosGrupo(user.getEstabelecimento(), listaGrupo).stream()
 					.filter(e -> e.getServidor() != null).map(this::converterParaUsuarioDTO)
 					.collect(Collectors.toList());
 		} else {
@@ -85,7 +96,7 @@ public class NotificacaoController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/admin/notificacoes/nova/grupos/", method = { RequestMethod.POST })
+	@RequestMapping(value = "/admin/notificacoes/nova/grupos/", method = { RequestMethod.GET })
 	public List<GrupoDTO> buscarGrupos() {
 		List<GrupoDTO> grupos = new ArrayList<>();
 

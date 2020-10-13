@@ -2,18 +2,16 @@
  * Arquivo de configuração da validação via Javascript do formulário de Cadastro e edição de notificação
  */
 var dataAtual = new Date();
-$('#dataCriacao').value = dataAtual.toISOString().slice(0,16);
+$('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
 
 $.ajax({
-	type: "POST",
-	url: "/admin/notificacoes/nova/usuarios/",
-	data: {
-		grupos: [0],
-	},
+	type: "GET",
+	contentType: "application/json;charset=UTF-8",
+	url: "/admin/notificacoes/nova/usuarios/0",
 	success: function(dados) {
 		for (var i = 0; i < dados.length; i++) {
 			var option = new Option(dados[i].servidor.nome.toUpperCase(), dados[i].servidor.id);
-			var select = document.getElementById("listaUsuarios");
+			var select = document.getElementById("listaUsuario");
 
 			select.append(option);
 		}
@@ -24,15 +22,13 @@ $.ajax({
 });
 
 $.ajax({
-	type: "POST",
+	type: "GET",
+	contentType: "application/json;charset=UTF-8",
 	url: "/admin/notificacoes/nova/grupos/",
-	data: {
-		grupos: [1],
-	},
 	success: function(dados) {
 		for (var i = 0; i < dados.length; i++) {
 			var option = new Option(dados[i].nome.toUpperCase(), dados[i].id);
-			var select = document.getElementById("listaGrupos");
+			var select = document.getElementById("listaGrupo");
 
 			select.append(option);
 		}
@@ -44,24 +40,26 @@ $.ajax({
 var selecionados = [];
 var gruposSelecionados = [];
 var usuariosAtivos = [];
+var aux1 = [];
+var aux2 = [];
 
-$('#listaUsuarios').on("change", function() {
+$('#listaUsuario').on("change", function() {
 	
 	
 	if(gruposSelecionados.length > 0){
 		//Selecionou um grupo
 		//E adicinou um usuario Manualmente
-		var aux2 = $('#listaUsuarios').val();
+		aux1 = $('#listaUsuario').val();
 		
 		//Recupera os Usuarios selecionados manualmente
-		selecionados = selecionados.concat(atualizaSelecionados(aux2, usuariosAtivos));	
+		selecionados = selecionados.concat(atualizaSelecionados(aux1, usuariosAtivos));	
 		
 		//Concatena Lista de UsuariosAtivos e Selecionados Manualmente
-		usuariosAtivos = aux2;
+		usuariosAtivos = aux1;
 	}else{
 		//Ainda não selecionou nenhum grupo
 		//Apenas seleção manual de usuários
-		selecionados = $('#listaUsuarios').val();
+		selecionados = $('#listaUsuario').val();
 		console.log("seleção manual de usuarios: "+selecionados);
 		
 		usuariosAtivos = selecionados;
@@ -81,43 +79,48 @@ function atualizaSelecionados(array1, array2) {
     return r1;
 }
 
-$('#listaGrupos').on("change", function() {
+$('#listaGrupo').on("change", function() {
 	
-	gruposSelecionados = $('#listaGrupos').val().map(Number);
+	gruposSelecionados = $('#listaGrupo').val().map(Number);
+//	gruposSelecionados = $('#listaGrupo').val();
 	
-	usuariosAtivos = $('#listaUsuarios').val();
+	usuariosAtivos = $('#listaUsuario').val();
 	
 	if(gruposSelecionados.length > 0){
 		$.ajax({
-			type: "POST",
-			url: "/admin/notificacoes/nova/usuarios/",
-			data: {
-				grupos: gruposSelecionados
-			},
+			type: "GET",
+			contentType: "application/json;charset=UTF-8",
+			url: "/admin/notificacoes/nova/usuarios/"+gruposSelecionados,
 			success: function(data) {
+				console.log("CONSULTA:");
+				console.log(data);
+				
 				var usuariosConsulta = [];
+				
+				//Limpa as seleções
+				$('#listaUsuario').selectpicker('deselect');
 				
 				for(var i = 0; i < data.length; i++) {
 					usuariosConsulta.push(""+data[i].servidor.id);
 				}
 				
-				var aux1 = Array.prototype.concat(aux1, usuariosConsulta);
+				console.log("USUARIOS CONSULTA:")
+				console.log(usuariosConsulta)
 				
-				//Atualiza usuarios Ativos
-				//tomando somente os usuarios que não estavam selecionados anteiormente
-				//Passo necessário para evitar repetições na lista de usuarios ativos.
-				usuariosAtivos = usuariosAtivos.concat(atualizaSelecionados(aux1, usuariosAtivos));
-										
-				$('#listaUsuarios').selectpicker('val', usuariosAtivos);
+				//Atualiza a lista de usuários selecionados				
+				usuariosAtivos = selecionados.concat(usuariosConsulta);
+				
+				//Seleciona os usuarios no select
+				$('#listaUsuario').selectpicker('val',usuariosAtivos);
 			},
 			fail: function() {
 				alert('Falha ao Buscar os Usuários');
-				$('#listaUsuarios').selectpicker('val',selecionados);
+				$('#listaUsuario').selectpicker('val',selecionados);
 			}
 		});
 	}else{
 		
-		var aux3 = $('#listaUsuarios').val();
+		var aux3 = $('#listaUsuario').val();
 		
 		selecionados = selecionados.splice(0,Number.MAX_VALUE, usuariosAtivos);
 		
@@ -131,12 +134,12 @@ $('#listaGrupos').on("change", function() {
 		
 		usuariosAtivos = selecionados;
 
-		$('#listaUsuarios').selectpicker('deselect');
-		$('#listaUsuarios').selectpicker('val',usuariosAtivos);
+		$('#listaUsuario').selectpicker('deselect');
+		$('#listaUsuario').selectpicker('val',usuariosAtivos);
 		
 		alert('Nenhum grupo selecionado');
 	}
-	$('#listaUsuarios').selectpicker('refresh');
+	$('#listaUsuario').selectpicker('refresh');
 	
 	///ordena as listas "elas são ordenadas como array de String"
 	selecionados.sort();

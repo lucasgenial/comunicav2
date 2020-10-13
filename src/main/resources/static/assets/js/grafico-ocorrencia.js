@@ -136,37 +136,41 @@ function geradorDeGraficosDashboard(id) {
 	
 	$.getJSON("/admin/cadastros/lista/ocorrencias/" + id, function(dados1) {
 		var nomes = dados1.nomes;
-		
 		var html = "";
 
-	for (var i = 0; i < dados1.nome.length; i++) {
-		var nome = dados1.nome[i];
-		var qtd = dados1.quantidade[i];
-		var perc = Number(dados1.percentual[i]);
-
-		html += '<div class="item">'+
-
-				'<div class="card">'+
-					'<div class="card-body ">'+
-						'<div style="height: 40px;">'+
-						'<h6 class="card-title text-center">'+ nome +'</h6>'+
-						'</div>'+
-						'<div class="row">'+
-							'<div class="d-flex no-block align-items-center">'+
-								'<div class="col-9">'+
-						   			'<div class="chart cart-pie-1" data-percent="'+ perc.toFixed(2) +'"> <span class="percent">'+ perc.toFixed(2) +'</span> </div>'+
-						   		'</div>'+
-								'<div class="col-12 text-center">'+
-								    '<h1 class="text-success">'+ qtd +'</h1>'+
-							    '</div>'+
-						    '</div>'+
-						 '</div>'+
-					 '</div>'+
-	              '</div>'+
-	            '</div>';
-}
+		for (var i = 0; i < dados1.nome.length; i++) {
+			var nome = dados1.nome[i];
+			var qtd = dados1.quantidade[i];
+			var perc = Number(dados1.percentual[i]);
+			var ativo = "";
+			
+			if(i==1){
+				var ativo = "active";
+			}
 		
-		$("#apresentaPorClassificacao").append(html).before(function(){
+		html += '<div class="carousel-item col-6 '+ ativo +' " >'+
+
+					'<div class="card">'+
+						'<div class="card-body">'+
+							'<div style="height: 40px;">'+
+							'<h6 class="card-title text-center">'+ nome +'</h6>'+
+							'</div>'+
+							'<div class="row">'+
+								'<div class="d-flex no-block align-items-center">'+
+									'<div class="col-9">'+
+							   			'<div class="chart cart-pie-1" data-percent="'+ perc.toFixed(2) +'"> <span class="percent">'+ perc.toFixed(2) +'</span> </div>'+
+							   		'</div>'+
+									'<div class="col-12 text-center">'+
+									    '<h1 class="text-success">'+ qtd +'</h1>'+
+								    '</div>'+
+							    '</div>'+
+							 '</div>'+
+						 '</div>'+
+		              '</div>'+
+		            '</div>';
+		}
+		
+		$("#painel-itens").append(html).before(function(){
 			var EasyPieChart = function() {};
 			
 		    EasyPieChart.prototype.init = function() {
@@ -186,57 +190,56 @@ function geradorDeGraficosDashboard(id) {
 		    //init
 		    $.EasyPieChart = new EasyPieChart, $.EasyPieChart.Constructor = EasyPieChart
 		    $.EasyPieChart.init()
-		}
-	);
-		
-		//Configura o OWL Carousel
-		var painel1 = $('#apresentaPorClassificacao');
-		
-		painel1.owlCarousel({
-			items:6,
-		    loop:true,
-		    margin:30,
-		    autoplay:true,
-		    dots: false,
-		    autoplayTimeout:3000,
-		    autoplayHoverPause:true,
-		    owl2row: true, // enable plugin
-	        owl2rowTarget: 'item',    // class for items in carousel div
-	        owl2rowContainer: 'owl2row-item', // class for items container
-	        owl2rowDirection: 'utd', // ltr : directions
-		    responsive : {
-			    0 : {
-			    	items:1,
-			    },
-			    // ponto de interrupção de 480
-			    576 : {
-			    	items:2,
-			    },
-			    // ponto de interrupção de 768
-			    768 : {
-			    	items:3,
-			    },
-			    // ponto de interrupção de 768
-			    992 : {
-			    	items:4,
-			    },
-			    // ponto de interrupção de 768
-			    1200 : {
-			    	items:5,
-			    	owl2row: false,
-			    }
-		    }
 		});
 	});
+		
+		
+		//Configura o OWL Carousel
+//		var painel1 = $('#apresentaPorClassificacao');
+//		
+//		painel1.owlCarousel({
+//			items:6,
+//		    loop:true,
+//		    margin:30,
+//		    autoplay:true,
+//		    dots: false,
+//		    autoplayTimeout:3000,
+//		    autoplayHoverPause:true,
+//		    owl2row: true, // enable plugin
+//	        owl2rowTarget: 'item',    // class for items in carousel div
+//	        owl2rowContainer: 'owl2row-item', // class for items container
+//	        owl2rowDirection: 'utd', // ltr : directions
+//		    responsive : {
+//			    0 : {
+//			    	items:1,
+//			    },
+//			    // ponto de interrupção de 480
+//			    576 : {
+//			    	items:2,
+//			    },
+//			    // ponto de interrupção de 768
+//			    768 : {
+//			    	items:3,
+//			    },
+//			    // ponto de interrupção de 768
+//			    992 : {
+//			    	items:4,
+//			    },
+//			    // ponto de interrupção de 768
+//			    1200 : {
+//			    	items:5,
+//			    	owl2row: false,
+//			    }
+//		    }
+//		});
+
 	
 	//Apaga painel 1
 	$("#painel-1").toggle();
 	
 	$.getJSON("/admin/cadastros/lista/ocorrencia/status/" + id, function(dados1) {
 		var coresStatus = [ '#00B23D', '#1E8DB2', '#FF9540', '#19A2FF' , '#89998C', '#FF1E17'];
-		
 		var content = "";
-		
 		var nomes = dados1.nomes;
 		
 		for (var i = 0; i < dados1.nome.length; i++) {
@@ -299,6 +302,4 @@ function geradorDeGraficosDashboard(id) {
 		    }
 		});	
 	});
-	
-	
 }

@@ -43,7 +43,11 @@
 			</div>
 		</div>
 	
-		<div id="painel-efetivo" class="owl-carousel owl-theme"></div>
+<!-- 		<div id="painel-efetivo" class="owl-carousel owl-theme"></div> -->
+		<div  id="painel-efetivo" class="carousel slide" data-ride="carousel">
+			<div id="painel-itens" class="carousel-inner">
+			</div>
+		</div>
 		
 		<input id="identificador" type="text" th:value="${estabelecimento.id} == null ? ${usuario.estabelecimento.get(0).id} : ${estabelecimento.id}" hidden/>
 		

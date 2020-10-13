@@ -3,6 +3,7 @@ package br.com.cicom.comunicacicom.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,6 +29,9 @@ public class MenuNotificacoes {
 
 	@Autowired
 	private GrupoService servicoGrupo;
+	
+	@Autowired
+    private ModelMapper modelMapper;
 
 	@RequestMapping(value = "/admin/notificacoes/entrada")
 	public ModelAndView entradaNotificacaoPage(HttpSession session, HttpServletRequest req) {
@@ -78,12 +82,17 @@ public class MenuNotificacoes {
 			return model;
 		}
 		
-		model.addObject("usuario",user);
+		UsuarioDTO userDTO = converterParaUsuarioDTO(user);
 		
-		model.addObject("criador", converterParaUsuarioDTO(user));
+		model.addObject("usuario",user);
+		model.addObject("criador", userDTO);
+		
+		NotificacaoDTO notificacaoDTO = new NotificacaoDTO();
+		
+		notificacaoDTO.setCriador(userDTO);
 		
 		// Adiciona uma nova notificação na view
-		model.addObject("notificacao", new NotificacaoDTO());
+		model.addObject("notificacao", notificacaoDTO);
 		model.addObject("linkCadastro", "/cadastrarNotificao");
 		
 		// Adiciona uma lista de Grupos
@@ -105,18 +114,18 @@ public class MenuNotificacoes {
 	}
 
 	public GrupoDTO converterParaGrupoDTO(Grupo grupo) {
-		return new GrupoDTO(grupo.getId(), grupo.getNome());
+		return modelMapper.map(grupo, GrupoDTO.class);
 	}
 
 	public Grupo converterParaGrupo(GrupoDTO grupoDTO) {
-		return servicoGrupo.buscaPorId(grupoDTO.getId()).get();
+		return modelMapper.map(grupoDTO, Grupo.class);
 	}
 
 	public UsuarioDTO converterParaUsuarioDTO(Usuario usuario) {
-		return new UsuarioDTO(usuario.getId(), usuario.getServidor());
+		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
 
 	public Usuario converterParaUsuario(UsuarioDTO usuarioDTO) {
-		return servicoUsuario.buscaPorId(usuarioDTO.getId()).get();
+		return modelMapper.map(usuarioDTO, Usuario.class);
 	}
 }

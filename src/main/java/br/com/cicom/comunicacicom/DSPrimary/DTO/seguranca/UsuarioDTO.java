@@ -11,13 +11,9 @@ public class UsuarioDTO implements Comparable<UsuarioDTO> {
 	private Long id;
 	private ServidorDTO servidor = new ServidorDTO();
 	private List<EstabelecimentoDTO> estabelecimento = new ArrayList<>();
-
-	public UsuarioDTO() {
-	}
 	
-	public UsuarioDTO(Long id, Servidor servidor) {
-		this.id = id;
-		this.setServidor(servidor);
+	public UsuarioDTO() {
+		
 	}
 
 	public UsuarioDTO(Long id, Servidor servidor, List<EstabelecimentoDTO> estabelecimento) {

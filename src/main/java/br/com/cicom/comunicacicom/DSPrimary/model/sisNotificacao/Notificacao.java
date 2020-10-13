@@ -2,7 +2,10 @@ package br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -46,17 +50,23 @@ public class Notificacao implements Serializable {
 	@JoinColumn(name = "CRIADOR")
 	private Usuario criador;
 	
+	@NotNull
+	@OneToMany(targetEntity = EncaminhamentoNotificacao.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.DETACH }, orphanRemoval = true)
+	@JoinColumn(name="id")
+	private List<EncaminhamentoNotificacao> encaminhamentos = new ArrayList<>();
+	
 	public Notificacao() {
 	}
 
 	public Notificacao(Long id, @NotNull String assunto, @NotNull String mensagem, @NotNull LocalDateTime dataCriacao,
-			@NotNull Usuario criador) {
+			@NotNull Usuario criador, @NotNull List<EncaminhamentoNotificacao> encaminhamentos) {
 		super();
 		this.id = id;
 		this.assunto = assunto;
 		this.mensagem = mensagem;
 		this.dataCriacao = dataCriacao;
 		this.criador = criador;
+		this.encaminhamentos = encaminhamentos;
 	}
 
 	public Long getId() {
@@ -98,6 +108,14 @@ public class Notificacao implements Serializable {
 	public void setCriador(Usuario criador) {
 		this.criador = criador;
 	}
+	
+	public List<EncaminhamentoNotificacao> getEncaminhamentos() {
+		return encaminhamentos;
+	}
+
+	public void setEncaminhamentos(List<EncaminhamentoNotificacao> encaminhamentos) {
+		this.encaminhamentos = encaminhamentos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -106,6 +124,7 @@ public class Notificacao implements Serializable {
 		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
 		result = prime * result + ((criador == null) ? 0 : criador.hashCode());
 		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
+		result = prime * result + ((encaminhamentos == null) ? 0 : encaminhamentos.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((mensagem == null) ? 0 : mensagem.hashCode());
 		return result;
@@ -135,6 +154,11 @@ public class Notificacao implements Serializable {
 				return false;
 		} else if (!dataCriacao.equals(other.dataCriacao))
 			return false;
+		if (encaminhamentos == null) {
+			if (other.encaminhamentos != null)
+				return false;
+		} else if (!encaminhamentos.equals(other.encaminhamentos))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -151,6 +175,7 @@ public class Notificacao implements Serializable {
 	@Override
 	public String toString() {
 		return "Notificacao [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
-				+ dataCriacao + ", criador=" + criador + "]";
+				+ dataCriacao + ", criador=" + criador + ", encaminhamentos=" + encaminhamentos + "]";
 	}
+	
 }
