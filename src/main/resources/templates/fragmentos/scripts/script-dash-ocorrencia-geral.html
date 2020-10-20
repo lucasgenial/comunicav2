@@ -25,13 +25,13 @@
     <script src="/assets/jquery.easy-pie-chart/dist/jquery.easypiechart.js"></script>
 
 	<!-- Customização -->
-	<script src="/assets/js/grafico-ocorrenciaGeral.js"></script>
+<!-- 	<script src="/assets/js/grafico-ocorrenciaGeral.js"></script> -->
+	<script src="/assets/js/grafico-ocorrencia.js"></script>
 	<script src="/assets/js/refreshDashboardGeral.js"></script>
 	
 
 <!-- //Para Usuário Com Visão Geral - Exibição nas TVs -->
 	<script th:inline="javascript">
-		
 		geradorDeGraficosDashboard([[${geradorDeId.nextId(usuario)}]]);
 	</script>
 </th:block>
