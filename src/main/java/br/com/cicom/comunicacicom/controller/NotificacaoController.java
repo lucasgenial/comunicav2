@@ -27,6 +27,7 @@ import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.NotificacaoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
@@ -48,22 +49,23 @@ public class NotificacaoController {
 		return null;
 	}
 
-	@RequestMapping(value = "**/cadastrarNotificao", method = { RequestMethod.POST})
-	public String cadastrarNotificao(List<GrupoDTO> grupos, List<UsuarioDTO> usuarios, BindingResult result) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	@RequestMapping(value = "**/cadastrarNotificacao", method = { RequestMethod.POST})
+	public String cadastrarNotificao(@ModelAttribute("notificacao") NotificacaoDTO notificacao, BindingResult result) {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
+//		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 		
 //		if(notificacao!=null) {
 //			notificacao.setDataCriacao(LocalDateTime.now());
 //			notificacao.setCriador(user);
 //		}
 		
-		//System.out.println(notificacao);
-		System.out.println(grupos);
-		System.out.println(usuarios);
+		System.out.println(notificacao);
+//		System.out.println(grupos);
+//		System.out.println(usuarios);
 		
 		if (result.hasErrors()) {
+			System.out.println(result);
 			return "redirect:/admin/notificacoes/nova";
 		}
 		

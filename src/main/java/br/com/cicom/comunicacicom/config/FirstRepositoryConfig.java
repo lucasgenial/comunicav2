@@ -108,11 +108,12 @@ public class FirstRepositoryConfig {
 
 	private Properties jpaHibernateProperties() {
 		Properties properties = new Properties();
+//		properties.put("hibernate.hbm2ddl.auto", "create");
+//  		properties.put("spring.jpa.show-sql", "true");
 		properties.put(PROPERTY_NAME_HIBERNATE_FMT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FMT_SQL));
 		properties.put(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE, env.getProperty(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE));
 		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 		return properties;
 	}
-
 
 }

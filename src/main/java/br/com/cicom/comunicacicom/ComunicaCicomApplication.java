@@ -1,5 +1,10 @@
 package br.com.cicom.comunicacicom;
 
+import static org.modelmapper.Conditions.isNotNull;
+import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
+import static org.modelmapper.convention.MatchingStrategies.STRICT;
+import static org.modelmapper.convention.NamingConventions.JAVABEANS_MUTATOR;
+
 import java.util.Locale;
 
 import org.modelmapper.ModelMapper;
@@ -10,11 +15,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.i18n.FixedLocaleResolver;
-
-import static org.modelmapper.Conditions.isNotNull;
-import static org.modelmapper.config.Configuration.AccessLevel.PRIVATE;
-import static org.modelmapper.convention.MatchingStrategies.STRICT;
-import static org.modelmapper.convention.NamingConventions.JAVABEANS_MUTATOR;
 
 @SpringBootApplication
 public class ComunicaCicomApplication extends SpringBootServletInitializer {
@@ -33,7 +33,7 @@ public class ComunicaCicomApplication extends SpringBootServletInitializer {
 	public LocaleResolver localeResolver() {
 		return new FixedLocaleResolver(new Locale("pt", "BR"));
 	}
-	
+
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();

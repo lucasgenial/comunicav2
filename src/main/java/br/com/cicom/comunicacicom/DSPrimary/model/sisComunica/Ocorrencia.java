@@ -124,16 +124,14 @@ public class Ocorrencia implements Serializable {
 		this.ativo = true;
 	}
 	
-	
-
-public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcorrencia,
-			@NotNull LocalTime horaOcorrencia, @NotNull LocalDateTime dataDaCriacao,
-			@NotNull Estabelecimento estabelecimento, @NotNull Tipificacao tipificacao, @NotNull Endereco endereco,
-			@NotBlank @Size(min = 0, max = 100) String guarnicao,
-			@NotBlank @Size(min = 10, max = 2500) String descricao,
-			@NotBlank @Size(min = 10, max = 2500) String historico, @NotNull EstadoOcorrencia estadoOcorrencia,
-			@NotNull Servidor servidor, @NotNull LocalDateTime dataUltimaModificao, @NotNull boolean enviada,
-			@NotNull boolean ativo, List<OcorrenciaLog> ocorrencialog) {
+	public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcorrencia,
+				@NotNull LocalTime horaOcorrencia, @NotNull LocalDateTime dataDaCriacao,
+				@NotNull Estabelecimento estabelecimento, @NotNull Tipificacao tipificacao, @NotNull Endereco endereco,
+				@NotBlank @Size(min = 0, max = 100) String guarnicao,
+				@NotBlank @Size(min = 10, max = 2500) String descricao,
+				@NotBlank @Size(min = 10, max = 2500) String historico, @NotNull EstadoOcorrencia estadoOcorrencia,
+				@NotNull Servidor servidor, @NotNull LocalDateTime dataUltimaModificao, @NotNull boolean enviada,
+				@NotNull boolean ativo, List<OcorrenciaLog> ocorrencialog) {
 		super();
 		this.id = id;
 		this.sic = sic;
@@ -153,8 +151,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 		this.ocorrencialog = ocorrencialog;
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
@@ -171,25 +167,17 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 		this.sic = sic;
 	}
 
-
-
 	public LocalDateTime getDataOcorrencia() {
 		return dataOcorrencia;
 	}
-
-
 
 	public void setDataOcorrencia(LocalDateTime dataOcorrencia) {
 		this.dataOcorrencia = dataOcorrencia;
 	}
 
-
-
 	public LocalDateTime getDataDaCriacao() {
 		return dataDaCriacao;
 	}
-
-
 
 	public void setDataDaCriacao(LocalDateTime dataDaCriacao) {
 		this.dataDaCriacao = dataDaCriacao;
@@ -203,8 +191,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 	public void setRegistroOcorrencia(RegistroOcorrencia registroOcorrencia) {
 		this.registroOcorrencia = registroOcorrencia;
 	}
-
-
 
 	public Estabelecimento getEstabelecimento() {
 		return estabelecimento;
@@ -371,8 +357,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 
 	}
 
-	
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -396,8 +380,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 		result = prime * result + ((tipificacao == null) ? 0 : tipificacao.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -485,8 +467,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 		return true;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "Ocorrencia [id=" + id + ", sic=" + sic + ", dataOcorrencia=" + dataOcorrencia + ", horaOcorrencia="
@@ -496,8 +476,6 @@ public Ocorrencia(Long id, @NotBlank String sic, @NotNull LocalDateTime dataOcor
 				+ ", servidor=" + servidor + ", enviada=" + enviada
 				+ ", ativo=" + ativo + ", ocorrencialog=" + ocorrencialog + "]";
 	}
-
-
 
 	public List<OcorrenciaLog> getOcorrencialog() {
 		return ocorrencialog;

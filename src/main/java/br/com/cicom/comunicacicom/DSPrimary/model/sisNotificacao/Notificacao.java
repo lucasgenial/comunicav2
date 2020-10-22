@@ -2,10 +2,7 @@ package br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -23,52 +19,33 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 
 @Entity
-@Table(name = "NOTIFICACAO", schema = "comunicacicom")
+@Table(name = "NOTIFICACAO")
 @SuppressWarnings("serial")
 public class Notificacao implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", unique = true)
-	private Long id;
-
+	private Long id;	
+		
 	@NotNull
-	@Column(name = "ASSUNTO", unique = false)
-	private String assunto;
-
-	@NotNull
-	@Column(name = "MENSAGEM", unique = false)
-	private String mensagem;
-	
-	@NotNull
-	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Column(name = "DATA_CRIACAO", nullable = false)
-	private LocalDateTime dataCriacao;
+	@OneToOne(targetEntity = Mensagem.class, fetch = FetchType.LAZY)
+	@JoinColumn(name = "MENSAGEM")
+	private Mensagem mensagem;
 	
 	@NotNull
 	@OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "CRIADOR")
-	private Usuario criador;
+	@JoinColumn(name = "DESTINATARIO")
+	private Usuario destinatario;
 	
 	@NotNull
-	@OneToMany(targetEntity = EncaminhamentoNotificacao.class, fetch = FetchType.LAZY, cascade = { CascadeType.MERGE, CascadeType.DETACH }, orphanRemoval = true)
-	@JoinColumn(name="id")
-	private List<EncaminhamentoNotificacao> encaminhamentos = new ArrayList<>();
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
+	@Column(name = "DATA_LEITURA", nullable = false)
+	private LocalDateTime dataLeitura;
 	
 	public Notificacao() {
 	}
-
-	public Notificacao(Long id, @NotNull String assunto, @NotNull String mensagem, @NotNull LocalDateTime dataCriacao,
-			@NotNull Usuario criador, @NotNull List<EncaminhamentoNotificacao> encaminhamentos) {
-		super();
-		this.id = id;
-		this.assunto = assunto;
-		this.mensagem = mensagem;
-		this.dataCriacao = dataCriacao;
-		this.criador = criador;
-		this.encaminhamentos = encaminhamentos;
-	}
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -77,54 +54,36 @@ public class Notificacao implements Serializable {
 		this.id = id;
 	}
 
-	public String getAssunto() {
-		return assunto;
-	}
-
-	public void setAssunto(String assunto) {
-		this.assunto = assunto;
-	}
-
-	public String getMensagem() {
+	public Mensagem getMensagem() {
 		return mensagem;
 	}
 
-	public void setMensagem(String mensagem) {
+	public void setMensagem(Mensagem mensagem) {
 		this.mensagem = mensagem;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
+	public Usuario getDestinatario() {
+		return destinatario;
 	}
 
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDestinatario(Usuario destinatario) {
+		this.destinatario = destinatario;
 	}
 
-	public Usuario getCriador() {
-		return criador;
+	public LocalDateTime getDataLeitura() {
+		return dataLeitura;
 	}
 
-	public void setCriador(Usuario criador) {
-		this.criador = criador;
+	public void setDataLeitura(LocalDateTime dataLeitura) {
+		this.dataLeitura = dataLeitura;
 	}
 	
-	public List<EncaminhamentoNotificacao> getEncaminhamentos() {
-		return encaminhamentos;
-	}
-
-	public void setEncaminhamentos(List<EncaminhamentoNotificacao> encaminhamentos) {
-		this.encaminhamentos = encaminhamentos;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
-		result = prime * result + ((criador == null) ? 0 : criador.hashCode());
-		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
-		result = prime * result + ((encaminhamentos == null) ? 0 : encaminhamentos.hashCode());
+		result = prime * result + ((dataLeitura == null) ? 0 : dataLeitura.hashCode());
+		result = prime * result + ((destinatario == null) ? 0 : destinatario.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((mensagem == null) ? 0 : mensagem.hashCode());
 		return result;
@@ -139,25 +98,15 @@ public class Notificacao implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Notificacao other = (Notificacao) obj;
-		if (assunto == null) {
-			if (other.assunto != null)
+		if (dataLeitura == null) {
+			if (other.dataLeitura != null)
 				return false;
-		} else if (!assunto.equals(other.assunto))
+		} else if (!dataLeitura.equals(other.dataLeitura))
 			return false;
-		if (criador == null) {
-			if (other.criador != null)
+		if (destinatario == null) {
+			if (other.destinatario != null)
 				return false;
-		} else if (!criador.equals(other.criador))
-			return false;
-		if (dataCriacao == null) {
-			if (other.dataCriacao != null)
-				return false;
-		} else if (!dataCriacao.equals(other.dataCriacao))
-			return false;
-		if (encaminhamentos == null) {
-			if (other.encaminhamentos != null)
-				return false;
-		} else if (!encaminhamentos.equals(other.encaminhamentos))
+		} else if (!destinatario.equals(other.destinatario))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -174,8 +123,6 @@ public class Notificacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Notificacao [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao="
-				+ dataCriacao + ", criador=" + criador + ", encaminhamentos=" + encaminhamentos + "]";
+		return "Notificacao [id=" + id + ", mensagem=" + mensagem +  ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura=" + dataLeitura + "]";
 	}
-	
 }

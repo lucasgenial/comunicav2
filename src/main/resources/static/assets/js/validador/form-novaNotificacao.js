@@ -4,39 +4,39 @@
 var dataAtual = new Date();
 $('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
 
-$.ajax({
-	type: "GET",
-	contentType: "application/json;charset=UTF-8",
-	url: "/admin/notificacoes/nova/usuarios/0",
-	success: function(dados) {
-		for (var i = 0; i < dados.length; i++) {
-			var option = new Option(dados[i].servidor.nome.toUpperCase(), dados[i].servidor.id);
-			var select = document.getElementById("listaUsuario");
+//$.ajax({
+//	type: "GET",
+//	contentType: "application/json;charset=UTF-8",
+//	url: "/admin/notificacoes/nova/usuarios/0",
+//	success: function(dados) {
+//		for (var i = 0; i < dados.length; i++) {
+//			var option = new Option(dados[i].servidor.nome.toUpperCase(), dados[i].servidor.id);
+//			var select = document.getElementById("listaUsuario");
+//
+//			select.append(option);
+//		}
+//	},
+//	fail: function() {
+//		alert('Falha ao Buscar os Usuários');
+//	}
+//});
 
-			select.append(option);
-		}
-	},
-	fail: function() {
-		alert('Falha ao Buscar os Usuários');
-	}
-});
-
-$.ajax({
-	type: "GET",
-	contentType: "application/json;charset=UTF-8",
-	url: "/admin/notificacoes/nova/grupos/",
-	success: function(dados) {
-		for (var i = 0; i < dados.length; i++) {
-			var option = new Option(dados[i].nome.toUpperCase(), dados[i].id);
-			var select = document.getElementById("listaGrupo");
-
-			select.append(option);
-		}
-	},
-	fail: function() {
-		alert('Falha ao Buscar os Grupos');
-	}
-});
+//$.ajax({
+//	type: "GET",
+//	contentType: "application/json;charset=UTF-8",
+//	url: "/admin/notificacoes/nova/grupos/",
+//	success: function(dados) {
+//		for (var i = 0; i < dados.length; i++) {
+//			var option = new Option(dados[i].nome.toUpperCase(), dados[i].id);
+//			var select = document.getElementById("listaGrupo");
+//
+//			select.append(option);
+//		}
+//	},
+//	fail: function() {
+//		alert('Falha ao Buscar os Grupos');
+//	}
+//});
 var selecionados = [];
 var gruposSelecionados = [];
 var usuariosAtivos = [];

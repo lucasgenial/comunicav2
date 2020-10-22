@@ -29,33 +29,39 @@
 									<div class="row">
 										<div class="form-group col-6">
 											<label for="listaGrupo">Grupos de Destinatários:</label>
-											<select id="listaGrupo" th:field="*{listaGrupo}" class="form-control selectpicker" title="Selecione os grupos ..." data-actions-box="true" data-live-search="true" multiple="true"></select>											
+											<select id="listaGrupo"  class="form-control selectpicker" title="Envio por grupos de usuários ..." data-actions-box="true" data-live-search="true" multiple="multiple">
+												<option th:each="_grupo : ${listaGrupos}" th:value="${_grupo.id}" th:text="${_grupo.nome}"></option>
+											</select>
+<!-- 											<div th:if="${#fields.hasErrors('listaGrupo')}" th:errors="*{listaGrupo}" class="help-block">error</div>									 -->
 										</div>
 										
 										<div class="form-group col-6">
 											<label for="listaUsuario">Usuários:</label>
-											<select id="listaUsuario" th:field="*{listaUsuario}" class="form-control selectpicker" title="Selecione os destinatários ..." data-actions-box="true" data-live-search="true" multiple="true"></select>											
+											<select id="listaUsuario" name="listaUsuario" class="form-control selectpicker" title="Destinatários ..." data-actions-box="true" data-live-search="true" multiple="multiple">
+												<option th:each="_usuario : ${listaUsuarios}" th:id="${{_usuario.id}}" th:value="${{_usuario.id}}" th:text="${_usuario.servidor.nome}"></option>
+											</select>
+<!-- 											<div th:if="${#fields.hasErrors('listaUsuario')}" th:errors="*{listaUsuario}" class="help-block">error</div> -->
 										</div>
 										
 										<div class="form-group col-12">
 											<label>Assunto</label>
-										    <input id="assunto" class="form-control" th:field="*{assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
+										    <input id="assunto"  class="form-control" th:field="*{mensagem.mensagem.assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
 										</div>
 										
 										<div class="form-group col-12">
 											<label for="mensagem">Mensagem</label>
-											<textarea id="mensagem" class="form-control" th:field="*{mensagem}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
+											<textarea id="mensagem" class="form-control" th:field="*{mensagem.mensagem.mensagem}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
 										</div>
 										
 										<div class="form-group col-6">
 											<label for="criador">Criador</label>
-											<input id="criador" class="form-control" th:field="*{criador.id}" th:value="${criador.servidor.nome}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
+											<input id="criador" class="form-control" th:field="*{criador}" th:value="${criador}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
 											
 										</div>
 										
 										<div class="form-group col-6">
 											<label>Data Atual</label>
-											<input id="dataCriacao" class="form-control" th:text="*{{dataCriacao}}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
+											<input id="dataCriacao" type="datetime-local" class="form-control" th:text="*{dataCriacao}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
 										</div>
 									
 									</div>
