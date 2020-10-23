@@ -3,13 +3,13 @@
 		<!-- INICIO TITULO DA PÁGINA -->
 		<div class="row page-titles">
 			<div class="col-md-5 align-self-center">
-				<h4 class="text-themecolor">CRIAR NOVA NOTIFICAÇÃO</h4>
+				<h4 class="text-themecolor">CRIAR NOVA MENSAGEM</h4>
 			</div>
 			<div class="col-md-7 align-self-center text-right">
 				<div class="d-flex justify-content-end align-items-center">
 					<ol class="breadcrumb">
 						<li class="breadcrumb-item"><a href="javascript:void(0)">Início</a></li>
-						<li class="breadcrumb-item"><a href="./entrada">Notificações</a></li>
+						<li class="breadcrumb-item"><a href="./entrada">Mensagens</a></li>
 						<li class="breadcrumb-item active">NOVA</li>
 					</ol>
 				</div>
@@ -22,9 +22,9 @@
 					<div class="row">
 						
 						<div class="col-xlg-12 col-lg-12 col-md-12 bg-light border-left">
-							<form id="formNovaNotificacao" class="form-servidor" th:object="${notificacao}" th:action="@{{link}(link=${linkCadastro})}" method="POST" >
+							<form id="formNovaNotificacao" class="form-servidor" th:object="${mensagem}" th:action="@{/cadastrarMensagem}" method="POST" >
 							    <div class="card-body">
-									<h3 class="card-title">Nova Notificação</h3>
+									<h3 class="card-title">Nova Mensagem</h3>
 									
 									<div class="row">
 										<div class="form-group col-6">
@@ -45,17 +45,17 @@
 										
 										<div class="form-group col-12">
 											<label>Assunto</label>
-										    <input id="assunto"  class="form-control" th:field="*{mensagem.mensagem.assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
+										    <input id="assunto"  class="form-control" th:field="*{assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
 										</div>
 										
 										<div class="form-group col-12">
 											<label for="mensagem">Mensagem</label>
-											<textarea id="mensagem" class="form-control" th:field="*{mensagem.mensagem.mensagem}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
+											<textarea id="mensagem" class="form-control" th:field="*{mensagem}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
 										</div>
 										
 										<div class="form-group col-6">
 											<label for="criador">Criador</label>
-											<input id="criador" class="form-control" th:field="*{criador}" th:value="${criador}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
+											<input id="criador" class="form-control" th:field="*{emissor}" th:value="${emissor}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
 											
 										</div>
 										

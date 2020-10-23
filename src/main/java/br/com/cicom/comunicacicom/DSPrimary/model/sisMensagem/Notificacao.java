@@ -1,4 +1,4 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao;
+package br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -25,22 +25,22 @@ public class Notificacao implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", unique = true)
+	@Column(name = "id", unique = true)
 	private Long id;	
 		
 	@NotNull
 	@OneToOne(targetEntity = Mensagem.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "MENSAGEM")
+	@JoinColumn(name = "mensagem")
 	private Mensagem mensagem;
 	
 	@NotNull
 	@OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
-	@JoinColumn(name = "DESTINATARIO")
+	@JoinColumn(name = "destinatario")
 	private Usuario destinatario;
 	
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Column(name = "DATA_LEITURA", nullable = false)
+	@Column(name = "data_leitura", nullable = false)
 	private LocalDateTime dataLeitura;
 	
 	public Notificacao() {
@@ -123,6 +123,6 @@ public class Notificacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Notificacao [id=" + id + ", mensagem=" + mensagem +  ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura=" + dataLeitura + "]";
+		return "Notificacao [id=" + id + ", mensagem=" + mensagem.getId() +  ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura=" + dataLeitura + "]";
 	}
 }

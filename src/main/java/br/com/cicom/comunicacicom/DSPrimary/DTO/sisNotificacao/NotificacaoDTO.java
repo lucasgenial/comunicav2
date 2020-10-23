@@ -8,18 +8,9 @@ public class NotificacaoDTO {
 
 	private Long id;
 	
-	private MensagemDTO mensagem;
-	
-	private UsuarioDTO criador;
-	
-	private UsuarioDTO destinatario;
+	private UsuarioDTO receptor;
 	
 	private LocalDateTime dataLeitura;
-	
-	private LocalDateTime dataCriacao;
-		
-	public NotificacaoDTO() {
-	}
 
 	public Long getId() {
 		return id;
@@ -29,28 +20,12 @@ public class NotificacaoDTO {
 		this.id = id;
 	}
 
-	public MensagemDTO getMensagem() {
-		return mensagem;
+	public UsuarioDTO getReceptor() {
+		return receptor;
 	}
 
-	public void setMensagem(MensagemDTO mensagem) {
-		this.mensagem = mensagem;
-	}
-
-	public UsuarioDTO getCriador() {
-		return criador;
-	}
-
-	public void setCriador(UsuarioDTO criador) {
-		this.criador = criador;
-	}
-
-	public UsuarioDTO getDestinatario() {
-		return destinatario;
-	}
-
-	public void setDestinatario(UsuarioDTO destinatario) {
-		this.destinatario = destinatario;
+	public void setReceptor(UsuarioDTO receptor) {
+		this.receptor = receptor;
 	}
 
 	public LocalDateTime getDataLeitura() {
@@ -61,23 +36,13 @@ public class NotificacaoDTO {
 		this.dataLeitura = dataLeitura;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
-	}
-
-	public void setDataCriacao(LocalDateTime dataCriacao) {
-		this.dataCriacao = dataCriacao;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((criador == null) ? 0 : criador.hashCode());
-		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
 		result = prime * result + ((dataLeitura == null) ? 0 : dataLeitura.hashCode());
-		result = prime * result + ((destinatario == null) ? 0 : destinatario.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((receptor == null) ? 0 : receptor.hashCode());
 		return result;
 	}
 
@@ -90,38 +55,27 @@ public class NotificacaoDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		NotificacaoDTO other = (NotificacaoDTO) obj;
-		if (criador == null) {
-			if (other.criador != null)
-				return false;
-		} else if (!criador.equals(other.criador))
-			return false;
-		if (dataCriacao == null) {
-			if (other.dataCriacao != null)
-				return false;
-		} else if (!dataCriacao.equals(other.dataCriacao))
-			return false;
 		if (dataLeitura == null) {
 			if (other.dataLeitura != null)
 				return false;
 		} else if (!dataLeitura.equals(other.dataLeitura))
-			return false;
-		if (destinatario == null) {
-			if (other.destinatario != null)
-				return false;
-		} else if (!destinatario.equals(other.destinatario))
 			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (receptor == null) {
+			if (other.receptor != null)
+				return false;
+		} else if (!receptor.equals(other.receptor))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "NotificacaoDTO [id=" + id + ", criador=" + criador.getServidor().getNome() + ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura="
-				+ dataLeitura + ", dataCriacao=" + dataCriacao + "]";
+		return "NotificacaoDTO [id=" + id + ", receptor=" + receptor + ", dataLeitura=" + dataLeitura + "]";
 	}
 	
 }

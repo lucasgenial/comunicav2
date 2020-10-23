@@ -1,10 +1,10 @@
-package br.com.cicom.comunicacicom.DSPrimary.service.sisNotificacao;
+package br.com.cicom.comunicacicom.DSPrimary.service.sisMensagem;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Mensagem;
-import br.com.cicom.comunicacicom.DSPrimary.repository.sisNotificacao.MensagemRepository;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem.Mensagem;
+import br.com.cicom.comunicacicom.DSPrimary.repository.sisMensagem.MensagemRepository;
 
 @Service
 public class MensagemService {

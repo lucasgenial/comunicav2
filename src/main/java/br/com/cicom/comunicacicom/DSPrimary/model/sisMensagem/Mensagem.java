@@ -1,4 +1,4 @@
-package br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao;
+package br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,22 +26,22 @@ public class Mensagem implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID", unique = true)
+	@Column(name = "id", unique = true)
 	private Long id;
 	
 	@NotNull
 	@Size(min = 2, max = 120)
-	@Column(name = "ASSUNTO")
+	@Column(name = "assunto")
 	private String assunto;
 
 	@NotNull
 	@Size(min = 2, max = 10000)
-	@Column(name = "MENSAGEM")
+	@Column(name = "mensagem")
 	private String mensagem;
 	
 	@NotNull
 	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@Column(name = "DATA_CRIACAO", nullable = false)
+	@Column(name = "data_criacao", nullable = false)
 	private LocalDateTime dataCriacao;
 	
 	@OneToMany(cascade = CascadeType.ALL)

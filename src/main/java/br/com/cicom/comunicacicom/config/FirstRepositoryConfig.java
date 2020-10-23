@@ -76,8 +76,8 @@ public class FirstRepositoryConfig {
 		LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 		entityManagerFactoryBean.setJpaVendorAdapter(vendorAdaptor());
 		entityManagerFactoryBean.setDataSource(dataSource());
-//		entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
-//		entityManagerFactoryBean.setPersistenceUnitManager(persistenceUnitManager());
+		//entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistenceProvider.class);
+		//entityManagerFactoryBean.setPersistenceUnitManager(persistenceUnitManager());
 		entityManagerFactoryBean.setPersistenceUnitName("entityManagerFactory");
 		entityManagerFactoryBean.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
 		entityManagerFactoryBean.setJpaProperties(jpaHibernateProperties());
@@ -108,12 +108,24 @@ public class FirstRepositoryConfig {
 
 	private Properties jpaHibernateProperties() {
 		Properties properties = new Properties();
-//		properties.put("hibernate.hbm2ddl.auto", "create");
-//  		properties.put("spring.jpa.show-sql", "true");
+//		properties.put("hibernate.hbm2ddl.auto", "update");
+//		properties.put("spring.jpa.show-sql", "true");
 		properties.put(PROPERTY_NAME_HIBERNATE_FMT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FMT_SQL));
 		properties.put(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE, env.getProperty(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE));
 		properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 		return properties;
 	}
 
+
 }
+
+
+//private Properties jpaHibernateProperties() {
+//	Properties properties = new Properties();
+//	properties.put("account.hibernate.db.hbm2ddlAuto", "create");
+////		properties.put("spring.jpa.show-sql", "true");
+//	properties.put(PROPERTY_NAME_HIBERNATE_FMT_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_FMT_SQL));
+//	properties.put(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE, env.getProperty(PROPERTY_NAME_HIBERNATE_JDBC_BATCH_SIZE));
+//	properties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, env.getProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+//	return properties;
+//}

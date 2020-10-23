@@ -13,26 +13,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
-import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.NotificacaoDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.MensagemDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisNotificacao.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
 @Controller
-public class NotificacaoController {
+public class MensagemController {
 
 	@Autowired
 	private UsuarioService servicoUsuario;
@@ -44,13 +39,13 @@ public class NotificacaoController {
     private ModelMapper modelMapper;
 
 	@ResponseBody
-	@RequestMapping(value = { "/hotificacao/listar/" }, method = { RequestMethod.POST, RequestMethod.GET })
-	public List<NotificacaoDTO> listarNotificacoes(ModelAndView mv) {
+	@RequestMapping(value = { "/mensagem/listar/" }, method = { RequestMethod.POST, RequestMethod.GET })
+	public List<MensagemDTO> listarMensagens(ModelAndView mv) {
 		return null;
 	}
 
-	@RequestMapping(value = "**/cadastrarNotificacao", method = { RequestMethod.POST})
-	public String cadastrarNotificao(@ModelAttribute("notificacao") NotificacaoDTO notificacao, BindingResult result) {
+	@RequestMapping(value = "**/cadastrarMensagem", method = { RequestMethod.POST})
+	public String cadastrarMensagem(@ModelAttribute("mensagem") MensagemDTO mensagem, BindingResult result) {
 //		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 //		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
@@ -60,20 +55,20 @@ public class NotificacaoController {
 //			notificacao.setCriador(user);
 //		}
 		
-		System.out.println(notificacao);
+		System.out.println(mensagem);
 //		System.out.println(grupos);
 //		System.out.println(usuarios);
 		
 		if (result.hasErrors()) {
 			System.out.println(result);
-			return "redirect:/admin/notificacoes/nova";
+			return "redirect:/admin/mensagens/nova";
 		}
 		
-		return "redirect:/admin/notificacoes/entrada";
+		return "redirect:/admin/mensagens/entrada";
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/admin/notificacoes/nova/usuarios/{listaGrupo}", method = { RequestMethod.GET })
+	@RequestMapping(value = "/admin/mensagens/nova/usuarios/{listaGrupo}", method = { RequestMethod.GET })
 	public List<UsuarioDTO> buscarUsuarios(@PathVariable("listaGrupo") List<Grupo> listaGrupo) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -98,7 +93,7 @@ public class NotificacaoController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/admin/notificacoes/nova/grupos/", method = { RequestMethod.GET })
+	@RequestMapping(value = "/admin/mensagens/nova/grupos/", method = { RequestMethod.GET })
 	public List<GrupoDTO> buscarGrupos() {
 		List<GrupoDTO> grupos = new ArrayList<>();
 

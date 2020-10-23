@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
-import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.NotificacaoDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.MensagemDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
@@ -35,9 +35,9 @@ public class MenuNotificacoes {
 	@Autowired
     private ModelMapper modelMapper;
 
-	@RequestMapping(value = "/admin/notificacoes/entrada")
+	@RequestMapping(value = "/admin/mensagens/entrada")
 	public ModelAndView entradaNotificacaoPage(HttpSession session, HttpServletRequest req) {
-		ModelAndView model = new ModelAndView("/fragmentos/notificacao/listarNotificacoes");
+		ModelAndView model = new ModelAndView("/fragmentos/mensagem/listarMensagem");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -54,21 +54,21 @@ public class MenuNotificacoes {
 		}
 
 		model.addObject("usuario", user);
-		model.addObject("listaNotificacao", null);
+		model.addObject("listaMensagens", null);
 
 		if (!model.getModel().containsKey("estabelecimento")) {
 			model.addObject("estabelecimento", new Estabelecimento());
 		}
 
-		model.setViewName("/fragmentos/notificacao/listarNotificacoes");
-		model.addObject("tituloPagina", "ComunicaCICOM - Notificações");
+		model.setViewName("/fragmentos/mensagem/listarMensagem");
+		model.addObject("tituloPagina", "ComunicaCICOM - Mensagens");
 
 		return model;
 	}
 
-	@RequestMapping(value = "/admin/notificacoes/nova")
-	public ModelAndView novaNotificacaoPage(HttpSession session, HttpServletRequest req) {
-		ModelAndView model = new ModelAndView("/fragmentos/notificacao/novaNotificacao");
+	@RequestMapping(value = "/admin/mensagens/nova")
+	public ModelAndView novaMensagensPage(HttpSession session, HttpServletRequest req) {
+		ModelAndView model = new ModelAndView("/fragmentos/mensagem/novaMensagem");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -89,27 +89,27 @@ public class MenuNotificacoes {
 		model.addObject("usuario",user);
 		model.addObject("criador", userDTO);
 		
-		NotificacaoDTO notificacaoDTO = new NotificacaoDTO();
+		MensagemDTO mensagemDTO = new MensagemDTO();
 		
-		notificacaoDTO.setCriador(userDTO);
-		
-		// Adiciona uma nova notificação na view
-		model.addObject("notificacao", notificacaoDTO);
-		model.addObject("linkCadastro", "/cadastrarNotificacao");
+		mensagemDTO.setEmissor(userDTO);
+				
+		// Adiciona uma nova mensagem na view
+		model.addObject("mensagem", mensagemDTO);
+		//model.addObject("linkCadastro", "/cadastrarMensagem");
 		
 		// Adiciona uma lista de Grupos
 		model.addObject("listaGrupos", 
 			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
-//		
+	
 		// Adiciona uma lista de Usuários por estabelecimento do Usuário Logado.
 		model.addObject("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
 			.stream().filter(e -> e.getServidor()!=null)
 			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
 		
-		model.setViewName("/fragmentos/notificacao/novaNotificacao");
+		model.setViewName("/fragmentos/mensagem/novaMensagem");
 		model.addObject("metodo", "POST");
 		
-		model.addObject("tituloPagina", "ComunicaCICOM - Nova Notificação");
+		model.addObject("tituloPagina", "ComunicaCICOM - Nova Mensagem");
 
 		return model;
 	}

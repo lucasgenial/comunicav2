@@ -332,13 +332,13 @@
 
  	
  	<!-- Notificações -->
- 	<th:block th:if="${tituloPagina  == 'ComunicaCICOM - Nova Notificação'}"  th:insert="fragmentos/scripts/cad-notificacao :: script-notificacao"></th:block>
+ 	<th:block th:if="${tituloPagina  == 'ComunicaCICOM - Nova Mensagem'}"  th:insert="fragmentos/scripts/cad-mensagem :: script-mensagem"></th:block>
  	
  	<script type="text/javascript">
  			$('form').append('<input hidden="hidden" type="text" name="url" value="'+document.referrer.replace("http://localhost:8080", "")+'"/>'); 
  	</script>
  	
- 	<div th:if="${mensagem != null}">
+ 	<div th:if="${mensagem != null} and ${tituloPagina  != 'ComunicaCICOM - Nova Mensagem'}">
  	  	
  		<div  th:replace="fragmentos/modal/mensagem :: modalMensagem"></div>
  		<script type="text/javascript">

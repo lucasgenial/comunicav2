@@ -1,5 +1,5 @@
 /**
- * Arquivo de configuração da validação via Javascript do formulário de Cadastro e edição de notificação
+ * Arquivo de configuração da validação via Javascript do formulário de Cadastro e edição de Mensagem
  */
 var dataAtual = new Date();
 $('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
@@ -7,7 +7,7 @@ $('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
 //$.ajax({
 //	type: "GET",
 //	contentType: "application/json;charset=UTF-8",
-//	url: "/admin/notificacoes/nova/usuarios/0",
+//	url: "/admin/mensagens/nova/usuarios/0",
 //	success: function(dados) {
 //		for (var i = 0; i < dados.length; i++) {
 //			var option = new Option(dados[i].servidor.nome.toUpperCase(), dados[i].servidor.id);
@@ -24,7 +24,7 @@ $('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
 //$.ajax({
 //	type: "GET",
 //	contentType: "application/json;charset=UTF-8",
-//	url: "/admin/notificacoes/nova/grupos/",
+//	url: "/admin/mensagens/nova/grupos/",
 //	success: function(dados) {
 //		for (var i = 0; i < dados.length; i++) {
 //			var option = new Option(dados[i].nome.toUpperCase(), dados[i].id);
@@ -60,8 +60,7 @@ $('#listaUsuario').on("change", function() {
 		//Ainda não selecionou nenhum grupo
 		//Apenas seleção manual de usuários
 		selecionados = $('#listaUsuario').val();
-		console.log("seleção manual de usuarios: "+selecionados);
-		
+				
 		usuariosAtivos = selecionados;
 	}
 	///ordena as listas "elas são ordenadas como array de String"
@@ -82,7 +81,6 @@ function atualizaSelecionados(array1, array2) {
 $('#listaGrupo').on("change", function() {
 	
 	gruposSelecionados = $('#listaGrupo').val().map(Number);
-//	gruposSelecionados = $('#listaGrupo').val();
 	
 	usuariosAtivos = $('#listaUsuario').val();
 	
@@ -90,10 +88,8 @@ $('#listaGrupo').on("change", function() {
 		$.ajax({
 			type: "GET",
 			contentType: "application/json;charset=UTF-8",
-			url: "/admin/notificacoes/nova/usuarios/"+gruposSelecionados,
+			url: "/admin/mensagens/nova/usuarios/"+gruposSelecionados,
 			success: function(data) {
-				console.log("CONSULTA:");
-				console.log(data);
 				
 				var usuariosConsulta = [];
 				
@@ -103,10 +99,7 @@ $('#listaGrupo').on("change", function() {
 				for(var i = 0; i < data.length; i++) {
 					usuariosConsulta.push(""+data[i].servidor.id);
 				}
-				
-				console.log("USUARIOS CONSULTA:")
-				console.log(usuariosConsulta)
-				
+								
 				//Atualiza a lista de usuários selecionados				
 				usuariosAtivos = selecionados.concat(usuariosConsulta);
 				
