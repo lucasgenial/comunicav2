@@ -8,16 +8,20 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 
 @Entity
 @Table(name = "MENSAGEM")
@@ -45,8 +49,12 @@ public class Mensagem implements Serializable {
 	private LocalDateTime dataCriacao;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="mensagem")
+	@JoinColumn(name="notificacoes")
 	private List<Notificacao> notificacoes = new ArrayList<Notificacao>();
+	
+	@NotNull
+	@OneToOne(targetEntity = Usuario.class, fetch = FetchType.LAZY)
+	private Usuario emissor;
 	
 	public Mensagem() {
 	}
@@ -91,12 +99,21 @@ public class Mensagem implements Serializable {
 		this.notificacoes = notificacoes;
 	}
 
+	public Usuario getEmissor() {
+		return emissor;
+	}
+
+	public void setEmissor(Usuario emissor) {
+		this.emissor = emissor;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((assunto == null) ? 0 : assunto.hashCode());
 		result = prime * result + ((dataCriacao == null) ? 0 : dataCriacao.hashCode());
+		result = prime * result + ((emissor == null) ? 0 : emissor.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((mensagem == null) ? 0 : mensagem.hashCode());
 		result = prime * result + ((notificacoes == null) ? 0 : notificacoes.hashCode());
@@ -122,6 +139,11 @@ public class Mensagem implements Serializable {
 				return false;
 		} else if (!dataCriacao.equals(other.dataCriacao))
 			return false;
+		if (emissor == null) {
+			if (other.emissor != null)
+				return false;
+		} else if (!emissor.equals(other.emissor))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -143,7 +165,8 @@ public class Mensagem implements Serializable {
 	@Override
 	public String toString() {
 		return "Mensagem [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", dataCriacao=" + dataCriacao
-				+ ", notificacoes=" + notificacoes + "]";
+				+ ", notificacoes=" + notificacoes + ", emissor=" + emissor.getId() + "]";
 	}
-
+	
+	
 }

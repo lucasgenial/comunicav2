@@ -123,6 +123,6 @@ public class Notificacao implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Notificacao [id=" + id + ", mensagem=" + mensagem.getId() +  ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura=" + dataLeitura + "]";
+		return "Notificacao [id=" + id  +  ", destinatario=" + destinatario.getServidor().getNome() + ", dataLeitura=" + dataLeitura + "]";
 	}
 }

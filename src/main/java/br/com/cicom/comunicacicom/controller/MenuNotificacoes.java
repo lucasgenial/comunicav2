@@ -1,5 +1,7 @@
 package br.com.cicom.comunicacicom.controller;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,16 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
-import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.MensagemDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisGeral.Estabelecimento;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem.Mensagem;
+import br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
@@ -36,82 +37,81 @@ public class MenuNotificacoes {
     private ModelMapper modelMapper;
 
 	@RequestMapping(value = "/admin/mensagens/entrada")
-	public ModelAndView entradaNotificacaoPage(HttpSession session, HttpServletRequest req) {
-		ModelAndView model = new ModelAndView("/fragmentos/mensagem/listarMensagem");
+	public String entradaNotificacaoPage(Model model, HttpSession session, HttpServletRequest req) {
+		//ModelAndView model = new ModelAndView("/fragmentos/mensagem/listarMensagem");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 
 		if (user == null) {
-			model.addObject("erro", true);
-			model.addObject("mensagem", "Foi encontrado um erro!");
+			model.addAttribute("erro", true);
+			model.addAttribute("mensagem", "Foi encontrado um erro!");
 
-			model.setView(new RedirectView("/"));
-			model.setViewName("login");
-
-			return model;
+			return "/fragmentos/mensagem/listarMensagem";
 		}
 
-		model.addObject("usuario", user);
-		model.addObject("listaMensagens", null);
+		model.addAttribute("usuario", user);
+		model.addAttribute("listaMensagens", null);
 
-		if (!model.getModel().containsKey("estabelecimento")) {
-			model.addObject("estabelecimento", new Estabelecimento());
-		}
+		//model.setViewName("/fragmentos/mensagem/listarMensagem");
+		model.addAttribute("tituloPagina", "ComunicaCICOM - Mensagens");
 
-		model.setViewName("/fragmentos/mensagem/listarMensagem");
-		model.addObject("tituloPagina", "ComunicaCICOM - Mensagens");
-
-		return model;
+		return "/fragmentos/mensagem/listarMensagem";
 	}
 
 	@RequestMapping(value = "/admin/mensagens/nova")
-	public ModelAndView novaMensagensPage(HttpSession session, HttpServletRequest req) {
-		ModelAndView model = new ModelAndView("/fragmentos/mensagem/novaMensagem");
+	public String novaMensagensPage(Model model) {
+		//Model model = new ModelAndView("/fragmentos/mensagem/novaMensagem");
 
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
 
 		if (user == null) {
-			model.addObject("erro", true);
-			model.addObject("mensagem", "Foi encontrado um erro!");
+			model.addAttribute("erro", true);
+			model.addAttribute("mensagem", "Foi encontrado um erro!");
 
-			model.setView(new RedirectView("/"));
-			model.setViewName("login");
-
-			return model;
+			return "/fragmentos/mensagem/novaMensagem";
 		}
 		
-		UsuarioDTO userDTO = converterParaUsuarioDTO(user);
+		//UsuarioDTO userDTO = converterParaUsuarioDTO(user);
 		
-		model.addObject("usuario",user);
-		model.addObject("criador", userDTO);
+		model.addAttribute("usuario",user);
+		model.addAttribute("criador", user);
 		
-		MensagemDTO mensagemDTO = new MensagemDTO();
-		
-		mensagemDTO.setEmissor(userDTO);
+		//MensagemDTO mensagemDTO = new MensagemDTO();
+		Mensagem mensagem = new Mensagem();
+		mensagem.setEmissor(user);
 				
 		// Adiciona uma nova mensagem na view
-		model.addObject("mensagem", mensagemDTO);
+		// Verifica se já foi passado a ocorrência
+		if (!model.containsAttribute("novaMensagem")) {
+			mensagem.setDataCriacao(LocalDateTime.now());
+			mensagem.setNotificacoes(new ArrayList<Notificacao>());
+			model.addAttribute("novaMensagem", mensagem);
+		}
+		
+
 		//model.addObject("linkCadastro", "/cadastrarMensagem");
 		
 		// Adiciona uma lista de Grupos
-		model.addObject("listaGrupos", 
-			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
+//		model.addObject("listaGrupos", 
+//			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
+		model.addAttribute("listaGrupos", servicoGrupo.listarTodos());
 	
 		// Adiciona uma lista de Usuários por estabelecimento do Usuário Logado.
-		model.addObject("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
-			.stream().filter(e -> e.getServidor()!=null)
-			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
+//		model.addObject("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
+//			.stream().filter(e -> e.getServidor()!=null)
+//			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
+		model.addAttribute("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento()).stream().filter(e -> e.getServidor()!=null).collect(Collectors.toList()));
 		
-		model.setViewName("/fragmentos/mensagem/novaMensagem");
-		model.addObject("metodo", "POST");
+		//model.setViewName("/fragmentos/mensagem/novaMensagem");
+		//model.addAttribute("metodo", "POST");
 		
-		model.addObject("tituloPagina", "ComunicaCICOM - Nova Mensagem");
+		model.addAttribute("tituloPagina", "ComunicaCICOM - Nova Mensagem");
 
-		return model;
+		return "/fragmentos/mensagem/novaMensagem";
 	}
 
 	public GrupoDTO converterParaGrupoDTO(Grupo grupo) {

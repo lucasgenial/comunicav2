@@ -1,8 +1,8 @@
 /**
  * Arquivo de configuração da validação via Javascript do formulário de Cadastro e edição de Mensagem
  */
-var dataAtual = new Date();
-$('#dataCriacao').value = dataAtual.toISOString().slice(0,19);
+var dataAtual = Date.now();
+$('#dataCriacao').value( dataAtual.toISOString().slice(0,19));
 
 //$.ajax({
 //	type: "GET",
