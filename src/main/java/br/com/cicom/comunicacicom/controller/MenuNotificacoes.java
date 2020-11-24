@@ -1,7 +1,6 @@
 package br.com.cicom.comunicacicom.controller;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.GrupoDTO;
 import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
+import br.com.cicom.comunicacicom.DSPrimary.DTO.sisNotificacao.MensagemDTO;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Grupo;
 import br.com.cicom.comunicacicom.DSPrimary.model.seguranca.Usuario;
 import br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem.Mensagem;
-import br.com.cicom.comunicacicom.DSPrimary.model.sisMensagem.Notificacao;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.GrupoService;
 import br.com.cicom.comunicacicom.DSPrimary.service.seguranca.UsuarioService;
 
@@ -67,47 +66,36 @@ public class MenuNotificacoes {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		Usuario user = servicoUsuario.buscaPeloLogin(auth.getName());
-
+		model.addAttribute("usuario", user);
+		
 		if (user == null) {
 			model.addAttribute("erro", true);
+			
 			model.addAttribute("mensagem", "Foi encontrado um erro!");
 
 			return "/fragmentos/mensagem/novaMensagem";
 		}
+				
+		model.addAttribute("usuario", user);
 		
-		//UsuarioDTO userDTO = converterParaUsuarioDTO(user);
-		
-		model.addAttribute("usuario",user);
-		model.addAttribute("criador", user);
-		
-		//MensagemDTO mensagemDTO = new MensagemDTO();
-		Mensagem mensagem = new Mensagem();
-		mensagem.setEmissor(user);
+		MensagemDTO mensagem = new MensagemDTO();
+		mensagem.setEmissor(user.getId());
+//		System.out.println(mensagem.getEmissor());
 				
 		// Adiciona uma nova mensagem na view
 		// Verifica se já foi passado a ocorrência
 		if (!model.containsAttribute("novaMensagem")) {
 			mensagem.setDataCriacao(LocalDateTime.now());
-			mensagem.setNotificacoes(new ArrayList<Notificacao>());
 			model.addAttribute("novaMensagem", mensagem);
 		}
 		
-
-		//model.addObject("linkCadastro", "/cadastrarMensagem");
-		
 		// Adiciona uma lista de Grupos
-//		model.addObject("listaGrupos", 
-//			servicoGrupo.listarTodos().stream().map(this::converterParaGrupoDTO).collect(Collectors.toList()));
-		model.addAttribute("listaGrupos", servicoGrupo.listarTodos());
+		model.addAttribute("listaGrupos", servicoGrupo.listarTodos().stream().collect(Collectors.toList()));
 	
 		// Adiciona uma lista de Usuários por estabelecimento do Usuário Logado.
-//		model.addObject("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
-//			.stream().filter(e -> e.getServidor()!=null)
-//			.map(this::converterParaUsuarioDTO).collect(Collectors.toList()));
-		model.addAttribute("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento()).stream().filter(e -> e.getServidor()!=null).collect(Collectors.toList()));
-		
-		//model.setViewName("/fragmentos/mensagem/novaMensagem");
-		//model.addAttribute("metodo", "POST");
+		model.addAttribute("listaUsuarios", servicoUsuario.buscarPorEstabelecimentos(user.getEstabelecimento())
+				.stream().filter(e -> e.getServidor()!=null && !e.getServidor().getNome().equalsIgnoreCase("BOMBEIRO MILITAR"))
+				.collect(Collectors.toList()));
 		
 		model.addAttribute("tituloPagina", "ComunicaCICOM - Nova Mensagem");
 
@@ -122,7 +110,7 @@ public class MenuNotificacoes {
 		return modelMapper.map(grupoDTO, Grupo.class);
 	}
 
-	public UsuarioDTO converterParaUsuarioDTO(Usuario usuario) {
+	public UsuarioDTO user(Usuario usuario) {
 		return modelMapper.map(usuario, UsuarioDTO.class);
 	}
 

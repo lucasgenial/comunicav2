@@ -27,25 +27,30 @@
 									<h3 class="card-title">Nova Mensagem</h3>
 									
 									<div class="row">
+									
+										<div class="form-group col-12">
+											<ul th:if="${#fields.hasErrors('*')}">
+											  <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is incorrect</li>
+											</ul>
+										</div>
+									
 										<div class="form-group col-6">
 											<label for="listaGrupo">Grupos de Destinatários:</label>
 											<select id="listaGrupo"  class="form-control selectpicker" title="Envio por grupos de usuários ..." data-actions-box="true" data-live-search="true" multiple="multiple">
 												<option th:each="_grupo : ${listaGrupos}" th:value="${_grupo.id}" th:text="${_grupo.nome}"></option>
 											</select>
-<!-- 											<div th:if="${#fields.hasErrors('listaGrupo')}" th:errors="*{listaGrupo}" class="help-block">error</div>									 -->
 										</div>
 										
 										<div class="form-group col-6">
-											<label for="listaUsuario">Usuários:</label>
-											<select id="listaUsuario" name="listaUsuario" class="form-control selectpicker" title="Destinatários ..." data-actions-box="true" data-live-search="true" multiple="multiple">
-												<option th:each="_usuario : ${listaUsuarios}" th:value="${_usuario.id}" th:text="${{_usuario.servidor.nome}}"></option>
+											<label for="destinatarios">Usuários:</label>
+											<select id="destinatarios" name="destinatarios" class="form-control selectpicker" title="Destinatários ..." data-actions-box="true" data-live-search="true" multiple="multiple" required="true">
+												<option th:each="_usuario : ${listaUsuarios}" th:value="${{_usuario.id}}" th:text="${{_usuario.servidor.nome}}"></option>
 											</select>
-<!-- 											<div th:if="${#fields.hasErrors('listaUsuario')}" th:errors="*{listaUsuario}" class="help-block">error</div> -->
 										</div>
-										
+
 										<div class="form-group col-12">
 											<label>Assunto</label>
-										    <input id="assunto"  class="form-control" th:field="*{assunto}" th:value="${assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
+										    <input type="text" id="assunto" class="form-control" th:field="*{assunto}" th:value="${assunto}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required placeholder="Assunto:">
 										</div>
 										
 										<div class="form-group col-12">
@@ -53,17 +58,15 @@
 											<textarea id="mensagem" class="form-control" th:field="*{mensagem}" th:value="${mensagem}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" placeholder="Insira sua mensagem..." rows="15" required></textarea>
 										</div>
 										
-										<div class="form-group col-6">
-											<label for="criador">Criador</label>
-											<input id="criador" class="form-control" th:field="*{emissor}" th:value="${emissor}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
-											
+										<div class="form-group col-6 d-none">
+											<label for="emissor">Criador</label>
+											<input id="emissor" class="form-control" th:field="*{emissor}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input>
 										</div>
 										
-										<div class="form-group col-6">
+										<div class="form-group col-6 d-none">
 											<label>Data Atual</label>
 											<input id="dataCriacao" type="text" name="dataCriacao" readonly class="form-control input-group" th:value="${#temporals.format(dataCriacao, 'dd/MM/yyyy HH:mm:ss')}" th:field="*{{dataCriacao}}" th:classappend="${#fields.hasErrors('dataCriacao')} ? 'is-invalid'" autocomplete="off" required>
 											<span class="fv-help-block" th:if="${#fields.hasErrors('dataCriacao')}" th:errors="*{dataCriacao}"></span>
-<!-- 											<input id="dataCriacao" type="datetime-local" class="form-control" th:field="*{dataCriacao}" th:text="*{dataCriacao}" th:classappend="${#fields.hasErrors('*')} ? 'is-invalid'" required></input> -->
 										</div>
 									
 									</div>

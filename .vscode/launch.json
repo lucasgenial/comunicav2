@@ -1,0 +1,14 @@
+{
+   "configurations": [
+      {
+         "type": "java",
+         "name": "Spring Boot-ComunicaCicomApplication<comunicaCICOM>",
+         "request": "launch",
+         "cwd": "${workspaceFolder}",
+         "console": "internalConsole",
+         "mainClass": "br.com.cicom.comunicacicom.ComunicaCicomApplication",
+         "projectName": "comunicaCICOM",
+         "args": ""
+      }
+   ]
+}

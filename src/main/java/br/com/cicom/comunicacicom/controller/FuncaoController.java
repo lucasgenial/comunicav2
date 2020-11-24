@@ -73,6 +73,7 @@ public class FuncaoController {
 	@RequestMapping(value = "**/cadastrarFuncao", params = {"cadastrar"})
 	public String cadastrarFuncao(@Valid Funcao funcao, BindingResult result) {
 		if (result.hasErrors()) {
+			System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIII");
 			return "redirect:/admin/cadastros/funcoes/cadastro";
 		}
 

@@ -8,6 +8,9 @@ import static org.modelmapper.convention.NamingConventions.JAVABEANS_MUTATOR;
 import java.util.Locale;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.config.Configuration.AccessLevel;
+import org.modelmapper.convention.MatchingStrategies;
+import org.modelmapper.convention.NamingConventions;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -41,9 +44,9 @@ public class ComunicaCicomApplication extends SpringBootServletInitializer {
 	        .getConfiguration()
 	        .setPropertyCondition(isNotNull())
 	        .setFieldMatchingEnabled(true)
-	        .setFieldAccessLevel(PRIVATE)
-	        .setMatchingStrategy(STRICT)
-	        .setSourceNamingConvention(JAVABEANS_MUTATOR);
+	        .setFieldAccessLevel(AccessLevel.PRIVATE)
+	        .setMatchingStrategy(MatchingStrategies.STANDARD)
+	        .setSourceNamingConvention(NamingConventions.JAVABEANS_ACCESSOR);
 	    return modelMapper;
 	}
 }

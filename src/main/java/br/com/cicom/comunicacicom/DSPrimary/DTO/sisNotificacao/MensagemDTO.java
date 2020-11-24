@@ -4,24 +4,35 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.cicom.comunicacicom.DSPrimary.DTO.seguranca.UsuarioDTO;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class MensagemDTO {
 	
 	private Long id;
 
+	@NotNull
+	@Size(min = 2, max = 120)
 	private String assunto;
 
+	@NotNull
+	@Size(min = 2, max = 10000)
 	private String mensagem;
 	
-	private UsuarioDTO emissor;
+	@NotNull
+	private Long emissor;
 	
+	@NotNull
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	private LocalDateTime dataCriacao;
 	
-	private List<NotificacaoDTO> destinatarios = new ArrayList<NotificacaoDTO>();
+	@NotEmpty
+	private List<Long> destinatarios = new ArrayList<>();
 	
 	public MensagemDTO() {
-		
 	}
 
 	public Long getId() {
@@ -48,11 +59,11 @@ public class MensagemDTO {
 		this.mensagem = mensagem;
 	}
 
-	public UsuarioDTO getEmissor() {
+	public Long getEmissor() {
 		return emissor;
 	}
 
-	public void setEmissor(UsuarioDTO emissor) {
+	public void setEmissor(Long emissor) {
 		this.emissor = emissor;
 	}
 
@@ -64,11 +75,11 @@ public class MensagemDTO {
 		this.dataCriacao = dataCriacao;
 	}
 
-	public List<NotificacaoDTO> getDestinatarios() {
+	public List<Long> getDestinatarios() {
 		return destinatarios;
 	}
 
-	public void setDestinatarios(List<NotificacaoDTO> destinatarios) {
+	public void setDestinatarios(List<Long> destinatarios) {
 		this.destinatarios = destinatarios;
 	}
 
@@ -129,6 +140,8 @@ public class MensagemDTO {
 
 	@Override
 	public String toString() {
-		return "MensagemDTO [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", emissor=" + emissor + ", dataCriacao=" + dataCriacao + ", destinatarios=" + destinatarios + "]";
+		return "MensagemDTO [id=" + id + ", assunto=" + assunto + ", mensagem=" + mensagem + ", emissor=" + emissor
+				+ ", dataCriacao=" + dataCriacao + ", destinatarios=" + destinatarios + "]";
 	}
+	
 }
