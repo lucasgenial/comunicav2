@@ -97,6 +97,7 @@ public class MensagemController {
 			System.out.println("ERRO!");
 			System.out.println(result.toString());
 			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mensagemDTO", result);
+			redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.mensagemDTO", result);
 			return "redirect:/admin/mensagens/nova";
 		} else{
 			System.out.println(mensagem);
